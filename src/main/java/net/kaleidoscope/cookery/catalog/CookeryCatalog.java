@@ -3,6 +3,7 @@ package net.kaleidoscope.cookery.catalog;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,10 +73,24 @@ public final class CookeryCatalog {
             JsonObject rawBites = object(entry, "bites");
             Bites bites = null;
             if (rawBites != null) {
-                List<String> drops = rawBites.getAsJsonArray("drops").asList().stream().map(JsonElement::getAsString).toList();
+                JsonElement rawDrops = rawBites.get("drops");
+                JsonElement rawCollision = rawBites.get("collision");
+                if (!(rawDrops instanceof JsonArray) || !(rawCollision instanceof JsonArray)
+                        && !(rawCollision instanceof JsonPrimitive primitive && primitive.isString()
+                        && primitive.getAsString().equals("FoodBiteThreeByThreeBlock.PART"))) {
+                    throw new IllegalArgumentException("Invalid bite drops or collision data: " + id);
+                }
+                JsonArray dropArray = (JsonArray) rawDrops;
+                List<String> drops = dropArray.asList().stream().map(element -> {
+                    if (!element.isJsonPrimitive() || !element.getAsJsonPrimitive().isString()) {
+                        throw new IllegalArgumentException("Bite drop must be an item ID: " + id);
+                    }
+                    return element.getAsString();
+                }).toList();
                 bites = new Bites(CatalogJson.integer(rawBites, "maxBites"), CatalogJson.string(rawBites, "layout"),
-                        CatalogJson.food(rawBites.getAsJsonObject("food")), drops, rawBites.get("collision").toString(),
-                        rawBites.get("animation").isJsonNull() ? null : CatalogJson.string(rawBites, "animation"));
+                        CatalogJson.food(rawBites.getAsJsonObject("food")), drops, validateCollision(rawCollision, id),
+                        rawBites.get("animation") == null || rawBites.get("animation").isJsonNull()
+                                ? null : CatalogJson.string(rawBites, "animation"));
             }
             String container = entry.get("container").isJsonNull() ? null : CatalogJson.string(entry, "container");
             if (container != null) CatalogJson.requireId(container);
@@ -113,6 +128,27 @@ public final class CookeryCatalog {
         return value.isJsonNull() ? null : value.getAsJsonObject();
     }
 
+    private static String validateCollision(JsonElement raw, String id) {
+        if (raw instanceof JsonPrimitive primitive && primitive.isString()) return primitive.getAsString();
+        JsonArray boxes = raw.getAsJsonArray();
+        if (boxes.size() > 8) throw new IllegalArgumentException("Too many bite collision boxes: " + id);
+        for (JsonElement box : boxes) {
+            if (!(box instanceof JsonArray values) || values.size() != 6) {
+                throw new IllegalArgumentException("Bite collision boxes require six coordinates: " + id);
+            }
+            for (JsonElement value : values) {
+                if (!(value instanceof JsonPrimitive primitive) || !primitive.isNumber()) {
+                    throw new IllegalArgumentException("Bite collision coordinate is not numeric: " + id);
+                }
+                double coordinate = primitive.getAsDouble();
+                if (!Double.isFinite(coordinate) || coordinate < 0 || coordinate > 16) {
+                    throw new IllegalArgumentException("Bite collision coordinate is outside block bounds: " + id);
+                }
+            }
+        }
+        return boxes.toString();
+    }
+
     public record Snapshot(String sourceCommit, Map<String, Entry> items, Set<String> customEffects) {
         public Snapshot {
             items = Map.copyOf(items);
@@ -128,6 +164,9 @@ public final class CookeryCatalog {
         public Bites {
             if (maxBites < 1 || maxBites > 64 || !Set.of("1x1", "1x2", "3x3").contains(layout)) {
                 throw new IllegalArgumentException("Invalid bite layout/count");
+            }
+            if (collision == null || collision.isBlank() || animation != null && !animation.matches("[A-Z0-9_]{1,64}")) {
+                throw new IllegalArgumentException("Invalid bite rendering data");
             }
             drops = List.copyOf(drops);
             drops.forEach(CatalogJson::requireId);

@@ -3,6 +3,7 @@ package net.kaleidoscope.cookery.catalog;
 import org.junit.jupiter.api.Test;
 
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,5 +66,20 @@ class CookeryCatalogTest {
         assertThrows(IllegalArgumentException.class, () -> new ConsumeEffectDefinition("minecraft:poison", 0, 0, 1));
         assertThrows(IllegalArgumentException.class, () -> new ConsumeEffectDefinition("minecraft:poison", 1, 0, Double.NaN));
         assertThrows(IllegalArgumentException.class, () -> new QualityProfile("BASE", Double.POSITIVE_INFINITY));
+    }
+
+    @Test
+    void rejectsMalformedBiteCollisionAndKeepsPreviousSnapshot() throws Exception {
+        var catalog = CookeryCatalog.bundled();
+        var previous = catalog.snapshot();
+        String source;
+        try (var stream = CookeryCatalog.class.getResourceAsStream("/cookery-parity.json")) {
+            source = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+        }
+        String malformed = source.replaceFirst(
+                "\\\"collision\\\"\\s*:\\s*\\[\\s*\\[\\s*1,\\s*0,\\s*1,\\s*15,\\s*2,\\s*15\\s*\\]\\s*\\]",
+                "\\\"collision\\\":[[1,0,1,15,2]]");
+        assertThrows(IllegalArgumentException.class, () -> catalog.reload(new StringReader(malformed)));
+        assertSame(previous, catalog.snapshot());
     }
 }
