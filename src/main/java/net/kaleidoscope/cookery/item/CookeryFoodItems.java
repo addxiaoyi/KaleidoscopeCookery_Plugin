@@ -5,6 +5,7 @@ import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
 import io.papermc.paper.datacomponent.item.consumable.ItemUseAnimation;
 import net.kaleidoscope.cookery.catalog.BakedFood;
+import net.kaleidoscope.cookery.catalog.BiteState;
 import net.kaleidoscope.cookery.catalog.CookeryCatalog;
 import net.kaleidoscope.cookery.catalog.QualityProfile;
 import net.momirealms.craftengine.bukkit.item.BukkitItemManager;
@@ -26,6 +27,14 @@ public final class CookeryFoodItems {
     private CookeryFoodItems() {}
 
     public static void initialize(CookeryCatalog definitions) { catalog = java.util.Objects.requireNonNull(definitions); }
+
+    /** Resolve a finished item to its immutable placed-food state using base quality. */
+    public static BiteState biteState(Item item) {
+        CookeryCatalog current = catalog;
+        if (current == null || item == null || item.isEmpty()) return null;
+        CookeryCatalog.Entry entry = current.snapshot().items().get(item.id().toString());
+        return entry == null ? null : BiteState.of(entry, QualityProfile.BASE);
+    }
 
     public static Item bake(Item item, QualityProfile quality) {
         CookeryCatalog current = catalog;
