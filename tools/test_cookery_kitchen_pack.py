@@ -24,7 +24,8 @@ class KitchenPackTest(unittest.TestCase):
         cls.config = yaml.safe_load(cls.bundle[f'{PACK}/configuration/kitchen.yml'])
 
     def test_every_plugin_property_combination_has_an_appearance(self):
-        self.assertEqual(12, len(self.config['blocks']))
+        self.assertEqual(13, len(self.config['blocks']))
+        self.assertEqual(28, len(self.config['bamboo_tray_recipes']))
         for name in APPLIANCES:
             with self.subTest(name=name):
                 block = self.config['blocks'][NAMESPACE + ':' + name]

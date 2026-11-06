@@ -27,6 +27,7 @@ from cookery_kitchen_displays import tea_cups, cutting_models, tea_bars, soup_mo
 from cookery_stockpot import stockpot_recipes
 from cookery_pot import pot_recipes
 from cookery_millstone import millstone_furniture
+from export_bamboo_tray import export as export_bamboo_tray
 
 NAMESPACE = 'kaleidoscopecookery'
 ART = 'kaleidoscope_cookery'
@@ -271,6 +272,13 @@ def build(source: Path) -> tuple[dict[str, bytes], dict]:
     items = food_items(catalog, assets, definitions)
     names = read_json(assets, ART + '/lang/zh_cn.json')
     parts = extract_parts(assets, items)
+    # Bamboo tray is a first-class kitchen appliance. Keep its official geometry
+    # and merge the pinned 28-recipe export into the same immutable config.
+    tray_base = ART + ':block/bamboo_tray/base'
+    tray_stand = ART + ':block/bamboo_tray/stand'
+    for model in (tray_base, tray_stand):
+        if model not in definitions:
+            raise AuditError(f'missing bamboo tray model: {model}')
     tools(items, definitions, names)
     blocks = {}
     for name in APPLIANCES:
@@ -285,10 +293,30 @@ def build(source: Path) -> tuple[dict[str, bytes], dict]:
         if name == 'oil_pot':
             items[key]['data']['max_damage'] = 256
         blocks[key] = block_definition(assets, items, parts, name)
+    tray_key = NAMESPACE + ':bamboo_tray'
+    items[tray_key] = item(tray_key, definitions[tray_base], names.get('block.' + ART + '.bamboo_tray', '竹筛'))
+    items[tray_key]['behavior'] = {'type': 'block_item', 'block': tray_key}
+    blocks[tray_key] = {
+        'settings': {'item': tray_key, 'hardness': 0.5, 'resistance': 0.5,
+                     'push_reaction': 'destroy', 'can_occlude': False,
+                     'is_suffocating': False, 'is_view_blocking': False},
+        'behavior': {'type': tray_key},
+        'loot': {'pools': [{'rolls': 1, 'entries': [{'type': 'item', 'item': tray_key}]}]},
+        'states': {'properties': {'stand': {'type': 'boolean', 'default': False}},
+                   'appearances': {'base': {'model': definitions[tray_base]},
+                                   'stand': {'model': definitions[tray_stand]}},
+                   'variants': {'stand=false': {'appearance': 'base'},
+                                'stand=true': {'appearance': 'stand'}}}
+    }
     furniture, millstone_model = millstone_furniture(source, assets, items, definitions)
     sounds = sound_aliases(assets)
     sources = read_sources(source)
     recipes, records, required = processing_recipes(sources)
+    tray_output = source.parent / '.bamboo-tray-export'
+    export_bamboo_tray(source, COMMIT, tray_output)
+    tray_doc = yaml.safe_load((tray_output / 'pack/configuration/bamboo_tray_recipes.yml').read_text())
+    tray_optional = yaml.safe_load((tray_output / 'optional/bamboo_tray_tea.yml').read_text())
+    recipes['bamboo_tray_recipes'] = {**tray_doc.get('bamboo_tray_recipes', {}), **tray_optional.get('bamboo_tray_recipes', {})}
     recipes['stockpot_recipes'], stockpot_items = stockpot_recipes(sources, records)
     required.update(stockpot_items)
     recipes['pot_recipes'], pot_items = pot_recipes(sources, records)
