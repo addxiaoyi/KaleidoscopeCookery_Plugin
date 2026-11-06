@@ -45,7 +45,8 @@ final class KitchenSmoke {
             new Appliance("fruit_basket", FruitBasketController.class, 4),
             new Appliance("teapot", TeapotController.class, 16),
             new Appliance("teacup_coaster", TeacupCoasterController.class, 4),
-            new Appliance("oil_pot", OilPotController.class, 8));
+            new Appliance("oil_pot", OilPotController.class, 8),
+            new Appliance("bamboo_tray", BambooTrayController.class, 2));
     private final JavaPlugin plugin;
     private final List<String> failures = new ArrayList<>();
     private int checkedStates;
@@ -181,7 +182,7 @@ final class KitchenSmoke {
         if (!reload && failures.isEmpty()) {
             try {
                 Files.writeString(plugin.getDataFolder().toPath().resolve("kitchen-placed.json"),
-                        "{\"sourceCommit\":\"" + CookeryCatalog.SOURCE_COMMIT + "\",\"blocks\":12}\n", StandardCharsets.UTF_8);
+                        "{\"sourceCommit\":\"" + CookeryCatalog.SOURCE_COMMIT + "\",\"blocks\":13}\n", StandardCharsets.UTF_8);
             } catch (IOException exception) {
                 failures.add("Cannot save fixture checkpoint: " + exception);
             }
