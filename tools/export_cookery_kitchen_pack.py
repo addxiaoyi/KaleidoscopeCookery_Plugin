@@ -303,8 +303,11 @@ def build(source: Path) -> tuple[dict[str, bytes], dict]:
         'behavior': {'type': tray_key},
         'loot': {'pools': [{'rolls': 1, 'entries': [{'type': 'item', 'item': tray_key}]}]},
         'states': {'properties': {'stand': {'type': 'boolean', 'default': False}},
-                   'appearances': {'base': {'state': 'minecraft:lower_tripwire', 'model': definitions[tray_base]},
-                                   'stand': {'state': 'minecraft:lower_tripwire', 'model': definitions[tray_stand]}},
+                   'appearances': {
+                       'base': {'auto_state': {'type': 'lower_tripwire', 'id': 'cookery_kitchen_clear'},
+                                'model': definitions[tray_base]},
+                       'stand': {'auto_state': {'type': 'lower_tripwire', 'id': 'cookery_kitchen_clear'},
+                                 'model': definitions[tray_stand]}},
                    'variants': {'stand=false': {'appearance': 'base'},
                                 'stand=true': {'appearance': 'stand'}}}
     }
