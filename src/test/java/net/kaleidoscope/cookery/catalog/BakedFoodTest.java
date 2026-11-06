@@ -29,6 +29,10 @@ class BakedFoodTest {
     @Test void wholeFoodAndPlacedFoodHaveDifferentContainers() {
         var soup = catalog.items().get("kaleidoscopecookery:brown_mushroom_pot_soup");
         assertEquals("minecraft:bowl", BakedFood.of(soup, QualityProfile.BASE).container());
+        var bite = BakedFood.ofBite(soup, QualityProfile.BASE);
+        assertEquals(6, bite.food().nutrition());
+        assertNull(bite.container());
+        assertFalse(bite.drink());
         assertEquals(java.util.List.of("minecraft:flower_pot"), soup.bites().drops());
     }
 
