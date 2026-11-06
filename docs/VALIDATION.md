@@ -4,6 +4,14 @@
 
 下方运行检查点日期为 2026-11-06。范围：厨房目录、食物/茶饮、效果基础系统、快刀/清扫与隔离测试服；目标 Paper/Folia 1.21.11、Java 21、CraftEngine 26.9.1。历史构建/运行记录不因 Git 交接升级成全系列完成；未发布、部署或操作生产服。
 
+## 竹筛整包与 Folia 冷启动（2026-11-07）
+
+- 完整厨房包生成成功：272 物品、13 方块、28 条竹筛配方、281 个模型检查通过。Python 厨房测试 71 项通过。
+- Paper 1.21.11 build 132 与 CraftEngine 26.9.1 成功启动并加载厨房包。Folia 1.21.11 build 14 在完成默认资源包初始化后成功加载 53 个方块和 28 条竹筛配方，插件方块注册自检无 `craftengine.registry.blocks.missing`。
+- Folia 冷启动期间发现并修复三类可复现配置问题。竹筛 appearance 使用 `auto_state`，竹筛 base/stand 使用独立状态映射 ID，基础食品包与完整厨房包不再同时安装。修复后最终日志没有厨房配置 issue、模型绑定冲突或方块注册错误。
+- 最终厨房包 `build/acceptance/cookery-handoff-folia-final-20261107.zip` 的 SHA-256 为 `07f2655adeafa2569f87e6f7a06a2dfe05e539e6d30922b774ac4a7613e6c443`。运行插件 `build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar` 的 SHA-256 为 `30ca4b4ff5316cc9d31c248ec7be0a3de664471f53820495d82360613f034fa5`。
+- 已证明范围是服务器启动、CraftEngine 配置加载、方块注册和竹筛配方加载。真实玩家、原版客户端资源包、漏斗取消、天气场景、多人竞争和摆盘家具流程仍未完成。
+
 ## 石磨配方、守恒与真实动物驱动（当前）
 
 - `gradlew test shadowJar acceptanceJar --console=plain` exit 0，132 项 Java 测试无失败/错误/跳过；Python 全量 71 项通过。证据 `build/acceptance/millstone-build-v2.log`、`millstone-java-final.json`、`millstone-python-all-v4.log`。strict catalog、资源引用、分发 JAR 隔离和 `git diff --check` 通过。
