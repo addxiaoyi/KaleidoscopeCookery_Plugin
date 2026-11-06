@@ -27,9 +27,18 @@ public record BiteState(int version, String sourceCommit, String itemId, Quality
 
     public int remaining() { return maxBites - consumed; }
 
+    public boolean isEmpty() { return remaining() == 0; }
+
+    public boolean isFull() { return consumed == 0; }
+
     public BiteState consumeOne() {
         if (remaining() == 0) return this;
         return new BiteState(version, sourceCommit, itemId, quality, maxBites, consumed + 1);
+    }
+
+    public BiteState refillOne() {
+        if (consumed == 0) return this;
+        return new BiteState(version, sourceCommit, itemId, quality, maxBites, consumed - 1);
     }
 
     public String encode() { return JSON.toJson(this); }

@@ -48,8 +48,16 @@ class BakedFoodTest {
         var entry = catalog.items().get("kaleidoscopecookery:cold_cut_ham_slices");
         var state = BiteState.of(entry, QualityProfile.BASE);
         assertEquals(8, state.remaining());
+        assertTrue(state.isFull());
         var after = state.consumeOne().consumeOne();
         assertEquals(6, BiteState.decode(after.encode()).remaining());
+        assertEquals(7, after.refillOne().remaining());
+        assertEquals(after, after.refillOne().consumeOne());
+        var empty = state;
+        for (int i = 0; i < state.maxBites(); i++) empty = empty.consumeOne();
+        assertTrue(empty.isEmpty());
+        assertSame(empty, empty.consumeOne());
+        assertEquals(1, empty.refillOne().remaining());
         assertThrows(IllegalArgumentException.class,
                 () -> BiteState.decode(after.encode().replace("\"version\":1", "\"version\":2")));
     }
