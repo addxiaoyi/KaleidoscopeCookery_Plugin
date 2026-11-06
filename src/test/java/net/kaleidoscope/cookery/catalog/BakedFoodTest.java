@@ -44,6 +44,16 @@ class BakedFoodTest {
         assertEquals(1, BakedFood.of(catalog.items().get("kaleidoscopecookery:green_chili"), QualityProfile.BASE).damage());
     }
 
+    @Test void biteStatePersistsRemainingCountAndRejectsFutureVersions() {
+        var entry = catalog.items().get("kaleidoscopecookery:cold_cut_ham_slices");
+        var state = BiteState.of(entry, QualityProfile.BASE);
+        assertEquals(8, state.remaining());
+        var after = state.consumeOne().consumeOne();
+        assertEquals(6, BiteState.decode(after.encode()).remaining());
+        assertThrows(IllegalArgumentException.class,
+                () -> BiteState.decode(after.encode().replace("\"version\":1", "\"version\":2")));
+    }
+
     @Test void badOrFutureSaveIsRejectedWithoutReinterpretingIt() {
         String json = BakedFood.of(catalog.items().get("kaleidoscopecookery:baozi"), QualityProfile.BASE).encode();
         assertThrows(IllegalArgumentException.class, () -> BakedFood.decode(json.replace("\"version\":1", "\"version\":2")));
