@@ -146,12 +146,10 @@ public final class CookeryEffects implements Listener, AutoCloseable {
             Map<String, EffectState> states = session.states;
             if (states.isEmpty() || session.ticks % 20 == 0) {
                 save(player, session);
-                if (!states.isEmpty()) {
-                    String status = states.values().stream().sorted(java.util.Comparator.comparing(EffectState::id))
-                            .map(state -> EffectKind.fromId(state.id()).title() + " " + (state.remaining() + 19) / 20 + "s")
-                            .collect(java.util.stream.Collectors.joining(" · "));
-                    player.sendActionBar(Component.text(status));
-                }
+                String status = states.values().stream().sorted(java.util.Comparator.comparing(EffectState::id))
+                        .map(state -> EffectKind.fromId(state.id()).title() + " " + (state.remaining() + 19) / 20 + "s")
+                        .collect(java.util.stream.Collectors.joining(" · "));
+                player.sendActionBar(status.isEmpty() ? Component.empty() : Component.text(status));
             }
         } catch (RuntimeException exception) {
             session.states.forEach((id, state) -> handlers.get(id).clear(player, "tick_failed"));
