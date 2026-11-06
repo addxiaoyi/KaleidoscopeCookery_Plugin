@@ -1,0 +1,18 @@
+{
+  "project": "craftengine",
+  "version": "26.9.1",
+  "versionId": "EDh6mvv2",
+  "file": {
+    "id": "4h3PZ3Yr",
+    "hashes": {
+      "sha512": "602aa951b4dbd85c31f654bcfb22a6f2d2fc7756ee05459ce3119616b6aa010a9db130a9a6e0b848ff70581ad2ddb753d90ad021888b56fe4b191a1c6c5da810",
+      "sha1": "81d834a916b071f6726b6a93fca5e5891373c46a"
+    },
+    "url": "https://cdn.modrinth.com/data/tRX6FMfQ/versions/EDh6mvv2/craft-engine-paper-plugin-26.9.1.jar",
+    "filename": "craft-engine-paper-plugin-26.9.1.jar",
+    "primary": true,
+    "size": 10981948,
+    "file_type": null
+  },
+  "sha256": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f"
+}

@@ -1,0 +1,195 @@
+{
+  "date": "2026-11-06",
+  "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+  "status": "PARTIAL_FOLIA_STARTUP_WATCHDOG_OPEN",
+  "scope": "Official pot exact/distinct recipes with legacy quality, cooking and save semantics; controller restarts and serving",
+  "artifacts": {
+    "build/acceptance/cookery-pot-v1.zip": {
+      "bytes": 2264500,
+      "sha256": "f59fd9beeb7abd95ad34cd6c7d9411c1f7660977409b875c1d6c97835a690091"
+    },
+    "build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar": {
+      "bytes": 1360593,
+      "sha256": "5c686adf0392e5459d7ee625a2888c2340ac2c0e98db4bed2d55b63b7aaf1733"
+    },
+    "build/acceptance/probe/CookeryAcceptanceProbe.jar": {
+      "bytes": 48214,
+      "sha256": "86321b81fcf521be7bf76ecbbd7e51353a36dff1c4438c90f7b5f222f04df514"
+    },
+    "src/main/resources/cookery-parity.json": {
+      "bytes": 483430,
+      "sha256": "d7b5e10c9a6d51f458804d4454ec8eac174f24ce22bb9eda40eea4c50146ba25"
+    }
+  },
+  "pack": {
+    "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+    "target": {
+      "minecraft": "1.21.11",
+      "craftEngine": "26.9.1"
+    },
+    "items": 264,
+    "blocks": 12,
+    "convertedPerspectives": [
+      "kaleidoscope_cookery:item/cold_cut_ham_slices",
+      "kaleidoscope_cookery:item/fruit_basket",
+      "kaleidoscope_cookery:item/teapot"
+    ],
+    "checkedModels": 273,
+    "soundAliases": 12,
+    "states": {
+      "kaleidoscopecookery:chopping_board": 4,
+      "kaleidoscopecookery:enamel_basin": 20,
+      "kaleidoscopecookery:kitchenware_racks": 4,
+      "kaleidoscopecookery:pot": 16,
+      "kaleidoscopecookery:shawarma_spit": 16,
+      "kaleidoscopecookery:steamer": 48,
+      "kaleidoscopecookery:stockpot": 32,
+      "kaleidoscopecookery:stove": 8,
+      "kaleidoscopecookery:fruit_basket": 4,
+      "kaleidoscopecookery:teapot": 16,
+      "kaleidoscopecookery:teacup_coaster": 4,
+      "kaleidoscopecookery:oil_pot": 8
+    },
+    "recipeSources": 612,
+    "recipeStatuses": {
+      "imported": 380,
+      "pending": 232
+    },
+    "recipes": {
+      "teapot_result": 11,
+      "accurate_foods": 4,
+      "chopping_board_raws": 16,
+      "stockpot_recipes": 101,
+      "pot_recipes": 219,
+      "recipes": 33
+    },
+    "teaCups": 8,
+    "images": 6,
+    "soupBases": 9,
+    "pending": [
+      "Tripwire-backed appliances have vanilla selection boxes and no solid collision; exact mod voxel shapes remain pending.",
+      "Waterlogging is not enabled by this acceptance pack.",
+      "Teapot base and chains use extracted stockpot support geometry; the Java entity texture layout still needs a dedicated conversion.",
+      "Steamer TOP is retained for old states using a translated half model; official mod has no TOP state.",
+      "Imported stockpot recipes include cooking/finished surfaces and official liquid heights; legacy recipes retain existing visuals. Vanilla-client visual acceptance remains pending.",
+      "Stockpot colored bubbles use vanilla dust particles; imported recipes are read-only in the recipe menu. Player carriers and workbench remainders still require acceptance.",
+      "Imported pot recipes retain official stir counts and fixed outputs; source_time is metadata. Completion still follows the plugin stir animation instead of the mod cooking-time gate.",
+      "Milk liquid uses a generated flat texture because the Forge milk renderer is unavailable to vanilla clients.",
+      "Teapot bitmap-font bars substitute for the mod client HUD; client visual acceptance remains pending.",
+      "Recipe manifest records every pending conversion; placed meal bites, protection and multiplayer acceptance remain pending.",
+      "Tool durability and lid use behavior beyond existing kitchen interactions require separate parity acceptance."
+    ],
+    "playerFlow": "NOT_TESTED",
+    "clientResourcePack": "NOT_TESTED"
+  },
+  "resources": {
+    "paper": {
+      "installedFiles": 1705,
+      "generatedModels": 1247,
+      "generatedPackSha256": "fa1e7dcc8d4e9d4922528b5ecae7758fa6e79058a927561029debe708786503f"
+    },
+    "folia": {
+      "installedFiles": 1705,
+      "generatedModels": 1247,
+      "generatedPackSha256": "1957f664743b3b12167ca76e047ff0400e283e63f68d3fea4c28bd6e6f74e24c"
+    }
+  },
+  "tests": {
+    "java": {
+      "tests": 118,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "python": {
+      "tests": 64,
+      "failures": 0
+    },
+    "buildLog": "build/acceptance/pot-build-final.log",
+    "pythonLog": "build/acceptance/pot-python.log",
+    "catalogCheck": "PASS",
+    "diffCheck": "PASS",
+    "reproducibleArchive": "PASS"
+  },
+  "runtime": {
+    "paper": {
+      "passedCycles": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "finalArtifactCycle": 4
+    },
+    "folia": {
+      "passedCycles": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "failedCycles": [
+        2
+      ],
+      "finalArtifactCycle": 5
+    }
+  },
+  "failuresRetained": [
+    {
+      "log": "build/acceptance/pot-v1/paper/boot-1.log",
+      "reason": "Pot parser ran before CE item registration; fixed by POT_FOOD_RAW dependency; later clean boot and regression passed"
+    },
+    {
+      "log": "build/acceptance/pot-v2/folia/boot-2.log",
+      "reason": "Global region watchdog 5.2812568s; CraftEngine.runDelayTasks join; still OPEN; no probe reached"
+    }
+  ],
+  "regressions": [
+    "pot-import-red.log",
+    "pot-load-order-red.log",
+    "pot-serving-red-verified-v2.log",
+    "pot-reentrant-red.log"
+  ],
+  "testSetupFailures": [
+    "pot-controller-initial.log",
+    "pot-serving-red.log",
+    "pot-serving-red-verified.log",
+    "pot-serving-red-business.log"
+  ],
+  "potPending": [
+    {
+      "id": "kaleidoscope_cookery:flex_pot/egg_fried_rice",
+      "reason": "external tag alternative requires a mapping: forge:cooked_rice/farmersdelight:cooked_rice"
+    },
+    {
+      "id": "kaleidoscope_cookery:flex_pot/fish_flavored_shredded_pork",
+      "reason": "required tag absent from pinned resources: forge:mushrooms"
+    },
+    {
+      "id": "kaleidoscope_cookery:flex_pot/fried_spring_roll",
+      "reason": "required tag absent from pinned resources: forge:mushrooms"
+    },
+    {
+      "id": "kaleidoscope_cookery:pot/egg_fried_rice",
+      "reason": "external tag alternative requires a mapping: forge:cooked_rice/farmersdelight:cooked_rice"
+    },
+    {
+      "id": "kaleidoscope_cookery:pot/fish_flavored_shredded_pork",
+      "reason": "required tag absent from pinned resources: forge:mushrooms"
+    },
+    {
+      "id": "kaleidoscope_cookery:pot/fried_spring_roll",
+      "reason": "required tag absent from pinned resources: forge:mushrooms"
+    }
+  ],
+  "evidence": "build/acceptance/pot-v2/acceptance.json",
+  "limitations": [
+    "API seed/stir/serve, not real player input",
+    "Official source_time retained as metadata; completion after plugin stir animation",
+    "Read-only imported recipe menus; player auto-fill/furniture rendering untested",
+    "Vanilla resource pack reception/visuals not tested",
+    "Protection plugins, multiplayer, region edges, separate chunk unload, player carrier inventory remain untested",
+    "Folia startup watchdog remains OPEN including earlier cold-start failures",
+    "232 recipes pending; ancillary Cookery and Doll/Tavern/Deco/MusicPlus goals remain incomplete"
+  ]
+}

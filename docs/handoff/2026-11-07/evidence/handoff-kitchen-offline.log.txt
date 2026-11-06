@@ -1,0 +1,53 @@
+Starting a Gradle Daemon, 1 busy and 1 stopped Daemons could not be reused, use --status for details
+Calculating task graph as no cached configuration is available for tasks: test shadowJar acceptanceJar
+> Task :processNmsV121R2Resources NO-SOURCE
+> Task :processNmsV262R1Resources NO-SOURCE
+> Task :processNmsV121R4Resources NO-SOURCE
+> Task :processNmsV261R1Resources NO-SOURCE
+> Task :processNmsV121R6Resources NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :processNmsV121R1Resources NO-SOURCE
+> Task :processNmsV121R5Resources NO-SOURCE
+> Task :processNmsV121R7Resources NO-SOURCE
+> Task :processNmsV121R3Resources NO-SOURCE
+> Task :processAcceptanceResources UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :compileJava UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :testClasses UP-TO-DATE
+> Task :test UP-TO-DATE
+> Task :compileNmsV121R4Java UP-TO-DATE
+> Task :compileNmsV121R7Java UP-TO-DATE
+> Task :compileNmsV121R6Java UP-TO-DATE
+> Task :compileNmsV261R1Java UP-TO-DATE
+> Task :compileNmsV121R3Java UP-TO-DATE
+> Task :compileNmsV262R1Java UP-TO-DATE
+> Task :compileNmsV121R5Java UP-TO-DATE
+> Task :compileAcceptanceJava UP-TO-DATE
+> Task :compileNmsV121R2Java UP-TO-DATE
+> Task :compileNmsV121R1Java UP-TO-DATE
+> Task :nmsV262R1Classes UP-TO-DATE
+> Task :nmsV121R1Classes UP-TO-DATE
+> Task :nmsV121R5Classes UP-TO-DATE
+> Task :nmsV121R4Classes UP-TO-DATE
+> Task :nmsV121R3Classes UP-TO-DATE
+> Task :nmsV261R1Classes UP-TO-DATE
+> Task :nmsV121R6Classes UP-TO-DATE
+> Task :acceptanceClasses UP-TO-DATE
+> Task :nmsV121R2Classes UP-TO-DATE
+> Task :nmsV121R7Classes UP-TO-DATE
+> Task :acceptanceJar UP-TO-DATE
+> Task :shadowJar UP-TO-DATE
+
+[Incubating] Problems report is available at: file:///D:/qwq/%E9%A1%B9%E7%9B%AE/luosen-plugins/luosengchufang/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.4.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 22s
+17 actionable tasks: 17 up-to-date
+Configuration cache entry stored.

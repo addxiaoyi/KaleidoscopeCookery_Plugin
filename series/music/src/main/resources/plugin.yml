@@ -1,0 +1,15 @@
+name: KaleidoscopeMusicPlugin
+version: '${version}'
+main: net.kaleidoscope.music.MusicPlugin
+api-version: '1.21.11'
+folia-supported: true
+depend: [CraftEngine]
+commands:
+  kmusic:
+    description: 演奏音符和播放本地 MIDI
+    usage: /kmusic [play <文件.mid>|stop|kit]
+permissions:
+  kaleidoscopemusic.play:
+    default: true
+  kaleidoscopemusic.admin:
+    default: op

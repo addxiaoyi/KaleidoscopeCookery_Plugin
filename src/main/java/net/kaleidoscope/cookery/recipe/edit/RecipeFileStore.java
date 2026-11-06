@@ -52,6 +52,7 @@ public final class RecipeFileStore {
     private static final String[] STOCK_FLEX_SECTIONS = {"stock_flex_foods", "stock-flex-foods"};
     private static final String[] CHOPPING_SECTIONS = {"chopping_board_raws", "chopping-board-raws"};
     private static final String[] TEAPOT_SECTIONS = {"teapot_result", "teapot-result"};
+    private static final String[] BAMBOO_TRAY_SECTIONS = {"bamboo_tray_recipes", "bamboo-tray-recipes"};
     private static final String[] STOCK_RAW_SECTIONS = {"stock_food_raw", "stock-food-raw"};
     private static final String LIQUID_KEY = "liquid";
 
@@ -60,6 +61,7 @@ public final class RecipeFileStore {
     private static final String STOCKPOT_FILE = "stockpot.yml";
     private static final String CHOPPING_FILE = "chopping_board.yml";
     private static final String TEAPOT_FILE = "teapot.yml";
+    private static final String BAMBOO_TRAY_FILE = "bamboo_tray.yml";
     private static final Map<Path, Object> FILE_LOCKS = new ConcurrentHashMap<>();
     private static final Map<Path, CachedTargets> TARGET_CACHE = new ConcurrentHashMap<>();
 
@@ -178,6 +180,14 @@ public final class RecipeFileStore {
 
     public static String[] teapotSections() {
         return TEAPOT_SECTIONS;
+    }
+
+    public static String[] bambooTraySections() {
+        return BAMBOO_TRAY_SECTIONS;
+    }
+
+    public static Path defaultBambooTrayFile() {
+        return recipeFolder().resolve(BAMBOO_TRAY_FILE);
     }
 
     public static Path defaultChoppingFile() {
@@ -522,12 +532,52 @@ public final class RecipeFileStore {
             if (!target.isFile() || !source.resolved()) {
                 return false;
             }
-            YamlConfiguration config = YamlConfiguration.loadConfiguration(target);
+            YamlConfiguration config = new YamlConfiguration();
+            try { config.load(target); }
+            catch (org.bukkit.configuration.InvalidConfigurationException exception) {
+                throw new IOException("原配置文件格式错误，未删除任何食谱", exception);
+            }
+            if (isBambooTraySource(source)) verifyBambooTrayDeletion(config, source);
             if (!removeTarget(config, source)) {
                 return false;
             }
             saveAtomic(config, targetPath);
             return true;
+        }
+    }
+
+    private static boolean isBambooTraySource(SourceTarget source) {
+        String node = source.generatedNode();
+        int separator = node.indexOf('.');
+        return separator > 0 && matchesAlias(baseKey(node.substring(0, separator)), BAMBOO_TRAY_SECTIONS);
+    }
+
+    private static void verifyBambooTrayDeletion(YamlConfiguration config, SourceTarget source) throws IOException {
+        Map<String, Object> current = asStringMap(config.get(source.factory() ? source.factoryKey() : source.generatedNode()));
+        if (source.factory()) current.remove(source.instancesKey());
+        if (source.originalSource().isEmpty() || !source.originalSource().equals(current)) {
+            throw new IOException("原配方配置已变化，请重载并重新打开编辑菜单，食谱未删除");
+        }
+        if (!source.factory()) return;
+        if (source.blueprintKey() == null || source.recipeKey() == null) {
+            throw new IOException("工厂来源信息不完整，请重载后重新打开编辑菜单，食谱未删除");
+        }
+        Map<String, Object> blueprint = asStringMap(current.get(source.blueprintKey()));
+        boolean singleOutput = blueprint.size() == 1;
+        if (singleOutput) {
+            var section = blueprint.entrySet().iterator().next();
+            Map<String, Object> entries = asStringMap(section.getValue());
+            singleOutput = entries.size() == 1 && source.recipeKey().equals(
+                    section.getKey() + "." + entries.keySet().iterator().next());
+        }
+        if (!singleOutput) {
+            throw new IOException("该工厂实例还生成其他内容，不能单独自动删除此食谱，请手动编辑原文件");
+        }
+        List<?> instances = config.getList(source.factoryKey() + "." + source.instancesKey());
+        long matches = instances == null ? 0 : instances.stream().map(RecipeFileStore::asStringMap)
+                .filter(source.instance()::equals).count();
+        if (matches != 1) {
+            throw new IOException("工厂实例已变化或存在重复来源，请重载并重新打开编辑菜单，食谱未删除");
         }
     }
 
@@ -797,6 +847,9 @@ public final class RecipeFileStore {
         }
         if (matchesAlias(section, TEAPOT_SECTIONS)) {
             return RecipeSourceIndex.Kind.TEAPOT;
+        }
+        if (matchesAlias(section, BAMBOO_TRAY_SECTIONS)) {
+            return RecipeSourceIndex.Kind.BAMBOO_TRAY;
         }
         return null;
     }

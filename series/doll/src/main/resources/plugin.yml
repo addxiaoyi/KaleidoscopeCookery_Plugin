@@ -1,0 +1,14 @@
+name: KaleidoscopeDollPlugin
+version: '${version}'
+main: net.kaleidoscope.doll.DollPlugin
+api-version: '1.21.11'
+folia-supported: true
+depend: [CraftEngine]
+softdepend: [Dominion]
+commands:
+  kdoll:
+    description: 森罗玩偶收藏与管理员工具
+    usage: /kdoll [collection|kit]
+permissions:
+  kaleidoscopedoll.admin:
+    default: op

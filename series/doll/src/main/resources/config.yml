@@ -1,0 +1,10 @@
+throw:
+  enabled: true
+  particles: true
+  knockback: true
+mount:
+  enabled: true
+phantom:
+  enabled: true
+  chance: 0.03
+  lifetime-ticks: 3600

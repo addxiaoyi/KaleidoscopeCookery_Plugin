@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:42.436Z" hostname="ADDXIAOYI9000" time="0.217">
+  <properties/>
+  <testcase name="missingEmptyBucketDoesNotFillThePot()" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.182"/>
+  <testcase name="missingReturnItemPreservesTheMilkAndHeldBucket()" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.009"/>
+  <testcase name="wrongHeldBucketCannotCreateOrDrainMilk()" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.001"/>
+  <testcase name="creativeMilkRoundTripDoesNotCreateOrConsumeItems()" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.002"/>
+  <testcase name="[1] 1" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.005"/>
+  <testcase name="[2] 2" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.001"/>
+  <testcase name="[1] water" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.005"/>
+  <testcase name="[2] lava" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.002"/>
+  <testcase name="[3] milk" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.002"/>
+  <testcase name="unsupportedFluidDoesNotConsumeTheBucket()" classname="net.kaleidoscope.cookery.block.entity.TeapotControllerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

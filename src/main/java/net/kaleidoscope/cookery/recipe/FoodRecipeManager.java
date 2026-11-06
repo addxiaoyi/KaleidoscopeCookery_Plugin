@@ -45,6 +45,7 @@ public final class FoodRecipeManager {
     public static final LoadingStage TEAPOT_LIQUID = new LoadingStage("teapot liquid");
     public static final LoadingStage TEA_CUP = new LoadingStage("tea cup");
     public static final LoadingStage TEAPOT_RESULT = new LoadingStage("teapot result");
+    public static final LoadingStage BAMBOO_TRAY_RECIPES = new LoadingStage("bamboo tray recipes");
 
     private FoodRecipeManager() {}
 
@@ -69,6 +70,9 @@ public final class FoodRecipeManager {
         CraftEngine.instance().packManager().registerConfigSectionParser(new TeapotLiquidParser());
         CraftEngine.instance().packManager().registerConfigSectionParser(new TeaCupParser());
         CraftEngine.instance().packManager().registerConfigSectionParser(new TeapotResultParser());
+        CraftEngine.instance().packManager().registerConfigSectionParser(new BambooTrayRecipesParser());
+        CraftEngine.instance().packManager().registerConfigSectionParser(new StockpotRecipeParser());
+        CraftEngine.instance().packManager().registerConfigSectionParser(new PotRecipeParser());
     }
 
     private abstract static class SnapshotParser extends SectionConfigParser {
@@ -95,7 +99,7 @@ public final class FoodRecipeManager {
         @Override public LoadingStage loadingStage() { return RECIPE_LOAD_END; }
         @Override public List<LoadingStage> dependencies() {
             return List.of(POT_FOOD_RAW, STOCK_FOOD_RAW, POT_FLEX_FOODS, STOCK_FLEX_FOODS, ACCURATE_FOODS,
-                    CHOPPING_BOARD_RAWS, TEAPOT_LIQUID, TEA_CUP, TEAPOT_RESULT,
+                    CHOPPING_BOARD_RAWS, TEAPOT_LIQUID, TEA_CUP, TEAPOT_RESULT, BAMBOO_TRAY_RECIPES, StockpotRecipeParser.STAGE, PotRecipeParser.STAGE,
                     net.kaleidoscope.cookery.api.ItemTags.ITEM_TAGS,
                     FoodGroups.EQUIVALENT_FOODS, FoodGroups.SEASONINGS, DishCarriers.DISH_CARRIERS);
         }
@@ -325,6 +329,48 @@ public final class FoodRecipeManager {
                                              RecipeFileStore.SourceTarget target);
     }
 
+    static final class BambooTrayRecipesParser extends CookeryIdParser {
+        BambooTrayRecipesParser() {
+            super(BAMBOO_TRAY_RECIPES, List.of(LoadingStages.ITEM, net.kaleidoscope.cookery.api.ItemTags.ITEM_TAGS),
+                    RecipeSourceIndex.Kind.BAMBOO_TRAY, "bamboo_tray_recipes", "bamboo-tray-recipes");
+        }
+
+        @Override
+        protected void reset() {
+            RecipeSourceIndex.instance().clearKind(kind());
+            FoodRecipeRegistry.instance().clearBambooTray();
+        }
+
+        @Override
+        protected int parseAndCount(Pack pack, Path path, Key id, ConfigSection section,
+                                    RecipeFileStore.SourceTarget target) {
+            BambooTrayRecipe recipe = BambooTrayRecipe.fromConfig(id, section);
+            validateBambooTrayRecipe(recipe, section.path());
+            boolean duplicate = duplicated(id);
+            if (duplicate) {
+                throw new IllegalArgumentException(section.path() + ": duplicate bamboo tray recipe id " + id);
+            }
+            FoodRecipeRegistry.instance().registerMenuBambooTray(recipe);
+            RecipeSourceIndex.instance().put(kind(), id, path, target, recipe, duplicate);
+            FoodRecipeRegistry.instance().registerBambooTray(recipe);
+            return 1;
+        }
+    }
+
+    /** Verify definitions without constructing live Item objects during asynchronous configuration loading. */
+    public static void validateBambooTrayRecipe(BambooTrayRecipe recipe, String source) {
+        var items = net.momirealms.craftengine.bukkit.item.BukkitItemManager.instance();
+        var inputs = BambooTrayIndex.compile(List.of(recipe), BambooTrayIndex.captureTags());
+        for (BambooTrayIndex.Input input : inputs.keySet()) {
+            if (input.item().equals(AIR) || items.getBuildableItem(input.item()).isEmpty()) {
+                throw new IllegalArgumentException(source + ".require refers to an unavailable item: " + input.item());
+            }
+        }
+        if (items.getBuildableItem(recipe.result()).isEmpty()) {
+            throw new IllegalArgumentException(source + ".result refers to an unavailable item: " + recipe.result());
+        }
+    }
+
     static final class PotFoodRawParser extends CookerySectionParser {
         PotFoodRawParser() {
             super(POT_FOOD_RAW, List.of(LoadingStages.ITEM), "pot_food_raw", "pot-food-raw");
@@ -526,6 +572,9 @@ public final class FoodRecipeManager {
 
             ApplianceType cook = ApplianceType.valueOf(
                     section.getNonNullString("cook").toUpperCase());
+            if (cook == ApplianceType.BAMBOO_TRAY) {
+                throw new IllegalArgumentException(section.path() + " bamboo tray recipes require bamboo_tray_recipes");
+            }
             int resultCount = Math.max(1,
                     section.getInt(new String[]{"result_count", "result-count"}, 1));
 

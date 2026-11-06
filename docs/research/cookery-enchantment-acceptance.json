@@ -1,0 +1,110 @@
+{
+  "observedAt": "2026-11-05T18:41:23.794769+08:00",
+  "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+  "catalogSha256": "d7b5e10c9a6d51f458804d4454ec8eac174f24ce22bb9eda40eea4c50146ba25",
+  "target": {
+    "minecraft": "1.21.11",
+    "java": 21,
+    "craftEngine": "26.9.1"
+  },
+  "unitTests": {
+    "tests": 84,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pythonTests": {
+    "tests": 30,
+    "failures": 0,
+    "log": "build/acceptance/enchantments-python.log"
+  },
+  "instances": {
+    "paper": {
+      "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+      "stoppedCleanly": true,
+      "artifacts": {
+        "plugins\\CookeryAcceptanceProbe.jar": "5c41ad1df491fecafee9ee9c4d100fca4c69a60db9ae8a9f5b522317bb7ea421",
+        "plugins\\craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+        "plugins\\KaleidoscopeCookeryPlugin-1.3.0.jar": "d9b036bbacbea71459feff5ed6ac1d1b2088e3458d48b69279fedf0d43d5e405",
+        "server.jar": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba",
+        "acceptance-world\\datapacks\\cookery_enchantments\\pack.mcmeta": "9583598b0601769ed428da4f0201d56d64c7517579eb9dc97be8e93fc1a5f379",
+        "acceptance-world\\datapacks\\cookery_enchantments\\README.md": "6bcde894ac2f2c4865c7886522b14f2cbe88f26e5adac0daaf6bc18d22131f29",
+        "acceptance-world\\datapacks\\cookery_enchantments\\data\\kaleidoscopecookery\\enchantment\\quick_knife.json": "72ec75ae43440f1d3b79737c1661e6e987143eaf529c3f2b6cbe0f23971e2134",
+        "acceptance-world\\datapacks\\cookery_enchantments\\data\\kaleidoscopecookery\\enchantment\\sweep.json": "ea834f8c2ab0e6df03ae4093a07fe27897fb10e6f95665dd16793e8b15190977"
+      },
+      "resourceFiles": 1861,
+      "resourceFilesManifestSha256": "10d3faa6b08239c2cc5c0a8de4b3a40900fae86ec833d3d77e51de1133c523c9",
+      "cycles": [
+        {
+          "cycle": 1,
+          "foodChecked": 103,
+          "enchantmentLevelsChecked": 5,
+          "enchantmentItemsReloaded": 0,
+          "probeFailures": 0,
+          "knownMissingAppliances": 11,
+          "log": "build/acceptance/enchantments-v4/paper/boot-1.log",
+          "logSha256": "7538a7af0c8cd1570220936f58bf264f4da4b0a78956b465dfa054571ca6be3d",
+          "resourcePackSha256": "61cd679e4266566bc4b8175bf112ca64e8f0efefdd0b43940364ec2f0def894a"
+        },
+        {
+          "cycle": 2,
+          "foodChecked": 103,
+          "enchantmentLevelsChecked": 5,
+          "enchantmentItemsReloaded": 5,
+          "probeFailures": 0,
+          "knownMissingAppliances": 11,
+          "log": "build/acceptance/enchantments-v4/paper/boot-2.log",
+          "logSha256": "a64294e24235708301b3a39a12442e712f7f9845516f4ac94bdd3248bc822795",
+          "resourcePackSha256": "61cd679e4266566bc4b8175bf112ca64e8f0efefdd0b43940364ec2f0def894a"
+        }
+      ]
+    },
+    "folia": {
+      "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+      "stoppedCleanly": true,
+      "artifacts": {
+        "plugins\\CookeryAcceptanceProbe.jar": "5c41ad1df491fecafee9ee9c4d100fca4c69a60db9ae8a9f5b522317bb7ea421",
+        "plugins\\craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+        "plugins\\KaleidoscopeCookeryPlugin-1.3.0.jar": "d9b036bbacbea71459feff5ed6ac1d1b2088e3458d48b69279fedf0d43d5e405",
+        "server.jar": "f52c408490a0225611e67907a3ca19f7e6da2c6bc899e715d5f46844e7103c39",
+        "acceptance-world\\datapacks\\cookery_enchantments\\pack.mcmeta": "9583598b0601769ed428da4f0201d56d64c7517579eb9dc97be8e93fc1a5f379",
+        "acceptance-world\\datapacks\\cookery_enchantments\\README.md": "6bcde894ac2f2c4865c7886522b14f2cbe88f26e5adac0daaf6bc18d22131f29",
+        "acceptance-world\\datapacks\\cookery_enchantments\\data\\kaleidoscopecookery\\enchantment\\quick_knife.json": "72ec75ae43440f1d3b79737c1661e6e987143eaf529c3f2b6cbe0f23971e2134",
+        "acceptance-world\\datapacks\\cookery_enchantments\\data\\kaleidoscopecookery\\enchantment\\sweep.json": "ea834f8c2ab0e6df03ae4093a07fe27897fb10e6f95665dd16793e8b15190977"
+      },
+      "resourceFiles": 1861,
+      "resourceFilesManifestSha256": "10d3faa6b08239c2cc5c0a8de4b3a40900fae86ec833d3d77e51de1133c523c9",
+      "cycles": [
+        {
+          "cycle": 2,
+          "foodChecked": 103,
+          "enchantmentLevelsChecked": 5,
+          "enchantmentItemsReloaded": 5,
+          "probeFailures": 0,
+          "knownMissingAppliances": 11,
+          "log": "build/acceptance/enchantments-v4/folia/boot-2.log",
+          "logSha256": "0c3b02833cd75127b6c4a5d7c376ae137ae9da12aa0f1454d7e335e9880305fa",
+          "resourcePackSha256": "41b240b03278798ee59fc833f6dc213513808ba19bb8e7c0b8031ff94d123076"
+        },
+        {
+          "cycle": 3,
+          "foodChecked": 103,
+          "enchantmentLevelsChecked": 5,
+          "enchantmentItemsReloaded": 5,
+          "probeFailures": 0,
+          "knownMissingAppliances": 11,
+          "log": "build/acceptance/enchantments-v4/folia/boot-3.log",
+          "logSha256": "a1052b0077534aed4da50b2695eaf50b4f63df4095b5c59a1811d0cd17bad609",
+          "resourcePackSha256": "41b240b03278798ee59fc833f6dc213513808ba19bb8e7c0b8031ff94d123076"
+        }
+      ],
+      "coldStartIssue": {
+        "status": "OPEN",
+        "log": "folia/boot-1.log",
+        "reason": "CE BukkitWorldManager.delayedInit triggered a 5.4128759 s global-region watchdog; first cold boot failed strict startup check. Probe checks passed afterwards; subsequent boots retain this failure record."
+      }
+    }
+  },
+  "playerFlow": "NOT_TESTED",
+  "clientResourcePack": "NOT_TESTED"
+}

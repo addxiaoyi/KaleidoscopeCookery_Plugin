@@ -23,7 +23,8 @@ public final class KaleidoscopeCookeryExpansion extends PlaceholderExpansion {
             Map.entry("chopping", ApplianceType.CHOPPING_BOARD),
             Map.entry("choppingboard", ApplianceType.CHOPPING_BOARD),
             Map.entry("chopping_board", ApplianceType.CHOPPING_BOARD),
-            Map.entry("teapot", ApplianceType.TEAPOT)
+            Map.entry("teapot", ApplianceType.TEAPOT),
+            Map.entry("bamboo_tray", ApplianceType.BAMBOO_TRAY)
     );
 
     private final KaleidoscopeCookeryPlugin plugin;

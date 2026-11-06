@@ -53,6 +53,11 @@ public final class StockpotElement implements BlockEntityElement {
     private Object fishMetaPacket;
 
     private Key currentLiquidModel() {
+        var visuals = controller.visuals();
+        if (visuals != null) {
+            if (controller.stage() == StockpotStage.COOKING) return visuals.cookingModel();
+            if (controller.stage() == StockpotStage.FINISHED) return visuals.finishedModel();
+        }
         if (controller.stage() == StockpotStage.FINISHED) return ItemKeys.STOVE_FINISHED;
         if (controller.stage() == StockpotStage.PUT_SOUP_BASE) return null;
         return SoupBaseRegistry.instance().showModel(controller.soupBaseId());
@@ -60,10 +65,7 @@ public final class StockpotElement implements BlockEntityElement {
 
     // FINISHED 时液面随剩余份数下降 高度比例最低 0.1
     private float liquidYOffset() {
-        if (controller.stage() != StockpotStage.FINISHED) return 0f;
-        int max = Math.max(1, controller.finishedMax());
-        float fraction = Math.max(0.1f, (float) controller.takeoutCount() / max);
-        return -(1f - fraction) * 0.3f;
+        return controller.liquidOffset();
     }
 
     private static float ingredientX(int hash) {
@@ -172,7 +174,7 @@ public final class StockpotElement implements BlockEntityElement {
             this.liquidSpawnPacket = null;
         }
 
-        Object fishType = controller.stage() == StockpotStage.FINISHED ? null : FISH_TYPE_BY_BUCKET.get(id);
+        Object fishType = controller.stage() == StockpotStage.FINISHED ? null : FishTypes.BY_BUCKET.get(id);
         if (fishType != null) {
             this.fishSpawnPacket = ClientboundAddEntityPacketProxy.INSTANCE.newInstance(
                     fishEntityId, fishUuid,
@@ -184,7 +186,7 @@ public final class StockpotElement implements BlockEntityElement {
             BaseEntityData.NoGravity.addEntityData(true, fishData);
             BaseEntityData.Silent.addEntityData(true, fishData);
 
-            if (fishType.equals(PUFFERFISH_TYPE)) {
+            if (fishType.equals(FishTypes.PUFFERFISH)) {
                 PufferfishData.PuffState.addEntityData(1, fishData);
             }
 
@@ -213,8 +215,10 @@ public final class StockpotElement implements BlockEntityElement {
     }
 
     // 注册表查找恒定 启动时算一次 别每次刷新都查
-    private static final Map<String, Object> FISH_TYPE_BY_BUCKET = buildFishTypes();
-    private static final Object PUFFERFISH_TYPE = getEntityTypeByKey("minecraft:pufferfish");
+    private static final class FishTypes {
+        private static final Map<String, Object> BY_BUCKET = buildFishTypes();
+        private static final Object PUFFERFISH = getEntityTypeByKey("minecraft:pufferfish");
+    }
 
     private static Map<String, Object> buildFishTypes() {
         Map<String, Object> types = new HashMap<>();

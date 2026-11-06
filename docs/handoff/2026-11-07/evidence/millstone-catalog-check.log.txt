@@ -1,0 +1,1 @@
+{"commit": "2f4e386ce23f49a385ddf003c67fc6415c55417a", "foodProperties": 148, "entries": {"effect": 12, "enchantment": 2, "food": 94, "item": 100, "profession": 1, "structure": 5, "tea": 8, "tool": 6}, "sha256": "d7b5e10c9a6d51f458804d4454ec8eac174f24ce22bb9eda40eea4c50146ba25", "check": true}

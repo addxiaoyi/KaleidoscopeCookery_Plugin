@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.doll.DollPoseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-05T04:01:49.199Z" hostname="ADDXIAOYI9000" time="0.013">
+  <properties/>
+  <testcase name="cannotCreateInvisibleOrUnboundedModels()" classname="net.kaleidoscope.doll.DollPoseTest" time="0.008"/>
+  <testcase name="roundTripsIndependentAxes()" classname="net.kaleidoscope.doll.DollPoseTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

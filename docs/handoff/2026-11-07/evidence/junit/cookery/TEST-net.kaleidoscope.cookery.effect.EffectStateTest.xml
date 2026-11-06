@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.effect.EffectStateTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:43.174Z" hostname="ADDXIAOYI9000" time="0.005">
+  <properties/>
+  <testcase name="strongerShortEffectRestoresLongerPreviousEffect()" classname="net.kaleidoscope.cookery.effect.EffectStateTest" time="0.0"/>
+  <testcase name="repeatDoesNotStackOrShortenDuration()" classname="net.kaleidoscope.cookery.effect.EffectStateTest" time="0.0"/>
+  <testcase name="invalidSavesFailInsteadOfDroppingEffects()" classname="net.kaleidoscope.cookery.effect.EffectStateTest" time="0.003"/>
+  <testcase name="weakLongEffectWaitsUntilStrongerExpires()" classname="net.kaleidoscope.cookery.effect.EffectStateTest" time="0.001"/>
+  <testcase name="saveRoundTripPreservesHiddenState()" classname="net.kaleidoscope.cookery.effect.EffectStateTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

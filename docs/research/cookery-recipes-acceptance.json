@@ -1,0 +1,489 @@
+{
+  "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+  "status": "PARTIAL_FOLIA_COLD_START_WATCHDOG_OPEN",
+  "scope": "Recipe import, CE item/model construction, real controller processing, paused and completed batch disk reload",
+  "artifacts": {
+    "build/acceptance/cookery-recipes-v2.zip": {
+      "bytes": 2253783,
+      "sha256": "6e5af0077d5dcfd92c0de4e5350e9a875bf16e908ff34454769cf1baaa1c5494"
+    },
+    "build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar": {
+      "bytes": 1325471,
+      "sha256": "475e4eaca71d4e27cc615cf2678bf596547d72b4c90d2cef283608509e659b37"
+    },
+    "build/acceptance/probe/CookeryAcceptanceProbe.jar": {
+      "bytes": 32489,
+      "sha256": "889f3b76a4a07ed5fa1f926c83d4e9b070854c333d9de56053a23c20abe4a964"
+    },
+    "src/main/resources/cookery-parity.json": {
+      "bytes": 483430,
+      "sha256": "d7b5e10c9a6d51f458804d4454ec8eac174f24ce22bb9eda40eea4c50146ba25"
+    }
+  },
+  "pack": {
+    "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+    "target": {
+      "minecraft": "1.21.11",
+      "craftEngine": "26.9.1"
+    },
+    "items": 252,
+    "blocks": 12,
+    "convertedPerspectives": [
+      "kaleidoscope_cookery:item/cold_cut_ham_slices",
+      "kaleidoscope_cookery:item/fruit_basket",
+      "kaleidoscope_cookery:item/teapot"
+    ],
+    "checkedModels": 261,
+    "soundAliases": 12,
+    "states": {
+      "kaleidoscopecookery:chopping_board": 4,
+      "kaleidoscopecookery:enamel_basin": 20,
+      "kaleidoscopecookery:kitchenware_racks": 4,
+      "kaleidoscopecookery:pot": 16,
+      "kaleidoscopecookery:shawarma_spit": 16,
+      "kaleidoscopecookery:steamer": 48,
+      "kaleidoscopecookery:stockpot": 32,
+      "kaleidoscopecookery:stove": 8,
+      "kaleidoscopecookery:fruit_basket": 4,
+      "kaleidoscopecookery:teapot": 16,
+      "kaleidoscopecookery:teacup_coaster": 4,
+      "kaleidoscopecookery:oil_pot": 8
+    },
+    "recipeSources": 612,
+    "recipeStatuses": {
+      "imported": 47,
+      "pending": 565
+    },
+    "recipes": {
+      "teapot_result": 11,
+      "accurate_foods": 4,
+      "chopping_board_raws": 16,
+      "recipes": 20
+    },
+    "teaCups": 8,
+    "images": 6,
+    "soupBases": 9,
+    "playerFlow": "NOT_TESTED",
+    "clientResourcePack": "NOT_TESTED"
+  },
+  "instances": {
+    "paper": {
+      "cycles": [
+        {
+          "cycle": 1,
+          "food": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 0,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "d4a9b1d46bb268890d3328ce8b92d6a7dbb38c436631547013247420d217d9c9",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "889f3b76a4a07ed5fa1f926c83d4e9b070854c333d9de56053a23c20abe4a964",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "475e4eaca71d4e27cc615cf2678bf596547d72b4c90d2cef283608509e659b37"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 252,
+            "placedBlocks": 12,
+            "reloadedBlocks": 0,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "phase": "IN_PROGRESS_SAVED",
+            "steamProgress": 100,
+            "teaRemaining": 92,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "checkedPlans": 31,
+            "checkedCrafting": 20,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        },
+        {
+          "cycle": 2,
+          "food": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 5,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "d4a9b1d46bb268890d3328ce8b92d6a7dbb38c436631547013247420d217d9c9",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "889f3b76a4a07ed5fa1f926c83d4e9b070854c333d9de56053a23c20abe4a964",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "475e4eaca71d4e27cc615cf2678bf596547d72b4c90d2cef283608509e659b37"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 252,
+            "placedBlocks": 0,
+            "reloadedBlocks": 12,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "reloadedBatches": 3,
+            "cuttingDrops": {
+              "kaleidoscopecookery:raw_cut_small_meats": 3,
+              "minecraft:bone": 1
+            },
+            "phase": "COMPLETED_RELOADED",
+            "steamedOutputs": 4,
+            "teaServings": 8,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "checkedPlans": 31,
+            "checkedCrafting": 20,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        },
+        {
+          "cycle": 3,
+          "food": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 5,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "d4a9b1d46bb268890d3328ce8b92d6a7dbb38c436631547013247420d217d9c9",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "889f3b76a4a07ed5fa1f926c83d4e9b070854c333d9de56053a23c20abe4a964",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "475e4eaca71d4e27cc615cf2678bf596547d72b4c90d2cef283608509e659b37"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 252,
+            "placedBlocks": 0,
+            "reloadedBlocks": 12,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "phase": "COMPLETED_RELOADED",
+            "steamedOutputs": 4,
+            "teaServings": 8,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "checkedPlans": 31,
+            "checkedCrafting": 20,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        }
+      ],
+      "installedFilesChecked": 1702,
+      "logs": [
+        "paper/boot-1.log",
+        "paper/boot-2.log",
+        "paper/boot-3.log"
+      ]
+    },
+    "folia": {
+      "cycles": [
+        {
+          "cycle": 2,
+          "food": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 5,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "baf6888b694dc36489ef8d56fbf4fe23ed5981c0579ca18fc511be6904d83613",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "889f3b76a4a07ed5fa1f926c83d4e9b070854c333d9de56053a23c20abe4a964",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "475e4eaca71d4e27cc615cf2678bf596547d72b4c90d2cef283608509e659b37"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 252,
+            "placedBlocks": 0,
+            "reloadedBlocks": 12,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "reloadedBatches": 3,
+            "cuttingDrops": {
+              "kaleidoscopecookery:raw_cut_small_meats": 3,
+              "minecraft:bone": 1
+            },
+            "phase": "COMPLETED_RELOADED",
+            "steamedOutputs": 4,
+            "teaServings": 8,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "checkedPlans": 31,
+            "checkedCrafting": 20,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        },
+        {
+          "cycle": 3,
+          "food": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 5,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "baf6888b694dc36489ef8d56fbf4fe23ed5981c0579ca18fc511be6904d83613",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "889f3b76a4a07ed5fa1f926c83d4e9b070854c333d9de56053a23c20abe4a964",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "475e4eaca71d4e27cc615cf2678bf596547d72b4c90d2cef283608509e659b37"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 252,
+            "placedBlocks": 0,
+            "reloadedBlocks": 12,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "phase": "COMPLETED_RELOADED",
+            "steamedOutputs": 4,
+            "teaServings": 8,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "checkedPlans": 31,
+            "checkedCrafting": 20,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        }
+      ],
+      "installedFilesChecked": 1702,
+      "logs": [
+        "folia/boot-2.log",
+        "folia/boot-3.log"
+      ]
+    }
+  },
+  "failuresRetained": [
+    {
+      "log": "build/acceptance/recipes-v1/paper/boot-1.log",
+      "status": "FIXED_BY_EXPLICIT_TARGET_ALIAS",
+      "reason": "minecraft:chain is minecraft:iron_chain in the pinned 1.21.11 registry"
+    },
+    {
+      "log": "build/acceptance/recipes-v2/folia/boot-1.log",
+      "status": "OPEN",
+      "reason": "Global region watchdog 5.4575362s; sampled class loading in CE OffsetFont.createOffset / registerShiftTags / delayedLoad. No confirmed root-cause fix.",
+      "probe": "Recipe IN_PROGRESS_SAVED with zero probe failures; whole boot remains failed"
+    }
+  ],
+  "tests": {
+    "java": {
+      "tests": 94,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "log": "build/acceptance/recipes-java-tests.log"
+    },
+    "python": {
+      "tests": 58,
+      "failures": 0,
+      "log": "build/acceptance/recipes-python-final.log"
+    },
+    "milkRed": "build/acceptance/teapot-milk-red-verified.log",
+    "milkGreen": "build/acceptance/teapot-milk-green.log",
+    "chainRed": "build/acceptance/recipes-chain-red.log",
+    "chainGreen": "build/acceptance/recipes-chain-green.log",
+    "build": "build/acceptance/recipes-build.log",
+    "reproducibleArchive": true,
+    "jarExclusions": "PASS",
+    "catalogCheck": "PASS",
+    "processingNbtRed": "build/acceptance/recipes-nbt-red.log"
+  },
+  "playerFlow": "NOT_TESTED",
+  "clientResourcePack": "NOT_TESTED",
+  "multiplayer": "NOT_TESTED",
+  "protection": "NOT_TESTED",
+  "sourceFiles": {
+    "tools/cookery_recipes.py": "5e080428035955f8d3b18742f9a8b34632c9a9dae93dc2b2602dce9717d30a93",
+    "tools/cookery_kitchen_displays.py": "731144262339e8f86d1b27f3cbdfdd8a550c093d88f89e727150c78900c83c58",
+    "tools/export_cookery_kitchen_pack.py": "4162ee09285cedfb784236f47873f014f7aa9d860295d825f7e65afb81ea153a",
+    "tools/run_enchantment_acceptance.py": "f671ded8d5a7a5b44fa75c46b3398f8be7e636d1e624737f4e73376f287b396c",
+    "src/main/java/net/kaleidoscope/cookery/block/entity/TeapotController.java": "9c4162fb195a9714ad4749f41d7dedaa52d635b743c574aee0c6ca5e0618d4e5",
+    "src/main/java/net/kaleidoscope/cookery/block/behavior/TeapotBehavior.java": "759ff974d8146bf945c3cdce3c92ddeee2b3f06dce8564a2a2d7e5c679e8d3fd",
+    "src/main/java/net/kaleidoscope/cookery/item/ItemKeys.java": "22bbfd8e18730a2cefdeb86030ff1cf5f04f59884f8851f245aa86813210f208",
+    "src/acceptance/java/net/kaleidoscope/cookery/acceptance/KitchenRecipeSmoke.java": "879c23e8c5db15963da86f7f9aaa161ac99df29f0ef70f02d9668b4aee5c4e55",
+    "src/acceptance/java/net/kaleidoscope/cookery/acceptance/FoodSmokePlugin.java": "798837389465a915e57cbd4d6244ab70936006fba993164e84494524a4e1fdd5",
+    "tools/test_cookery_recipes.py": "5d63df8b98ee19d5ce70392686812ab8fea3d495eff026ae9d9ac99b06abab69",
+    "tools/test_enchantment_acceptance.py": "5ae94882998e91328afa8a9fad31b799f757b0ea72fdd3a8eec921e573824560",
+    "src/test/java/net/kaleidoscope/cookery/block/entity/TeapotControllerTest.java": "8d38bd502e00a254c6e631f62111efd175a00308a26c7554c7e6c4f8b66709aa"
+  },
+  "limitations": [
+    "Tripwire-backed appliances have vanilla selection boxes and no solid collision; exact mod voxel shapes remain pending.",
+    "Waterlogging is not enabled by this acceptance pack.",
+    "Teapot base and chains use extracted stockpot support geometry; the Java entity texture layout still needs a dedicated conversion.",
+    "Steamer TOP is retained for old states using a translated half model; official mod has no TOP state.",
+    "Stockpot per-recipe cooking/finished textures and official height animation remain pending; current displays keep plugin semantics.",
+    "Milk liquid uses a generated flat texture because the Forge milk renderer is unavailable to vanilla clients.",
+    "Teapot bitmap-font bars substitute for the mod client HUD; client visual acceptance remains pending.",
+    "Recipe manifest records every pending conversion; placed meal bites, protection and multiplayer acceptance remain pending.",
+    "Tool durability and lid use behavior beyond existing kitchen interactions require separate parity acceptance.",
+    "20 crafting recipes validated for registry presence and output, not player crafting or leftovers.",
+    "Processing inputs seeded by server API/saved state; milk bucket interactions have unit evidence only.",
+    "Recipe imports preserve old plugin timings/servings and do not implement exact mod matching.",
+    "565 source recipes remain pending in the kitchen pack; separate bamboo-tray fixture is not merged."
+  ]
+}

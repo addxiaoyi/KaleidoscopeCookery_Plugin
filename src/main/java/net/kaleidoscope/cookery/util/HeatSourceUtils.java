@@ -12,7 +12,9 @@ import net.momirealms.craftengine.proxy.minecraft.world.level.block.state.StateH
 public final class HeatSourceUtils {
     private HeatSourceUtils() {}
 
-    private static final Object LIT_PROPERTY = NmsBridgeProvider.bridge().litBlockStateProperty();
+    private static final class NativeProperties {
+        private static final Object LIT = NmsBridgeProvider.bridge().litBlockStateProperty();
+    }
 
     private static final Key MAGMA_BLOCK = Key.of("minecraft:magma_block");
     private static final Key FIRE = Key.of("minecraft:fire");
@@ -33,8 +35,8 @@ public final class HeatSourceUtils {
             return false;
         }
 
-        if (StateHolderProxy.INSTANCE.hasProperty(blockState, LIT_PROPERTY)) {
-            Object litValue = StateHolderProxy.INSTANCE.getValue(blockState, LIT_PROPERTY);
+        if (StateHolderProxy.INSTANCE.hasProperty(blockState, NativeProperties.LIT)) {
+            Object litValue = StateHolderProxy.INSTANCE.getValue(blockState, NativeProperties.LIT);
             if (litValue instanceof Boolean && (Boolean) litValue) {
                 return true;
             }
@@ -43,8 +45,8 @@ public final class HeatSourceUtils {
         Key blockId = BlockStateUtils.getBlockOwnerIdFromState(blockState);
         if (isHeatSourceBlockId(blockId)) {
             if (blockId.equals(CAMPFIRE) || blockId.equals(SOUL_CAMPFIRE)) {
-                if (StateHolderProxy.INSTANCE.hasProperty(blockState, LIT_PROPERTY)) {
-                    Object litValue = StateHolderProxy.INSTANCE.getValue(blockState, LIT_PROPERTY);
+                if (StateHolderProxy.INSTANCE.hasProperty(blockState, NativeProperties.LIT)) {
+                    Object litValue = StateHolderProxy.INSTANCE.getValue(blockState, NativeProperties.LIT);
                     return litValue instanceof Boolean && (Boolean) litValue;
                 }
             }

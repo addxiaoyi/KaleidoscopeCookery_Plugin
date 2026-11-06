@@ -109,6 +109,14 @@ public class RecipeDisplayBehavior extends FurnitureBehaviorTemplate {
             }
 
             Key recipeId = Key.of(recipeIdStr);
+            if ("pot".equals(recipeType)) {
+                var recipe = FoodRecipeRegistry.instance().findPotById(recipeId);
+                return recipe == null ? null : recipe.result();
+            }
+            if ("stockpot".equals(recipeType)) {
+                var recipe = FoodRecipeRegistry.instance().findStockpotById(recipeId);
+                return recipe == null ? null : recipe.result();
+            }
             if ("accurate".equals(recipeType)) {
                 AccurateFoodRecipe r = FoodRecipeRegistry.instance().findAccurateById(recipeId);
                 if (r == null) {

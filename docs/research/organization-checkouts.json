@@ -1,0 +1,111 @@
+{
+  "checked_at": "2026-11-04",
+  "organization": "KaleidoscopeMods",
+  "source": "https://api.github.com/orgs/KaleidoscopeMods/repos?per_page=100",
+  "repositories": [
+    {
+      "name": "KaleidoscopeCookery",
+      "url": "https://github.com/KaleidoscopeMods/KaleidoscopeCookery",
+      "clone_url": "https://github.com/KaleidoscopeMods/KaleidoscopeCookery.git",
+      "default_branch": "main",
+      "checked_out_branch": "main",
+      "commit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+      "fork": false,
+      "archived": false,
+      "description": null,
+      "dirty": false,
+      "path": "D:\\qwq\\项目\\luosen-plugins\\.references\\KaleidoscopeCookery"
+    },
+    {
+      "name": "KaleidoscopeDeco",
+      "url": "https://github.com/KaleidoscopeMods/KaleidoscopeDeco",
+      "clone_url": "https://github.com/KaleidoscopeMods/KaleidoscopeDeco.git",
+      "default_branch": "master",
+      "checked_out_branch": "master",
+      "commit": "6ce180e1226ce93b0fb0d45ea80e0ed5b01b1dc0",
+      "fork": false,
+      "archived": false,
+      "description": "森罗物语：装饰，由数据包驱动的高版本装饰包",
+      "dirty": false,
+      "path": "D:\\qwq\\项目\\luosen-plugins\\.references\\KaleidoscopeDeco"
+    },
+    {
+      "name": "KaleidoscopeDemo",
+      "url": "https://github.com/KaleidoscopeMods/KaleidoscopeDemo",
+      "clone_url": "https://github.com/KaleidoscopeMods/KaleidoscopeDemo.git",
+      "default_branch": "main",
+      "checked_out_branch": "main",
+      "commit": "409e5c9d5cfbaa46682066b0e30fa6ace62189a2",
+      "fork": false,
+      "archived": false,
+      "description": "用于正式开发前的美术演示，同时也是森罗物语的素材库",
+      "dirty": false,
+      "path": "D:\\qwq\\项目\\luosen-plugins\\.references\\KaleidoscopeDemo"
+    },
+    {
+      "name": "KaleidoscopeDoll",
+      "url": "https://github.com/KaleidoscopeMods/KaleidoscopeDoll",
+      "clone_url": "https://github.com/KaleidoscopeMods/KaleidoscopeDoll.git",
+      "default_branch": "1.20-forge",
+      "checked_out_branch": "1.20-forge",
+      "commit": "62303aa58bbd5ee52498f3ad0fbf4a0c7d04c183",
+      "fork": false,
+      "archived": false,
+      "description": null,
+      "dirty": false,
+      "path": "D:\\qwq\\项目\\luosen-plugins\\.references\\KaleidoscopeDoll"
+    },
+    {
+      "name": "KaleidoscopeTavern",
+      "url": "https://github.com/KaleidoscopeMods/KaleidoscopeTavern",
+      "clone_url": "https://github.com/KaleidoscopeMods/KaleidoscopeTavern.git",
+      "default_branch": "main",
+      "checked_out_branch": "main",
+      "commit": "c4ec1880bd44cf3139d3ba744ab30bb379cf1416",
+      "fork": false,
+      "archived": false,
+      "description": null,
+      "dirty": false,
+      "path": "D:\\qwq\\项目\\luosen-plugins\\.references\\KaleidoscopeTavern"
+    },
+    {
+      "name": "KaleidoscopeWeb",
+      "url": "https://github.com/KaleidoscopeMods/KaleidoscopeWeb",
+      "clone_url": "https://github.com/KaleidoscopeMods/KaleidoscopeWeb.git",
+      "default_branch": "main",
+      "checked_out_branch": "main",
+      "commit": "98d340fb75e5ff64288b3b1a01d909f1aee398c4",
+      "fork": false,
+      "archived": false,
+      "description": "The source code for the official website of the Kaleidoscope Mods",
+      "dirty": false,
+      "path": "D:\\qwq\\项目\\luosen-plugins\\.references\\KaleidoscopeWeb"
+    },
+    {
+      "name": "midi",
+      "url": "https://github.com/KaleidoscopeMods/midi",
+      "clone_url": "https://github.com/KaleidoscopeMods/midi.git",
+      "default_branch": "master",
+      "checked_out_branch": "master",
+      "commit": "2cbedce7b80a431892d44c2d76a8105150e1f739",
+      "fork": true,
+      "archived": false,
+      "description": null,
+      "dirty": false,
+      "path": "D:\\qwq\\项目\\luosen-plugins\\.references\\midi"
+    },
+    {
+      "name": "MusicPlus",
+      "url": "https://github.com/KaleidoscopeMods/MusicPlus",
+      "clone_url": "https://github.com/KaleidoscopeMods/MusicPlus.git",
+      "default_branch": "main",
+      "checked_out_branch": "main",
+      "commit": "cc84f29e2a1abe79805567fddd218b3a7b252655",
+      "fork": false,
+      "archived": false,
+      "description": null,
+      "dirty": false,
+      "path": "D:\\qwq\\项目\\luosen-plugins\\.references\\MusicPlus"
+    }
+  ]
+}

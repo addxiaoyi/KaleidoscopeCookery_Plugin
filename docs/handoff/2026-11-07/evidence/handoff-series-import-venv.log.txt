@@ -1,0 +1,4 @@
+doll: 729 items, 725 furniture; 3 explicit limitations
+tavern: 190 items, 39 furniture; 5 explicit limitations
+deco: 854 items, 785 furniture; 418 explicit limitations
+music: 1 items, 0 furniture; 2 explicit limitations

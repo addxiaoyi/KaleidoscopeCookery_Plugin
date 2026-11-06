@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.block.entity.PotControllerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:41.910Z" hostname="ADDXIAOYI9000" time="0.363">
+  <properties/>
+  <testcase name="interruptedAnimationResumesFrozenBatchAfterRegistryChanges()" classname="net.kaleidoscope.cookery.block.entity.PotControllerTest" time="0.321"/>
+  <testcase name="legacyStartedBatchKeepsCosineOutputAndDefaultStirCount()" classname="net.kaleidoscope.cookery.block.entity.PotControllerTest" time="0.036"/>
+  <testcase name="servingGuardBlocksNestedClaimAndReleasesAfterReset()" classname="net.kaleidoscope.cookery.block.entity.PotControllerTest" time="0.002"/>
+  <testcase name="corruptSavedPlanPreservesIngredientsAndBlocksOutput()" classname="net.kaleidoscope.cookery.block.entity.PotControllerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[11月 06, 2026 12:51:42 下午 net.kaleidoscope.cookery.block.entity.PotController blockProcessing
+警告: 炒锅配方快照无效或产物不可用，保留原料并暂停：BlockPos{x=8, y=64, z=8}
+]]></system-err>
+</testsuite>

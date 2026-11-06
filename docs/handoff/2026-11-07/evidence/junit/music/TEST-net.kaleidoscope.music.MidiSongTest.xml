@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.music.MidiSongTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-05T03:57:57.022Z" hostname="ADDXIAOYI9000" time="0.074">
+  <properties/>
+  <testcase name="velocityZeroNoteOnIsNotAnotherNote()" classname="net.kaleidoscope.music.MidiSongTest" time="0.027"/>
+  <testcase name="rejectsExcessiveDurationBeforePlaying()" classname="net.kaleidoscope.music.MidiSongTest" time="0.003"/>
+  <testcase name="programChangesStayOnTheirOwnChannels()" classname="net.kaleidoscope.music.MidiSongTest" time="0.001"/>
+  <testcase name="supportsSmpteTiming()" classname="net.kaleidoscope.music.MidiSongTest" time="0.001"/>
+  <testcase name="foldsOctavesIntoTheVanillaPitchRange()" classname="net.kaleidoscope.music.MidiSongTest" time="0.007"/>
+  <testcase name="mergesTempoTrackAndNoteTracksInTickOrder()" classname="net.kaleidoscope.music.MidiSongTest" time="0.005"/>
+  <testcase name="rejectsEmptyAndInvalidTempoSongs()" classname="net.kaleidoscope.music.MidiSongTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

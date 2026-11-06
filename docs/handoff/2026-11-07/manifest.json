@@ -1,0 +1,1053 @@
+{
+  "date": "2026-11-07",
+  "timezone": "Asia/Shanghai",
+  "baselineCommit": "7a2f8427cbbdbd08d6ceef2e4b80ddc8536d1f23",
+  "scope": "Source handoff; no new server startup or client acceptance",
+  "commands": [
+    {
+      "command": "gradlew.bat test shadowJar acceptanceJar --console=plain",
+      "exitCode": 1,
+      "log": "evidence/handoff-kitchen-build.log.txt",
+      "meaning": "Maven TLS failure; no new kitchen test run"
+    },
+    {
+      "command": "gradlew.bat -p series build --console=plain",
+      "exitCode": 1,
+      "log": "evidence/handoff-series-build.log.txt",
+      "meaning": "Maven TLS failure"
+    },
+    {
+      "command": "gradlew.bat test shadowJar acceptanceJar --offline --console=plain",
+      "exitCode": 0,
+      "log": "evidence/handoff-kitchen-offline.log.txt",
+      "meaning": "17 tasks UP-TO-DATE; existing reports inspected"
+    },
+    {
+      "command": "gradlew.bat -p series build --offline --console=plain",
+      "exitCode": 0,
+      "log": "evidence/handoff-series-offline.log.txt",
+      "meaning": "24 tasks UP-TO-DATE; existing reports inspected"
+    },
+    {
+      "command": "python -m unittest discover -s tools -p 'test_*.py'",
+      "exitCode": 0,
+      "log": "evidence/handoff-kitchen-python.log.txt",
+      "meaning": "71 executed"
+    },
+    {
+      "command": "python -m unittest discover -s series/tools -p 'test_*.py'",
+      "exitCode": 0,
+      "log": "evidence/handoff-series-python.log.txt",
+      "meaning": "18 executed"
+    },
+    {
+      "command": "python tools/export_cookery_catalog.py --source ../.references/KaleidoscopeCookery --check",
+      "exitCode": 0,
+      "log": "evidence/handoff-catalog.log.txt",
+      "meaning": "Pinned catalog matches"
+    },
+    {
+      "command": "python series/tools/import_sources.py --check",
+      "exitCode": 1,
+      "log": "evidence/handoff-series-import.log.txt",
+      "meaning": "System Python lacks nbtlib; use project venv"
+    },
+    {
+      "command": "series/.venv/Scripts/python.exe series/tools/import_sources.py --check",
+      "exitCode": 0,
+      "log": "evidence/handoff-series-import-venv.log.txt",
+      "meaning": "Catalogs match pinned sources"
+    },
+    {
+      "command": "python series/tools/validate_packs.py series/build/distribution/KaleidoscopeSeries-CE-Packs-0.1.0-dev-gameplay.zip",
+      "exitCode": 0,
+      "log": "evidence/handoff-series-resources.log.txt",
+      "meaning": "Existing generated series pack; no runtime or client evidence"
+    }
+  ],
+  "java": {
+    "cookery": {
+      "totals": {
+        "tests": 132,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.behavior.PotServingTest.xml",
+          "name": "net.kaleidoscope.cookery.block.behavior.PotServingTest",
+          "tests": 2,
+          "sha256": "80cce3cf41911cee10cccc0b6e2d7476c9c51d2ca509f6a093a51a36ebb855b9",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.behavior.PotServingTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest.xml",
+          "name": "net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest",
+          "tests": 8,
+          "sha256": "2168f2dbb9b8dd722c8beeeeb2452d3a183d7981cf6055e24390f1c9fde505ad",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest.xml",
+          "name": "net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest",
+          "tests": 12,
+          "sha256": "e19b8fd6d5aa56997fbfc1e45483f6d14b3d3da157177a01f44345c909a7118e",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.MillstoneControllerTest.xml",
+          "name": "net.kaleidoscope.cookery.block.entity.MillstoneControllerTest",
+          "tests": 14,
+          "sha256": "dc5f472bb68f61698a614ef72f5deb862156ab5a47a0b6747e4fdda9d1062d06",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.MillstoneControllerTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.PotControllerTest.xml",
+          "name": "net.kaleidoscope.cookery.block.entity.PotControllerTest",
+          "tests": 4,
+          "sha256": "07eebd9e8fb2c33bd22ced0ec1bd2f7e7049dbd0f6ca7e6882e7b335e76c1248",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.PotControllerTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.StockpotControllerTest.xml",
+          "name": "net.kaleidoscope.cookery.block.entity.StockpotControllerTest",
+          "tests": 3,
+          "sha256": "a51a875f15b4d7104755a1931139753271ca75b84d2d728a35a4818c79dc5f40",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.StockpotControllerTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.TeapotControllerTest.xml",
+          "name": "net.kaleidoscope.cookery.block.entity.TeapotControllerTest",
+          "tests": 10,
+          "sha256": "06c7d6478de815530978f0e9fa5f52cb7937154125b5f951349e5089f8d508d7",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.TeapotControllerTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.catalog.BakedFoodTest.xml",
+          "name": "net.kaleidoscope.cookery.catalog.BakedFoodTest",
+          "tests": 5,
+          "sha256": "9ff0e87e53eb72c46f763fd00e2965be661cc0a6a6a52a1ab6c833d4f921deef",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.catalog.BakedFoodTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.catalog.CookeryCatalogTest.xml",
+          "name": "net.kaleidoscope.cookery.catalog.CookeryCatalogTest",
+          "tests": 5,
+          "sha256": "a374e3c4734b34fe17aff403afdca8514cfafe671b0b634c6a64d799f0e9b0ff",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.catalog.CookeryCatalogTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.effect.CookeryEffectsTest.xml",
+          "name": "net.kaleidoscope.cookery.effect.CookeryEffectsTest",
+          "tests": 9,
+          "sha256": "317ce420500f9086a4bd3ecc5455be58d7ed30770a3dae5c0595e8de3c69cf45",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.effect.CookeryEffectsTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.effect.EffectStateTest.xml",
+          "name": "net.kaleidoscope.cookery.effect.EffectStateTest",
+          "tests": 5,
+          "sha256": "08d18c79619c6f4eaec99c4e1d04d3f7eb203df197eab5c3990ff508376938e4",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.effect.EffectStateTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.item.behavior.SickleRangeHarvestBehaviorTest.xml",
+          "name": "net.kaleidoscope.cookery.item.behavior.SickleRangeHarvestBehaviorTest",
+          "tests": 9,
+          "sha256": "b18770ddd29c415f859016ecb8fed3a012ed0c10023aba346ce14080ef0a8bf2",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.item.behavior.SickleRangeHarvestBehaviorTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.item.CookeryEnchantmentsTest.xml",
+          "name": "net.kaleidoscope.cookery.item.CookeryEnchantmentsTest",
+          "tests": 10,
+          "sha256": "2cd34f678872e00730f29c275cecfcea11961d3f061fa5f5df56b3b45eb7e505",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.item.CookeryEnchantmentsTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.BambooTrayIndexTest.xml",
+          "name": "net.kaleidoscope.cookery.recipe.BambooTrayIndexTest",
+          "tests": 5,
+          "sha256": "eecccadfe13ad441d302b294d9db2e2d8b8605aaa21443affcdbaab17509ef84",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.BambooTrayIndexTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest.xml",
+          "name": "net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest",
+          "tests": 4,
+          "sha256": "62faee3d2557104e859f72dbce5aa0de8a64a93b17324b20fc06dcd45aafd327",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayFileEditTest.xml",
+          "name": "net.kaleidoscope.cookery.recipe.edit.BambooTrayFileEditTest",
+          "tests": 6,
+          "sha256": "651c8df4fdcea1903fab4da9cc304bd2ab7cf4537317c12b92e3da38bb67ba36",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayFileEditTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayRecipeDraftTest.xml",
+          "name": "net.kaleidoscope.cookery.recipe.edit.BambooTrayRecipeDraftTest",
+          "tests": 2,
+          "sha256": "19d3c1ec0777f568af267913b570dd79a37a09be563adcd1c1604839dee57e7b",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayRecipeDraftTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.FoodRecipeRegistryBambooTrayTest.xml",
+          "name": "net.kaleidoscope.cookery.recipe.FoodRecipeRegistryBambooTrayTest",
+          "tests": 4,
+          "sha256": "91d39422f1549220d835d581d8cd25bc7a2fe93a2f3a499d8335e7ded0fc8bdc",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.FoodRecipeRegistryBambooTrayTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.PotRecipeTest.xml",
+          "name": "net.kaleidoscope.cookery.recipe.PotRecipeTest",
+          "tests": 7,
+          "sha256": "d6eec0e8917cf4c30f072dbd60e5b83c76ece784b7176220e42ba7d5766427f6",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.PotRecipeTest.xml"
+        },
+        {
+          "file": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.StockpotRecipeTest.xml",
+          "name": "net.kaleidoscope.cookery.recipe.StockpotRecipeTest",
+          "tests": 8,
+          "sha256": "021e47f5d19d634b974e6c160768671ca5e798a36d4bc26b42762ae24e07ada9",
+          "evidenceFile": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.StockpotRecipeTest.xml"
+        }
+      ],
+      "evidence": "Existing XML after UP-TO-DATE build; not newly executed"
+    },
+    "common": {
+      "totals": {
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "file": "series/common/build/test-results/test/TEST-net.kaleidoscope.series.InventoryTradeTest.xml",
+          "name": "net.kaleidoscope.series.InventoryTradeTest",
+          "tests": 6,
+          "sha256": "133ba929fab1e705aca58a8e7ff6a7585362f3671dcfc42bf446210b538a4096",
+          "evidenceFile": "evidence/junit/common/TEST-net.kaleidoscope.series.InventoryTradeTest.xml"
+        },
+        {
+          "file": "series/common/build/test-results/test/TEST-net.kaleidoscope.series.ItemStateTest.xml",
+          "name": "net.kaleidoscope.series.ItemStateTest",
+          "tests": 2,
+          "sha256": "15ab9d7a822146c5ac50f3ff0920868683acc29d47ce4c349620350538527fd4",
+          "evidenceFile": "evidence/junit/common/TEST-net.kaleidoscope.series.ItemStateTest.xml"
+        },
+        {
+          "file": "series/common/build/test-results/test/TEST-net.kaleidoscope.series.SavedStateTest.xml",
+          "name": "net.kaleidoscope.series.SavedStateTest",
+          "tests": 4,
+          "sha256": "1246e2bf780b8f53daa3fdfc6d8e4f7501a463fa9bdff70d0af742971f33e57c",
+          "evidenceFile": "evidence/junit/common/TEST-net.kaleidoscope.series.SavedStateTest.xml"
+        }
+      ],
+      "evidence": "Existing XML after UP-TO-DATE build; not newly executed"
+    },
+    "doll": {
+      "totals": {
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "file": "series/doll/build/test-results/test/TEST-net.kaleidoscope.doll.DollPhysicsTest.xml",
+          "name": "net.kaleidoscope.doll.DollPhysicsTest",
+          "tests": 3,
+          "sha256": "4aaf9ddba51205bc8057d80dd48d56d3984d99b39ea23cc8d23a07f4e83e8abb",
+          "evidenceFile": "evidence/junit/doll/TEST-net.kaleidoscope.doll.DollPhysicsTest.xml"
+        },
+        {
+          "file": "series/doll/build/test-results/test/TEST-net.kaleidoscope.doll.DollPoseTest.xml",
+          "name": "net.kaleidoscope.doll.DollPoseTest",
+          "tests": 2,
+          "sha256": "cc5eb5a1176c9bdd672e7ddc1fc6b298c40465e5577820bab828481e30427330",
+          "evidenceFile": "evidence/junit/doll/TEST-net.kaleidoscope.doll.DollPoseTest.xml"
+        },
+        {
+          "file": "series/doll/build/test-results/test/TEST-net.kaleidoscope.doll.DrawBagTest.xml",
+          "name": "net.kaleidoscope.doll.DrawBagTest",
+          "tests": 5,
+          "sha256": "13bb78b2d5bd9c961922ebed939264cbf3fc1bee0aced4befade575ba1357093",
+          "evidenceFile": "evidence/junit/doll/TEST-net.kaleidoscope.doll.DrawBagTest.xml"
+        }
+      ],
+      "evidence": "Existing XML after UP-TO-DATE build; not newly executed"
+    },
+    "tavern": {
+      "totals": {
+        "tests": 27,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "file": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.BrewBatchTest.xml",
+          "name": "net.kaleidoscope.tavern.BrewBatchTest",
+          "tests": 5,
+          "sha256": "419bd0d4ccfefba74ddf4ebea2badfaa44e15125f547acc43babf85d3357c5c0",
+          "evidenceFile": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.BrewBatchTest.xml"
+        },
+        {
+          "file": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.BrewRecipeTest.xml",
+          "name": "net.kaleidoscope.tavern.BrewRecipeTest",
+          "tests": 3,
+          "sha256": "f47a24e21ce9e52b38efefefea7ce65e9cf861d5730882d1e1fa6e903ad2fd14",
+          "evidenceFile": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.BrewRecipeTest.xml"
+        },
+        {
+          "file": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.DrinkEffectTest.xml",
+          "name": "net.kaleidoscope.tavern.DrinkEffectTest",
+          "tests": 2,
+          "sha256": "984585c3cd4ef1498c77883fbfe91b327834e198ae474544caa02c9b8c77cb5d",
+          "evidenceFile": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.DrinkEffectTest.xml"
+        },
+        {
+          "file": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.GrapeGrowthTest.xml",
+          "name": "net.kaleidoscope.tavern.GrapeGrowthTest",
+          "tests": 3,
+          "sha256": "d482e745dd61c6513afd1aa8b9a4f06edab864acc747bdd063a9e5190764e0e3",
+          "evidenceFile": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.GrapeGrowthTest.xml"
+        },
+        {
+          "file": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.ShakerTimingTest.xml",
+          "name": "net.kaleidoscope.tavern.ShakerTimingTest",
+          "tests": 10,
+          "sha256": "bd4194643697876549ea15e4c6f9a0e3f0e413e4e97c21f0083333db2e04faac",
+          "evidenceFile": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.ShakerTimingTest.xml"
+        },
+        {
+          "file": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.TapSourcesTest.xml",
+          "name": "net.kaleidoscope.tavern.TapSourcesTest",
+          "tests": 3,
+          "sha256": "aa92edfca75fb43830d32188d8a4ade5ab10bafed0783921eebb0378f465afa4",
+          "evidenceFile": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.TapSourcesTest.xml"
+        },
+        {
+          "file": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.TavernCatalogTest.xml",
+          "name": "net.kaleidoscope.tavern.TavernCatalogTest",
+          "tests": 1,
+          "sha256": "893a607a18e26c1d0c5ceccd5809432c3171426481ccd645d74cb462c9fbd4bf",
+          "evidenceFile": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.TavernCatalogTest.xml"
+        }
+      ],
+      "evidence": "Existing XML after UP-TO-DATE build; not newly executed"
+    },
+    "deco": {
+      "totals": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "file": "series/deco/build/test-results/test/TEST-net.kaleidoscope.deco.DecoRuleTest.xml",
+          "name": "net.kaleidoscope.deco.DecoRuleTest",
+          "tests": 3,
+          "sha256": "b4bcc3d8057e035d40e5b1de2507b29ae822f8018a06897672f1949c07b83f28",
+          "evidenceFile": "evidence/junit/deco/TEST-net.kaleidoscope.deco.DecoRuleTest.xml"
+        }
+      ],
+      "evidence": "Existing XML after UP-TO-DATE build; not newly executed"
+    },
+    "music": {
+      "totals": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "suites": [
+        {
+          "file": "series/music/build/test-results/test/TEST-net.kaleidoscope.music.MidiSongTest.xml",
+          "name": "net.kaleidoscope.music.MidiSongTest",
+          "tests": 7,
+          "sha256": "2dbbaa0fdb635af55ed2aeba8e9cdf4cbb0a67de5fce0c45be73d0b29ef1e380",
+          "evidenceFile": "evidence/junit/music/TEST-net.kaleidoscope.music.MidiSongTest.xml"
+        }
+      ],
+      "evidence": "Existing XML after UP-TO-DATE build; not newly executed"
+    }
+  },
+  "references": [
+    {
+      "name": "KaleidoscopeCookery",
+      "commit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+      "trackedClean": true
+    },
+    {
+      "name": "KaleidoscopeDeco",
+      "commit": "6ce180e1226ce93b0fb0d45ea80e0ed5b01b1dc0",
+      "trackedClean": true
+    },
+    {
+      "name": "KaleidoscopeDemo",
+      "commit": "409e5c9d5cfbaa46682066b0e30fa6ace62189a2",
+      "trackedClean": true
+    },
+    {
+      "name": "KaleidoscopeDoll",
+      "commit": "62303aa58bbd5ee52498f3ad0fbf4a0c7d04c183",
+      "trackedClean": true
+    },
+    {
+      "name": "KaleidoscopeTavern",
+      "commit": "c4ec1880bd44cf3139d3ba744ab30bb379cf1416",
+      "trackedClean": true
+    },
+    {
+      "name": "KaleidoscopeWeb",
+      "commit": "98d340fb75e5ff64288b3b1a01d909f1aee398c4",
+      "trackedClean": true
+    },
+    {
+      "name": "midi",
+      "commit": "2cbedce7b80a431892d44c2d76a8105150e1f739",
+      "trackedClean": true
+    },
+    {
+      "name": "MusicPlus",
+      "commit": "cc84f29e2a1abe79805567fddd218b3a7b252655",
+      "trackedClean": true
+    }
+  ],
+  "files": [
+    {
+      "source": "build/acceptance/millstone-build-v2.log",
+      "sourceBytes": 1733,
+      "sourceSha256": "eb0f740c8755feb421ed1ad274d03e069c5c21fd22df4fcf6cd640145294b3ec",
+      "file": "evidence/millstone-build-v2.log.txt",
+      "bytes": 1733,
+      "sha256": "eb0f740c8755feb421ed1ad274d03e069c5c21fd22df4fcf6cd640145294b3ec",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-java-final.json",
+      "sourceBytes": 6524,
+      "sourceSha256": "f03a744aa4b039b402c5e3f70c263a0c3fd3761eaef5d5f9c16a64ae6eccc5c7",
+      "file": "evidence/millstone-java-final.json",
+      "bytes": 6524,
+      "sha256": "f03a744aa4b039b402c5e3f70c263a0c3fd3761eaef5d5f9c16a64ae6eccc5c7",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-python-all-v4.log",
+      "sourceBytes": 175,
+      "sourceSha256": "b066f3d3f08a1f0340d9b24cd5d5a1fa732f75e1d6d0e261aa63a7b56407536b",
+      "file": "evidence/millstone-python-all-v4.log.txt",
+      "bytes": 175,
+      "sha256": "b066f3d3f08a1f0340d9b24cd5d5a1fa732f75e1d6d0e261aa63a7b56407536b",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-catalog-check.log",
+      "sourceBytes": 296,
+      "sourceSha256": "3fa0147a16d588f095a759139fa7cdad1e9e4083714e80ac8ac165716c713b1b",
+      "file": "evidence/millstone-catalog-check.log.txt",
+      "bytes": 296,
+      "sha256": "3fa0147a16d588f095a759139fa7cdad1e9e4083714e80ac8ac165716c713b1b",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-run-v2.log",
+      "sourceBytes": 468,
+      "sourceSha256": "20ae473c8ca8f3c2b40d1bfbf9de3fbaddc95081e8078816f0ba6ffd496d7291",
+      "file": "evidence/millstone-run-v2.log.txt",
+      "bytes": 468,
+      "sha256": "20ae473c8ca8f3c2b40d1bfbf9de3fbaddc95081e8078816f0ba6ffd496d7291",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-controller-red-v5.log",
+      "sourceBytes": 1733,
+      "sourceSha256": "c46e96ee264b1c3312a9fb4edebecc91c72d0690ed91c3e7d40230d4cb753ecf",
+      "file": "evidence/millstone-controller-red-v5.log.txt",
+      "bytes": 1733,
+      "sha256": "c46e96ee264b1c3312a9fb4edebecc91c72d0690ed91c3e7d40230d4cb753ecf",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-controller-green-v6.log",
+      "sourceBytes": 466,
+      "sourceSha256": "9601ef1e6f1ba5cd4c7d2a2da9c184e765f711f668033675eff6e7f5807e436c",
+      "file": "evidence/millstone-controller-green-v6.log.txt",
+      "bytes": 466,
+      "sha256": "9601ef1e6f1ba5cd4c7d2a2da9c184e765f711f668033675eff6e7f5807e436c",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-folia-ticker-red.log",
+      "sourceBytes": 1707,
+      "sourceSha256": "4c2ec67de16ff7147500d77ecfce0e40330f8991df1a5431f4358179bce6ab61",
+      "file": "evidence/millstone-folia-ticker-red.log.txt",
+      "bytes": 1707,
+      "sha256": "4c2ec67de16ff7147500d77ecfce0e40330f8991df1a5431f4358179bce6ab61",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-mesh-red-v2.log",
+      "sourceBytes": 3813,
+      "sourceSha256": "789c593e9d8e6cd3d95a58436c4aba1e9ecaf266265cd4d2a7dfe8ee6077fec6",
+      "file": "evidence/millstone-mesh-red-v2.log.txt",
+      "bytes": 3813,
+      "sha256": "789c593e9d8e6cd3d95a58436c4aba1e9ecaf266265cd4d2a7dfe8ee6077fec6",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-artifact-check.log",
+      "sourceBytes": 640,
+      "sourceSha256": "d0d09b22019fc3c196fe62ed3c5869fedd0890ffaca14ab974f4ae2626962203",
+      "file": "evidence/millstone-artifact-check.log.txt",
+      "bytes": 640,
+      "sha256": "d0d09b22019fc3c196fe62ed3c5869fedd0890ffaca14ab974f4ae2626962203",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-v2/acceptance.json",
+      "sourceBytes": 344553,
+      "sourceSha256": "069a8fbb58747cb91c6d4b58a65908c998ec34e305d092021c70c5aa51fe90cd",
+      "file": "evidence/millstone-v2/acceptance.json",
+      "bytes": 344553,
+      "sha256": "069a8fbb58747cb91c6d4b58a65908c998ec34e305d092021c70c5aa51fe90cd",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-v1/folia/boot-2.log",
+      "sourceBytes": 15199,
+      "sourceSha256": "0aa3ecf76d00b32568845ef41e2190803ae294f4c707882c420be350f3ddc3db",
+      "file": "evidence/millstone-v1/folia/boot-2.log.txt",
+      "bytes": 15199,
+      "sha256": "0aa3ecf76d00b32568845ef41e2190803ae294f4c707882c420be350f3ddc3db",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/pot-v2/folia/boot-2.log",
+      "sourceBytes": 21701,
+      "sourceSha256": "fc28f5952324f6eb14eb055c0ec8c8d44258b8d67b6312a02738333b2b8a2ae2",
+      "file": "evidence/pot-v2/folia/boot-2.log.txt",
+      "bytes": 21701,
+      "sha256": "fc28f5952324f6eb14eb055c0ec8c8d44258b8d67b6312a02738333b2b8a2ae2",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-diagnostic-v3/folia/plugins/CookeryAcceptanceProbe/millstone-drive.json",
+      "sourceBytes": 1286,
+      "sourceSha256": "f6586b2b9bc50c5960527007f984d5a6b609855e1ad5e06ab74ecd4fec157c6a",
+      "file": "evidence/millstone-diagnostic-v3/folia/plugins/CookeryAcceptanceProbe/millstone-drive.json",
+      "bytes": 1286,
+      "sha256": "f6586b2b9bc50c5960527007f984d5a6b609855e1ad5e06ab74ecd4fec157c6a",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/craftengine-download.json",
+      "sourceBytes": 673,
+      "sourceSha256": "5cbf1ee337fb9340cae3d2d8aae5cf32f0870a4f5acd2084dc6f39224e6f18ca",
+      "file": "evidence/craftengine-download.json",
+      "bytes": 673,
+      "sha256": "5cbf1ee337fb9340cae3d2d8aae5cf32f0870a4f5acd2084dc6f39224e6f18ca",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-v2/paper/boot-1.log",
+      "sourceBytes": 16461,
+      "sourceSha256": "821cbce95a8ef580b9abdc4b3f825107f3cff043d87672b9bd9d9f0b587c3611",
+      "file": "evidence/millstone-v2/paper/boot-1.log.txt",
+      "bytes": 16461,
+      "sha256": "821cbce95a8ef580b9abdc4b3f825107f3cff043d87672b9bd9d9f0b587c3611",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-v2/paper/boot-2.log",
+      "sourceBytes": 13801,
+      "sourceSha256": "642f289a921511260134ab24a713c0a6c9fe59c6f98103a43790b3e54424dddf",
+      "file": "evidence/millstone-v2/paper/boot-2.log.txt",
+      "bytes": 13801,
+      "sha256": "642f289a921511260134ab24a713c0a6c9fe59c6f98103a43790b3e54424dddf",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-v2/paper/boot-3.log",
+      "sourceBytes": 13851,
+      "sourceSha256": "fdd1b3b653a18f6d0fd7afbee5f559bf493200236516c755f0ec9c07e6ccb09b",
+      "file": "evidence/millstone-v2/paper/boot-3.log.txt",
+      "bytes": 13851,
+      "sha256": "fdd1b3b653a18f6d0fd7afbee5f559bf493200236516c755f0ec9c07e6ccb09b",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-v2/folia/boot-1.log",
+      "sourceBytes": 16477,
+      "sourceSha256": "bc9ede7b28c2ce0d0bc3e5fe0d11c81c4f65ac4c3ace1f5def21f111a87c155f",
+      "file": "evidence/millstone-v2/folia/boot-1.log.txt",
+      "bytes": 16477,
+      "sha256": "bc9ede7b28c2ce0d0bc3e5fe0d11c81c4f65ac4c3ace1f5def21f111a87c155f",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-v2/folia/boot-2.log",
+      "sourceBytes": 14212,
+      "sourceSha256": "61e1fccb6effdba559f6a24ccfdb3b38816f7477b59ec603377485bfaba62c36",
+      "file": "evidence/millstone-v2/folia/boot-2.log.txt",
+      "bytes": 14212,
+      "sha256": "61e1fccb6effdba559f6a24ccfdb3b38816f7477b59ec603377485bfaba62c36",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/millstone-v2/folia/boot-3.log",
+      "sourceBytes": 14328,
+      "sourceSha256": "7969bcbc89537616980d0b1a576c6a90f8afcde2bfe83028f9a5b089b14bd362",
+      "file": "evidence/millstone-v2/folia/boot-3.log.txt",
+      "bytes": 14328,
+      "sha256": "7969bcbc89537616980d0b1a576c6a90f8afcde2bfe83028f9a5b089b14bd362",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-kitchen-build.log",
+      "sourceBytes": 2801,
+      "sourceSha256": "46accfffd0cc45140d95cbba3ae6890cbc8e0a872554262867595389e12bbf37",
+      "file": "evidence/handoff-kitchen-build.log.txt",
+      "bytes": 2801,
+      "sha256": "46accfffd0cc45140d95cbba3ae6890cbc8e0a872554262867595389e12bbf37",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-series-build.log",
+      "sourceBytes": 1880,
+      "sourceSha256": "0f99c243c0befce5d9f93cce1293a9e13988fbb026d5f41e0d637204e903e98c",
+      "file": "evidence/handoff-series-build.log.txt",
+      "bytes": 1880,
+      "sha256": "0f99c243c0befce5d9f93cce1293a9e13988fbb026d5f41e0d637204e903e98c",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-kitchen-offline.log",
+      "sourceBytes": 2384,
+      "sourceSha256": "736fdfea00a290f5d5e9e5b72469206b204fe8d34b8abf6813748c746e1a8c54",
+      "file": "evidence/handoff-kitchen-offline.log.txt",
+      "bytes": 2384,
+      "sha256": "736fdfea00a290f5d5e9e5b72469206b204fe8d34b8abf6813748c746e1a8c54",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-series-offline.log",
+      "sourceBytes": 2360,
+      "sourceSha256": "7d6f9559be6fa22930aad5624c01bfd40a42711be70fc56f0e8cc6eb525c9434",
+      "file": "evidence/handoff-series-offline.log.txt",
+      "bytes": 2360,
+      "sha256": "7d6f9559be6fa22930aad5624c01bfd40a42711be70fc56f0e8cc6eb525c9434",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-kitchen-python.log",
+      "sourceBytes": 176,
+      "sourceSha256": "9a79c11f7869a4f3090abe3ca55ca84983d75b218f5903dcba13ffcbcbd83ecd",
+      "file": "evidence/handoff-kitchen-python.log.txt",
+      "bytes": 176,
+      "sha256": "9a79c11f7869a4f3090abe3ca55ca84983d75b218f5903dcba13ffcbcbd83ecd",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-series-python.log",
+      "sourceBytes": 122,
+      "sourceSha256": "5df75c12dc474259efb4611d80e0996e71c95f26a6a16cd8e4e5178d1046cc99",
+      "file": "evidence/handoff-series-python.log.txt",
+      "bytes": 122,
+      "sha256": "5df75c12dc474259efb4611d80e0996e71c95f26a6a16cd8e4e5178d1046cc99",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-catalog.log",
+      "sourceBytes": 296,
+      "sourceSha256": "3fa0147a16d588f095a759139fa7cdad1e9e4083714e80ac8ac165716c713b1b",
+      "file": "evidence/handoff-catalog.log.txt",
+      "bytes": 296,
+      "sha256": "3fa0147a16d588f095a759139fa7cdad1e9e4083714e80ac8ac165716c713b1b",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-series-import.log",
+      "sourceBytes": 804,
+      "sourceSha256": "be39f9dd5efd375fe616f3a1e6076ff9a9a0c2e004972b86309b78c5ba7cdf2c",
+      "file": "evidence/handoff-series-import.log.txt",
+      "bytes": 804,
+      "sha256": "be39f9dd5efd375fe616f3a1e6076ff9a9a0c2e004972b86309b78c5ba7cdf2c",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-series-import-venv.log",
+      "sourceBytes": 224,
+      "sourceSha256": "931f683522f99f1b554ae92deefad522b206e9e1264a8308dd23ace429cb2693",
+      "file": "evidence/handoff-series-import-venv.log.txt",
+      "bytes": 224,
+      "sha256": "931f683522f99f1b554ae92deefad522b206e9e1264a8308dd23ace429cb2693",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.behavior.PotServingTest.xml",
+      "sourceBytes": 655,
+      "sourceSha256": "80cce3cf41911cee10cccc0b6e2d7476c9c51d2ca509f6a093a51a36ebb855b9",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.behavior.PotServingTest.xml",
+      "bytes": 655,
+      "sha256": "80cce3cf41911cee10cccc0b6e2d7476c9c51d2ca509f6a093a51a36ebb855b9",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest.xml",
+      "sourceBytes": 1619,
+      "sourceSha256": "2168f2dbb9b8dd722c8beeeeb2452d3a183d7981cf6055e24390f1c9fde505ad",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest.xml",
+      "bytes": 1619,
+      "sha256": "2168f2dbb9b8dd722c8beeeeb2452d3a183d7981cf6055e24390f1c9fde505ad",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest.xml",
+      "sourceBytes": 2249,
+      "sourceSha256": "e19b8fd6d5aa56997fbfc1e45483f6d14b3d3da157177a01f44345c909a7118e",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest.xml",
+      "bytes": 2249,
+      "sha256": "e19b8fd6d5aa56997fbfc1e45483f6d14b3d3da157177a01f44345c909a7118e",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.MillstoneControllerTest.xml",
+      "sourceBytes": 24523,
+      "sourceSha256": "dc5f472bb68f61698a614ef72f5deb862156ab5a47a0b6747e4fdda9d1062d06",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.MillstoneControllerTest.xml",
+      "bytes": 24523,
+      "sha256": "dc5f472bb68f61698a614ef72f5deb862156ab5a47a0b6747e4fdda9d1062d06",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.PotControllerTest.xml",
+      "sourceBytes": 1190,
+      "sourceSha256": "07eebd9e8fb2c33bd22ced0ec1bd2f7e7049dbd0f6ca7e6882e7b335e76c1248",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.PotControllerTest.xml",
+      "bytes": 1190,
+      "sha256": "07eebd9e8fb2c33bd22ced0ec1bd2f7e7049dbd0f6ca7e6882e7b335e76c1248",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.StockpotControllerTest.xml",
+      "sourceBytes": 816,
+      "sourceSha256": "a51a875f15b4d7104755a1931139753271ca75b84d2d728a35a4818c79dc5f40",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.StockpotControllerTest.xml",
+      "bytes": 816,
+      "sha256": "a51a875f15b4d7104755a1931139753271ca75b84d2d728a35a4818c79dc5f40",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.block.entity.TeapotControllerTest.xml",
+      "sourceBytes": 1675,
+      "sourceSha256": "06c7d6478de815530978f0e9fa5f52cb7937154125b5f951349e5089f8d508d7",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.block.entity.TeapotControllerTest.xml",
+      "bytes": 1675,
+      "sha256": "06c7d6478de815530978f0e9fa5f52cb7937154125b5f951349e5089f8d508d7",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.catalog.BakedFoodTest.xml",
+      "sourceBytes": 1068,
+      "sourceSha256": "9ff0e87e53eb72c46f763fd00e2965be661cc0a6a6a52a1ab6c833d4f921deef",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.catalog.BakedFoodTest.xml",
+      "bytes": 1068,
+      "sha256": "9ff0e87e53eb72c46f763fd00e2965be661cc0a6a6a52a1ab6c833d4f921deef",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.catalog.CookeryCatalogTest.xml",
+      "sourceBytes": 1100,
+      "sourceSha256": "a374e3c4734b34fe17aff403afdca8514cfafe671b0b634c6a64d799f0e9b0ff",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.catalog.CookeryCatalogTest.xml",
+      "bytes": 1100,
+      "sha256": "a374e3c4734b34fe17aff403afdca8514cfafe671b0b634c6a64d799f0e9b0ff",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.effect.CookeryEffectsTest.xml",
+      "sourceBytes": 21917,
+      "sourceSha256": "317ce420500f9086a4bd3ecc5455be58d7ed30770a3dae5c0595e8de3c69cf45",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.effect.CookeryEffectsTest.xml",
+      "bytes": 21917,
+      "sha256": "317ce420500f9086a4bd3ecc5455be58d7ed30770a3dae5c0595e8de3c69cf45",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.effect.EffectStateTest.xml",
+      "sourceBytes": 1020,
+      "sourceSha256": "08d18c79619c6f4eaec99c4e1d04d3f7eb203df197eab5c3990ff508376938e4",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.effect.EffectStateTest.xml",
+      "bytes": 1020,
+      "sha256": "08d18c79619c6f4eaec99c4e1d04d3f7eb203df197eab5c3990ff508376938e4",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.item.behavior.SickleRangeHarvestBehaviorTest.xml",
+      "sourceBytes": 1639,
+      "sourceSha256": "b18770ddd29c415f859016ecb8fed3a012ed0c10023aba346ce14080ef0a8bf2",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.item.behavior.SickleRangeHarvestBehaviorTest.xml",
+      "bytes": 1639,
+      "sha256": "b18770ddd29c415f859016ecb8fed3a012ed0c10023aba346ce14080ef0a8bf2",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.item.CookeryEnchantmentsTest.xml",
+      "sourceBytes": 1629,
+      "sourceSha256": "2cd34f678872e00730f29c275cecfcea11961d3f061fa5f5df56b3b45eb7e505",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.item.CookeryEnchantmentsTest.xml",
+      "bytes": 1629,
+      "sha256": "2cd34f678872e00730f29c275cecfcea11961d3f061fa5f5df56b3b45eb7e505",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.BambooTrayIndexTest.xml",
+      "sourceBytes": 1120,
+      "sourceSha256": "eecccadfe13ad441d302b294d9db2e2d8b8605aaa21443affcdbaab17509ef84",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.BambooTrayIndexTest.xml",
+      "bytes": 1120,
+      "sha256": "eecccadfe13ad441d302b294d9db2e2d8b8605aaa21443affcdbaab17509ef84",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest.xml",
+      "sourceBytes": 939,
+      "sourceSha256": "62faee3d2557104e859f72dbce5aa0de8a64a93b17324b20fc06dcd45aafd327",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest.xml",
+      "bytes": 939,
+      "sha256": "62faee3d2557104e859f72dbce5aa0de8a64a93b17324b20fc06dcd45aafd327",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayFileEditTest.xml",
+      "sourceBytes": 1336,
+      "sourceSha256": "651c8df4fdcea1903fab4da9cc304bd2ab7cf4537317c12b92e3da38bb67ba36",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayFileEditTest.xml",
+      "bytes": 1336,
+      "sha256": "651c8df4fdcea1903fab4da9cc304bd2ab7cf4537317c12b92e3da38bb67ba36",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayRecipeDraftTest.xml",
+      "sourceBytes": 671,
+      "sourceSha256": "19d3c1ec0777f568af267913b570dd79a37a09be563adcd1c1604839dee57e7b",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayRecipeDraftTest.xml",
+      "bytes": 671,
+      "sha256": "19d3c1ec0777f568af267913b570dd79a37a09be563adcd1c1604839dee57e7b",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.FoodRecipeRegistryBambooTrayTest.xml",
+      "sourceBytes": 998,
+      "sourceSha256": "91d39422f1549220d835d581d8cd25bc7a2fe93a2f3a499d8335e7ded0fc8bdc",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.FoodRecipeRegistryBambooTrayTest.xml",
+      "bytes": 998,
+      "sha256": "91d39422f1549220d835d581d8cd25bc7a2fe93a2f3a499d8335e7ded0fc8bdc",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.PotRecipeTest.xml",
+      "sourceBytes": 1346,
+      "sourceSha256": "d6eec0e8917cf4c30f072dbd60e5b83c76ece784b7176220e42ba7d5766427f6",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.PotRecipeTest.xml",
+      "bytes": 1346,
+      "sha256": "d6eec0e8917cf4c30f072dbd60e5b83c76ece784b7176220e42ba7d5766427f6",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/test-results/test/TEST-net.kaleidoscope.cookery.recipe.StockpotRecipeTest.xml",
+      "sourceBytes": 1490,
+      "sourceSha256": "021e47f5d19d634b974e6c160768671ca5e798a36d4bc26b42762ae24e07ada9",
+      "file": "evidence/junit/cookery/TEST-net.kaleidoscope.cookery.recipe.StockpotRecipeTest.xml",
+      "bytes": 1490,
+      "sha256": "021e47f5d19d634b974e6c160768671ca5e798a36d4bc26b42762ae24e07ada9",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/common/build/test-results/test/TEST-net.kaleidoscope.series.InventoryTradeTest.xml",
+      "sourceBytes": 1980,
+      "sourceSha256": "133ba929fab1e705aca58a8e7ff6a7585362f3671dcfc42bf446210b538a4096",
+      "file": "evidence/junit/common/TEST-net.kaleidoscope.series.InventoryTradeTest.xml",
+      "bytes": 1980,
+      "sha256": "133ba929fab1e705aca58a8e7ff6a7585362f3671dcfc42bf446210b538a4096",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/common/build/test-results/test/TEST-net.kaleidoscope.series.ItemStateTest.xml",
+      "sourceBytes": 625,
+      "sourceSha256": "15ab9d7a822146c5ac50f3ff0920868683acc29d47ce4c349620350538527fd4",
+      "file": "evidence/junit/common/TEST-net.kaleidoscope.series.ItemStateTest.xml",
+      "bytes": 625,
+      "sha256": "15ab9d7a822146c5ac50f3ff0920868683acc29d47ce4c349620350538527fd4",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/common/build/test-results/test/TEST-net.kaleidoscope.series.SavedStateTest.xml",
+      "sourceBytes": 866,
+      "sourceSha256": "1246e2bf780b8f53daa3fdfc6d8e4f7501a463fa9bdff70d0af742971f33e57c",
+      "file": "evidence/junit/common/TEST-net.kaleidoscope.series.SavedStateTest.xml",
+      "bytes": 866,
+      "sha256": "1246e2bf780b8f53daa3fdfc6d8e4f7501a463fa9bdff70d0af742971f33e57c",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/doll/build/test-results/test/TEST-net.kaleidoscope.doll.DollPhysicsTest.xml",
+      "sourceBytes": 714,
+      "sourceSha256": "4aaf9ddba51205bc8057d80dd48d56d3984d99b39ea23cc8d23a07f4e83e8abb",
+      "file": "evidence/junit/doll/TEST-net.kaleidoscope.doll.DollPhysicsTest.xml",
+      "bytes": 714,
+      "sha256": "4aaf9ddba51205bc8057d80dd48d56d3984d99b39ea23cc8d23a07f4e83e8abb",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/doll/build/test-results/test/TEST-net.kaleidoscope.doll.DollPoseTest.xml",
+      "sourceBytes": 562,
+      "sourceSha256": "cc5eb5a1176c9bdd672e7ddc1fc6b298c40465e5577820bab828481e30427330",
+      "file": "evidence/junit/doll/TEST-net.kaleidoscope.doll.DollPoseTest.xml",
+      "bytes": 562,
+      "sha256": "cc5eb5a1176c9bdd672e7ddc1fc6b298c40465e5577820bab828481e30427330",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/doll/build/test-results/test/TEST-net.kaleidoscope.doll.DrawBagTest.xml",
+      "sourceBytes": 912,
+      "sourceSha256": "13bb78b2d5bd9c961922ebed939264cbf3fc1bee0aced4befade575ba1357093",
+      "file": "evidence/junit/doll/TEST-net.kaleidoscope.doll.DrawBagTest.xml",
+      "bytes": 912,
+      "sha256": "13bb78b2d5bd9c961922ebed939264cbf3fc1bee0aced4befade575ba1357093",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.BrewBatchTest.xml",
+      "sourceBytes": 967,
+      "sourceSha256": "419bd0d4ccfefba74ddf4ebea2badfaa44e15125f547acc43babf85d3357c5c0",
+      "file": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.BrewBatchTest.xml",
+      "bytes": 967,
+      "sha256": "419bd0d4ccfefba74ddf4ebea2badfaa44e15125f547acc43babf85d3357c5c0",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.BrewRecipeTest.xml",
+      "sourceBytes": 729,
+      "sourceSha256": "f47a24e21ce9e52b38efefefea7ce65e9cf861d5730882d1e1fa6e903ad2fd14",
+      "file": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.BrewRecipeTest.xml",
+      "bytes": 729,
+      "sha256": "f47a24e21ce9e52b38efefefea7ce65e9cf861d5730882d1e1fa6e903ad2fd14",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.DrinkEffectTest.xml",
+      "sourceBytes": 597,
+      "sourceSha256": "984585c3cd4ef1498c77883fbfe91b327834e198ae474544caa02c9b8c77cb5d",
+      "file": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.DrinkEffectTest.xml",
+      "bytes": 597,
+      "sha256": "984585c3cd4ef1498c77883fbfe91b327834e198ae474544caa02c9b8c77cb5d",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.GrapeGrowthTest.xml",
+      "sourceBytes": 719,
+      "sourceSha256": "d482e745dd61c6513afd1aa8b9a4f06edab864acc747bdd063a9e5190764e0e3",
+      "file": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.GrapeGrowthTest.xml",
+      "bytes": 719,
+      "sha256": "d482e745dd61c6513afd1aa8b9a4f06edab864acc747bdd063a9e5190764e0e3",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.ShakerTimingTest.xml",
+      "sourceBytes": 1374,
+      "sourceSha256": "bd4194643697876549ea15e4c6f9a0e3f0e413e4e97c21f0083333db2e04faac",
+      "file": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.ShakerTimingTest.xml",
+      "bytes": 1374,
+      "sha256": "bd4194643697876549ea15e4c6f9a0e3f0e413e4e97c21f0083333db2e04faac",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.TapSourcesTest.xml",
+      "sourceBytes": 1537,
+      "sourceSha256": "aa92edfca75fb43830d32188d8a4ade5ab10bafed0783921eebb0378f465afa4",
+      "file": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.TapSourcesTest.xml",
+      "bytes": 1537,
+      "sha256": "aa92edfca75fb43830d32188d8a4ade5ab10bafed0783921eebb0378f465afa4",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/tavern/build/test-results/test/TEST-net.kaleidoscope.tavern.TavernCatalogTest.xml",
+      "sourceBytes": 476,
+      "sourceSha256": "893a607a18e26c1d0c5ceccd5809432c3171426481ccd645d74cb462c9fbd4bf",
+      "file": "evidence/junit/tavern/TEST-net.kaleidoscope.tavern.TavernCatalogTest.xml",
+      "bytes": 476,
+      "sha256": "893a607a18e26c1d0c5ceccd5809432c3171426481ccd645d74cb462c9fbd4bf",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/deco/build/test-results/test/TEST-net.kaleidoscope.deco.DecoRuleTest.xml",
+      "sourceBytes": 702,
+      "sourceSha256": "b4bcc3d8057e035d40e5b1de2507b29ae822f8018a06897672f1949c07b83f28",
+      "file": "evidence/junit/deco/TEST-net.kaleidoscope.deco.DecoRuleTest.xml",
+      "bytes": 702,
+      "sha256": "b4bcc3d8057e035d40e5b1de2507b29ae822f8018a06897672f1949c07b83f28",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "series/music/build/test-results/test/TEST-net.kaleidoscope.music.MidiSongTest.xml",
+      "sourceBytes": 1166,
+      "sourceSha256": "2dbbaa0fdb635af55ed2aeba8e9cdf4cbb0a67de5fce0c45be73d0b29ef1e380",
+      "file": "evidence/junit/music/TEST-net.kaleidoscope.music.MidiSongTest.xml",
+      "bytes": 1166,
+      "sha256": "2dbbaa0fdb635af55ed2aeba8e9cdf4cbb0a67de5fce0c45be73d0b29ef1e380",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-series-resources.log",
+      "sourceBytes": 259,
+      "sourceSha256": "cad7a9bd7dbee6da91d91f6795058dac6d58af0df47bec523517d5055e0f1d73",
+      "file": "evidence/handoff-series-resources.log.txt",
+      "bytes": 259,
+      "sha256": "cad7a9bd7dbee6da91d91f6795058dac6d58af0df47bec523517d5055e0f1d73",
+      "conversion": "byte-copy"
+    },
+    {
+      "source": "build/acceptance/handoff-listeners.json",
+      "sourceBytes": 4,
+      "sourceSha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+      "file": "evidence/handoff-listeners.json",
+      "bytes": 4,
+      "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+      "conversion": "byte-copy"
+    }
+  ],
+  "artifacts": {
+    "build/acceptance/cookery-millstone-v2.zip": {
+      "bytes": 2270578,
+      "sha256": "02ad7037bfcb603d3fa26910f80ec7271f26d405269275cdba82055f85099bf1"
+    },
+    "build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar": {
+      "bytes": 1362289,
+      "sha256": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469"
+    },
+    "build/acceptance/probe/CookeryAcceptanceProbe.jar": {
+      "bytes": 61227,
+      "sha256": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c"
+    },
+    "src/main/resources/cookery-parity.json": {
+      "bytes": 483430,
+      "sha256": "d7b5e10c9a6d51f458804d4454ec8eac174f24ce22bb9eda40eea4c50146ba25"
+    }
+  },
+  "limits": [
+    "All-series port remains incomplete",
+    "Historical Folia startup watchdog remains OPEN",
+    "Runtime evidence belongs to 2026-11-06 millstone-v2",
+    "Server worlds, dependency caches, generated packs and JARs are not copied to Git"
+  ],
+  "acceptancePortListeners": []
+}

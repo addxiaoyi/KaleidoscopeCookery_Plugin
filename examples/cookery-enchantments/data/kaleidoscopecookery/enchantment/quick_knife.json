@@ -1,0 +1,11 @@
+{
+  "description": {"text": "快刀"},
+  "supported_items": "#minecraft:swords",
+  "weight": 10,
+  "max_level": 2,
+  "min_cost": {"base": 1, "per_level_above_first": 10},
+  "max_cost": {"base": 6, "per_level_above_first": 10},
+  "anvil_cost": 1,
+  "slots": ["mainhand"],
+  "effects": {}
+}

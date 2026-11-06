@@ -13,7 +13,7 @@ import java.util.List;
  * Fired when a millstone finishes grinding a batch.
  * The millstone can be turned by a player pushing the bar or by a harnessed
  * animal, so {@link #player()} is null in the animal case.
- * Cancelling withholds the products; the batch is still consumed.
+ * Cancelling preserves the raw batch at full progress and blocks automatic retries.
  */
 public class MillstoneGrindCompleteEvent extends Event implements Cancellable {
     private static final HandlerList HANDLER_LIST = new HandlerList();

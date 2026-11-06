@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.tavern.ShakerTimingTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-05T04:01:49.668Z" hostname="ADDXIAOYI9000" time="0.104">
+  <properties/>
+  <testcase name="[1] 0, UNFINISHED" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.03"/>
+  <testcase name="[2] 18, UNFINISHED" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.001"/>
+  <testcase name="[3] 19, MYSTERY" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.001"/>
+  <testcase name="[4] 68, MYSTERY" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.001"/>
+  <testcase name="[5] 69, SIGNATURE" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.001"/>
+  <testcase name="[6] 88, SIGNATURE" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.0"/>
+  <testcase name="[7] 89, RECIPE" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.0"/>
+  <testcase name="[8] 98, RECIPE" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.0"/>
+  <testcase name="[9] 99, MYSTERY" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.0"/>
+  <testcase name="[10] 111, MYSTERY" classname="net.kaleidoscope.tavern.ShakerTimingTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

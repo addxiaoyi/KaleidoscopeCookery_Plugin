@@ -12,6 +12,10 @@ import org.bukkit.inventory.ItemStack;
 
 // 厨具通用给予 取出物品 合并堆叠 放手 掉落及空间预检查
 public final class InventoryUtils {
+    /** Event listeners may mutate a stack; never expose the stored CE item's backing stack. */
+    public static ItemStack bukkitCopy(Item item) {
+        return ItemStackUtils.getBukkitStack(item).clone();
+    }
     private InventoryUtils() {}
 
     // 按 key 建物品 无效 key 收口成空物品 调用方一律用 isEmpty 判断
@@ -27,6 +31,8 @@ public final class InventoryUtils {
         }
         return BukkitItemManager.instance().getBuildableItem(key)
                 .map(buildable -> buildable.buildItem(player))
+                .map(item -> net.kaleidoscope.cookery.item.CookeryFoodItems.bake(item,
+                        net.kaleidoscope.cookery.catalog.QualityProfile.BASE))
                 .orElse(Item.empty());
     }
 

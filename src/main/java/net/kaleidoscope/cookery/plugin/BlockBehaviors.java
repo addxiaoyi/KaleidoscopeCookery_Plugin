@@ -19,6 +19,7 @@ import net.kaleidoscope.cookery.block.behavior.TeacupCoasterBehavior;
 import net.kaleidoscope.cookery.block.behavior.RiceCropBehavior;
 import net.kaleidoscope.cookery.block.behavior.CropHarvestBehavior;
 import net.kaleidoscope.cookery.block.behavior.TableBehavior;
+import net.kaleidoscope.cookery.block.behavior.BambooTrayBehavior;
 
 // 方块行为注册
 public final class BlockBehaviors {
@@ -39,10 +40,15 @@ public final class BlockBehaviors {
     public static BlockBehaviorType<RiceCropBehavior> RICE_CROP;
     public static BlockBehaviorType<CropHarvestBehavior> CROP_HARVEST;
     public static BlockBehaviorType<TableBehavior> TABLE;
+    public static BlockBehaviorType<BambooTrayBehavior> BAMBOO_TRAY;
 
     private BlockBehaviors() {}
 
     public static void register() {
+        if (BAMBOO_TRAY == null) {
+            BAMBOO_TRAY = RegistryUtils.registerBlockBehavior(
+                    Key.of("kaleidoscopecookery:bamboo_tray"), BambooTrayBehavior.FACTORY);
+        }
         if (COOKING_POT == null) {
             COOKING_POT = RegistryUtils.registerBlockBehavior(
                     Key.of("kaleidoscopecookery:cooking_pot"),

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:43.179Z" hostname="ADDXIAOYI9000" time="0.015">
+  <properties/>
+  <testcase name="duplicateNativeEntriesCannotMultiplyTheBonus()" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.001"/>
+  <testcase name="configuredHarvestValuesRemainTheBaseAndCannotWrap()" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.002"/>
+  <testcase name="[1] 0, 1, 2, 1" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.005"/>
+  <testcase name="[2] 1, 2, 3, 2" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.0"/>
+  <testcase name="[3] 2, 4, 4, 4" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.0"/>
+  <testcase name="[4] 3, 4, 5, 8" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.0"/>
+  <testcase name="[5] 255, 4, 5, 8" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.0"/>
+  <testcase name="[6] 2147483647, 4, 5, 8" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.0"/>
+  <testcase name="[7] -2147483648, 1, 2, 1" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.002"/>
+  <testcase name="missingEmptyAndUnrelatedEnchantmentsDoNotActivateTools()" classname="net.kaleidoscope.cookery.item.CookeryEnchantmentsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

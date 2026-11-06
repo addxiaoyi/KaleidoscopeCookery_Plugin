@@ -1,0 +1,56 @@
+FFFFF.
+======================================================================
+FAIL: test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping (test_cookery_millstone.MillstoneMeshTest.test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping) (pose='PartPose.offset(1.0F, 3.0F, 0.0F)')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\qwq\��Ŀ\luosen-plugins\luosengchufang\tools\test_cookery_millstone.py", line 24, in test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping
+    with self.subTest(pose=new), self.assertRaisesRegex(AuditError, 'parent transform'):
+AssertionError: AuditError not raised
+
+======================================================================
+FAIL: test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping (test_cookery_millstone.MillstoneMeshTest.test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping) (pose='PartPose.offset(0.0F, 0.0F, 1.0F)')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\qwq\��Ŀ\luosen-plugins\luosengchufang\tools\test_cookery_millstone.py", line 24, in test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping
+    with self.subTest(pose=new), self.assertRaisesRegex(AuditError, 'parent transform'):
+AssertionError: AuditError not raised
+
+======================================================================
+FAIL: test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping (test_cookery_millstone.MillstoneMeshTest.test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping) (pose='PartPose.offset(0.0F, 5.0F, 0.0F)')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\qwq\��Ŀ\luosen-plugins\luosengchufang\tools\test_cookery_millstone.py", line 24, in test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping
+    with self.subTest(pose=new), self.assertRaisesRegex(AuditError, 'parent transform'):
+AssertionError: AuditError not raised
+
+======================================================================
+FAIL: test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping (test_cookery_millstone.MillstoneMeshTest.test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping) (pose='PartPose.offsetAndRotation(0.0F, 3.0F, 0.0F, 0.0F, 0.5F, 0.0F)')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\qwq\��Ŀ\luosen-plugins\luosengchufang\tools\test_cookery_millstone.py", line 24, in test_parent_pivots_cannot_change_without_an_explicit_anchor_mapping
+    with self.subTest(pose=new), self.assertRaisesRegex(AuditError, 'parent transform'):
+AssertionError: AuditError not raised
+
+======================================================================
+FAIL: test_roll_bounds_and_texture_faces_keep_source_dimensions (test_cookery_millstone.MillstoneMeshTest.test_roll_bounds_and_texture_faces_keep_source_dimensions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\qwq\��Ŀ\luosen-plugins\luosengchufang\tools\test_cookery_millstone.py", line 33, in test_roll_bounds_and_texture_faces_keep_source_dimensions
+    self.assertEqual([11.25, 1.75, 12.75, 0], mesh['faces']['up']['uv'])
+AssertionError: Lists differ: [11.25, 1.75, 12.75, 0] != [11.25, 0.0, 12.75, 1.75]
+
+First differing element 1:
+1.75
+0.0
+
+- [11.25, 1.75, 12.75, 0]
+?         ^ ^^         ^
+
++ [11.25, 0.0, 12.75, 1.75]
+?         ^ ^         ^^^^
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.083s
+
+FAILED (failures=5)

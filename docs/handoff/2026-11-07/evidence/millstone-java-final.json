@@ -1,0 +1,170 @@
+{
+  "tests": 132,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "suites": [
+    {
+      "name": "net.kaleidoscope.cookery.block.behavior.PotServingTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest",
+      "tests": "8",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest",
+      "tests": "12",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.block.entity.MillstoneControllerTest",
+      "tests": "14",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.block.entity.PotControllerTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.block.entity.StockpotControllerTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.block.entity.TeapotControllerTest",
+      "tests": "10",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.catalog.BakedFoodTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.catalog.CookeryCatalogTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.effect.CookeryEffectsTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.effect.EffectStateTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.item.behavior.SickleRangeHarvestBehaviorTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.item.CookeryEnchantmentsTest",
+      "tests": "10",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.recipe.BambooTrayIndexTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.recipe.edit.BambooTrayFileEditTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.recipe.edit.BambooTrayRecipeDraftTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.recipe.FoodRecipeRegistryBambooTrayTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.recipe.PotRecipeTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "net.kaleidoscope.cookery.recipe.StockpotRecipeTest",
+      "tests": "8",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "xmlSha256": {
+    "TEST-net.kaleidoscope.cookery.block.behavior.PotServingTest.xml": "80cce3cf41911cee10cccc0b6e2d7476c9c51d2ca509f6a093a51a36ebb855b9",
+    "TEST-net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest.xml": "2168f2dbb9b8dd722c8beeeeb2452d3a183d7981cf6055e24390f1c9fde505ad",
+    "TEST-net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest.xml": "e19b8fd6d5aa56997fbfc1e45483f6d14b3d3da157177a01f44345c909a7118e",
+    "TEST-net.kaleidoscope.cookery.block.entity.MillstoneControllerTest.xml": "dc5f472bb68f61698a614ef72f5deb862156ab5a47a0b6747e4fdda9d1062d06",
+    "TEST-net.kaleidoscope.cookery.block.entity.PotControllerTest.xml": "07eebd9e8fb2c33bd22ced0ec1bd2f7e7049dbd0f6ca7e6882e7b335e76c1248",
+    "TEST-net.kaleidoscope.cookery.block.entity.StockpotControllerTest.xml": "a51a875f15b4d7104755a1931139753271ca75b84d2d728a35a4818c79dc5f40",
+    "TEST-net.kaleidoscope.cookery.block.entity.TeapotControllerTest.xml": "06c7d6478de815530978f0e9fa5f52cb7937154125b5f951349e5089f8d508d7",
+    "TEST-net.kaleidoscope.cookery.catalog.BakedFoodTest.xml": "9ff0e87e53eb72c46f763fd00e2965be661cc0a6a6a52a1ab6c833d4f921deef",
+    "TEST-net.kaleidoscope.cookery.catalog.CookeryCatalogTest.xml": "a374e3c4734b34fe17aff403afdca8514cfafe671b0b634c6a64d799f0e9b0ff",
+    "TEST-net.kaleidoscope.cookery.effect.CookeryEffectsTest.xml": "317ce420500f9086a4bd3ecc5455be58d7ed30770a3dae5c0595e8de3c69cf45",
+    "TEST-net.kaleidoscope.cookery.effect.EffectStateTest.xml": "08d18c79619c6f4eaec99c4e1d04d3f7eb203df197eab5c3990ff508376938e4",
+    "TEST-net.kaleidoscope.cookery.item.behavior.SickleRangeHarvestBehaviorTest.xml": "b18770ddd29c415f859016ecb8fed3a012ed0c10023aba346ce14080ef0a8bf2",
+    "TEST-net.kaleidoscope.cookery.item.CookeryEnchantmentsTest.xml": "2cd34f678872e00730f29c275cecfcea11961d3f061fa5f5df56b3b45eb7e505",
+    "TEST-net.kaleidoscope.cookery.recipe.BambooTrayIndexTest.xml": "eecccadfe13ad441d302b294d9db2e2d8b8605aaa21443affcdbaab17509ef84",
+    "TEST-net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest.xml": "62faee3d2557104e859f72dbce5aa0de8a64a93b17324b20fc06dcd45aafd327",
+    "TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayFileEditTest.xml": "651c8df4fdcea1903fab4da9cc304bd2ab7cf4537317c12b92e3da38bb67ba36",
+    "TEST-net.kaleidoscope.cookery.recipe.edit.BambooTrayRecipeDraftTest.xml": "19d3c1ec0777f568af267913b570dd79a37a09be563adcd1c1604839dee57e7b",
+    "TEST-net.kaleidoscope.cookery.recipe.FoodRecipeRegistryBambooTrayTest.xml": "91d39422f1549220d835d581d8cd25bc7a2fe93a2f3a499d8335e7ded0fc8bdc",
+    "TEST-net.kaleidoscope.cookery.recipe.PotRecipeTest.xml": "d6eec0e8917cf4c30f072dbd60e5b83c76ece784b7176220e42ba7d5766427f6",
+    "TEST-net.kaleidoscope.cookery.recipe.StockpotRecipeTest.xml": "021e47f5d19d634b974e6c160768671ca5e798a36d4bc26b42762ae24e07ada9"
+  }
+}

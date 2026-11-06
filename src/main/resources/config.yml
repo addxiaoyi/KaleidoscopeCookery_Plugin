@@ -42,7 +42,7 @@ recipe_menu:
   #   next_page: "minecraft:feather"
 
   # 厨具的图标与显示名。两项都可以只写其中一个。
-  # 可用的厨具名：pot、stockpot、steamer、shawarma、millstone、chopping_board、teapot
+  # 可用的厨具名：pot、stockpot、steamer、shawarma、millstone、chopping_board、teapot、bamboo_tray
   appliances: {}
   # 示例：
   # appliances:
@@ -65,6 +65,7 @@ recipe_menu:
   #   detail_flex       模糊食谱 - <recipe>
   #   detail_chopping   砧板食谱 - <recipe>
   #   detail_teapot     茶壶食谱 - <recipe>
+  #   detail_bamboo_tray 竹筛食谱 - <recipe>
   #   soup_base         汤底表 - 共 <count> 种
   titles: {}
   # 示例：

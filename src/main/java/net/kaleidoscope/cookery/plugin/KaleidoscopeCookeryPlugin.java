@@ -59,6 +59,8 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
 
     // 各 region 线程都会读 onEnable 的写入靠 volatile 保证可见
     private static volatile KaleidoscopeCookeryPlugin instance;
+    private net.kaleidoscope.cookery.effect.CookeryEffects cookeryEffects;
+    private net.kaleidoscope.cookery.item.listener.CookeryConsumeListener cookeryConsumption;
     private AntiGriefLib antiGrief;
     private Metrics metrics;
     private Object placeholderExpansion;
@@ -69,6 +71,13 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        var cookeryCatalog = net.kaleidoscope.cookery.catalog.CookeryCatalog.bundled();
+        net.kaleidoscope.cookery.item.CookeryFoodItems.initialize(cookeryCatalog);
+        cookeryEffects = new net.kaleidoscope.cookery.effect.CookeryEffects(this);
+        cookeryConsumption = new net.kaleidoscope.cookery.item.listener.CookeryConsumeListener(this, cookeryEffects);
+        getServer().getPluginManager().registerEvents(cookeryEffects, this);
+        getServer().getPluginManager().registerEvents(cookeryConsumption, this);
+        getServer().getPluginManager().registerEvents(new net.kaleidoscope.cookery.effect.KitchenEffectEvents(this, cookeryEffects), this);
         warmUpShutdownClasses();
         saveDefaultConfig();
         ConsoleMessages.load(this);
@@ -126,6 +135,7 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (cookeryEffects != null) cookeryEffects.close();
         net.kaleidoscope.cookery.recipe.edit.RecipeEditService.close();
         net.kaleidoscope.cookery.recipe.RecipeLoadRecovery.close();
         net.kaleidoscope.cookery.recipe.FoodRecipeRegistry.instance().close();
@@ -257,6 +267,10 @@ public final class KaleidoscopeCookeryPlugin extends JavaPlugin {
 
     public static KaleidoscopeCookeryPlugin instance() {
         return instance;
+    }
+
+    public net.kaleidoscope.cookery.item.listener.CookeryConsumeListener cookeryConsumption() {
+        return cookeryConsumption;
     }
 
     public static AntiGriefLib antiGrief() {

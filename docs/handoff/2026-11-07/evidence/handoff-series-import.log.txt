@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "D:\qwq\��Ŀ\luosen-plugins\luosengchufang\series\tools\import_sources.py", line 611, in <module>
+    main()
+  File "D:\qwq\��Ŀ\luosen-plugins\luosengchufang\series\tools\import_sources.py", line 556, in main
+    catalog, definitions, assets, pending = converter(source)
+                                            ^^^^^^^^^^^^^^^^^
+  File "D:\qwq\��Ŀ\luosen-plugins\luosengchufang\series\tools\import_sources.py", line 455, in deco
+    indexes, templates, tables, pending = deco_indexes(source)
+                                          ^^^^^^^^^^^^^^^^^^^^
+  File "D:\qwq\��Ŀ\luosen-plugins\luosengchufang\series\tools\import_sources.py", line 373, in deco_indexes
+    import nbtlib
+ModuleNotFoundError: No module named 'nbtlib'

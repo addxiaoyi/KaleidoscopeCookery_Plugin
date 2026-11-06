@@ -21,6 +21,10 @@ repositories {
     // Spigot BuildTools installs the version-specific NMS dependencies here.
     mavenLocal()
     mavenCentral()
+    exclusiveContent {
+        forRepository { maven { url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup('maven.modrinth') }
+    }
     maven {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
@@ -59,6 +63,20 @@ nmsVersions.each { sourceSetName, version ->
 }
 
 dependencies {
+    testImplementation(platform('org.junit:junit-bom:5.11.4'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation('org.mockito:mockito-core:5.15.2')
+    testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+    testImplementation("net.momirealms:craft-engine-core:${craftEngineVersion}")
+    testImplementation("net.momirealms:craft-engine-bukkit:${craftEngineVersion}")
+    testRuntimeOnly('io.netty:netty-all:4.1.100.Final')
+    // CE's published APIs omit relocated classes used by Player method signatures.
+    testRuntimeOnly("maven.modrinth:craftengine:${craftEngineVersion}")
+    testRuntimeOnly('com.mojang:authlib:7.0.61')
+    // CE's block API reads /version.json through a Minecraft class at initialization.
+    testRuntimeOnly('org.spigotmc:spigot:1.21.11-R0.1-SNAPSHOT:remapped-mojang') { transitive = false }
+    testRuntimeOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
     // Optional runtime plugin: never bundle its API or implementation.
     def ultimateApiJar = providers.gradleProperty('ultimateAdvancementApiJar').orNull
     if (ultimateApiJar != null) {
@@ -83,7 +101,6 @@ dependencies {
     compileOnly("net.momirealms:sparrow-heart:0.69")
     compileOnly("net.momirealms:sparrow-metadata:1.13")
     compileOnly("net.momirealms:sparrow-reflection:0.31")
-    compileOnly("net.momirealms:sparrow-reflection-proxy-scanner:1.1")
     compileOnly("me.clip:placeholderapi:2.11.6")
     implementation("net.momirealms:antigrieflib:1.0.11")
     implementation("org.bstats:bstats-bukkit:3.2.1")
@@ -97,6 +114,11 @@ dependencies {
             transitive = false
         }
     }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    systemProperty 'file.encoding', 'UTF-8'
 }
 
 shadowJar {
@@ -139,6 +161,8 @@ nmsVersions.each { sourceSetName, version ->
 }
 
 tasks.withType(Javadoc).configureEach {
+    // Javadoc parses Gradle's option file inside its own JVM.
+    options.jFlags('-Dfile.encoding=COMPAT')
     options.encoding = 'UTF-8'
     options.charSet = 'UTF-8'
     options.addBooleanOption('Xdoclint:none', true)
@@ -151,4 +175,16 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+// Explicit local acceptance fixture; never included in the distributable plugin.
+sourceSets.create('acceptance') {
+    compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+}
+
+tasks.register('acceptanceJar', Jar) {
+    dependsOn(tasks.named('acceptanceClasses'))
+    from(sourceSets.acceptance.output)
+    archiveFileName.set('CookeryAcceptanceProbe.jar')
+    destinationDirectory.set(layout.buildDirectory.dir('acceptance/probe'))
 }

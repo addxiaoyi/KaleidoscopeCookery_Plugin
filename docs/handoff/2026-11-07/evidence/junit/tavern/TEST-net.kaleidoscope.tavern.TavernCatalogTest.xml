@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.tavern.TavernCatalogTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-05T04:01:54.900Z" hostname="ADDXIAOYI9000" time="0.329">
+  <properties/>
+  <testcase name="packagedCatalogHasAllRecipeFamiliesAndEffectTags()" classname="net.kaleidoscope.tavern.TavernCatalogTest" time="0.327"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

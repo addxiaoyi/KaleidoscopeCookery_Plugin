@@ -8,8 +8,12 @@ import net.kaleidoscope.cookery.api.ui.RecipeMenuStyle;
 import net.kaleidoscope.cookery.recipe.AccurateFoodRecipe;
 import net.kaleidoscope.cookery.recipe.ApplianceType;
 import net.kaleidoscope.cookery.recipe.FlexFoodRecipe;
+import net.kaleidoscope.cookery.recipe.StockpotRecipe;
+import net.kaleidoscope.cookery.recipe.PotRecipe;
 import net.kaleidoscope.cookery.recipe.ChoppingBoardRecipe;
 import net.kaleidoscope.cookery.recipe.TeapotRecipe;
+import net.kaleidoscope.cookery.recipe.BambooTrayRecipe;
+import net.kaleidoscope.cookery.recipe.edit.BambooTrayRecipeDraft;
 import net.kaleidoscope.cookery.recipe.edit.ChoppingRecipeDraft;
 import net.kaleidoscope.cookery.recipe.edit.TeapotRecipeDraft;
 import net.kaleidoscope.cookery.recipe.FoodRecipeRegistry;
@@ -53,7 +57,12 @@ public final class RecipeListMenu {
         List<TeapotRecipe> teapot = cook == ApplianceType.TEAPOT
                 ? (editable ? FoodRecipeRegistry.instance().menuTeapotRecipes()
                 : FoodRecipeRegistry.instance().teapotRecipes()) : List.of();
-        int total = accurate.size() + flex.size() + chopping.size() + teapot.size();
+        List<BambooTrayRecipe> trays = cook == ApplianceType.BAMBOO_TRAY
+                ? (editable ? FoodRecipeRegistry.instance().menuBambooTrayRecipes()
+                : FoodRecipeRegistry.instance().bambooTrayRecipes()) : List.of();
+        List<StockpotRecipe> soups = cook == ApplianceType.STOCKPOT ? FoodRecipeRegistry.instance().stockpotRecipes() : List.of();
+        List<PotRecipe> pots = cook == ApplianceType.POT ? FoodRecipeRegistry.instance().potRecipes() : List.of();
+        int total = accurate.size() + flex.size() + chopping.size() + teapot.size() + trays.size() + soups.size() + pots.size();
 
         GuiLayout layout = new GuiLayout(
                 "#########",
@@ -75,7 +84,7 @@ public final class RecipeListMenu {
                 : MenuIcons.filler(viewer)));
 
         LazyPagedGui gui = new LazyPagedGui(layout, RecipeMenus.inventoryGuard(), total,
-                (from, count) -> loadPage(bukkitPlayer, viewer, accurate, flex, chopping, teapot, from, count, editable));
+                (from, count) -> loadPage(bukkitPlayer, viewer, accurate, flex, chopping, teapot, trays, soups, pots, from, count, editable));
         gui.title(RecipeMenuStyle.instance().title(
                         editable ? MenuScreen.LIST_EDIT : MenuScreen.LIST_BROWSE,
                         "appliance", MenuIcons.displayName(cook), "count", String.valueOf(total)))
@@ -87,6 +96,8 @@ public final class RecipeListMenu {
     private static List<ItemWithAction> loadPage(org.bukkit.entity.Player bukkitPlayer, Player viewer,
                                                  List<AccurateFoodRecipe> accurate, List<FlexFoodRecipe> flex,
                                                  List<ChoppingBoardRecipe> chopping, List<TeapotRecipe> teapot,
+                                                 List<BambooTrayRecipe> trays, List<StockpotRecipe> soups,
+                                                 List<PotRecipe> pots,
                                                  int from, int count, boolean editable) {
         List<ItemWithAction> page = new ArrayList<>(count);
         for (int i = from; i < from + count; i++) {
@@ -105,7 +116,30 @@ public final class RecipeListMenu {
                 page.add(choppingEntry(bukkitPlayer, viewer, chopping.get(idx), editable));
                 continue;
             }
-            page.add(teapotEntry(bukkitPlayer, viewer, teapot.get(idx - chopping.size()), editable));
+            idx -= chopping.size();
+            if (idx < teapot.size()) {
+                page.add(teapotEntry(bukkitPlayer, viewer, teapot.get(idx), editable));
+                continue;
+            }
+            idx -= teapot.size();
+            if (idx < trays.size()) {
+                page.add(bambooTrayEntry(bukkitPlayer, viewer, trays.get(idx), editable));
+                continue;
+            }
+            idx -= trays.size();
+            if (idx < soups.size()) {
+                StockpotRecipe soup = soups.get(idx);
+                page.add(new ItemWithAction(MenuIcons.nativePreview(soup.result(), viewer), (element, click) -> {
+                    click.cancel();
+                    RecipeDetailMenu.openStockpot(bukkitPlayer, soup, () -> open(bukkitPlayer, ApplianceType.STOCKPOT, editable));
+                }));
+                continue;
+            }
+            PotRecipe pot = pots.get(idx - soups.size());
+            page.add(new ItemWithAction(MenuIcons.nativePreview(pot.result(), viewer), (element, click) -> {
+                click.cancel();
+                RecipeDetailMenu.openPot(bukkitPlayer, pot, () -> open(bukkitPlayer, ApplianceType.POT, editable));
+            }));
         }
         return page;
     }
@@ -135,6 +169,20 @@ public final class RecipeListMenu {
             } else {
                 RecipeDetailMenu.openTeapot(bukkitPlayer, recipe,
                         () -> open(bukkitPlayer, ApplianceType.TEAPOT, false));
+            }
+        });
+    }
+
+    private static ItemWithAction bambooTrayEntry(org.bukkit.entity.Player bukkitPlayer, Player viewer,
+                                                   BambooTrayRecipe recipe, boolean editable) {
+        Item icon = MenuIcons.nativePreview(recipe.result(), viewer);
+        return new ItemWithAction(icon, (element, click) -> {
+            click.cancel();
+            if (editable) {
+                BambooTrayEditMenu.open(bukkitPlayer, BambooTrayRecipeDraft.editing(recipe));
+            } else {
+                RecipeDetailMenu.openBambooTray(bukkitPlayer, recipe,
+                        () -> open(bukkitPlayer, ApplianceType.BAMBOO_TRAY, false));
             }
         });
     }

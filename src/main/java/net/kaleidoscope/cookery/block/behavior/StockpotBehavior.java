@@ -52,7 +52,6 @@ import net.kaleidoscope.cookery.item.ItemKeys;
 import net.kaleidoscope.cookery.item.ItemMatch;
 import net.kaleidoscope.cookery.item.ItemNames;
 import net.kaleidoscope.cookery.recipe.ApplianceType;
-import net.kaleidoscope.cookery.recipe.FlexFoodRecipe;
 import net.kaleidoscope.cookery.recipe.ApplianceFoodRegistry;
 import net.kaleidoscope.cookery.recipe.FoodRecipeRegistry;
 import net.kaleidoscope.cookery.recipe.SoupBaseRegistry;
@@ -214,10 +213,14 @@ public final class StockpotBehavior extends BukkitBlockBehavior implements Entit
                                              InteractionHand hand, Item itemInHand) {
         // 放入汤底
         if (SoupBaseRegistry.instance().isSoupBase(itemInHand.id())) {
+            Item returned = player.canInstabuild() ? Item.empty() : InventoryUtils.createOrEmpty(ItemKeys.BUCKET);
+            if (!player.canInstabuild() && returned.isEmpty()) return InteractionResult.FAIL;
             if (controller.addSoupBase(itemInHand.id(), HeatSourceUtils.isHeatSourceBelow(context))) {
                 KaleidoscopeAdvancements.recordEvent(player, "put_soup_base_in_stockpot");
-                InventoryUtils.shrinkHeld(player, itemInHand, 1);
-                InventoryUtils.giveOrHold(player, hand, InventoryUtils.createOrEmpty(ItemKeys.BUCKET));
+                if (!player.canInstabuild()) {
+                    InventoryUtils.shrinkHeld(player, itemInHand, 1);
+                    InventoryUtils.giveOrHold(player, hand, returned);
+                }
                 player.swingHand(hand);
                 return InteractionResult.SUCCESS_AND_CANCEL;
             }
@@ -228,8 +231,10 @@ public final class StockpotBehavior extends BukkitBlockBehavior implements Entit
             if (controller.stage() == StockpotStage.PUT_INGREDIENT && controller.ingredients().isEmpty()) {
                 Item extractedSoup = controller.extractSoupBase();
                 if (extractedSoup != null) {
-                    InventoryUtils.shrinkHeld(player, itemInHand, 1);
-                    InventoryUtils.giveOrHold(player, hand, extractedSoup);
+                    if (!player.canInstabuild()) {
+                        InventoryUtils.shrinkHeld(player, itemInHand, 1);
+                        InventoryUtils.giveOrHold(player, hand, extractedSoup);
+                    }
                     player.swingHand(hand);
                     return InteractionResult.SUCCESS_AND_CANCEL;
                 }
@@ -281,16 +286,15 @@ public final class StockpotBehavior extends BukkitBlockBehavior implements Entit
         if (ingredientIds == null) {
             return InteractionResult.PASS;
         }
-        FlexFoodRecipe matchedRecipe = FoodRecipeRegistry.instance()
-                .findBestFlexRecipe(ApplianceType.STOCKPOT, ingredientIds, controller.soupBaseId())
-                .orElse(null);
-        if (matchedRecipe == null) {
+        var plan = FoodRecipeRegistry.instance().planStockpot(ingredientIds, controller.soupBaseId(), cookingTime);
+        if (!plan.valid() || !plan.matched()) {
             player.sendActionBar(Localization.component(MessageKeys.STOCKPOT_NO_RECIPE));
             return InteractionResult.SUCCESS_AND_CANCEL;
         }
         Item hasRecipeItem = InventoryUtils.createOrEmpty(recipeItemHasRecipe);
+        if (hasRecipeItem.isEmpty()) return InteractionResult.FAIL;
         ItemStack recorded = ItemStackUtils.getBukkitStack(hasRecipeItem.minecraftItem());
-        RecipeUtils.setRecipeItem(recorded, matchedRecipe.id(), "flex", ingredientIds, controller.soupBaseId());
+        RecipeUtils.setRecipeItem(recorded, plan.recipeId(), plan.stockpotVisuals() == null ? "flex" : "stockpot", ingredientIds, controller.soupBaseId());
         InventoryUtils.shrinkHeld(player, itemInHand, 1);
         Item ceRecorded = BukkitItemManager.instance().wrap(recorded);
         InventoryUtils.giveOrHold(player, hand, ceRecorded);
@@ -354,12 +358,15 @@ public final class StockpotBehavior extends BukkitBlockBehavior implements Entit
         Location loc = new Location((org.bukkit.World) world.world().platformWorld(), pos.x, pos.y, pos.z);
         StockpotExtractDishEvent event = new StockpotExtractDishEvent(
                 (org.bukkit.entity.Player) player.platformPlayer(), loc, dish);
+        int servings = controller.takeoutCount();
         if (EventUtils.fireAndCheckCancel(event)) {
             return InteractionResult.SUCCESS_AND_CANCEL;
         }
         // 事件已经发出去了 监听器可能已有副作用 这里不能再返回 PASS 让原版接管
-        controller.takeOutResult();
+        if (controller.takeoutCount() != servings || controller.peekResult().isEmpty()
+                || event.dish() == null || event.dish().isEmpty()) return InteractionResult.SUCCESS_AND_CANCEL;
         Item finalResult = BukkitItemManager.instance().wrap(event.dish());
+        if (finalResult.isEmpty() || controller.takeOutResult().isEmpty()) return InteractionResult.SUCCESS_AND_CANCEL;
         // 空手盛出的菜不扣任何东西
         if (carrier != null) {
             InventoryUtils.shrinkHeld(player, itemInHand, 1);

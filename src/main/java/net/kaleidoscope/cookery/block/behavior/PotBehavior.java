@@ -48,7 +48,6 @@ import net.kaleidoscope.cookery.item.ItemMatch;
 import net.kaleidoscope.cookery.item.ItemNames;
 import net.kaleidoscope.cookery.item.KitchenShovel;
 import net.kaleidoscope.cookery.recipe.ApplianceType;
-import net.kaleidoscope.cookery.recipe.FlexFoodRecipe;
 import net.kaleidoscope.cookery.recipe.ApplianceFoodRegistry;
 import net.kaleidoscope.cookery.recipe.FoodRecipeRegistry;
 import net.kaleidoscope.cookery.util.RecipeUtils;
@@ -175,31 +174,53 @@ public final class PotBehavior extends BukkitBlockBehavior implements EntityBloc
 
     // 用碗盛出成品 有多少碗盛多少份
     private InteractionResult handleExtractDish(UseOnContext context, PotController controller, Player player, InteractionHand hand) {
+        if (!controller.beginServing()) return InteractionResult.SUCCESS_AND_CANCEL;
+        try {
+            return extractDish(context, controller, player, hand);
+        } finally {
+            controller.endServing();
+        }
+    }
+
+    private InteractionResult extractDish(UseOnContext context, PotController controller, Player player, InteractionHand hand) {
         // 先预览再发事件 事件取消时不能已经扣掉份数
         Item preview = controller.peekResult();
         // 锅里没成品 这次右键什么都没做 交回原版
         if (preview.isEmpty()) return InteractionResult.PASS;
 
+        Key carrier = controller.resultCarrier();
+        int available = controller.resultCount();
+
         BlockPos pos = context.getClickedPos();
         Location dishLoc = new Location((World) context.getLevel().platformWorld(), pos.x(), pos.y(), pos.z());
-        ItemStack dishStack = ItemStackUtils.getBukkitStack(preview.minecraftItem());
+        ItemStack dishStack = (ItemStack) preview.platformItem();
         PotExtractDishEvent event = new PotExtractDishEvent((org.bukkit.entity.Player) player.platformPlayer(), dishLoc, dishStack);
         if (EventUtils.fireAndCheckCancel(event)) {
             return InteractionResult.SUCCESS_AND_CANCEL;
         }
+        if (event.dish() == null || event.dish().isEmpty() || controller.resultCount() != available
+                || !java.util.Objects.equals(controller.resultCarrier(), carrier)) {
+            return InteractionResult.SUCCESS_AND_CANCEL;
+        }
         Item dish = BukkitItemManager.instance().wrap(event.dish());
+        if (dish.isEmpty()) return InteractionResult.SUCCESS_AND_CANCEL;
 
-        Key carrier = controller.resultCarrier();
-        int available = controller.resultCount();
+        return serveDish(controller, player, hand, dish, carrier, available);
+    }
+
+    InteractionResult serveDish(PotController controller, Player player, InteractionHand hand,
+                                Item dish, Key carrier, int available) {
         int taken = 0;
         // carrier 为空的菜空手就能拿 不扣任何东西 有容器的每份扣一个
-        while (taken < available && (carrier == null || InventoryUtils.consumeItem(player, carrier, 1))) {
+        while (taken < available && controller.resultCount() == available - taken
+                && java.util.Objects.equals(controller.resultCarrier(), carrier)
+                && (carrier == null || InventoryUtils.consumeItem(player, carrier, 1))) {
+            controller.consumeResult(1);
             InventoryUtils.giveOrHold(player, hand, dish.copyWithCount(1));
             taken++;
         }
 
         if (taken > 0) {
-            controller.consumeResult(taken);
             player.swingHand(hand);
         } else {
             player.sendActionBar(carrier == null
@@ -342,14 +363,16 @@ public final class PotBehavior extends BukkitBlockBehavior implements EntityBloc
             return InteractionResult.SUCCESS_AND_CANCEL;
         }
         List<Key> ingredientIds = controller.ingredients().stream().map(Item::id).toList();
-        FlexFoodRecipe matchedRecipe = FoodRecipeRegistry.instance().findBestFlexRecipe(ApplianceType.POT, ingredientIds).orElse(null);
-        if (matchedRecipe == null) {
+        var plan = FoodRecipeRegistry.instance().planPot(ingredientIds, stirFryCount);
+        if (!plan.valid() || !plan.matched()) {
             player.sendActionBar(Localization.component(MessageKeys.POT_MIXED_NO_RECIPE));
             return InteractionResult.SUCCESS_AND_CANCEL;
         }
         Item recipeItem = InventoryUtils.createOrEmpty(recipeItemHasRecipe);
+        if (recipeItem.isEmpty()) return InteractionResult.SUCCESS_AND_CANCEL;
         ItemStack recorded = ItemStackUtils.getBukkitStack(recipeItem.minecraftItem());
-        RecipeUtils.setRecipeItem(recorded, matchedRecipe.id(), "flex", ingredientIds, null);
+        String recipeType = FoodRecipeRegistry.instance().findPotById(plan.recipeId()) == null ? "flex" : "pot";
+        RecipeUtils.setRecipeItem(recorded, plan.recipeId(), recipeType, ingredientIds, null);
         InventoryUtils.shrinkHeld(player, itemInHand, 1);
         InventoryUtils.giveOrHold(player, hand, BukkitItemManager.instance().wrap(recorded));
         player.swingHand(hand);

@@ -10,6 +10,7 @@ import net.kaleidoscope.cookery.recipe.ChoppingMode;
 import net.kaleidoscope.cookery.recipe.ChoppingResult;
 import net.kaleidoscope.cookery.recipe.FlexFoodRecipe;
 import net.kaleidoscope.cookery.recipe.TeapotRecipe;
+import net.kaleidoscope.cookery.recipe.BambooTrayRecipe;
 import net.kaleidoscope.cookery.recipe.FoodRecipeRegistry;
 import net.kaleidoscope.cookery.recipe.SoupBaseRegistry;
 import net.kaleidoscope.cookery.recipe.WeightedResult;
@@ -50,6 +51,7 @@ public final class RecipeEditService {
 
     // 校验失败返回错误文案 通过返回 null 调用方据此提示玩家
     public static String validate(AccurateRecipeDraft draft) {
+        if (draft.cook() == ApplianceType.BAMBOO_TRAY) return "竹筛使用独立配方，请从竹筛菜单新建";
         String idError = validateId(draft.id());
         if (idError != null) {
             return idError;
@@ -68,6 +70,7 @@ public final class RecipeEditService {
     }
 
     public static String validate(FlexRecipeDraft draft) {
+        if (!draft.cook().usesFlexRecipes()) return "该厨具不支持模糊配方";
         String idError = validateId(draft.id());
         if (idError != null) {
             return idError;
@@ -217,7 +220,38 @@ public final class RecipeEditService {
                 RecipeFileStore::defaultTeapotFile, teapotNode(draft));
     }
 
-    // 四类配方保存走同一条路 差异只在 kind sections 默认文件与写盘节点
+    public static String validate(BambooTrayRecipeDraft draft) {
+        String idError = validateId(draft.id());
+        if (idError != null) return idError;
+        if (isTakenId(draft.id(), draft.originalId(),
+                key -> RecipeSourceIndex.instance().hasSource(RecipeSourceIndex.Kind.BAMBOO_TRAY, key))) {
+            return "该 id 已被占用";
+        }
+        if (draft.input() == null || draft.input().isBlank()) return "请先设置原料或食材标签";
+        if (draft.result() == null) return "请先设置成品";
+        if (draft.mode() == null) return "请选择晾晒或淋湿模式";
+        if (draft.durationTicks() < 1) return "加工时间必须为正整数 tick";
+        if (draft.resultCount() < 1 || draft.resultCount() > BambooTrayRecipeDraft.MAX_COUNT) {
+            return "产出数量必须为 1 到 2147483647";
+        }
+        try {
+            net.kaleidoscope.cookery.recipe.FoodRecipeManager.validateBambooTrayRecipe(draft.toRecipe(), "竹筛配方");
+        } catch (IllegalArgumentException exception) {
+            return "竹筛配方无效：" + exception.getMessage();
+        }
+        return null;
+    }
+
+    public static CompletableFuture<String> saveBambooTray(BambooTrayRecipeDraft draft) {
+        String error = validate(draft);
+        if (error != null) return CompletableFuture.completedFuture(error);
+        BambooTrayRecipe recipe = draft.toRecipe();
+        return saveRecipe(recipe.id(), draft.originalId(), recipe, draft.originalRecipe(),
+                RecipeSourceIndex.Kind.BAMBOO_TRAY, RecipeFileStore.bambooTraySections(),
+                RecipeFileStore::defaultBambooTrayFile, bambooTrayNode(recipe));
+    }
+
+    // 配方保存共用一条链路，差异在 kind、sections、默认文件与写盘节点。
     // 运行时的增删都按 kind 与实际类型分派 见 removeRuntime registerRuntime removeMenuRecipe
     // old 为空表示新建 此时索引里查不到旧来源 各步都会自然跳过
     private static CompletableFuture<String> saveRecipe(Key id, Key oldId, Object recipe, Object old,
@@ -314,6 +348,11 @@ public final class RecipeEditService {
         return deleteRecipe(recipe, recipe.id());
     }
 
+    public static CompletableFuture<String> deleteBambooTray(BambooTrayRecipe recipe) {
+        AtomicReference<String> failure = new AtomicReference<>("食谱来源已变化或写入失败，食谱未删除");
+        return deleteRecipe(recipe, recipe.id(), failure::set).thenApply(success -> success ? null : failure.get());
+    }
+
     public static CompletableFuture<Boolean> deleteAccurate(AccurateFoodRecipe recipe) {
         return deleteRecipe(recipe, recipe.id());
     }
@@ -324,6 +363,11 @@ public final class RecipeEditService {
 
     // YAML 写盘成功才整理运行时 因此失败时玩家看到的食谱与配置都保持原状
     private static CompletableFuture<Boolean> deleteRecipe(Object recipe, Key id) {
+        return deleteRecipe(recipe, id, ignored -> {});
+    }
+
+    private static CompletableFuture<Boolean> deleteRecipe(Object recipe, Key id,
+                                                            java.util.function.Consumer<String> failure) {
         Path file = RecipeSourceIndex.instance().get(recipe);
         RecipeFileStore.SourceTarget target = RecipeSourceIndex.instance().target(recipe);
         RecipeSourceIndex.Kind kind = RecipeSourceIndex.instance().kind(recipe);
@@ -341,6 +385,7 @@ public final class RecipeEditService {
                 }
             } catch (Exception e) {
                 RecipeFileStore.logFailure("删除", id, e);
+                if (e instanceof java.io.IOException) failure.accept(e.getMessage());
                 result.complete(false);
                 return;
             }
@@ -397,6 +442,8 @@ public final class RecipeEditService {
             registry.registerMenuChopping(chopping);
         } else if (recipe instanceof TeapotRecipe teapot) {
             registry.registerMenuTeapot(teapot);
+        } else if (recipe instanceof BambooTrayRecipe tray) {
+            registry.registerMenuBambooTray(tray);
         }
     }
 
@@ -410,6 +457,8 @@ public final class RecipeEditService {
             registry.removeMenuChopping(chopping);
         } else if (recipe instanceof TeapotRecipe teapot) {
             registry.removeMenuTeapot(teapot);
+        } else if (recipe instanceof BambooTrayRecipe tray) {
+            registry.removeMenuBambooTray(tray);
         }
     }
 
@@ -421,6 +470,7 @@ public final class RecipeEditService {
             case STOCK_FLEX -> registry.removeFlex(ApplianceType.STOCKPOT, id);
             case CHOPPING -> registry.removeChopping(id);
             case TEAPOT -> registry.removeTeapot(id);
+            case BAMBOO_TRAY -> registry.removeBambooTray(id);
         }
     }
 
@@ -452,6 +502,7 @@ public final class RecipeEditService {
                 registry.registerTeapot(recipe);
                 ApplianceFoodRegistry.instance().register(ApplianceType.TEAPOT, recipe.input());
             }
+            case BAMBOO_TRAY -> registry.registerBambooTray((BambooTrayRecipe) candidate);
         }
     }
 
@@ -746,6 +797,16 @@ public final class RecipeEditService {
         return node;
     }
 
+    private static Map<String, Object> bambooTrayNode(BambooTrayRecipe recipe) {
+        Map<String, Object> node = new LinkedHashMap<>();
+        node.put("require", recipe.input());
+        node.put("result", recipe.result().asString());
+        node.put("result_count", recipe.resultCount());
+        node.put("mode", recipe.mode().name().toLowerCase(java.util.Locale.ROOT));
+        node.put("time", recipe.durationTicks());
+        return node;
+    }
+
     private static Map<String, Object> flexNode(FlexRecipeDraft draft) {
         Map<String, Object> node = new LinkedHashMap<>();
         node.put("result", draft.result().asString());
@@ -782,6 +843,7 @@ public final class RecipeEditService {
         if (recipe instanceof FlexFoodRecipe value) return flexNode(FlexRecipeDraft.editing(value));
         if (recipe instanceof ChoppingBoardRecipe value) return choppingNode(ChoppingRecipeDraft.editing(value));
         if (recipe instanceof TeapotRecipe value) return teapotNode(TeapotRecipeDraft.editing(value));
+        if (recipe instanceof BambooTrayRecipe value) return bambooTrayNode(value);
         return Map.of();
     }
 
@@ -847,6 +909,9 @@ public final class RecipeEditService {
             return new TeapotRecipe(value.id(), section.getNonNullIdentifier("fluid"), Key.of(input[0]),
                     input.length > 1 ? Integer.parseInt(input[1]) : 1, Key.of(output[0]),
                     output.length > 1 ? Integer.parseInt(output[1]) : 1, savedInt(expanded, "time", 200));
+        }
+        if (recipe instanceof BambooTrayRecipe value) {
+            return BambooTrayRecipe.fromConfig(value.id(), section);
         }
         if (recipe instanceof ChoppingBoardRecipe value) {
             int stage = section.getInt("stage", 1);

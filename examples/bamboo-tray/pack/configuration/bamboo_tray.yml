@@ -1,0 +1,70 @@
+# Minimal independent example. Merge into an existing pack instead of duplicating this item ID.
+items:
+  kaleidoscopecookery:bamboo_tray:
+    material: minecraft:paper
+    data:
+      item_name: "<!i><gold>竹筛"
+    model:
+      type: minecraft:model
+      path: kaleidoscopecookery:block/bamboo_tray_demo
+    behavior:
+      type: block_item
+      block: kaleidoscopecookery:bamboo_tray
+
+blocks:
+  kaleidoscopecookery:bamboo_tray:
+    settings:
+      item: kaleidoscopecookery:bamboo_tray
+      hardness: 0.5
+      resistance: 0.5
+      push_reaction: destroy
+      can_occlude: false
+      is_suffocating: false
+      is_view_blocking: false
+      sounds:
+        break: minecraft:block.bamboo_wood.break
+        step: minecraft:block.bamboo_wood.step
+        place: minecraft:block.bamboo_wood.place
+        hit: minecraft:block.bamboo_wood.hit
+        fall: minecraft:block.bamboo_wood.fall
+    behavior:
+      type: kaleidoscopecookery:bamboo_tray
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: kaleidoscopecookery:bamboo_tray
+    states:
+      properties:
+        stand:
+          type: boolean
+          default: false
+      appearances:
+        base:
+          auto_state: lower_tripwire
+          model:
+            path: kaleidoscopecookery:block/bamboo_tray_demo
+        stand:
+          auto_state: lower_tripwire
+          model:
+            path: kaleidoscopecookery:block/bamboo_tray_demo_stand
+      variants:
+        stand=false:
+          appearance: base
+        stand=true:
+          appearance: stand
+
+recipes:
+  kaleidoscopecookery:bamboo_tray:
+    type: shaped
+    pattern:
+      - " S "
+      - "STS"
+      - " S "
+    ingredients:
+      S: minecraft:string
+      T: minecraft:bamboo_trapdoor
+    result:
+      id: kaleidoscopecookery:bamboo_tray
+      count: 1

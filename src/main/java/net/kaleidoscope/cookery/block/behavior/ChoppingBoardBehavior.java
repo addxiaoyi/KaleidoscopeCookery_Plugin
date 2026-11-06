@@ -1,4 +1,5 @@
 package net.kaleidoscope.cookery.block.behavior;
+import net.kaleidoscope.cookery.item.CookeryEnchantments;
 
 import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
 
@@ -119,7 +120,8 @@ public final class ChoppingBoardBehavior extends BukkitBlockBehavior implements 
         BlockPos pos = context.getClickedPos();
         Vec3d center = Vec3d.atCenterOf(pos);
 
-        ChoppingBoardController.CutResult result = controller.cut();
+        int quickKnife = CookeryEnchantments.quickKnifeLevel(Objects.requireNonNull(player).getItemInHand(hand));
+        ChoppingBoardController.CutResult result = controller.cut(quickKnife);
         if (result == ChoppingBoardController.CutResult.NOTHING) {
             return InteractionResult.PASS;
         }

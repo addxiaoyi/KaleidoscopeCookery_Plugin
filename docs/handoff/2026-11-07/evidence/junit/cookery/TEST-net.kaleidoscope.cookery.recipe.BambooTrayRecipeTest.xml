@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:43.536Z" hostname="ADDXIAOYI9000" time="0.027">
+  <properties/>
+  <testcase name="rejectsMissingZeroFractionalAndOverflowingWork()" classname="net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest" time="0.005"/>
+  <testcase name="readsWeatherAndWorkWithoutAccurateRecipeFields()" classname="net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest" time="0.018"/>
+  <testcase name="permitsEqualAliasesButRejectsConflictingValues()" classname="net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest" time="0.001"/>
+  <testcase name="rejectsEmptyAirAndInvalidModeAtTheBoundary()" classname="net.kaleidoscope.cookery.recipe.BambooTrayRecipeTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

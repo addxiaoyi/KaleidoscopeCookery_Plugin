@@ -1,0 +1,15 @@
+paper: preparing isolated copy
+paper: boot 1
+paper: boot 1 passed, stopped cleanly
+paper: boot 2
+paper: boot 2 passed, stopped cleanly
+paper: boot 3
+paper: boot 3 passed, stopped cleanly
+folia: preparing isolated copy
+folia: boot 1
+folia: boot 1 passed, stopped cleanly
+folia: boot 2
+folia: boot 2 passed, stopped cleanly
+folia: boot 3
+folia: boot 3 passed, stopped cleanly
+Both platforms passed; evidence: build\acceptance\millstone-v2\acceptance.json

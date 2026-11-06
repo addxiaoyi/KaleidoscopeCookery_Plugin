@@ -38,6 +38,7 @@ public final class RecipeMenuStyle {
         DEFAULT_NAMES.put(ApplianceType.MILLSTONE, "石磨");
         DEFAULT_NAMES.put(ApplianceType.CHOPPING_BOARD, "砧板");
         DEFAULT_NAMES.put(ApplianceType.TEAPOT, "茶壶");
+        DEFAULT_NAMES.put(ApplianceType.BAMBOO_TRAY, "竹筛");
 
         DEFAULT_ICONS.put(ApplianceType.POT, net.kaleidoscope.cookery.item.ItemKeys.MENU_POT);
         DEFAULT_ICONS.put(ApplianceType.STOCKPOT, net.kaleidoscope.cookery.item.ItemKeys.MENU_STOCKPOT);
@@ -46,6 +47,7 @@ public final class RecipeMenuStyle {
         DEFAULT_ICONS.put(ApplianceType.MILLSTONE, net.kaleidoscope.cookery.item.ItemKeys.MENU_MILLSTONE);
         DEFAULT_ICONS.put(ApplianceType.CHOPPING_BOARD, net.kaleidoscope.cookery.item.ItemKeys.MENU_CHOPPING_BOARD);
         DEFAULT_ICONS.put(ApplianceType.TEAPOT, net.kaleidoscope.cookery.item.ItemKeys.MENU_TEAPOT);
+        DEFAULT_ICONS.put(ApplianceType.BAMBOO_TRAY, net.kaleidoscope.cookery.item.ItemKeys.MENU_BAMBOO_TRAY);
     }
 
     // Two layers so a config reload rebuilds its own without touching API values.

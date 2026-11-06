@@ -1,0 +1,174 @@
+Applying patches
+Starting org.bukkit.craftbukkit.Main
+[12:52:14 INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.10+7-LTS; Azul Systems, Inc. Zulu21.48+17-CA) on Windows 11 10.0 (amd64)
+[12:52:14 INFO]: [bootstrap] Loading Paper 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) for Minecraft 1.21.11
+[12:52:15 INFO]: [PluginInitializerManager] Initializing plugins...
+[12:52:16 INFO]: [ReobfServer] Remapping server...
+[12:52:20 INFO]: [ReobfServer] Done remapping server in 3866ms.
+[12:52:20 INFO]: [PluginRemapper] Remapping plugin 'plugins\CookeryAcceptanceProbe.jar'...
+[12:52:20 INFO]: [PluginRemapper] Remapping plugin 'plugins\KaleidoscopeCookeryPlugin-1.3.0.jar'...
+[12:52:20 INFO]: [PluginRemapper] Done remapping plugin 'plugins\CookeryAcceptanceProbe.jar' in 123ms.
+[12:52:20 INFO]: [PluginRemapper] Done remapping plugin 'plugins\KaleidoscopeCookeryPlugin-1.3.0.jar' in 264ms.
+[12:52:21 INFO]: [PluginInitializerManager] Initialized 3 plugins
+[12:52:21 INFO]: [PluginInitializerManager] Paper plugins (1):
+ - CraftEngine (26.9.1)
+[12:52:21 INFO]: [PluginInitializerManager] Bukkit plugins (2):
+ - CookeryAcceptanceProbe (1), KaleidoscopeCookeryPlugin (1.3.0)
+[12:52:24 INFO]: [CraftEngine] Patching the server...
+[12:52:29 INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[12:52:29 INFO]: [CraftEngine] Initializing registries...
+[12:52:29 INFO]: Found new data pack file/bukkit, loading it automatically
+[12:52:29 INFO]: Found new data pack file/cookery_enchantments, loading it automatically
+[12:52:29 INFO]: Found new data pack paper, loading it automatically
+[12:52:30 INFO]: No existing world data, creating new world
+[12:52:31 INFO]: Loaded 1470 recipes
+[12:52:32 INFO]: Loaded 1584 advancements
+[12:52:32 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
+[12:52:32 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 463.7ms
+[12:52:32 INFO]: Starting minecraft server version 1.21.11
+[12:52:32 INFO]: Loading properties
+[12:52:32 INFO]: This server is running Paper version 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
+[12:52:32 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[12:52:32 INFO]: Using 4 threads for Netty based IO
+[12:52:32 INFO]: Server Ping Player Sample Count: 12
+[12:52:33 INFO]: [MoonriseCommon] Paper is using 8 worker threads, 1 I/O threads
+[12:52:33 INFO]: Default game type: SURVIVAL
+[12:52:33 INFO]: Generating keypair
+>   [12:52:33 INFO]: Starting Minecraft server on 127.0.0.1:25583
+>   [12:52:33 INFO]: Paper: Using Java compression from Velocity.
+>   [12:52:33 INFO]: Paper: Using Java cipher from Velocity.
+>   [12:52:33 INFO]: [CraftEngine] Loading server plugin CraftEngine v26.9.1
+>   [12:52:33 INFO]: [net.momirealms.craftengine.libraries.hikari.HikariDataSource] craftengine-storage - Starting...
+>   [12:52:33 INFO]: [net.momirealms.craftengine.libraries.hikari.pool.HikariPool] craftengine-storage - Added connection org.sqlite.jdbc4.JDBC4Connection@34acb675
+>   [12:52:33 INFO]: [net.momirealms.craftengine.libraries.hikari.HikariDataSource] craftengine-storage - Start completed.
+>   [12:52:34 INFO]: [net.momirealms.craftengine.libraries.flywaydb.core.FlywayExecutor] Database: ******** (SQLite 3.49)
+>   [12:52:34 INFO]: [net.momirealms.craftengine.libraries.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory] Schema history table "main"."ce_schema_history" does not exist yet
+>   [12:52:34 INFO]: [net.momirealms.craftengine.libraries.flywaydb.core.internal.command.DbValidate] Successfully validated 1 migration (execution time 00:00.016s)
+>   [12:52:34 INFO]: [net.momirealms.craftengine.libraries.flywaydb.core.Flyway] All configured schemas are empty; a baseline marker will not be added to Flyway's schema history table. A baseline or migration script with a lower version than the baseline version may execute if available. Check the Schemas parameter if this is not intended. See https://help.red-gate.com/help/flyway-cli13/help_5.aspx?topic=baseline-on-migrate for more info
+>   [12:52:34 INFO]: [net.momirealms.craftengine.libraries.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory] Creating Schema History table "main"."ce_schema_history" ...
+>   [12:52:34 INFO]: [net.momirealms.craftengine.libraries.flywaydb.core.internal.command.DbMigrate] Current version of schema "main": << Empty Schema >>
+>   [12:52:34 INFO]: [net.momirealms.craftengine.libraries.flywaydb.core.internal.command.DbMigrate] Migrating schema "main" to version "1 - pack preferences"
+>   [12:52:34 INFO]: [net.momirealms.craftengine.libraries.flywaydb.core.internal.command.DbMigrate] Successfully applied 1 migration to schema "main", now at version v1 (execution time 00:00.004s)
+>   [12:52:35 INFO]: [KaleidoscopeCookeryPlugin] Loading server plugin KaleidoscopeCookeryPlugin v1.3.0
+>   [12:52:35 INFO]: [CookeryAcceptanceProbe] Loading server plugin CookeryAcceptanceProbe v1
+>   [12:52:35 INFO]: [CraftEngine] Enabling CraftEngine v26.9.1
+>   [12:52:37 INFO]: Preparing level "acceptance-world"
+>   [12:52:39 INFO]: Selecting spawn point for world 'minecraft:overworld'...
+>   [12:52:42 INFO]: Selecting spawn point for world 'minecraft:the_nether'...
+>   [12:52:43 INFO]: Selecting spawn point for world 'minecraft:the_end'...
+>   [12:52:43 INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
+>   [12:52:43 INFO]: Preparing spawn area: 100%
+>   [12:52:43 INFO]: Prepared spawn area in 4571 ms
+>   [12:52:43 INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
+>   [12:52:43 INFO]: Preparing spawn area: 100%
+>   [12:52:43 INFO]: Prepared spawn area in 1162 ms
+>   [12:52:43 INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
+>   [12:52:43 INFO]: Preparing spawn area: 100%
+>   [12:52:43 INFO]: Prepared spawn area in 504 ms
+>   [12:52:43 INFO]: Done preparing level "acceptance-world" (6.044s)
+>   [12:52:43 INFO]: [KaleidoscopeCookeryPlugin] Enabling KaleidoscopeCookeryPlugin v1.3.0
+>   [12:52:43 INFO]: [KaleidoscopeCookeryPlugin] [icon] 已在资源包 cookery_kitchen 生成 257 条物品图标字体
+>   [12:52:44 INFO]: [KaleidoscopeCookeryPlugin] KaleidoscopeCookery 已启动！
+>   [12:52:44 INFO]: [CookeryAcceptanceProbe] Enabling CookeryAcceptanceProbe v1
+>   [12:52:44 INFO]: [spark] Starting background profiler...
+>   [12:52:44 INFO]: [spark] The async-profiler engine is not supported for your os/arch (windows11/amd64), so the built-in Java engine will be used instead.
+>   [12:52:45 INFO]: Running delayed init tasks
+>   [12:52:46 INFO]: [CraftEngine] 已加载的包：cookery_kitchen。默认命名空间：kaleidoscopecookery
+>   [12:52:46 INFO]: [CraftEngine] 已加载的包：default_assets。默认命名空间：default
+>   [12:52:46 INFO]: [CraftEngine] 已加载的包：default_feature_populator。默认命名空间：default
+>   [12:52:46 INFO]: [CraftEngine] 已加载的包：default_templates。默认命名空间：default
+>   [12:52:46 INFO]: [CraftEngine] 已加载的包：internal。默认命名空间：internal
+>   [12:52:46 INFO]: [CraftEngine] 已加载的包：legacy_armor。默认命名空间：minecraft
+>   [12:52:46 INFO]: [CraftEngine] 已加载的包：remove_shulker_head。默认命名空间：minecraft
+>   [12:52:46 INFO]: [CraftEngine] 已加载templates，耗时151.05毫秒（75）
+>   [12:52:46 INFO]: [CraftEngine] 已加载config factories，耗时38.88毫秒（3）
+>   [12:52:46 INFO]: [CraftEngine] 已加载translations，耗时2.97毫秒（127）
+>   [12:52:46 INFO]: [CraftEngine] 已加载equipments，耗时40.13毫秒（2）
+>   [12:52:46 INFO]: [CraftEngine] 已加载block state mappings，耗时82.56毫秒（4002）
+>   [12:52:46 INFO]: [CraftEngine] 已加载loot sources，耗时220.43毫秒（1）
+>   [12:52:46 INFO]: [CraftEngine] 已加载images，耗时224.54毫秒（318）
+>   [12:52:47 INFO]: [CraftEngine] 已加载emojis，耗时43.56毫秒（16）
+>   [12:52:47 INFO]: [CraftEngine] 已加载lang，耗时29.20毫秒（630）
+>   [12:52:47 INFO]: [CraftEngine] 已加载items，耗时257.97毫秒（380）
+>   [12:52:47 INFO]: [CraftEngine] 已加载tea cup，耗时22.57毫秒（8）
+>   [12:52:47 INFO]: [CraftEngine] 已加载teapot liquid，耗时28.52毫秒（3）
+>   [12:52:47 INFO]: [CraftEngine] 已加载categories，耗时29.90毫秒（5）
+>   [12:52:47 INFO]: [CraftEngine] 已加载stock food raw，耗时41.50毫秒（9）
+>   [12:52:47 INFO]: [CraftEngine] 已加载pot imported recipes，耗时66.98毫秒（219）
+>   [12:52:47 INFO]: [CraftEngine] 已加载stockpot imported recipes，耗时40.09毫秒（101）
+>   [12:52:47 INFO]: [CraftEngine] 已加载furniture，耗时258.95毫秒（7）
+>   [12:52:47 INFO]: [CraftEngine] 已加载teapot result，耗时481.43毫秒（11）
+>   [12:52:47 INFO]: [CraftEngine] 已加载chopping board raws，耗时494.44毫秒（16）
+>   [12:52:47 INFO]: [CraftEngine] 已加载accurate foods，耗时497.27毫秒（91）
+>   [12:52:47 INFO]: [CraftEngine] 已加载recipes，耗时522.59毫秒（78）
+>   [12:52:47 INFO]: [CraftEngine] 已加载blocks，耗时555.37毫秒（52）
+>   [12:52:47 INFO]: [CraftEngine] 已加载configured features，耗时9.73毫秒（1）
+>   [12:52:48 INFO]: [KaleidoscopeCookeryPlugin] CraftEngine 首次加载后方块注册自检通过：11/11 个方块已加载。
+>   [12:52:48 INFO]: Done (34.270s)! For help, type "help"
+>   [12:52:48 INFO]: *************************************************************************************
+>   [12:52:48 INFO]: This is the first time you're starting this server.
+>   [12:52:48 INFO]: It's recommended you read our 'Getting Started' documentation for guidance.
+>   [12:52:48 INFO]: View this and more helpful information here: https://docs.papermc.io/paper/next-steps
+>   [12:52:48 INFO]: *************************************************************************************
+>   [33;1m[12:52:50 WARN]: *************************************************************************************
+[m>   [33;1m[12:52:50 WARN]: You are running the latest build for your Minecraft version (1.21.11)
+[m>   [33;1m[12:52:50 WARN]: However, you are 6 release(s) behind the latest stable release (26.3)!
+[m>   [33;1m[12:52:50 WARN]: It is recommended that you update as soon as possible
+[m>   [33;1m[12:52:50 WARN]: https://papermc.io/downloads/paper
+[m>   [33;1m[12:52:50 WARN]: *************************************************************************************
+[m>   [12:52:53 INFO]: [CookeryAcceptanceProbe] COOKERY_FOOD_SMOKE checked=103 failures=0
+>   [12:52:53 INFO]: [CookeryAcceptanceProbe] COOKERY_ENCHANTMENT_SMOKE checked=5 reloaded=0 failures=0
+>   [12:52:56 INFO]: [CookeryAcceptanceProbe] COOKERY_MILLSTONE_SMOKE phase=IN_PROGRESS_SAVED failures=0
+>   [12:52:56 INFO]: [CookeryAcceptanceProbe] COOKERY_KITCHEN_SMOKE blocks=12 states=180 failures=0
+>   [12:52:58 INFO]: [CookeryAcceptanceProbe] COOKERY_POT_SMOKE phase=IN_PROGRESS_SAVED failures=0
+>   [12:53:03 INFO]: [CookeryAcceptanceProbe] COOKERY_RECIPE_SMOKE phase=IN_PROGRESS_SAVED failures=0
+> >   [12:53:03 INFO]: [CraftEngine] 正在生成资源包…
+>   [12:53:03 INFO]: [CraftEngine] 资源包生成完成，耗时248毫秒
+>   [12:53:03 INFO]: [CraftEngine] 正在验证资源包…（进度：1/2 | 资源包格式：75~83 | 叠加资源包：[]）
+>   [12:53:03 INFO]: [CraftEngine] 正在验证资源包…（进度：2/2 | 资源包格式：84~97 | 叠加资源包：[ce_overlay_84]）
+>   [12:53:04 INFO]: [CraftEngine] 资源包验证完成，耗时350毫秒
+>   [12:53:04 INFO]: [CraftEngine] 正在压缩资源包…（如果启用了混淆功能，此过程可能会比较慢）
+>   [12:53:04 INFO]: [CraftEngine] 资源包压缩完成，耗时708毫秒
+>   [12:53:04 INFO]: [CraftEngine] 正在上传资源包…
+>   [12:53:04 INFO]: [CraftEngine] 资源包上传成功，耗时9毫秒
+>   [12:53:04 INFO]: [90m» [1m[91mC[93mraft[33mEngine[0m [37m•[0m [97m资源包生成完成[37m（[33m1319[37m毫秒）[0m
+> >   [12:53:04 INFO]: Stopping the server
+>   [12:53:05 INFO]: Stopping server
+>   [12:53:05 INFO]: [CookeryAcceptanceProbe] Disabling CookeryAcceptanceProbe v1
+>   [12:53:05 INFO]: [CraftEngine] Disabling CraftEngine before other plugins are unloaded.
+>   [12:53:05 INFO]: [net.momirealms.craftengine.libraries.hikari.HikariDataSource] craftengine-storage - Shutdown initiated...
+>   [12:53:05 INFO]: [net.momirealms.craftengine.libraries.hikari.HikariDataSource] craftengine-storage - Shutdown completed.
+>   [12:53:05 INFO]: [KaleidoscopeCookeryPlugin] Disabling KaleidoscopeCookeryPlugin v1.3.0
+>   [12:53:05 INFO]: [CraftEngine] Disabling CraftEngine v26.9.1
+>   [12:53:05 INFO]: Saving players
+>   [12:53:05 INFO]: Saving worlds
+>   [12:53:05 INFO]: Saving chunks for level 'ServerLevel[acceptance-world]'/minecraft:overworld
+>   [12:53:05 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'acceptance-world'
+>   [12:53:05 INFO]: [ChunkHolderManager] Halted chunk system for world 'acceptance-world'
+>   [12:53:05 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'acceptance-world'
+>   [12:53:05 INFO]: [ChunkHolderManager] Saved 782 block chunks, 35 entity chunks, 0 poi chunks in world 'acceptance-world' in 0.26s
+>   [12:53:05 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'acceptance-world'
+>   [12:53:05 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'acceptance-world'
+>   [12:53:05 INFO]: Saving chunks for level 'ServerLevel[acceptance-world_nether]'/minecraft:the_nether
+>   [12:53:05 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'acceptance-world_nether'
+>   [12:53:05 INFO]: [ChunkHolderManager] Halted chunk system for world 'acceptance-world_nether'
+>   [12:53:05 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'acceptance-world_nether'
+>   [12:53:05 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'acceptance-world_nether' in 0.01s
+>   [12:53:05 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'acceptance-world_nether'
+>   [12:53:05 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'acceptance-world_nether'
+>   [12:53:05 INFO]: Saving chunks for level 'ServerLevel[acceptance-world_the_end]'/minecraft:the_end
+>   [12:53:05 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'acceptance-world_the_end'
+>   [12:53:05 INFO]: [ChunkHolderManager] Halted chunk system for world 'acceptance-world_the_end'
+>   [12:53:05 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'acceptance-world_the_end'
+>   [12:53:05 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'acceptance-world_the_end' in 0.01s
+>   [12:53:05 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'acceptance-world_the_end'
+>   [12:53:05 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'acceptance-world_the_end'
+>   [12:53:05 INFO]: ThreadedAnvilChunkStorage (acceptance-world): All chunks are saved
+>   [12:53:05 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+>   [12:53:05 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+>   [12:53:05 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+>   [12:53:05 INFO]: Waiting for all RegionFile I/O tasks to complete...
+>   [12:53:05 INFO]: All RegionFile I/O tasks to complete
+>   [12:53:05 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
+>   [12:53:05 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
+> 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.block.behavior.PotServingTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:41.084Z" hostname="ADDXIAOYI9000" time="0.39">
+  <properties/>
+  <testcase name="inventoryCallbackCannotServeAnAlreadyEmptiedPot()" classname="net.kaleidoscope.cookery.block.behavior.PotServingTest" time="0.104"/>
+  <testcase name="cancelledEmptyAndReentrantEventsDoNotConsumeOrGive()" classname="net.kaleidoscope.cookery.block.behavior.PotServingTest" time="0.286"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

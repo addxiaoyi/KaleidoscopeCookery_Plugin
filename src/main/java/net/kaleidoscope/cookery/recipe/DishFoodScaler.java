@@ -23,14 +23,15 @@ public final class DishFoodScaler {
                 return item;
             }
             FoodComponent food = meta.getFood();
-            // 原本能回一格的菜别缩到 0 那等于不能吃
-            food.setNutrition(Math.max(1, (int) Math.round(food.getNutrition() * ratio)));
+            // Preserve intentionally zero-nutrition drinks; ordinary dishes retain the old minimum.
+            food.setNutrition(food.getNutrition() == 0 ? 0 : Math.max(1, (int) Math.round(food.getNutrition() * ratio)));
             food.setSaturation((float) (food.getSaturation() * ratio));
             meta.setFood(food);
             stack.setItemMeta(meta);
             return BukkitItemManager.instance().wrap(stack);
         } catch (Exception e) {
-            // 缩放失败不该让整锅菜出不来 退回未缩放的成品
+            net.kaleidoscope.cookery.plugin.KaleidoscopeCookeryPlugin.instance().getLogger().log(
+                    java.util.logging.Level.WARNING, "Cannot scale dish food properties: " + item.id(), e);
             return item;
         }
     }

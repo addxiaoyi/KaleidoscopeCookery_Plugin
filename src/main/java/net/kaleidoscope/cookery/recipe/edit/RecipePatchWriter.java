@@ -285,6 +285,11 @@ final class RecipePatchWriter {
         arguments.put("__ID__", PlainStringTemplateArgument.plain(id.value()));
         Map<String, Object> expanded = map(TemplateManager.INSTANCE.applyTemplates(ConfigValue.of(node, raw), arguments));
         ConfigSection section = ConfigSection.of(node, expanded);
+        String parser = node.substring(0, node.indexOf('.')).split("#", 2)[0].replace('-', '_');
+        if (parser.equals("bamboo_tray_recipes")) {
+            var recipe = net.kaleidoscope.cookery.recipe.BambooTrayRecipe.fromConfig(id, section);
+            net.kaleidoscope.cookery.recipe.FoodRecipeManager.validateBambooTrayRecipe(recipe, node);
+        }
         net.kaleidoscope.cookery.recipe.RecipeProcessingFields.optionalPositive(section,
                 aliases("cooking_time", isTeapotNode(node)));
         net.kaleidoscope.cookery.recipe.RecipeProcessingFields.optionalPositive(section, "stir_fry_count", "stir-fry-count");

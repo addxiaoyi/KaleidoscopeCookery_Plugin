@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:41.495Z" hostname="ADDXIAOYI9000" time="0.414">
+  <properties/>
+  <testcase name="nearMaximumSavedStageCannotOverflowIntoAnotherBatch()" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.184"/>
+  <testcase name="existingCutApiKeepsItsOneStepAndStoredStage()" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.002"/>
+  <testcase name="[1] 4, 0, 4" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.055"/>
+  <testcase name="[2] 4, 1, 2" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.001"/>
+  <testcase name="[3] 4, 2, 1" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.002"/>
+  <testcase name="[4] 4, 3, 1" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.001"/>
+  <testcase name="[5] 5, 1, 3" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.001"/>
+  <testcase name="[6] 5, 2, 2" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.001"/>
+  <testcase name="[7] 4, -1, 4" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.002"/>
+  <testcase name="[8] 4, 255, 1" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.001"/>
+  <testcase name="missingOutputPreservesRawFoodAndBlocksFurtherProcessing()" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.012"/>
+  <testcase name="changedKnifeContinuesTheSavedBatchWithoutAnExtraPickupClick()" classname="net.kaleidoscope.cookery.block.entity.ChoppingBoardControllerTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[11月 06, 2026 12:51:41 下午 net.kaleidoscope.cookery.block.entity.ChoppingBoardController blockProcessing
+警告: 砧板配方快照无效或产物不可用，保留原料并暂停：BlockPos{x=8, y=64, z=8}
+]]></system-err>
+</testsuite>

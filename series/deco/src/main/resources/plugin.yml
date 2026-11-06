@@ -1,0 +1,14 @@
+name: KaleidoscopeDecoPlugin
+version: '${version}'
+main: net.kaleidoscope.deco.DecoPlugin
+api-version: '1.21.11'
+folia-supported: true
+depend: [CraftEngine]
+softdepend: [Dominion]
+commands:
+  kdeco:
+    description: 浏览森罗装饰图鉴
+    usage: /kdeco
+permissions:
+  kaleidoscopedeco.give:
+    default: op

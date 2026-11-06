@@ -13,6 +13,7 @@ import net.kaleidoscope.cookery.recipe.SoupBaseRegistry;
 import net.kaleidoscope.cookery.recipe.edit.AccurateRecipeDraft;
 import net.kaleidoscope.cookery.recipe.edit.ChoppingRecipeDraft;
 import net.kaleidoscope.cookery.recipe.edit.TeapotRecipeDraft;
+import net.kaleidoscope.cookery.recipe.edit.BambooTrayRecipeDraft;
 import net.kaleidoscope.cookery.recipe.edit.FlexRecipeDraft;
 import net.kaleidoscope.cookery.ui.input.MenuInput;
 import net.momirealms.craftengine.bukkit.api.BukkitAdaptor;
@@ -41,7 +42,8 @@ public final class RecipeMenus {
             ApplianceType.SHAWARMA,
             ApplianceType.MILLSTONE,
             ApplianceType.CHOPPING_BOARD,
-            ApplianceType.TEAPOT);
+            ApplianceType.TEAPOT,
+            ApplianceType.BAMBOO_TRAY);
 
     // 只有炒锅与高汤锅有模糊配方 解析器也只给这两种注册了 见 FoodRecipeManager
     private static final Set<ApplianceType> FLEX_CAPABLE =
@@ -82,7 +84,8 @@ public final class RecipeMenus {
         // 槽位字符要够 SUPPORTED 里所有厨具用 少了会被静默丢掉
         GuiLayout layout = new GuiLayout(
                 "#########",
-                "#ABCDEFG#",
+                "#A#B#C#D#",
+                "#E#F#G#H#",
                 "###L#Z###");
         layout.addIngredient('#', Ingredient.simple(MenuIcons.filler(viewer)));
         char slot = 'A';
@@ -90,7 +93,7 @@ public final class RecipeMenus {
             layout.addIngredient(slot++, applianceButton(bukkitPlayer, viewer, cook, editable));
         }
         // 厨具数少于槽位时把剩下的字符补成边框 否则那几格会是空的
-        while (slot <= 'G') {
+        while (slot <= 'H') {
             layout.addIngredient(slot++, Ingredient.simple(MenuIcons.filler(viewer)));
         }
         // 汤底表与食材分组都是全局注册表 不属于任何一条配方 只在编辑模式露出来
@@ -199,6 +202,8 @@ public final class RecipeMenus {
                         ChoppingEditMenu.open(bukkitPlayer, ChoppingRecipeDraft.creating(id));
                     } else if (cook == ApplianceType.TEAPOT) {
                         TeapotEditMenu.open(bukkitPlayer, TeapotRecipeDraft.creating(id));
+                    } else if (cook == ApplianceType.BAMBOO_TRAY) {
+                        BambooTrayEditMenu.open(bukkitPlayer, BambooTrayRecipeDraft.creating(id));
                     } else if (accurate) {
                         AccurateEditMenu.open(bukkitPlayer, AccurateRecipeDraft.creating(cook, id));
                     } else {

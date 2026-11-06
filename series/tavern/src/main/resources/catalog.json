@@ -1,0 +1,2866 @@
+{
+  "barrel": [
+    {
+      "id": "kaleidoscope_tavern:barrel/brandy",
+      "fluid": "kaleidoscope_tavern:grape_juice",
+      "ingredients": [
+        [
+          "minecraft:apple"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:brandy",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/carignan",
+      "fluid": "kaleidoscope_tavern:grape_juice",
+      "ingredients": [
+        [
+          "minecraft:sweet_berries"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:carignan",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/champagne",
+      "fluid": "kaleidoscope_tavern:grape_juice",
+      "ingredients": [
+        [
+          "minecraft:sugar"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:champagne",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/glowflower_brew",
+      "fluid": "kaleidoscope_tavern:glow_berries_juice",
+      "ingredients": [
+        [
+          "minecraft:glowstone_dust"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:glowflower_brew",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/honey_wine",
+      "fluid": "kaleidoscope_tavern:gold_grape_juice",
+      "ingredients": [
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:honey_wine",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/ice_wine",
+      "fluid": "kaleidoscope_tavern:ice_grape_juice",
+      "ingredients": [],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:ice_wine",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/luminous_bride",
+      "fluid": "kaleidoscope_tavern:glow_berries_juice",
+      "ingredients": [
+        [
+          "minecraft:glow_ink_sac"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:luminous_bride",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/madame_shexiang",
+      "fluid": "kaleidoscope_tavern:gold_grape_juice",
+      "ingredients": [
+        [
+          "minecraft:gold_nugget"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:madame_shexiang",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/miners_star",
+      "fluid": "kaleidoscope_tavern:gold_grape_juice",
+      "ingredients": [
+        [
+          "minecraft:iron_nugget"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:miners_star",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/molotov",
+      "fluid": "minecraft:lava",
+      "ingredients": [],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:molotov",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/mother_snow",
+      "fluid": "kaleidoscope_tavern:ice_grape_juice",
+      "ingredients": [
+        [
+          "minecraft:ice"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:mother_snow",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/plum_wine",
+      "fluid": "kaleidoscope_tavern:sweet_berries_juice",
+      "ingredients": [
+        [
+          "minecraft:sugar"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:plum_wine",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/polaris_sweet_white",
+      "fluid": "kaleidoscope_tavern:ice_grape_juice",
+      "ingredients": [
+        [
+          "minecraft:packed_ice"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:polaris_sweet_white",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/red_queen",
+      "fluid": "kaleidoscope_tavern:sweet_berries_juice",
+      "ingredients": [
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:red_queen",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/riesling_dry_white",
+      "fluid": "kaleidoscope_tavern:green_grape_juice",
+      "ingredients": [
+        [
+          "minecraft:gunpowder"
+        ],
+        [
+          "minecraft:sugar"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:riesling_dry_white",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/rum",
+      "fluid": "minecraft:water",
+      "ingredients": [
+        [
+          "minecraft:sugar_cane"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:rum",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/sakura_wine",
+      "fluid": "kaleidoscope_tavern:grape_juice",
+      "ingredients": [
+        [
+          "minecraft:pink_petals"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:sakura_wine",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/sauvignon_blanc_dry_white",
+      "fluid": "kaleidoscope_tavern:green_grape_juice",
+      "ingredients": [
+        [
+          "minecraft:sugar_cane"
+        ],
+        [
+          "minecraft:sugar"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:sauvignon_blanc_dry_white",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/sherry",
+      "fluid": "kaleidoscope_tavern:ice_grape_juice",
+      "ingredients": [
+        [
+          "minecraft:blue_ice"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:sherry",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/sunset_glow",
+      "fluid": "kaleidoscope_tavern:gold_grape_juice",
+      "ingredients": [
+        [
+          "minecraft:blaze_powder"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:sunset_glow",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/sweet_berry_wine",
+      "fluid": "kaleidoscope_tavern:sweet_berries_juice",
+      "ingredients": [
+        [
+          "minecraft:sweet_berries"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:sweet_berry_wine",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/vodka",
+      "fluid": "minecraft:water",
+      "ingredients": [
+        [
+          "minecraft:potato"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:vodka",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/whiskey",
+      "fluid": "minecraft:water",
+      "ingredients": [
+        [
+          "minecraft:wheat"
+        ]
+      ],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:whiskey",
+      "unitTime": 2400
+    },
+    {
+      "id": "kaleidoscope_tavern:barrel/wine",
+      "fluid": "kaleidoscope_tavern:grape_juice",
+      "ingredients": [],
+      "carriers": [
+        "kaleidoscope_tavern:empty_bottle"
+      ],
+      "output": "kaleidoscope_tavern:wine",
+      "unitTime": 2400
+    }
+  ],
+  "pressing": [
+    {
+      "id": "kaleidoscope_tavern:pressing_tub/glow_berries_bucket",
+      "ingredients": [
+        "minecraft:glow_berries"
+      ],
+      "fluid": "kaleidoscope_tavern:glow_berries_juice",
+      "amount": 125,
+      "bucket": "kaleidoscope_tavern:glow_berries_bucket"
+    },
+    {
+      "id": "kaleidoscope_tavern:pressing_tub/gold_grape_bucket",
+      "ingredients": [
+        "kaleidoscope_tavern:gold_grape"
+      ],
+      "fluid": "kaleidoscope_tavern:gold_grape_juice",
+      "amount": 125,
+      "bucket": "kaleidoscope_tavern:gold_grape_bucket"
+    },
+    {
+      "id": "kaleidoscope_tavern:pressing_tub/grape_bucket",
+      "ingredients": [
+        "kaleidoscope_tavern:grape"
+      ],
+      "fluid": "kaleidoscope_tavern:grape_juice",
+      "amount": 125,
+      "bucket": "kaleidoscope_tavern:grape_bucket"
+    },
+    {
+      "id": "kaleidoscope_tavern:pressing_tub/green_grape_bucket",
+      "ingredients": [
+        "kaleidoscope_tavern:green_grape"
+      ],
+      "fluid": "kaleidoscope_tavern:green_grape_juice",
+      "amount": 125,
+      "bucket": "kaleidoscope_tavern:green_grape_bucket"
+    },
+    {
+      "id": "kaleidoscope_tavern:pressing_tub/ice_grape_bucket",
+      "ingredients": [
+        "kaleidoscope_tavern:ice_grape"
+      ],
+      "fluid": "kaleidoscope_tavern:ice_grape_juice",
+      "amount": 125,
+      "bucket": "kaleidoscope_tavern:ice_grape_bucket"
+    },
+    {
+      "id": "kaleidoscope_tavern:pressing_tub/sweet_berries_bucket",
+      "ingredients": [
+        "minecraft:sweet_berries"
+      ],
+      "fluid": "kaleidoscope_tavern:sweet_berries_juice",
+      "amount": 125,
+      "bucket": "kaleidoscope_tavern:sweet_berries_bucket"
+    }
+  ],
+  "shaker": [
+    {
+      "id": "kaleidoscope_tavern:shaker/allium_garden",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:brandy",
+          "kaleidoscope_tavern:carignan",
+          "kaleidoscope_tavern:champagne",
+          "kaleidoscope_tavern:sakura_wine",
+          "kaleidoscope_tavern:wine"
+        ],
+        [
+          "kaleidoscope_tavern:brandy",
+          "kaleidoscope_tavern:carignan",
+          "kaleidoscope_tavern:champagne",
+          "kaleidoscope_tavern:sakura_wine",
+          "kaleidoscope_tavern:wine"
+        ],
+        [
+          "kaleidoscope_tavern:brandy",
+          "kaleidoscope_tavern:carignan",
+          "kaleidoscope_tavern:champagne",
+          "kaleidoscope_tavern:sakura_wine",
+          "kaleidoscope_tavern:wine"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:allium_garden"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/bloody_mary",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:plum_wine",
+          "kaleidoscope_tavern:red_queen",
+          "kaleidoscope_tavern:sweet_berry_wine"
+        ],
+        [
+          "kaleidoscope_tavern:plum_wine",
+          "kaleidoscope_tavern:red_queen",
+          "kaleidoscope_tavern:sweet_berry_wine"
+        ],
+        [
+          "kaleidoscope_tavern:plum_wine",
+          "kaleidoscope_tavern:red_queen",
+          "kaleidoscope_tavern:sweet_berry_wine"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:bloody_mary"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/brass_heart",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:honey_wine",
+          "kaleidoscope_tavern:madame_shexiang",
+          "kaleidoscope_tavern:miners_star",
+          "kaleidoscope_tavern:sunset_glow"
+        ],
+        [
+          "kaleidoscope_tavern:honey_wine",
+          "kaleidoscope_tavern:madame_shexiang",
+          "kaleidoscope_tavern:miners_star",
+          "kaleidoscope_tavern:sunset_glow"
+        ],
+        [
+          "kaleidoscope_tavern:honey_wine",
+          "kaleidoscope_tavern:madame_shexiang",
+          "kaleidoscope_tavern:miners_star",
+          "kaleidoscope_tavern:sunset_glow"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:brass_heart"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/depth_charge",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:ice_wine",
+          "kaleidoscope_tavern:mother_snow",
+          "kaleidoscope_tavern:polaris_sweet_white",
+          "kaleidoscope_tavern:sherry"
+        ],
+        [
+          "kaleidoscope_tavern:brandy",
+          "kaleidoscope_tavern:carignan",
+          "kaleidoscope_tavern:champagne",
+          "kaleidoscope_tavern:sakura_wine",
+          "kaleidoscope_tavern:wine"
+        ],
+        [
+          "kaleidoscope_tavern:rum",
+          "kaleidoscope_tavern:vodka",
+          "kaleidoscope_tavern:whiskey",
+          "minecraft:potion"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:depth_charge"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/emerald",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:riesling_dry_white",
+          "kaleidoscope_tavern:sauvignon_blanc_dry_white"
+        ],
+        [
+          "kaleidoscope_tavern:riesling_dry_white",
+          "kaleidoscope_tavern:sauvignon_blanc_dry_white"
+        ],
+        [
+          "kaleidoscope_tavern:riesling_dry_white",
+          "kaleidoscope_tavern:sauvignon_blanc_dry_white"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:emerald"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/godfather",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:plum_wine",
+          "kaleidoscope_tavern:red_queen",
+          "kaleidoscope_tavern:sweet_berry_wine"
+        ],
+        [
+          "kaleidoscope_tavern:plum_wine",
+          "kaleidoscope_tavern:red_queen",
+          "kaleidoscope_tavern:sweet_berry_wine"
+        ],
+        [
+          "kaleidoscope_tavern:honey_wine",
+          "kaleidoscope_tavern:madame_shexiang",
+          "kaleidoscope_tavern:miners_star",
+          "kaleidoscope_tavern:sunset_glow"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:godfather"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/grasshopper",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:riesling_dry_white",
+          "kaleidoscope_tavern:sauvignon_blanc_dry_white"
+        ],
+        [
+          "kaleidoscope_tavern:riesling_dry_white",
+          "kaleidoscope_tavern:sauvignon_blanc_dry_white"
+        ],
+        [
+          "kaleidoscope_tavern:rum",
+          "kaleidoscope_tavern:vodka",
+          "kaleidoscope_tavern:whiskey",
+          "minecraft:potion"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:grasshopper"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/mojito",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:rum",
+          "kaleidoscope_tavern:vodka",
+          "kaleidoscope_tavern:whiskey",
+          "minecraft:potion"
+        ],
+        [
+          "kaleidoscope_tavern:rum",
+          "kaleidoscope_tavern:vodka",
+          "kaleidoscope_tavern:whiskey",
+          "minecraft:potion"
+        ],
+        [
+          "kaleidoscope_tavern:riesling_dry_white",
+          "kaleidoscope_tavern:sauvignon_blanc_dry_white"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:mojito"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/nether_special",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:plum_wine",
+          "kaleidoscope_tavern:red_queen",
+          "kaleidoscope_tavern:sweet_berry_wine"
+        ],
+        [
+          "kaleidoscope_tavern:riesling_dry_white",
+          "kaleidoscope_tavern:sauvignon_blanc_dry_white"
+        ],
+        [
+          "kaleidoscope_tavern:ice_wine",
+          "kaleidoscope_tavern:mother_snow",
+          "kaleidoscope_tavern:polaris_sweet_white",
+          "kaleidoscope_tavern:sherry"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:nether_special"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/screwdriver",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:glowflower_brew",
+          "kaleidoscope_tavern:luminous_bride"
+        ],
+        [
+          "kaleidoscope_tavern:glowflower_brew",
+          "kaleidoscope_tavern:luminous_bride"
+        ],
+        [
+          "kaleidoscope_tavern:honey_wine",
+          "kaleidoscope_tavern:madame_shexiang",
+          "kaleidoscope_tavern:miners_star",
+          "kaleidoscope_tavern:sunset_glow"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:screwdriver"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/sculk_special",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:ice_wine",
+          "kaleidoscope_tavern:mother_snow",
+          "kaleidoscope_tavern:polaris_sweet_white",
+          "kaleidoscope_tavern:sherry"
+        ],
+        [
+          "kaleidoscope_tavern:ice_wine",
+          "kaleidoscope_tavern:mother_snow",
+          "kaleidoscope_tavern:polaris_sweet_white",
+          "kaleidoscope_tavern:sherry"
+        ],
+        [
+          "kaleidoscope_tavern:brandy",
+          "kaleidoscope_tavern:carignan",
+          "kaleidoscope_tavern:champagne",
+          "kaleidoscope_tavern:sakura_wine",
+          "kaleidoscope_tavern:wine"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:sculk_special"
+    },
+    {
+      "id": "kaleidoscope_tavern:shaker/white_lady",
+      "ingredients": [
+        [
+          "kaleidoscope_tavern:rum",
+          "kaleidoscope_tavern:vodka",
+          "kaleidoscope_tavern:whiskey",
+          "minecraft:potion"
+        ],
+        [
+          "kaleidoscope_tavern:riesling_dry_white",
+          "kaleidoscope_tavern:sauvignon_blanc_dry_white"
+        ],
+        [
+          "kaleidoscope_tavern:glowflower_brew",
+          "kaleidoscope_tavern:luminous_bride"
+        ]
+      ],
+      "output": "kaleidoscope_tavern:white_lady"
+    }
+  ],
+  "effects": {
+    "kaleidoscope_tavern:allium_garden": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:xp_drain",
+          "duration": 1800,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:bloody_mary": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:bloody_mary",
+          "duration": 1800,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:brandy": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:high_heels",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:high_heels",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:high_heels",
+          "duration": 720,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:high_heels",
+          "duration": 2160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:brass_heart": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:ardent_heat",
+          "duration": 300,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:carignan": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:instant_health",
+          "duration": 0,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:instant_health",
+          "duration": 0,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:instant_health",
+          "duration": 0,
+          "amplifier": 2,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:instant_health",
+          "duration": 0,
+          "amplifier": 3,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:champagne": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:high_heels",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:high_heels",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:high_heels",
+          "duration": 720,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:high_heels",
+          "duration": 2160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:depth_charge": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:ardent_heat",
+          "duration": 300,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:emerald": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:long_reach",
+          "duration": 2700,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:glowflower_brew": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:vision",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:vision",
+          "duration": 180,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:vision",
+          "duration": 360,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:vision",
+          "duration": 720,
+          "amplifier": 2,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:godfather": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:zenith",
+          "duration": 0,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:grasshopper": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:grass_stealth",
+          "duration": 900,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:honey_wine": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 240,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 540,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:ice_wine": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 720,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 2160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:luminous_bride": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:night_vision",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:night_vision",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:night_vision",
+          "duration": 720,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:night_vision",
+          "duration": 2160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:madame_shexiang": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 240,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 540,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:miners_star": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:haste",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:haste",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:haste",
+          "duration": 240,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:haste",
+          "duration": 720,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:mojito": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:vision",
+          "duration": 1800,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:mother_snow": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 720,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 2160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:mystery_cocktail": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 180,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:nether_special": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:tomb_raider",
+          "duration": 90,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:plum_wine": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:water_breathing",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:water_breathing",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:water_breathing",
+          "duration": 720,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:water_breathing",
+          "duration": 2160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:polaris_sweet_white": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 720,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 2160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:red_queen": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:bloody_mary",
+          "duration": 40,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:bloody_mary",
+          "duration": 120,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:bloody_mary",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:bloody_mary",
+          "duration": 480,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:riesling_dry_white": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:grass_stealth",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:grass_stealth",
+          "duration": 160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:grass_stealth",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:grass_stealth",
+          "duration": 480,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:rum": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:bad_omen",
+          "duration": 1200,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:bad_omen",
+          "duration": 1200,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:bad_omen",
+          "duration": 1200,
+          "amplifier": 2,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:bad_omen",
+          "duration": 1200,
+          "amplifier": 3,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:bad_omen",
+          "duration": 1200,
+          "amplifier": 4,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:sakura_wine": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:regeneration",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:regeneration",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:regeneration",
+          "duration": 240,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:regeneration",
+          "duration": 540,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:sauvignon_blanc_dry_white": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:grass_stealth",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:grass_stealth",
+          "duration": 160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:grass_stealth",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:grass_stealth",
+          "duration": 480,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:screwdriver": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:upside_down",
+          "duration": 0,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:sculk_special": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:shriek_attack",
+          "duration": 0,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:sherry": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 720,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:fire_resistance",
+          "duration": 2160,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:sunset_glow": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 240,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:resistance",
+          "duration": 540,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:sweet_berry_wine": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:bloody_mary",
+          "duration": 40,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:bloody_mary",
+          "duration": 120,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:bloody_mary",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "kaleidoscope_tavern:bloody_mary",
+          "duration": 480,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:vinegar": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:blindness",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:mining_fatigue",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:speed",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:jump_boost",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:haste",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 0.15
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:blindness",
+          "duration": 30,
+          "amplifier": 1,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:mining_fatigue",
+          "duration": 30,
+          "amplifier": 1,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:speed",
+          "duration": 30,
+          "amplifier": 1,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:jump_boost",
+          "duration": 30,
+          "amplifier": 1,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:haste",
+          "duration": 30,
+          "amplifier": 1,
+          "probability": 0.15
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:blindness",
+          "duration": 60,
+          "amplifier": 2,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:mining_fatigue",
+          "duration": 60,
+          "amplifier": 2,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:speed",
+          "duration": 60,
+          "amplifier": 2,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:jump_boost",
+          "duration": 60,
+          "amplifier": 2,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:haste",
+          "duration": 60,
+          "amplifier": 2,
+          "probability": 0.15
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:blindness",
+          "duration": 100,
+          "amplifier": 2,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:mining_fatigue",
+          "duration": 100,
+          "amplifier": 2,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:speed",
+          "duration": 100,
+          "amplifier": 2,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:jump_boost",
+          "duration": 100,
+          "amplifier": 2,
+          "probability": 0.15
+        },
+        {
+          "effect": "minecraft:haste",
+          "duration": 100,
+          "amplifier": 2,
+          "probability": 0.15
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:vodka": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:strength",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:strength",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:strength",
+          "duration": 240,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:strength",
+          "duration": 540,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:whiskey": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:strength",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:strength",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:strength",
+          "duration": 240,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:strength",
+          "duration": 540,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:white_lady": [
+      [
+        {
+          "effect": "kaleidoscope_tavern:high_heels",
+          "duration": 3600,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ]
+    ],
+    "kaleidoscope_tavern:wine": [
+      [
+        {
+          "effect": "minecraft:nausea",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 45,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:regeneration",
+          "duration": 80,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 30,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:regeneration",
+          "duration": 240,
+          "amplifier": 0,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 20,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:regeneration",
+          "duration": 240,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ],
+      [
+        {
+          "effect": "kaleidoscope_tavern:slightly_tipsy",
+          "duration": 10,
+          "amplifier": 0,
+          "probability": 1.0
+        },
+        {
+          "effect": "minecraft:regeneration",
+          "duration": 540,
+          "amplifier": 1,
+          "probability": 1.0
+        }
+      ]
+    ]
+  },
+  "names": {
+    "kaleidoscope_tavern:white_sofa": "白色沙发",
+    "kaleidoscope_tavern:light_gray_sofa": "淡灰色沙发",
+    "kaleidoscope_tavern:gray_sofa": "灰色沙发",
+    "kaleidoscope_tavern:black_sofa": "黑色沙发",
+    "kaleidoscope_tavern:brown_sofa": "棕色沙发",
+    "kaleidoscope_tavern:red_sofa": "红色沙发",
+    "kaleidoscope_tavern:orange_sofa": "橙色沙发",
+    "kaleidoscope_tavern:yellow_sofa": "黄色沙发",
+    "kaleidoscope_tavern:lime_sofa": "黄绿色沙发",
+    "kaleidoscope_tavern:green_sofa": "绿色沙发",
+    "kaleidoscope_tavern:cyan_sofa": "青色沙发",
+    "kaleidoscope_tavern:light_blue_sofa": "淡蓝色沙发",
+    "kaleidoscope_tavern:blue_sofa": "蓝色沙发",
+    "kaleidoscope_tavern:purple_sofa": "紫色沙发",
+    "kaleidoscope_tavern:magenta_sofa": "品红色沙发",
+    "kaleidoscope_tavern:pink_sofa": "粉红色沙发",
+    "kaleidoscope_tavern:white_bar_stool": "白色高脚凳",
+    "kaleidoscope_tavern:light_gray_bar_stool": "淡灰色高脚凳",
+    "kaleidoscope_tavern:gray_bar_stool": "灰色高脚凳",
+    "kaleidoscope_tavern:black_bar_stool": "黑色高脚凳",
+    "kaleidoscope_tavern:brown_bar_stool": "棕色高脚凳",
+    "kaleidoscope_tavern:red_bar_stool": "红色高脚凳",
+    "kaleidoscope_tavern:orange_bar_stool": "橙色高脚凳",
+    "kaleidoscope_tavern:yellow_bar_stool": "黄色高脚凳",
+    "kaleidoscope_tavern:lime_bar_stool": "黄绿色高脚凳",
+    "kaleidoscope_tavern:green_bar_stool": "绿色高脚凳",
+    "kaleidoscope_tavern:cyan_bar_stool": "青色高脚凳",
+    "kaleidoscope_tavern:light_blue_bar_stool": "淡蓝色高脚凳",
+    "kaleidoscope_tavern:blue_bar_stool": "蓝色高脚凳",
+    "kaleidoscope_tavern:purple_bar_stool": "紫色高脚凳",
+    "kaleidoscope_tavern:magenta_bar_stool": "品红色高脚凳",
+    "kaleidoscope_tavern:pink_bar_stool": "粉红色高脚凳",
+    "kaleidoscope_tavern:chalkboard": "黑板",
+    "kaleidoscope_tavern:sandwich_board": "展板",
+    "kaleidoscope_tavern:string_lights_colorless": "小灯串（无色）",
+    "kaleidoscope_tavern:string_lights_white": "小灯串（白色）",
+    "kaleidoscope_tavern:string_lights_light_gray": "小灯串（淡灰色）",
+    "kaleidoscope_tavern:string_lights_gray": "小灯串（灰色）",
+    "kaleidoscope_tavern:string_lights_black": "小灯串（黑色）",
+    "kaleidoscope_tavern:string_lights_brown": "小灯串（棕色）",
+    "kaleidoscope_tavern:string_lights_red": "小灯串（红色）",
+    "kaleidoscope_tavern:string_lights_orange": "小灯串（橙色）",
+    "kaleidoscope_tavern:string_lights_yellow": "小灯串（黄色）",
+    "kaleidoscope_tavern:string_lights_lime": "小灯串（黄绿色）",
+    "kaleidoscope_tavern:string_lights_green": "小灯串（绿色）",
+    "kaleidoscope_tavern:string_lights_cyan": "小灯串（青色）",
+    "kaleidoscope_tavern:string_lights_light_blue": "小灯串（淡蓝色）",
+    "kaleidoscope_tavern:string_lights_blue": "小灯串（蓝色）",
+    "kaleidoscope_tavern:string_lights_purple": "小灯串（紫色）",
+    "kaleidoscope_tavern:string_lights_magenta": "小灯串（品红色）",
+    "kaleidoscope_tavern:string_lights_pink": "小灯串（粉色）",
+    "kaleidoscope_tavern:painting": "挂画",
+    "kaleidoscope_tavern:wild_grapevine": "野生葡萄藤",
+    "kaleidoscope_tavern:wild_grapevine_plant": "野生葡萄藤",
+    "kaleidoscope_tavern:trellis": "藤架",
+    "kaleidoscope_tavern:grapevine_trellis": "葡萄藤架",
+    "kaleidoscope_tavern:ice_grapevine_trellis": "冰葡萄藤架",
+    "kaleidoscope_tavern:gold_grapevine_trellis": "黄金葡萄藤架",
+    "kaleidoscope_tavern:grape_crop": "葡萄",
+    "kaleidoscope_tavern:ice_grape_crop": "冰葡萄",
+    "kaleidoscope_tavern:gold_grape_crop": "黄金葡萄",
+    "kaleidoscope_tavern:pressing_tub": "果盆",
+    "kaleidoscope_tavern:empty_bottle": "空瓶子",
+    "kaleidoscope_tavern:wine": "葡萄酒",
+    "kaleidoscope_tavern:molotov": "莫洛托夫鸡尾酒",
+    "kaleidoscope_tavern:champagne": "香槟",
+    "kaleidoscope_tavern:vodka": "伏特加",
+    "kaleidoscope_tavern:brandy": "白兰地",
+    "kaleidoscope_tavern:carignan": "佳丽私酿",
+    "kaleidoscope_tavern:sakura_wine": "樱花葡萄酒",
+    "kaleidoscope_tavern:plum_wine": "梅酒",
+    "kaleidoscope_tavern:whiskey": "威士忌",
+    "kaleidoscope_tavern:ice_wine": "冰葡萄酒",
+    "kaleidoscope_tavern:polaris_sweet_white": "北极星甜白",
+    "kaleidoscope_tavern:honey_wine": "蜂蜜葡萄酒",
+    "kaleidoscope_tavern:red_queen": "红皇后",
+    "kaleidoscope_tavern:miners_star": "矿工之星",
+    "kaleidoscope_tavern:rum": "朗姆酒",
+    "kaleidoscope_tavern:riesling_dry_white": "雷司令干白",
+    "kaleidoscope_tavern:sunset_glow": "落日余晖",
+    "kaleidoscope_tavern:madame_shexiang": "奢香夫人",
+    "kaleidoscope_tavern:sweet_berry_wine": "甜浆果酒",
+    "kaleidoscope_tavern:sherry": "雪莉",
+    "kaleidoscope_tavern:mother_snow": "雪婆婆",
+    "kaleidoscope_tavern:luminous_bride": "夜光新娘",
+    "kaleidoscope_tavern:glowflower_brew": "萤花酿",
+    "kaleidoscope_tavern:sauvignon_blanc_dry_white": "长相思干白",
+    "kaleidoscope_tavern:vinegar": "醋",
+    "kaleidoscope_tavern:empty_glassware": "空酒杯",
+    "kaleidoscope_tavern:signature_cocktail": "特调鸡尾酒",
+    "kaleidoscope_tavern:mystery_cocktail": "谜之鸡尾酒",
+    "kaleidoscope_tavern:white_lady": "白色佳人",
+    "kaleidoscope_tavern:emerald": "翡翠",
+    "kaleidoscope_tavern:brass_heart": "黄铜心脏",
+    "kaleidoscope_tavern:godfather": "教父",
+    "kaleidoscope_tavern:grasshopper": "绿色蚱蜢",
+    "kaleidoscope_tavern:screwdriver": "螺丝起子",
+    "kaleidoscope_tavern:mojito": "莫吉托",
+    "kaleidoscope_tavern:allium_garden": "绒球葱花园",
+    "kaleidoscope_tavern:depth_charge": "深水炸弹",
+    "kaleidoscope_tavern:nether_special": "下界特调",
+    "kaleidoscope_tavern:bloody_mary": "血腥玛丽",
+    "kaleidoscope_tavern:sculk_special": "幽匿特调",
+    "kaleidoscope_tavern:tap": "龙头",
+    "kaleidoscope_tavern:barrel": "酒桶",
+    "kaleidoscope_tavern:grape_juice": "葡萄汁",
+    "kaleidoscope_tavern:ice_grape_juice": "冰葡萄汁",
+    "kaleidoscope_tavern:gold_grape_juice": "黄金葡萄汁",
+    "kaleidoscope_tavern:green_grape_juice": "青提葡萄汁",
+    "kaleidoscope_tavern:sweet_berries_juice": "甜浆果汁",
+    "kaleidoscope_tavern:glow_berries_juice": "发光浆果汁",
+    "kaleidoscope_tavern:bar_cabinet": "酒柜",
+    "kaleidoscope_tavern:glass_bar_cabinet": "酒柜（玻璃窗）",
+    "kaleidoscope_tavern:cellar_cabinet": "窖藏酒柜",
+    "kaleidoscope_tavern:table": "桌子",
+    "kaleidoscope_tavern:water_bottle": "水瓶",
+    "kaleidoscope_tavern:honey_bottle": "蜂蜜瓶",
+    "kaleidoscope_tavern:dragon_breath_bottle": "龙息瓶",
+    "kaleidoscope_tavern:potion_bottle": "药水瓶",
+    "kaleidoscope_tavern:xp_bottle": "附魔之瓶",
+    "kaleidoscope_tavern:watermelon_juice": "西瓜汁",
+    "kaleidoscope_tavern:tilted_rack": "倾斜酒架",
+    "kaleidoscope_tavern:circular_rack": "圆周酒架",
+    "kaleidoscope_tavern:holder": "单体酒架",
+    "kaleidoscope_tavern:shaker": "雪克杯",
+    "kaleidoscope_tavern:sakura_incense": "樱花香薰",
+    "kaleidoscope_tavern:pine_incense": "松木香薰",
+    "kaleidoscope_tavern:ginkgo_incense": "银杏香薰",
+    "kaleidoscope_tavern:spore_incense": "孢子香薰",
+    "kaleidoscope_tavern:catnip_incense": "荆芥香薰",
+    "kaleidoscope_tavern:snow_incense": "雪香薰",
+    "kaleidoscope_tavern:butterfly_incense": "蝴蝶香薰",
+    "kaleidoscope_tavern:firefly_incense": "萤火虫香薰",
+    "kaleidoscope_tavern:glassware_holder": "酒杯架",
+    "kaleidoscope_tavern:bell_pendant_lamp": "铃铛垂灯",
+    "kaleidoscope_tavern:yellow_pendant_lamp": "黄色垂灯",
+    "kaleidoscope_tavern:blue_pendant_lamp": "蓝色垂灯",
+    "kaleidoscope_tavern:grapevine": "葡萄藤",
+    "kaleidoscope_tavern:grape": "葡萄",
+    "kaleidoscope_tavern:ice_grape": "冰葡萄",
+    "kaleidoscope_tavern:gold_grape": "黄金葡萄",
+    "kaleidoscope_tavern:green_grape": "青提葡萄",
+    "kaleidoscope_tavern:grape_bucket": "葡萄桶",
+    "kaleidoscope_tavern:ice_grape_bucket": "冰葡萄桶",
+    "kaleidoscope_tavern:gold_grape_bucket": "黄金葡萄桶",
+    "kaleidoscope_tavern:green_grape_bucket": "青提葡萄桶",
+    "kaleidoscope_tavern:sweet_berries_bucket": "甜浆果桶",
+    "kaleidoscope_tavern:glow_berries_bucket": "发光浆果桶",
+    "kaleidoscope_tavern:bar_counter": "吧台",
+    "kaleidoscope_tavern:stepladder": "人字梯"
+  },
+  "effectTags": {
+    "ardent_heat_breakable": [
+      "#minecraft:base_stone_overworld",
+      "#minecraft:base_stone_nether",
+      "minecraft:end_stone"
+    ],
+    "grass_stealth_plants": [
+      "minecraft:grass",
+      "minecraft:tall_grass",
+      "minecraft:fern",
+      "minecraft:large_fern",
+      "minecraft:dead_bush",
+      "minecraft:nether_sprouts",
+      "minecraft:crimson_roots",
+      "minecraft:warped_roots",
+      "minecraft:lilac",
+      "minecraft:rose_bush",
+      "minecraft:peony",
+      "minecraft:pitcher_plant",
+      "minecraft:sugar_cane",
+      "minecraft:sweet_berry_bush",
+      "minecraft:sunflower"
+    ],
+    "tomb_raider_disarmable": [
+      "#minecraft:skeletons",
+      "minecraft:zombie",
+      "minecraft:zombie_villager",
+      "minecraft:drowned",
+      "minecraft:husk",
+      "minecraft:piglin",
+      "minecraft:piglin_brute",
+      "minecraft:zombified_piglin",
+      "minecraft:vindicator",
+      "minecraft:pillager",
+      "minecraft:witch"
+    ]
+  },
+  "buckets": {
+    "kaleidoscope_tavern:glow_berries_juice": "kaleidoscope_tavern:glow_berries_bucket",
+    "kaleidoscope_tavern:gold_grape_juice": "kaleidoscope_tavern:gold_grape_bucket",
+    "kaleidoscope_tavern:grape_juice": "kaleidoscope_tavern:grape_bucket",
+    "kaleidoscope_tavern:green_grape_juice": "kaleidoscope_tavern:green_grape_bucket",
+    "kaleidoscope_tavern:ice_grape_juice": "kaleidoscope_tavern:ice_grape_bucket",
+    "kaleidoscope_tavern:sweet_berries_juice": "kaleidoscope_tavern:sweet_berries_bucket",
+    "minecraft:water": "minecraft:water_bucket",
+    "minecraft:lava": "minecraft:lava_bucket"
+  }
+}

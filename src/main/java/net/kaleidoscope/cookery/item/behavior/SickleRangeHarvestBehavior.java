@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.longs.LongSet;
 import net.kaleidoscope.cookery.api.event.SickleHarvestEvent;
 import net.kaleidoscope.cookery.block.behavior.GenericAgeCrop;
 import net.kaleidoscope.cookery.block.behavior.HarvestableCrop;
+import net.kaleidoscope.cookery.item.CookeryEnchantments;
 import net.kaleidoscope.cookery.util.BehaviorConfig;
 import net.kaleidoscope.cookery.util.EventUtils;
 import net.kaleidoscope.cookery.util.InteractGuard;
@@ -24,9 +25,9 @@ import net.momirealms.craftengine.core.world.BlockPos;
 import net.momirealms.craftengine.core.world.World;
 import net.momirealms.craftengine.core.world.context.UseOnContext;
 import org.bukkit.Effect;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -47,6 +48,7 @@ public final class SickleRangeHarvestBehavior extends ItemBehavior {
     private static final int DEFAULT_COOLDOWN_TICKS = 10;
     private static final float SWEEP_VOLUME = 1.0f;
     private static final float SWEEP_PITCH = 1.0f;
+    private static final String SWEEP_SOUND = "minecraft:entity.player.attack.sweep";
 
     private final int horizontalRadius;
     private final int height;
@@ -85,9 +87,12 @@ public final class SickleRangeHarvestBehavior extends ItemBehavior {
         Sweep sweep = new Sweep(context.getLevel(), (org.bukkit.World) context.getLevel().platformWorld(),
                 player, bukkitPlayer, heldStack, new LongOpenHashSet());
         BlockPos origin = context.getClickedPos();
+        int sweepLevel = CookeryEnchantments.sweepLevel(held);
+        int radius = Math.min(MAX_HORIZONTAL_RADIUS, CookeryEnchantments.sweepRadius(this.horizontalRadius, sweepLevel));
+        int durabilityCost = CookeryEnchantments.sweepDurability(this.durabilityPerUse, sweepLevel);
         int harvested = 0;
-        for (int x = -this.horizontalRadius; x <= this.horizontalRadius; x++) {
-            for (int z = -this.horizontalRadius; z <= this.horizontalRadius; z++) {
+        for (int x = -radius; x <= radius; x++) {
+            for (int z = -radius; z <= radius; z++) {
                 harvested += harvestColumn(sweep, origin.x() + x, origin.y(), origin.z() + z);
             }
         }
@@ -96,12 +101,12 @@ public final class SickleRangeHarvestBehavior extends ItemBehavior {
             return InteractionResult.PASS;
         }
 
-        sweep.world.playSound(bukkitPlayer.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP,
+        sweep.world.playSound(bukkitPlayer.getLocation(), SWEEP_SOUND,
                 SoundCategory.PLAYERS, SWEEP_VOLUME, SWEEP_PITCH);
         bukkitPlayer.swingMainHand();
         // 按次扣不按格扣 照格扣一挥就是几十点耐久
         if (this.damageItem && held != null && !player.canInstabuild()) {
-            held.hurtAndBreak(this.durabilityPerUse, player, null);
+            held.hurtAndBreak(durabilityCost, player, null);
         }
         if (this.cooldownTicks > 0 && heldStack != null) {
             bukkitPlayer.setCooldown(heldStack, this.cooldownTicks);
@@ -117,8 +122,15 @@ public final class SickleRangeHarvestBehavior extends ItemBehavior {
 
     // 收割一根竖列 返回这列收到的数量
     private int harvestColumn(Sweep sweep, int x, int baseY, int z) {
+        // A larger sweep must not read another Folia region or synchronously load its chunks.
+        if (!Bukkit.isOwnedByCurrentRegion(sweep.world, x >> 4, z >> 4)
+                || !sweep.world.isChunkLoaded(x >> 4, z >> 4)) {
+            return 0;
+        }
+        int firstY = Math.max(baseY, sweep.world.getMinHeight());
+        int lastY = (int) Math.min((long) baseY + this.height, sweep.world.getMaxHeight());
         int harvested = 0;
-        for (int y = baseY; y < baseY + this.height; y++) {
+        for (int y = firstY; y < lastY; y++) {
             Block block = sweep.world.getBlockAt(x, y, z);
             // 空气格先筛掉 领地查询比读方块贵得多 一刀几十格全查会把它变成热点
             if (block.getType().isAir()) {
@@ -278,12 +290,16 @@ public final class SickleRangeHarvestBehavior extends ItemBehavior {
 
         @Override
         public SickleRangeHarvestBehavior create(Pack pack, Path path, Key key, ConfigSection section) {
+            int durability = BehaviorConfig.getInt(section, DEFAULT_DURABILITY_PER_USE, DURABILITY_KEYS);
+            if (durability < 0 || durability > Integer.MAX_VALUE / 8) {
+                throw new IllegalArgumentException(key + ": durability-per-use cannot support sweep III: " + durability);
+            }
             return new SickleRangeHarvestBehavior(
                     Math.max(0, Math.min(MAX_HORIZONTAL_RADIUS, BehaviorConfig.getInt(section, DEFAULT_HORIZONTAL_RADIUS, RADIUS_KEYS))),
                     Math.max(1, BehaviorConfig.getInt(section, DEFAULT_HEIGHT, HEIGHT_KEYS)),
                     BehaviorConfig.getInt(section, DEFAULT_COOLDOWN_TICKS, COOLDOWN_KEYS),
                     BehaviorConfig.getBoolean(section, true, DAMAGE_KEYS),
-                    BehaviorConfig.getInt(section, DEFAULT_DURABILITY_PER_USE, DURABILITY_KEYS),
+                    durability,
                     BehaviorConfig.getKeySet(section, DEFAULT_CROPS, CROP_KEYS),
                     BehaviorConfig.getKeySet(section, DEFAULT_BUSHES, BUSH_KEYS),
                     BehaviorConfig.getKeySet(section, List.of(), BLACKLIST_KEYS));

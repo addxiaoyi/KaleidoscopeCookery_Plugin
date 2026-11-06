@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.catalog.CookeryCatalogTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:42.807Z" hostname="ADDXIAOYI9000" time="0.033">
+  <properties/>
+  <testcase name="snapshotAndNestedCollectionsAreImmutable()" classname="net.kaleidoscope.cookery.catalog.CookeryCatalogTest" time="0.011"/>
+  <testcase name="rejectsDuplicateKeysAndRetainsLastGoodSnapshot()" classname="net.kaleidoscope.cookery.catalog.CookeryCatalogTest" time="0.009"/>
+  <testcase name="qualityPreservesZeroAndProbabilityAndUsesAbsoluteSaturation()" classname="net.kaleidoscope.cookery.catalog.CookeryCatalogTest" time="0.0"/>
+  <testcase name="importsPinnedSnapshotWithoutMergingWholeAndBiteFood()" classname="net.kaleidoscope.cookery.catalog.CookeryCatalogTest" time="0.008"/>
+  <testcase name="rejectsFractionalIntegerAndInvalidEffectProperties()" classname="net.kaleidoscope.cookery.catalog.CookeryCatalogTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

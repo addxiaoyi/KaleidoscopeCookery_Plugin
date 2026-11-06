@@ -1,0 +1,185 @@
+{
+  "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+  "status": "PARTIAL_FOLIA_COLD_START_WATCHDOG_OPEN",
+  "scope": "Kitchen CE registration, item construction and region-owned API placement/persistence; player interactions and rendering NOT_TESTED",
+  "artifacts": {
+    "build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar": {
+      "bytes": 1325139,
+      "sha256": "d9b036bbacbea71459feff5ed6ac1d1b2088e3458d48b69279fedf0d43d5e405"
+    },
+    "build/acceptance/probe/CookeryAcceptanceProbe.jar": {
+      "bytes": 19632,
+      "sha256": "1c1ec949ff285b0bf94a24481ae867512b210a251f787b1fc719a33fa09da543"
+    },
+    "build/acceptance/cookery-kitchen-v2.zip": {
+      "bytes": 2099878,
+      "sha256": "08d9391b75e755caf81fe6592dcd12e9c933554ebd2d882e5193d83cf8ac9e94"
+    },
+    "src/main/resources/cookery-parity.json": {
+      "bytes": 483430,
+      "sha256": "d7b5e10c9a6d51f458804d4454ec8eac174f24ce22bb9eda40eea4c50146ba25"
+    }
+  },
+  "instances": {
+    "paper": {
+      "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+      "port": 25583,
+      "latestCycle": 3,
+      "latestKitchen": {
+        "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+        "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+        "craftEngine": "26.9.1",
+        "checkedBlocks": 12,
+        "checkedStates": 180,
+        "checkedItems": 165,
+        "placedBlocks": 0,
+        "reloadedBlocks": 12,
+        "nonemptyContainers": 2,
+        "failures": [],
+        "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+        "playerFlow": "NOT_TESTED",
+        "clientResourcePack": "NOT_TESTED"
+      },
+      "food": 103,
+      "enchantments": 5,
+      "artifactHashes": {
+        "plugins/CookeryAcceptanceProbe.jar": "1c1ec949ff285b0bf94a24481ae867512b210a251f787b1fc719a33fa09da543",
+        "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+        "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "d9b036bbacbea71459feff5ed6ac1d1b2088e3458d48b69279fedf0d43d5e405",
+        "server.jar": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba",
+        "acceptance-world/datapacks/cookery_enchantments/pack.mcmeta": "9583598b0601769ed428da4f0201d56d64c7517579eb9dc97be8e93fc1a5f379",
+        "acceptance-world/datapacks/cookery_enchantments/README.md": "6bcde894ac2f2c4865c7886522b14f2cbe88f26e5adac0daaf6bc18d22131f29",
+        "acceptance-world/datapacks/cookery_enchantments/data/kaleidoscopecookery/enchantment/quick_knife.json": "72ec75ae43440f1d3b79737c1661e6e987143eaf529c3f2b6cbe0f23971e2134",
+        "acceptance-world/datapacks/cookery_enchantments/data/kaleidoscopecookery/enchantment/sweep.json": "ea834f8c2ab0e6df03ae4093a07fe27897fb10e6f95665dd16793e8b15190977"
+      },
+      "stoppedCleanly": true,
+      "resourcePackSha256": "649e720dd3a52c741858e9d8e3fffbfc96528cf37740942531449fbbe60d9077",
+      "generatedModelFilesWithoutForgeLoader": 1168,
+      "installedManifestFilesVerified": 1618
+    },
+    "folia": {
+      "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+      "port": 25584,
+      "latestCycle": 4,
+      "latestKitchen": {
+        "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+        "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+        "craftEngine": "26.9.1",
+        "checkedBlocks": 12,
+        "checkedStates": 180,
+        "checkedItems": 165,
+        "placedBlocks": 0,
+        "reloadedBlocks": 12,
+        "nonemptyContainers": 2,
+        "failures": [],
+        "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+        "playerFlow": "NOT_TESTED",
+        "clientResourcePack": "NOT_TESTED"
+      },
+      "food": 103,
+      "enchantments": 5,
+      "artifactHashes": {
+        "plugins/CookeryAcceptanceProbe.jar": "1c1ec949ff285b0bf94a24481ae867512b210a251f787b1fc719a33fa09da543",
+        "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+        "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "d9b036bbacbea71459feff5ed6ac1d1b2088e3458d48b69279fedf0d43d5e405",
+        "server.jar": "f52c408490a0225611e67907a3ca19f7e6da2c6bc899e715d5f46844e7103c39"
+      },
+      "stoppedCleanly": true,
+      "resourcePackSha256": "34cb6c75385577ceecded690e72694098bd12e78f9d5367c39f04ac7c02909ed",
+      "coldStart": {
+        "status": "FAIL_WATCHDOG",
+        "seconds": 5.1684424,
+        "stack": "CraftEngine.runDelayTasks(CraftEngine.java:282) CompletableFutures.allOf(delayedLoadTasks).join()",
+        "issue": "OPEN",
+        "probeFailures": [],
+        "log": "build/acceptance/kitchen-v1/folia/boot-1.log",
+        "sha256": "873fdbc4fde927c4f4c2cd4d8ce4cf0874703a5afbc415e4a94bbd7bd320a8b6"
+      },
+      "generatedModelFilesWithoutForgeLoader": 1168,
+      "installedManifestFilesVerified": 1618
+    }
+  },
+  "evidence": {
+    "build/acceptance/kitchen-v1/folia/boot-1.log": "873fdbc4fde927c4f4c2cd4d8ce4cf0874703a5afbc415e4a94bbd7bd320a8b6",
+    "build/acceptance/kitchen-v1/folia/boot-2.log": "baa9868e967beb5eede1b075cd2cad9cc0c741036cce1056afb3a3b0e4adee0f",
+    "build/acceptance/kitchen-v1/folia/boot-3.log": "3cd581059bf0b8c0d4b63f07ada9f7ee775f85161bd5d4de859224c628fa7266",
+    "build/acceptance/kitchen-v1/folia/boot-4.log": "dc5730540e5173eb0e5bb9aa0d5515a39f80c2619e9c5f6a49bc503dfe6349e7",
+    "build/acceptance/kitchen-v1/paper/boot-1.log": "0d0dc3ac713b149f0e9334890704be58646712b829156e1232f3c0f99f66dce2",
+    "build/acceptance/kitchen-v1/paper/boot-2.log": "1eae9093f8074ed06af61e0bdf2120991666b59332de191f00f331ec88b0701b",
+    "build/acceptance/kitchen-v1/paper/boot-3.log": "176fb049d17c380551c1261013261fa27e922c3c572a3fc03e2507dd7e3b9fe2",
+    "build/acceptance/kitchen-v1/folia/smoke-2.json": "76911fb8fd7ea48ea4a9bc86aba03627a8e362cb0b8cc610437db957cdb17488",
+    "build/acceptance/kitchen-v1/folia/smoke-3.json": "df5b1260708c77f236596578ceb83778c77972ee7a58a0d80a17e41995299214",
+    "build/acceptance/kitchen-v1/folia/smoke-4.json": "143e56dac1c31d8c2384155b5900b7555a6791ba4ab9257406ac8e00d7f414a3",
+    "build/acceptance/kitchen-v1/paper/smoke-1.json": "85926c8da041a2d7c5b46f644503fa3d5713c80978bc373a138a3954c7101d48",
+    "build/acceptance/kitchen-v1/paper/smoke-2.json": "9447464ff74ada3c4bdc136a3d53b37aec69e4348a6431580dd1f17bbcfaf2a8",
+    "build/acceptance/kitchen-v1/paper/smoke-3.json": "a7d8c0d79f846404382e90c2047118507a2f8bb45940a1099d01146e8fb28e89",
+    "build/acceptance/kitchen-v1/acceptance.json": "e351a0c1d88b6f3a1528ba695dcefe6a30b839b9adac65d3c2e8d2eee07ad1e0",
+    "build/acceptance/kitchen-python.log": "813153228f29d5131c60f09d60408452bb3136ad693e2adbdfd86668b251f11c",
+    "build/acceptance/kitchen-java.log": "0db23554f129b9e53506a826cc598d12ecc46d2e584c6a3f25da8b105515e32b",
+    "build/acceptance/kitchen-probe-build.log": "5cca276b7f4f83ccb641677dd8d72e8db5ca635ad7bde00b9fa411f55ae98c33",
+    "build/acceptance/kitchen-import-red.log": "541bafe3d2d8b14a50a15d35d2554684b11b040c441abbb955e81dc19d02892e",
+    "build/acceptance/kitchen-import-green.log": "6c5b9c8d926e1eb73b0f272f62b1db3995ca84cce38c088074bb12719fda971a",
+    "build/acceptance/kitchen-path-red.log": "a1046190926d30b2ca9a4579b858d9ca1b7118b656e3812d5d5777d047c14c1a",
+    "build/acceptance/kitchen-v1-run.log": "5875897e0b87adf1be631a7cc8a4042d1b61ebe22e81f7db25f5ada2a56b056b",
+    "build/acceptance/kitchen-v1-restarts.log": "04c6a4214df291928df53b201003c1f239987d62874cf0504b65892054b8db1a",
+    "build/acceptance/kitchen-v1-items.log": "3ce71ee53dd12753f61f0619bc8b21b955c5ea264989374248d0f5283bd9f196"
+  },
+  "pack": {
+    "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+    "target": {
+      "minecraft": "1.21.11",
+      "craftEngine": "26.9.1"
+    },
+    "items": 165,
+    "blocks": 12,
+    "convertedPerspectives": [
+      "kaleidoscope_cookery:item/cold_cut_ham_slices",
+      "kaleidoscope_cookery:item/fruit_basket",
+      "kaleidoscope_cookery:item/teapot"
+    ],
+    "checkedModels": 174,
+    "soundAliases": 12,
+    "states": {
+      "kaleidoscopecookery:chopping_board": 4,
+      "kaleidoscopecookery:enamel_basin": 20,
+      "kaleidoscopecookery:kitchenware_racks": 4,
+      "kaleidoscopecookery:pot": 16,
+      "kaleidoscopecookery:shawarma_spit": 16,
+      "kaleidoscopecookery:steamer": 48,
+      "kaleidoscopecookery:stockpot": 32,
+      "kaleidoscopecookery:stove": 8,
+      "kaleidoscopecookery:fruit_basket": 4,
+      "kaleidoscopecookery:teapot": 16,
+      "kaleidoscopecookery:teacup_coaster": 4,
+      "kaleidoscopecookery:oil_pot": 8
+    },
+    "pending": [
+      "Tripwire-backed appliances have vanilla selection boxes and no solid collision; exact mod voxel shapes remain pending.",
+      "Waterlogging is not enabled by this acceptance pack.",
+      "Teapot base and chains use extracted stockpot support geometry; the Java entity texture layout still needs a dedicated conversion.",
+      "Steamer TOP is retained for old states using a translated half model; official mod has no TOP state.",
+      "Stockpot liquid displays, placed meal bites, kitchen recipes, protection, multiplayer and client visual acceptance remain pending.",
+      "Tool durability and lid use behavior beyond existing kitchen interactions require separate parity acceptance."
+    ],
+    "playerFlow": "NOT_TESTED",
+    "clientResourcePack": "NOT_TESTED"
+  },
+  "tests": {
+    "java": {
+      "tests": 84,
+      "failed": 0,
+      "status": "GRADLE_UP_TO_DATE; unchanged production classes"
+    },
+    "python": {
+      "tests": 45,
+      "failed": 0
+    }
+  },
+  "sourceFiles": {
+    "tools/cookery_models.py": "445da3434d8bdb8fae70879be3257dd720f83dfa60189f99fb07be0a320f8223",
+    "tools/export_cookery_food_pack.py": "740ecf60adac72845e4a26f01427bf6a29247c11171bd7bbad55c1494e3329e0",
+    "tools/export_cookery_kitchen_pack.py": "33ac80e9469d0b736bb9891cba1a958b5edf254aa364f37093b2bc6cc56076df",
+    "tools/run_enchantment_acceptance.py": "a2ca72fafd26290c06295a2d27cd402027e969291b5d59f6212df6d9bcabf0ef",
+    "src/acceptance/java/net/kaleidoscope/cookery/acceptance/KitchenSmoke.java": "cb87f1205455252e3c317767af369c785735665b3e67915b91fbebbc276e9098"
+  }
+}

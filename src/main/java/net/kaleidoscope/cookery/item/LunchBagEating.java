@@ -61,16 +61,18 @@ public final class LunchBagEating {
     // 吃完一口 扣掉第一格的一个并结算营养 直接把收纳态写回手上
     // 不走 restore 扫背包 免得和原版正在进行的物品栏改动抢同一个物品
     public static void finish(org.bukkit.entity.Player bukkitPlayer, EquipmentSlot hand, Item eating) {
-        Item food = LunchBagContents.removeOne(eating);
-        if (!ItemUtils.isEmpty(food)) {
-            applyNutrition(bukkitPlayer, food);
-            KaleidoscopeAdvancements.recordEvent(bukkitPlayer, "use_transmutation_lunch_bag");
-        }
-        Item bag = LunchBagContents.toBagForm(eating);
+        Item staged = eating.copy();
+        Item food = LunchBagContents.removeOne(staged);
+        if (!ItemUtils.isEmpty(food)) CookeryFoodItems.read(ItemStackUtils.getBukkitStack(food.minecraftItem()));
+        Item bag = LunchBagContents.toBagForm(staged);
         if (ItemUtils.isEmpty(bag)) {
             return;
         }
         bukkitPlayer.getInventory().setItem(hand, ItemStackUtils.getBukkitStack(bag));
+        if (!ItemUtils.isEmpty(food)) {
+            applyNutrition(bukkitPlayer, food);
+            KaleidoscopeAdvancements.recordEvent(bukkitPlayer, "use_transmutation_lunch_bag");
+        }
         bukkitPlayer.updateInventory();
     }
 
@@ -123,6 +125,14 @@ public final class LunchBagEating {
         bukkitPlayer.setFoodLevel(level);
         bukkitPlayer.setSaturation(Math.min(bukkitPlayer.getSaturation() + saturation, level));
         applyConsumeEffects(bukkitPlayer, food);
+        var baked = CookeryFoodItems.read(ItemStackUtils.getBukkitStack(food.minecraftItem()));
+        if (baked != null) {
+            net.kaleidoscope.cookery.plugin.KaleidoscopeCookeryPlugin.instance().cookeryConsumption().apply(bukkitPlayer, baked);
+            if (baked.container() != null) {
+                InventoryUtils.give(net.momirealms.craftengine.bukkit.api.BukkitAdaptor.adapt(bukkitPlayer),
+                        InventoryUtils.createOrEmpty(net.momirealms.craftengine.core.util.Key.of(baked.container())));
+            }
+        }
     }
 
     // 1.21.2 起进食附带的效果从 food.effects 移到了 consumable.on_consume_effects
@@ -174,7 +184,9 @@ public final class LunchBagEating {
         boolean ambient = !effect.has("ambient") || effect.get("ambient").getAsBoolean();
         boolean particles = !effect.has("show_particles") || effect.get("show_particles").getAsBoolean();
         boolean icon = !effect.has("show_icon") || effect.get("show_icon").getAsBoolean();
-        bukkitPlayer.addPotionEffect(new PotionEffect(type, duration, amplifier, ambient, particles, icon));
+        if (!net.kaleidoscope.cookery.plugin.KaleidoscopeCookeryPlugin.instance().cookeryConsumption().blocksHarmfulFood(bukkitPlayer, type)) {
+            bukkitPlayer.addPotionEffect(new PotionEffect(type, duration, amplifier, ambient, particles, icon));
+        }
     }
 
     private static String asString(JsonElement element) {

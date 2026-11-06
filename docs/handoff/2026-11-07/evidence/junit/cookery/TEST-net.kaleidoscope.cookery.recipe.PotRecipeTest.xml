@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.recipe.PotRecipeTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:43.593Z" hostname="ADDXIAOYI9000" time="0.041">
+  <properties/>
+  <testcase name="ingredientsAndRuntimeListsAreImmutable()" classname="net.kaleidoscope.cookery.recipe.PotRecipeTest" time="0.001"/>
+  <testcase name="exactThenConcreteDistinctThenLegacyCosine()" classname="net.kaleidoscope.cookery.recipe.PotRecipeTest" time="0.009"/>
+  <testcase name="qualityKeepsDeviationWhileOutputCountStaysFixed()" classname="net.kaleidoscope.cookery.recipe.PotRecipeTest" time="0.003"/>
+  <testcase name="reloadPublishesRecipeWhitelistAndCarrierTogetherOrRetainsPrevious()" classname="net.kaleidoscope.cookery.recipe.PotRecipeTest" time="0.003"/>
+  <testcase name="overlappingTagsCannotConsumeTheSameInputTwice()" classname="net.kaleidoscope.cookery.recipe.PotRecipeTest" time="0.001"/>
+  <testcase name="parserWaitsForItemRegistrationAndRawWhitelistReset()" classname="net.kaleidoscope.cookery.recipe.PotRecipeTest" time="0.02"/>
+  <testcase name="strictConfigRejectsUnknownFieldsAndCoercedNumbers()" classname="net.kaleidoscope.cookery.recipe.PotRecipeTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

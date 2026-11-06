@@ -191,6 +191,11 @@ public final class FlexMatcher {
                 .decoration(TextDecoration.ITALIC, false);
         item.loreComponent(List.of(lore));
 
+        if (net.kaleidoscope.cookery.item.CookeryFoodItems.read(
+                net.momirealms.craftengine.bukkit.util.ItemStackUtils.getBukkitStack(item.minecraftItem())) != null) {
+            return net.kaleidoscope.cookery.item.CookeryFoodItems.bake(item,
+                    net.kaleidoscope.cookery.catalog.QualityProfile.of(quality));
+        }
         return DishFoodScaler.scale(item, quality.ratio());
     }
 

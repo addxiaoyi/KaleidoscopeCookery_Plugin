@@ -17,6 +17,9 @@ public record AccurateFoodRecipe(
         int cookingTime
 ) {
     public AccurateFoodRecipe {
+        if (cook == ApplianceType.BAMBOO_TRAY) {
+            throw new IllegalArgumentException("Bamboo tray recipes use bamboo_tray_recipes, not accurate_foods");
+        }
         results = List.copyOf(results);
         lore = List.copyOf(lore);
         if (cookingTime < 0) throw new IllegalArgumentException("cookingTime must be non-negative");

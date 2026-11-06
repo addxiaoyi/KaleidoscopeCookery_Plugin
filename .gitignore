@@ -4,7 +4,6 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 
 # 测试与验收资料在仓库外单独保存
-/src/test/
 /verification/
 
 # 构建产物
@@ -56,3 +55,8 @@ Thumbs.db
 *.tmp
 *.bak
 hs_err_pid*
+
+# Local Python tooling
+__pycache__/
+.venv/
+.codegraph/

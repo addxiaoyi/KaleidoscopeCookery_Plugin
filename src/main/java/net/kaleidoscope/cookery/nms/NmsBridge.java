@@ -14,6 +14,8 @@ public interface NmsBridge {
 
     boolean isPerformRespawnPacket(Object packet);
 
+    BambooTrayWeather bambooTrayWeather(Object level, int x, int y, int z);
+
     default Player bukkitPlayer(Object nmsEntity) {
         Object bukkit = bukkitEntity(nmsEntity);
         return bukkit instanceof Player player ? player : null;

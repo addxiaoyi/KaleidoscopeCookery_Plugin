@@ -1,0 +1,13 @@
+Reusing configuration cache.
+> Task :processTestResources NO-SOURCE
+> Task :processResources UP-TO-DATE
+> Task :compileJava
+> Task :classes
+> Task :compileTestJava UP-TO-DATE
+> Task :testClasses UP-TO-DATE
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :test
+
+BUILD SUCCESSFUL in 10s
+4 actionable tasks: 2 executed, 2 up-to-date
+Configuration cache entry reused.

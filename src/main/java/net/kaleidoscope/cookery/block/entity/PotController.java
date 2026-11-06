@@ -83,6 +83,7 @@ public class PotController extends BlockEntityController {
     private final List<Item> ingredientsView = Collections.unmodifiableList(ingredients);
     private final PotElement element;
     private boolean animating = false;
+    private boolean serving;
     private int stirAnimationTicks;
     private Player stirringPlayer;
     private CookingPlan cookingPlan;
@@ -273,10 +274,12 @@ public class PotController extends BlockEntityController {
 
     private void ensureCookingPlan() {
         if (cookingPlan == null) {
-            cookingPlan = FoodRecipeRegistry.instance().planFlex(ApplianceType.POT,
-                    ingredients.stream().map(Item::id).toList(), null, Math.max(1, behavior.stirFryCount));
             // 旧档已翻炒的批次仍沿用原厨具默认阈值。
-            if (stirFryCount > 0) cookingPlan = cookingPlan.withWorkRequired(Math.max(1, behavior.stirFryCount));
+            List<Key> inputs = ingredients.stream().map(Item::id).toList();
+            int defaultStirs = Math.max(1, behavior.stirFryCount);
+            cookingPlan = stirFryCount > 0
+                    ? FoodRecipeRegistry.instance().planFlex(ApplianceType.POT, inputs, null, defaultStirs).withWorkRequired(defaultStirs)
+                    : FoodRecipeRegistry.instance().planPot(inputs, defaultStirs);
         }
     }
 
@@ -516,6 +519,14 @@ public class PotController extends BlockEntityController {
     public Item peekResult() {
         return result.isEmpty() ? Item.empty() : result.copyWithCount(1);
     }
+
+    public boolean beginServing() {
+        if (serving || result.isEmpty()) return false;
+        serving = true;
+        return true;
+    }
+
+    public void endServing() { serving = false; }
 
     // 盛出后统一扣份数并落盘 别把 result 暴露出去让调用方自己改
     public void consumeResult(int amount) {

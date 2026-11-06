@@ -7,7 +7,7 @@
 
 炒锅 · 高汤锅 · 蒸笼 · 搪瓷盆 · 砧板 · 石磨 · 沙威玛烤架 · 厨具架 · 垃圾桶 —— 一整套能玩的厨房与配套配方系统
 
-**简体中文** · [English](README_EN.md)
+**简体中文**
 
 ![CraftEngine](https://img.shields.io/badge/CraftEngine-required-4C8BF5?style=flat-square)
 ![Paper](https://img.shields.io/badge/Paper-1.21+-EF6C00?style=flat-square)
@@ -19,6 +19,134 @@
 ---
 
 ## 📖 简介
+
+开发记录：[架构与实现](docs/DEVELOPMENT.md) · [官方全系列范围](docs/SERIES-SOURCES.md) · [复刻实施表](docs/IMPLEMENTATION-ROADMAP.md) · [竹筛示例与验收](examples/bamboo-tray/README.md) · [本地验证结果](docs/VALIDATION.md)。**换设备请先读下方「开发交接」：全系列复刻尚未完成，竹筛整包接入是当前断点。**
+
+2026-11-06 石磨检查点：132 项 Java、71 项 Python 测试通过。[厨房验收包](examples/kitchen-pack/README.md) 有 271 物品、12 方块、180 状态和 1 石磨家具；612 条来源配方中 462 条导出为 438 加工配置和 33 合成配置，150 条待处理。87 条石磨配方保留旧圈数与冻结计划，新增转移闸门和失败阻塞。修复 Folia 重启后的旧家具 ticker 引用；Paper/Folia 各三轮通过真实牛驱动、重启续磨、10 骨粉掉落和空槽重启防重复，原炒锅与高汤锅回归保留。两端各 1,709 安装文件和 1,251 生成模型通过检查，见 [验证记录](docs/VALIDATION.md)。历史 Folia 启动 CE watchdog 仍 OPEN，玩家/客户端/保护/多人尚未整体验收；全系列目标尚未完成，参见 [厨房对照表](docs/COOKERY-PARITY.md) 和 [系列矩阵](series/docs/PORTING-MATRIX.md)。
+
+全系列新增工作区：[玩偶 / 酒馆 / 装饰 / 音乐插件](series/README.md)。官方组织 8 个仓库已克隆，四个新模块及 CE 内容包已建立；具体实现范围、运行差异和待办见 [移植状态](series/docs/PORTING-MATRIX.md)，不能把资源条目数等同于完整玩法。
+
+## 开发交接（2026-11-07）
+
+### 总目标与约束
+
+把 [KaleidoscopeMods](https://github.com/KaleidoscopeMods) 的全部玩法移植为 **纯插件 + CraftEngine 资源包**，让原版客户端进服。玩法工程为 Cookery、Doll、Tavern、Deco、MusicPlus；8 个官方仓库中的 Demo、Web、midi 分别作为美术示例、官网和 MIDI 库保留，不虚构为三个独立玩法插件。
+
+- 固定运行验收目标：**Paper/Folia 1.21.11、Java 21、CraftEngine API/运行插件 26.9.1**。厨房主工程版本 1.3.0，`series/` 四个插件为 0.1.0-dev，`common` 随它们重定位打包。
+- 保留原厨房的品质、旧炒锅/砧板/石磨规则、已有配置和存档；进行中的批次不被新配方静默改写。不能为了套用官方算法破坏既有服数据。
+- 能由资源包表达的模型、贴图、字体、音效和状态逐项对齐。官方客户端 GUI、实体渲染器、相机、按键和 MIDI 合成器改用原版菜单、字体、动作条、显示实体、服务端音符；差异独立记录，不能宣称原版客户端执行了模组客户端代码。
+- 固定官方提交见 [organization-checkouts.json](docs/research/organization-checkouts.json)。导入读 Git blobs，必须校验 HEAD 和 tracked clean；未知注册/标签/函数/模型结构应失败并保留旧快照，不能静默漏项或当普通状态切换。
+- 这次是源码和开发记录交接。JAR、资源 ZIP、世界、服务器缓存和本机凭据不进入 Git；生成命令及证据保留。后续提交、发布与生产部署分别授权；不得由测试通过推断可以重启生产服。
+
+### 当前进度与证据
+
+| 模块 | 已落地范围 | 证据边界与缺口 |
+| --- | --- | --- |
+| Cookery 目录/消费 | 固定快照：148 foodProperties、94 food、8 tea、12 effect、2 enchantment；食物/茶饮/品质与便当袋 PDC；12 效果基础生命周期；快刀/清扫行为 | 双端探针构造与序列化 103 种可消费品、5 个附魔工具通过；实际玩家进食、图标、全部实体事件仍待测 |
+| Cookery 厨具/配方 | 612 来源逐条记录，462 imported / 150 pending；438 加工配置 + 33 合成。271 物品、12 方块、180 状态、1 石磨家具；219 炒锅、101 高汤锅、87 石磨及茶壶/蒸笼/砧板 | Paper/Folia 石磨各 3 轮 PASS：默认 40 秒/圈的牛驱动、重启续磨恰好 10 骨粉、空槽再次重启无重复；旧厨房回归保留。每端 1,709 安装文件与 manifest 一致，1,251 生成模型无 Forge loader |
+| Cookery 竹筛 | 已有四槽控制器、19 tick 加工、天气/滴水石查询、漏斗容器、存档、菜单编辑、独立 26 原版 + 2 茶叶配方示例 | **尚未合入完整厨房包，也没有真实运行验收**；每槽仅显示一件，自制示例模型/碰撞未对齐官方。暂停前只读源码、没有完成本轮资源或探针改动 |
+| Doll | 抽奖/礼盒、643 玩家玩偶兑换、收藏、九轴摆放微调；蓄力投掷、弹跳、骑乘、幻翼携带及加载恢复 | 729 物品/725 家具/3 合成；原版小盔甲架承载实体。四插件尚无实服/客户端证据；精确物理、移动玩偶九轴、持物与 Bedrock 自定义模型仍缺 |
+| Tavern | 24 酒桶、6 果盆、12 调酒配方、37 效果表；三类葡萄、龙头、手持/放置调酒及物品 PDC | 190 物品/39 家具/114 合成；野葡萄生成、架体连接、燃烧瓶与剩余家具未完成，液面/混色/保护及饮用归因待补 |
+| Deco | 785 家具；102 状态转换、517 非 pending 规则（包含音效）、68 沙发颜色/形态组合；拆装状态保存 | 854 物品，**418 条聚合缺口**见 [deco-import.json](series/docs/deco-import.json)；规则数不是玩法数，复杂函数仍 pending |
+| MusicPlus | 25 键菜单，本地 MIDI 多轨/tempo/program 解析、原版音符播放及清理 | 目前 1 个占位乐器；官方模型、持有姿态、持续声部与客户端合成器差异尚未补齐 |
+| 跨系列资源 | 1,774 物品、1,549 家具、117 合成、2,710 可达自定义模型引用检查通过 | 未证明四插件能在 CE 实际加载或原版客户端正确显示；不包含完整厨房包 |
+
+厨房最新 Java 测试报告 **132 项**、Python **71 项**；series Java **59 项**、Python **18 项**。交接构建的命令、退出码、是否缓存命中及测试报告见 [交接证据](docs/handoff/2026-11-07/README.md)，历史运行证据见 [VALIDATION](docs/VALIDATION.md) 和 [石磨验收摘要](docs/research/cookery-millstone-acceptance.json)。不把增量任务写成重新运行全部测试。
+
+仍然开放的问题：Folia 历史冷启动/CE `runDelayTasks().join()` watchdog 尚未证明根因；后续成功不覆盖失败。石磨的旧家具 ticker 引用问题已修复，这是另一个问题。玩家/原版客户端接包、保护插件、多人同家具、Folia 跨区域及独立区块卸载仍未整体验收。
+
+### 后续完整计划（厨房优先）
+
+以下均保留为任务，不因本次推送变成「完成」。每完成一项同步 [COOKERY-PARITY](docs/COOKERY-PARITY.md)、[PORTING-MATRIX](series/docs/PORTING-MATRIX.md)、验证记录和本 README。
+
+1. **接续断点：竹筛整包与实服闭环。** 将官方 `bamboo_tray` 的底盘/支架模型和 28 条配方合入 `tools/export_cookery_kitchen_pack.py` / `tools/cookery_recipes.py`，保持 `stand` 两状态、现有四槽与旧存档。补固定来源、未知结构拒绝测试与 manifest。对照官方按数量最多五份的展示、偏移和旋转；随后新增独立探针，验证日晒/雨淋/玻璃棚/遮挡/叠放/有效与无效滴水石、正反加工、取料、重启和漏斗取消。不要只把配方统计加 28 就宣布完成。
+2. **完成厨房目录、食物摆盘和每口状态。** 继续完善 `CookeryCatalog`、`FoodDefinition`、`TeaDefinition`、`ConsumeEffectDefinition`、`QualityProfile` 的不可变快照；成品创建时写定营养、饱和度、效果、品质 lore。区分整份与每口食物，补 1×1、1×2、3×3 摆盘的最大口数、状态/碰撞/动画、额外掉落、容器、收回和持久化。注册未知结构必须阻断导入并保留上代。
+3. **把厨房 12 效果从基础实现转为逐项验收。** 胀气、冻原行者、温暖、饱腹代偿、活力、硫磺、芥末、保鲜、阻碍、弹射物闪避、即时冶炼、生机；统一 apply/tick/clear/save/load，核对官方等级、概率、时长、属性和来源。覆盖重复覆盖、事件取消、死亡、喝奶、退出/重登、换世界、重入和坏 PDC，补资源包字体/状态栏替代图标。
+4. **补厨房附属玩法与剩余获取链。** 快刀/清扫实战、农夫套装、茶旗染色/图案持久化、厨师村民职业/工作站/交易，以及平原/雪地/热带草原/沙漠/针叶林五类村庄厨房。处理剩余 150 来源和原料获取、作物、熔炉/烟熏/营火/米饭盛取/锻造、配方菜单编辑、动物桶 NBT、容器/额外掉落与收回；以导入清单为逐条依据，缺外部 Forge 标签不能删备选项凑数。
+5. **保持旧厨具兼容并补资源差异。** 继续炒锅、砧板、沙威玛、蒸笼、茶壶等缺失能力；不强换旧计时/品质语义。石磨官方抬升、磨石 1.3125 高度（现为 1.4）、六倍滚动差异、碰撞和资源画面单列；茶壶支架/链、奶液/字体替代、精确碰撞与水浸状态逐项处理。定位历史 CE/Folia 启动 watchdog，不延长阈值或过滤 ERROR 伪造通过。
+6. **Doll 完成玩法与资源闭环。** 抽奖机双层动画、投币展示和资源状态；移动玩偶兼容九轴姿态；碰撞/旋转/浮力/弹跳/持物与实体加载优化；持久化收藏与拆装规则、礼盒/抽奖守恒和保护实测。自定义 Bedrock 玩偶通过资源包近似，明确原版客户端无法运行官方渲染器。
+7. **Tavern 完成种植、容器与家具。** 野葡萄世界生成、真实架体连接；燃烧瓶投掷/命中；黑板/招牌文字、冰桶、吊灯、吧台连接、酒柜等交互；酒桶/果盆多方块外观、液面、漏斗自动化；手持雪克杯动画、混色与各状态。逐项验证葡萄/龙头/手持倒酒的持久化和守恒，补非玩家饮用及间接击杀效果归因。
+8. **Deco 按 418 缺口分类闭环。** 依次处理 overlay、物品组件/标签条件、额外脚本函数、组件选择模型、椅垫/酒柜/库存家具、自动连接/座位/碰撞及 GUI-only 家具替代入口。复杂函数使用明确处理器；无法安全解释的继续 pending，不伪装为普通状态切换。
+9. **MusicPlus 完成可行替代。** 补乐器资源模型和持有姿态，保留 MIDI 多轨、速度和音色；用资源音效与原版音符接近官方表现，记录音高折叠、持续声部与客户端合成器差异；验证停止、退出、换世界、多人演奏与资源生命周期。
+10. **全系列合服与交付验收。** 厨房独立包与五个系列 CE 目录合并，检查 ID/字体/声音/模型冲突、获取链和跨模块交互。Paper/Folia + CE 启动、原版客户端真实接包、多人竞争、保护取消、重启/卸载、坏存档、Folia 边界及性能全部补证据；核对分发 JAR/CE 内容/manifest/SHA-256 一致后再判模块通过。
+
+每阶段必须有：固定提交与导入清单一致、Java 与 Python 回归、资源引用检查、物品守恒与取消/重入、PDC 坏数据、重启和卸载、保护和 Folia 所属线程、多人不重复扣除/产出、真实客户端流程。**代码存在、编译通过、探针通过、玩家验收是四种不同证据；目前全系列仍在开发。**
+
+### 换设备恢复工作区
+
+GitHub 主分支：`https://github.com/addxiaoyi/KaleidoscopeCookery_Plugin` 的 `main`。在新的父目录中执行（已有 checkout 先确认本地改动，再 `git pull --ff-only`）：
+
+```powershell
+git clone --branch main https://github.com/addxiaoyi/KaleidoscopeCookery_Plugin.git luosengchufang
+Set-Location luosengchufang
+git status --short --branch
+git log -1 --oneline
+```
+
+根工程是厨房，`series/` 是独立 Gradle 多模块工程。官方源码在仓库**同级父目录**的 `.references/`，不会随 clone 自动出现。下面按锁定文件恢复 8 个 checkout；历史 JSON 内的旧机器 `path` 仅作来源记录，不能直接使用：
+
+```powershell
+$pins = Get-Content -LiteralPath docs/research/organization-checkouts.json -Raw -Encoding UTF8 | ConvertFrom-Json
+$referenceRoot = Join-Path (Split-Path -Parent (Get-Location).Path) '.references'
+New-Item -ItemType Directory -Path $referenceRoot -Force | Out-Null
+foreach ($source in $pins.repositories) {
+    $checkout = Join-Path $referenceRoot $source.name
+    if (-not (Test-Path -LiteralPath $checkout)) {
+        git clone --no-checkout $source.clone_url $checkout
+        if ($LASTEXITCODE -ne 0) { throw "Clone failed: $($source.name)" }
+        git -C $checkout checkout --detach $source.commit
+        if ($LASTEXITCODE -ne 0) { throw "Checkout failed: $($source.name)" }
+    }
+    $head = git -C $checkout rev-parse HEAD
+    if ($LASTEXITCODE -ne 0 -or $head -ne $source.commit) { throw "Pinned HEAD mismatch: $checkout" }
+    $dirty = git -C $checkout status --porcelain --untracked-files=no
+    if ($LASTEXITCODE -ne 0 -or $dirty) { throw "Reference has tracked changes: $checkout" }
+}
+```
+
+构建需要 **JDK 21 和 JDK 25**：运行/主代码用 21，已有两个 26.x NMS 源集使用 25 编译器但仍输出 Java 21 字节码。安装 Git、Python 3.11+（建议 3.12+）、两套 JDK，先跑 `java -version` 和 `.\gradlew.bat javaToolchains --console=plain`。Gradle 未发现 JDK 时可在本机 `~/.gradle/gradle.properties` 配 `org.gradle.java.installations.paths`；不要把旧机器绝对路径写进仓库。
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r tools/requirements.txt -r series/tools/requirements.txt
+.\.venv\Scripts\python.exe tools/export_cookery_catalog.py --source ../.references/KaleidoscopeCookery --check
+.\.venv\Scripts\python.exe series/tools/import_sources.py --check
+.\.venv\Scripts\python.exe -m unittest discover -s tools -p 'test_*.py' -v
+.\.venv\Scripts\python.exe -m unittest discover -s series/tools -p 'test_*.py' -v
+.\gradlew.bat test shadowJar acceptanceJar --console=plain
+.\gradlew.bat -p series build --console=plain
+```
+
+依赖缓存没有推送。厨房九个 Spigot NMS 版本为 `1.21.1 / 1.21.3 / 1.21.4 / 1.21.5 / 1.21.8 / 1.21.10 / 1.21.11 / 26.1.2 / 26.2`，精确 Maven 坐标/classifier 见 `build.gradle`。若 CodeMC 对某版本不可用，用官方 [BuildTools](https://www.spigotmc.org/wiki/buildtools/) 在独立目录构建相应版本并安装到本机 Maven（1.21.x 需要 `remapped-mojang`）；不是下载一个 Paper JAR 就能替代这九个编译依赖。可选 UltimateAdvancementAPI 镜像失效时使用 README 原构建节的 `-PultimateAdvancementApiJar=...`，不把 API 打进插件。
+
+生成新资源归档（输出必须是不存在的新路径，禁止覆盖旧验收证据）：
+
+```powershell
+.\.venv\Scripts\python.exe tools/export_cookery_kitchen_pack.py --source ../.references/KaleidoscopeCookery --output build/acceptance/cookery-handoff.zip
+.\.venv\Scripts\python.exe series/tools/import_sources.py --archive series/build/distribution/series-handoff-ce.zip
+.\.venv\Scripts\python.exe series/tools/validate_packs.py series/build/distribution/series-handoff-ce.zip
+.\.venv\Scripts\python.exe series/tools/package_dev.py --packs series/build/distribution/series-handoff-ce.zip --output series/build/distribution/series-handoff.zip
+```
+
+`package_dev.py` 的现有整包只包含五个插件 JAR 和 series CE 包，**不包含完整厨房 CE 包**；厨房 ZIP 需另带。其 manifest 的 `uncommitted_work` 是现有固定开发标记，不能用于判断 Git 是否干净。CE 内容包也不是最终原版客户端 ZIP，客户端包由 CE 生成。素材来源与许可保存在生成包中，原始素材不另拷贝进本仓库。
+
+### 恢复隔离测试服
+
+本机原测试目录 `build/acceptance`、端口 `127.0.0.1:25581/25582`，独立验收副本用 `25583/25584`。原服主已明确接受本地 EULA 并授权启动隔离服；此次交接不操作生产服。换设备的冷启动流程和旧机运行证据分开记录。
+
+1. 从 [固定 Modrinth 文件](https://cdn.modrinth.com/data/tRX6FMfQ/versions/EDh6mvv2/craft-engine-paper-plugin-26.9.1.jar) 获取**运行插件**，不是 `craft-engine-core/bukkit` API JAR。SHA-256 必须为 `021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f`，保存为 `build/acceptance/runtime/craft-engine-paper-plugin-26.9.1.jar`。
+2. 构建厨房和探针后运行 `python tools/prepare_test_servers.py --craft-engine build/acceptance/runtime/craft-engine-paper-plugin-26.9.1.jar --kitchen build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar --accept-eula`。脚本固定下载并校验 Paper build 132 / Folia build 14。
+3. 生成食品基础包：`python tools/export_cookery_food_pack.py --source ../.references/KaleidoscopeCookery --output build/acceptance/seed-foods.zip`。只将 ZIP 的 `cookery_foods/` 目录放入两个基础服的 `plugins/CraftEngine/resources/`，不要把它与完整 `cookery_kitchen` 同时安装。分别正常启动基础服并正常 `stop`，让 Paper/CE 下载依赖并生成 `cache`、`libraries`、CE `libs/config.yml`；**先完成这一步**，现有验收运行器会复制这些已准备目录，不是一键从全空目录启动器。
+4. 基础服停机后运行 `python tools/run_enchantment_acceptance.py --accept-eula --root build/acceptance/device-01 --kitchen-pack build/acceptance/cookery-handoff.zip --timeout 240`。运行器创建新副本、备份其旧食品包、校验并装厨房包，双端各三轮，生成资源后正常停服。新机器遇到下载/冷启动/watchdog 错误必须保留失败日志；不能复制旧 PASS 来冒充当前验收。
+5. 按 [series/ACCEPTANCE](series/docs/ACCEPTANCE.md) 接入四插件与 series CE 包，继续真实玩家、原版客户端、保护/多人及跨区域验收。仍缺官方完整现用厨房整合包；当前生成包是验收包，不默认作为生产整合包。
+
+### 下一位开发者的第一项任务
+
+先核对 clone 的 `main`、8 个固定源码及上面的测试，再继续竹筛。入口是 `BambooTrayBehavior/Controller/Container/Element/Environment`、`BambooTrayRecipe/Index`、`FoodRecipeManager.BambooTrayRecipesParser`、`tools/export_bamboo_tray.py`；官方对照 `BambooTrayBlock`、`BambooTrayBlockEntity`、`BambooTrayBlockEntityRender`。完整厨房生成器当前故意把竹筛来源标 pending；这正是待接入点。
+
+不要重做已通过的石磨实现；如果新服再出现 Folia 角度冻结，先检查 `MillstoneController.createFurnitureTicker()` 的公开家具映射转发。读取旧文档时优先本 README、最新验证章节和机器摘要；历史 29/118 项测试、380/232 配方等数字只是当时检查点。
+
+---
 
 `KaleidoscopeCookeryPlugin` 是把 **森罗物语（Kaleidoscope Cookery）** 模组的中式烹饪玩法移植到 **CraftEngine** 的服务端插件 + 资源配置。
 无需客户端装模组，玩家只用原版客户端 + 服务器资源包即可体验整套厨房：从切菜、炒菜、炖汤、蒸笼，到摆盘上桌。

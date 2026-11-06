@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-06T04:51:41.475Z" hostname="ADDXIAOYI9000" time="0.015">
+  <properties/>
+  <testcase name="invalidTickArgumentsFailBeforeChangingState()" classname="net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest" time="0.004"/>
+  <testcase name="savedCompletionUsesStableCodesAndEmptyingClearsIt()" classname="net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest" time="0.002"/>
+  <testcase name="missingRecipeResetsTimeWithoutMakingFinishedItemsInsertable()" classname="net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest" time="0.0"/>
+  <testcase name="processingFinishesOnTheFirstNineteenTickStepPastTheDuration()" classname="net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest" time="0.0"/>
+  <testcase name="invalidPersistedStateIsRejected()" classname="net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest" time="0.006"/>
+  <testcase name="largeValidDurationsCannotOverflowProgress()" classname="net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest" time="0.0"/>
+  <testcase name="unfinishedProgressSurvivesWeatherChangeAndRecipeReload()" classname="net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest" time="0.001"/>
+  <testcase name="finishedDirectionCannotProcessAgainUntilReversed()" classname="net.kaleidoscope.cookery.block.entity.BambooTrayProgressTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

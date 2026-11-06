@@ -1,0 +1,58 @@
+[
+  {
+    "probeTicks": 0,
+    "rawTick": 174,
+    "animating": true,
+    "progress": [
+      78.29998,
+      78.29998
+    ],
+    "furnitureValid": true,
+    "controllerLoaded": true,
+    "sameLoadedFurniture": true,
+    "registeredTicker": true,
+    "sameTickingFurniture": false,
+    "tickingFurnitureValid": true,
+    "pendingMovement": true,
+    "movementComplete": true,
+    "movementSuccessful": true,
+    "animalPresent": true,
+    "animalOwned": true,
+    "animalValid": true,
+    "animalLocation": [
+      39.003419399261475,
+      128.0,
+      10.346662759780884
+    ],
+    "sameBoundAnimal": true,
+    "boundAnimalOwned": true
+  },
+  {
+    "probeTicks": 200,
+    "rawTick": 174,
+    "animating": true,
+    "progress": [
+      78.29998,
+      78.29998
+    ],
+    "furnitureValid": true,
+    "controllerLoaded": true,
+    "sameLoadedFurniture": true,
+    "registeredTicker": true,
+    "sameTickingFurniture": false,
+    "tickingFurnitureValid": true,
+    "pendingMovement": true,
+    "movementComplete": true,
+    "movementSuccessful": true,
+    "animalPresent": true,
+    "animalOwned": true,
+    "animalValid": true,
+    "animalLocation": [
+      39.003419399261475,
+      128.0,
+      10.346662759780884
+    ],
+    "sameBoundAnimal": true,
+    "boundAnimalOwned": true
+  }
+]

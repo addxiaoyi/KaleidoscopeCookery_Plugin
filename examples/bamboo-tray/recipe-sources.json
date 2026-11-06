@@ -1,0 +1,350 @@
+{
+  "upstream": {
+    "repository": "KaleidoscopeMods/KaleidoscopeCookery",
+    "commit": "2f4e386ce23f49a385ddf003c67fc6415c55417a"
+  },
+  "item_aliases": {
+    "kaleidoscope_cookery:fresh_tea_leaves": "kaleidoscopecookery:fresh_tea_leaves",
+    "kaleidoscope_cookery:dried_tea_leaves": "kaleidoscopecookery:dried_tea_leaves"
+  },
+  "recipes": [
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/drying/fresh_tea_leaves_to_dried_tea_leaves",
+      "require": "kaleidoscopecookery:fresh_tea_leaves",
+      "result": "kaleidoscopecookery:dried_tea_leaves",
+      "result_count": 1,
+      "mode": "drying",
+      "time": 1800,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/drying/fresh_tea_leaves_to_dried_tea_leaves.json",
+        "sha256": "80cd53674250f75671bd57fa70c47057f700aa6b11fd83675ce78a39c38a3201"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/drying/kelp_to_dried_kelp",
+      "require": "minecraft:kelp",
+      "result": "minecraft:dried_kelp",
+      "result_count": 1,
+      "mode": "drying",
+      "time": 1800,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/drying/kelp_to_dried_kelp.json",
+        "sha256": "1adc031d409ae4132df601cbd5a1a78271a28350a6fb1df77d81c00c953d78de"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/drying/mud_to_clay",
+      "require": "minecraft:mud",
+      "result": "minecraft:clay",
+      "result_count": 1,
+      "mode": "drying",
+      "time": 1800,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/drying/mud_to_clay.json",
+        "sha256": "609ae1e7e6f7c355962b1fae2b08cdca8871542e17d8ea5f3d7761059eef5b9b"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/drying/rotten_flesh_to_leather",
+      "require": "minecraft:rotten_flesh",
+      "result": "minecraft:leather",
+      "result_count": 1,
+      "mode": "drying",
+      "time": 1800,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/drying/rotten_flesh_to_leather.json",
+        "sha256": "d604c09606acbe8527454737ab54bc872878b147b040e553c6c023698e780a28"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/drying/wet_sponge_to_sponge",
+      "require": "minecraft:wet_sponge",
+      "result": "minecraft:sponge",
+      "result_count": 1,
+      "mode": "drying",
+      "time": 1800,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/drying/wet_sponge_to_sponge.json",
+        "sha256": "7fdfd4ef65046581a25ec217c29c2100d3b1b8e6e698bf074084f47c24b0d9d7"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/black_concrete_powder_to_black_concrete",
+      "require": "minecraft:black_concrete_powder",
+      "result": "minecraft:black_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/black_concrete_powder_to_black_concrete.json",
+        "sha256": "c9b97c1c98dd2657d16690231f4201d5856ae112cb04c70a9ae06dde1e24d9bf"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/blue_concrete_powder_to_blue_concrete",
+      "require": "minecraft:blue_concrete_powder",
+      "result": "minecraft:blue_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/blue_concrete_powder_to_blue_concrete.json",
+        "sha256": "fcad4e540637a9a66974f39a75c07a9438f9a5d47ce2d09aa552d780395ac3c5"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/brown_concrete_powder_to_brown_concrete",
+      "require": "minecraft:brown_concrete_powder",
+      "result": "minecraft:brown_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/brown_concrete_powder_to_brown_concrete.json",
+        "sha256": "459b2c4fbe18ca6a3615375f00e89baa809427d153cbfea3becaebe8803d92ef"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/clay_to_mud",
+      "require": "minecraft:clay",
+      "result": "minecraft:mud",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/clay_to_mud.json",
+        "sha256": "c5508357ad5f40bab817e525aac2779a72f76aeb535c260aa444b84d7da39c28"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/copper_block_to_oxidized_copper",
+      "require": "minecraft:copper_block",
+      "result": "minecraft:oxidized_copper",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/copper_block_to_oxidized_copper.json",
+        "sha256": "ed877aa36ca9986971aabe4acddd32e0501da08e4265c60a099b7c148863fc61"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/cyan_concrete_powder_to_cyan_concrete",
+      "require": "minecraft:cyan_concrete_powder",
+      "result": "minecraft:cyan_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/cyan_concrete_powder_to_cyan_concrete.json",
+        "sha256": "fc9a4e493f6763460d29cfbc8c563256e56e4e7d09d4cd40505038fae08e2285"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/dirt_to_mud",
+      "require": "minecraft:dirt",
+      "result": "minecraft:mud",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/dirt_to_mud.json",
+        "sha256": "8cbbd134872e4adb6d7c89db2b25a008631570c52c37655947a7605490b43adc"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/dried_kelp_to_kelp",
+      "require": "minecraft:dried_kelp",
+      "result": "minecraft:kelp",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/dried_kelp_to_kelp.json",
+        "sha256": "f811d19e64f1443644f5060fea4ae7f35d2a45eb45bb480f46b612fd4d63f17e"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/dried_tea_leaves_to_fresh_tea_leaves",
+      "require": "kaleidoscopecookery:dried_tea_leaves",
+      "result": "kaleidoscopecookery:fresh_tea_leaves",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/dried_tea_leaves_to_fresh_tea_leaves.json",
+        "sha256": "15a28aacf7dc219fc14d658b9f73c5300ed53d44c6b3dc458c3c722f0ec67bd2"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/gray_concrete_powder_to_gray_concrete",
+      "require": "minecraft:gray_concrete_powder",
+      "result": "minecraft:gray_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/gray_concrete_powder_to_gray_concrete.json",
+        "sha256": "5dba0a98055ee40c060030b61651906179d2469334609bbe4fcee02114851426"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/green_concrete_powder_to_green_concrete",
+      "require": "minecraft:green_concrete_powder",
+      "result": "minecraft:green_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/green_concrete_powder_to_green_concrete.json",
+        "sha256": "c93e4a2163a5791bac8c2bd37b859d46c9405d880549f61b83d38bafccd80ad4"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/leather_to_rotten_flesh",
+      "require": "minecraft:leather",
+      "result": "minecraft:rotten_flesh",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/leather_to_rotten_flesh.json",
+        "sha256": "a34a584c73f9ac3b1725e9849eb23d09c3930e6124ec1eaf599df03c3a49df7f"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/light_blue_concrete_powder_to_light_blue_concrete",
+      "require": "minecraft:light_blue_concrete_powder",
+      "result": "minecraft:light_blue_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/light_blue_concrete_powder_to_light_blue_concrete.json",
+        "sha256": "382b85d54efe167ed552b01e517b4f995e596b233744d7aa4daada1c02dd6539"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/light_gray_concrete_powder_to_light_gray_concrete",
+      "require": "minecraft:light_gray_concrete_powder",
+      "result": "minecraft:light_gray_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/light_gray_concrete_powder_to_light_gray_concrete.json",
+        "sha256": "e9054597aeb7996a195536d7c9b69722a67b078fcb255fd1366aca347293c637"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/lime_concrete_powder_to_lime_concrete",
+      "require": "minecraft:lime_concrete_powder",
+      "result": "minecraft:lime_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/lime_concrete_powder_to_lime_concrete.json",
+        "sha256": "e1b2699b8111d823486288519939bb208e0a1e4485a9ab268ae930fe11e1825d"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/magenta_concrete_powder_to_magenta_concrete",
+      "require": "minecraft:magenta_concrete_powder",
+      "result": "minecraft:magenta_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/magenta_concrete_powder_to_magenta_concrete.json",
+        "sha256": "c970b22c4c332079f16e725c712c616f0dac704dddc980132908e0661d4cb8ed"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/orange_concrete_powder_to_orange_concrete",
+      "require": "minecraft:orange_concrete_powder",
+      "result": "minecraft:orange_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/orange_concrete_powder_to_orange_concrete.json",
+        "sha256": "209e23570e00596cb2a076285f3d52f898143b60e547b9848355ac29ef6f0424"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/pink_concrete_powder_to_pink_concrete",
+      "require": "minecraft:pink_concrete_powder",
+      "result": "minecraft:pink_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/pink_concrete_powder_to_pink_concrete.json",
+        "sha256": "f4f955ad2b42d53d14d9934c22a37e703a8c8aa802925ba5504af72a02217c8e"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/purple_concrete_powder_to_purple_concrete",
+      "require": "minecraft:purple_concrete_powder",
+      "result": "minecraft:purple_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/purple_concrete_powder_to_purple_concrete.json",
+        "sha256": "2365df172a53043e6d8ee5fd387541ff2de3fedd4fdf94138140dad7fdebe88e"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/red_concrete_powder_to_red_concrete",
+      "require": "minecraft:red_concrete_powder",
+      "result": "minecraft:red_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/red_concrete_powder_to_red_concrete.json",
+        "sha256": "b22734fa42e432ab310ddef3de3630fd282d3edb78afa01a01ee04f700d5f221"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/sponge_to_wet_sponge",
+      "require": "minecraft:sponge",
+      "result": "minecraft:wet_sponge",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/sponge_to_wet_sponge.json",
+        "sha256": "334fe0379a1ea0660ea9a90668276acdef44b6f2f253cb4dfb971c488f1453b7"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/white_concrete_powder_to_white_concrete",
+      "require": "minecraft:white_concrete_powder",
+      "result": "minecraft:white_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/white_concrete_powder_to_white_concrete.json",
+        "sha256": "5fbdbd1dcfcc03745c9b97f48446a19a157c557c229d8c63bb11670e6b7fb2ea"
+      }
+    },
+    {
+      "id": "kaleidoscopecookery:bamboo_tray/wetting/yellow_concrete_powder_to_yellow_concrete",
+      "require": "minecraft:yellow_concrete_powder",
+      "result": "minecraft:yellow_concrete",
+      "result_count": 1,
+      "mode": "wetting",
+      "time": 900,
+      "source": {
+        "path": "src/generated/resources/data/kaleidoscope_cookery/recipes/bamboo_tray/wetting/yellow_concrete_powder_to_yellow_concrete.json",
+        "sha256": "1451f70d1a97517bc11ef2604777bf83fc5259a9c07170277a288ce037fd2439"
+      }
+    }
+  ],
+  "default_count": 26,
+  "optional_count": 2
+}

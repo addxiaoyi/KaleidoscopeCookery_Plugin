@@ -1,6 +1,11 @@
 package net.kaleidoscope.cookery.nms.v1_21_R6;
 
 import net.kaleidoscope.cookery.nms.NmsBridge;
+import net.kaleidoscope.cookery.nms.BambooTrayWeather;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.PointedDripstoneBlock;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.network.protocol.game.ServerboundClientCommandPacket;
 import net.minecraft.network.protocol.game.ServerboundTeleportToEntityPacket;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -8,6 +13,21 @@ import org.bukkit.craftbukkit.v1_21_R6.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 
 public final class NmsV1_21_R6 implements NmsBridge {
+    @Override
+    public BambooTrayWeather bambooTrayWeather(Object level, int x, int y, int z) {
+        if (!(level instanceof ServerLevel serverLevel)) {
+            throw new IllegalArgumentException("Bamboo tray weather requires a ServerLevel");
+        }
+        BlockPos pos = new BlockPos(x, y, z);
+        BlockPos above = pos.above();
+        boolean wetting = serverLevel.isRainingAt(above);
+        if (!wetting) {
+            BlockPos tip = PointedDripstoneBlock.findStalactiteTipAboveCauldron(serverLevel, pos);
+            wetting = tip != null && PointedDripstoneBlock.getCauldronFillFluidType(serverLevel, tip) == Fluids.WATER;
+        }
+        return new BambooTrayWeather(wetting, serverLevel.isRaining(), serverLevel.canSeeSky(above));
+    }
+
     @Override
     public Object litBlockStateProperty() {
         return BlockStateProperties.LIT;

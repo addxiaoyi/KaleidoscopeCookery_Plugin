@@ -146,7 +146,22 @@ public final class RecipeUtils {
         ApplianceType applianceType;
         List<Key> recipeLiquids = List.of();
 
-        if ("accurate".equals(recipeType)) {
+        if ("pot".equals(recipeType)) {
+            var recipe = FoodRecipeRegistry.instance().findPotById(recipeId);
+            if (recipe == null) throw new IllegalArgumentException("Pot recipe is unavailable: " + recipeId);
+            resultKey = recipe.result();
+            ingredients = actualIngredients;
+            applianceType = ApplianceType.POT;
+            applianceName = applianceDisplayName(applianceType);
+        } else if ("stockpot".equals(recipeType)) {
+            var recipe = FoodRecipeRegistry.instance().findStockpotById(recipeId);
+            if (recipe == null) throw new IllegalArgumentException("Stockpot recipe is unavailable: " + recipeId);
+            resultKey = recipe.result();
+            ingredients = actualIngredients;
+            applianceType = ApplianceType.STOCKPOT;
+            applianceName = applianceDisplayName(applianceType);
+            recipeLiquids = List.of(recipe.soupBase());
+        } else if ("accurate".equals(recipeType)) {
             AccurateFoodRecipe r = FoodRecipeRegistry.instance().findAccurateById(recipeId);
             resultKey = r.primaryResult();
             ingredients = actualIngredients;
@@ -164,8 +179,12 @@ public final class RecipeUtils {
         Component resultName;
         Component outLine;
 
-        if ("flex".equals(recipeType)) {
-            Optional<FoodRecipeResult> res = FoodRecipeRegistry.instance()
+        if ("flex".equals(recipeType) || "stockpot".equals(recipeType) || "pot".equals(recipeType)) {
+            Optional<FoodRecipeResult> res = "pot".equals(recipeType)
+                    ? FoodRecipeRegistry.instance().findPotById(recipeId).plan(actualIngredients).buildResult()
+                    : "stockpot".equals(recipeType)
+                    ? FoodRecipeRegistry.instance().planStockpot(actualIngredients, liquid, 300).buildResult()
+                    : FoodRecipeRegistry.instance()
                     .cookFlex(applianceType, actualIngredients,
                             recipeLiquids.isEmpty() ? null : recipeLiquids.get(0));
 

@@ -1,0 +1,13 @@
+{
+  "source": "KaleidoscopeDoll",
+  "commit": "62303aa58bbd5ee52498f3ad0fbf4a0c7d04c183",
+  "item_definitions": 729,
+  "furniture_definitions": 725,
+  "crafting_recipes": 3,
+  "assets": 2982,
+  "pending": [
+    "custom_doll and doll_entity_item use client entity renderers; not exported as invisible items",
+    "doll_machine currently uses the item model; exact double-block animation is pending",
+    "tweaks tool adjusts display pose only; moving dolls use native armor stand physics/head rendering; Bedrock custom dolls and held-item transforms pending"
+  ]
+}

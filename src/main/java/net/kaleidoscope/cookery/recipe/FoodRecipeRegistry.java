@@ -56,6 +56,10 @@ public final class FoodRecipeRegistry {
     private static final class State {
         boolean frozen;
         List<FlexFoodRecipe> flexRecipes = new ArrayList<>();
+        List<StockpotRecipe> stockpotRecipes = new ArrayList<>();
+        StockpotIndex stockpotIndex = new StockpotIndex(List.of());
+        List<PotRecipe> potRecipes = new ArrayList<>();
+        PotIndex potIndex = new PotIndex(List.of());
         List<FlexFoodRecipe> menuFlexRecipes = new ArrayList<>();
         double minFlexScore = DEFAULT_MIN_FLEX_SCORE;
         List<AccurateFoodRecipe> accurateRecipes = new ArrayList<>();
@@ -65,6 +69,10 @@ public final class FoodRecipeRegistry {
         List<ChoppingBoardRecipe> menuChoppingRecipes = new ArrayList<>();
         List<TeapotRecipe> teapotRecipes = new ArrayList<>();
         List<TeapotRecipe> menuTeapotRecipes = new ArrayList<>();
+        List<BambooTrayRecipe> bambooTrayRecipes = new ArrayList<>();
+        List<BambooTrayRecipe> menuBambooTrayRecipes = new ArrayList<>();
+        Map<BambooTrayIndex.Input, BambooTrayRecipe> bambooTrayIndex = Map.of();
+        Map<Key, Set<String>> bambooTrayTags = Map.of();
         Map<Key, TeapotLiquid> teapotLiquids = new LinkedHashMap<>();
         TeapotLiquid defaultLiquid;
         Map<Key, TeaCup> teaCups = new LinkedHashMap<>();
@@ -83,10 +91,13 @@ public final class FoodRecipeRegistry {
         State copy() {
             State copy = new State();
             copy.flexRecipes.addAll(flexRecipes); copy.menuFlexRecipes.addAll(menuFlexRecipes);
+            copy.stockpotRecipes.addAll(stockpotRecipes);
+            copy.potRecipes.addAll(potRecipes);
             copy.accurateRecipes.addAll(accurateRecipes); copy.menuAccurateRecipes.addAll(menuAccurateRecipes);
             copy.accurateIndex.putAll(accurateIndex);
             copy.choppingRecipes.addAll(choppingRecipes); copy.menuChoppingRecipes.addAll(menuChoppingRecipes);
             copy.teapotRecipes.addAll(teapotRecipes); copy.menuTeapotRecipes.addAll(menuTeapotRecipes);
+            copy.bambooTrayRecipes.addAll(bambooTrayRecipes); copy.menuBambooTrayRecipes.addAll(menuBambooTrayRecipes);
             copy.teapotLiquids.putAll(teapotLiquids); copy.defaultLiquid = defaultLiquid;
             copy.teaCups.putAll(teaCups); copy.teaCupsByItem.putAll(teaCupsByItem);
             allowed.forEach((type, values) -> copy.allowed.put(type, new LinkedHashSet<>(values)));
@@ -97,14 +108,22 @@ public final class FoodRecipeRegistry {
         }
 
         State freeze() {
-            return freeze(FoodGroupView.capture());
+            return freeze(FoodGroupView.capture(), BambooTrayIndex.captureTags());
         }
 
-        State freeze(FoodGroupView matchingGroups) {
+        State freeze(FoodGroupView matchingGroups, Map<Key, Set<String>> matchingTrayTags) {
             flexRecipes = sourceOrdered(flexRecipes); menuFlexRecipes = sourceOrdered(menuFlexRecipes);
+            stockpotRecipes = List.copyOf(stockpotRecipes);
+            stockpotIndex = new StockpotIndex(stockpotRecipes);
+            potRecipes = List.copyOf(potRecipes);
+            potIndex = new PotIndex(potRecipes);
             accurateRecipes = sourceOrdered(accurateRecipes); menuAccurateRecipes = sourceOrdered(menuAccurateRecipes);
             choppingRecipes = sourceOrdered(choppingRecipes); menuChoppingRecipes = sourceOrdered(menuChoppingRecipes);
             teapotRecipes = sourceOrdered(teapotRecipes); menuTeapotRecipes = sourceOrdered(menuTeapotRecipes);
+            bambooTrayRecipes = sourceOrdered(bambooTrayRecipes);
+            menuBambooTrayRecipes = sourceOrdered(menuBambooTrayRecipes);
+            bambooTrayTags = matchingTrayTags;
+            bambooTrayIndex = BambooTrayIndex.compile(bambooTrayRecipes, matchingTrayTags);
             Map<AccurateKey, AccurateFoodRecipe> accurate = new LinkedHashMap<>();
             for (AccurateFoodRecipe recipe : accurateRecipes) accurate.putIfAbsent(new AccurateKey(recipe.cook(), recipe.input()), recipe);
             accurateIndex = Map.copyOf(accurate);
@@ -122,6 +141,12 @@ public final class FoodRecipeRegistry {
             soupBases = Map.copyOf(soupBases); configuredCarriers = Map.copyOf(configuredCarriers);
             Map<Key, Key> carrierMap = new LinkedHashMap<>();
             for (FlexFoodRecipe recipe : carrierRecipes == null ? flexRecipes : carrierRecipes) {
+                if (recipe.carrier() != null) carrierMap.putIfAbsent(recipe.result(), recipe.carrier());
+            }
+            for (StockpotRecipe recipe : stockpotRecipes) {
+                if (recipe.carrier() != null) carrierMap.putIfAbsent(recipe.result(), recipe.carrier());
+            }
+            for (PotRecipe recipe : potRecipes) {
                 if (recipe.carrier() != null) carrierMap.putIfAbsent(recipe.result(), recipe.carrier());
             }
             carrierMap.putAll(configuredCarriers); carriers = Map.copyOf(carrierMap);
@@ -173,7 +198,7 @@ public final class FoodRecipeRegistry {
             writer.set(next);
             try {
                 T result = action.get();
-                published = loading == null ? next.freeze() : next.freeze(published.groups);
+                published = loading == null ? next.freeze() : next.freeze(published.groups, published.bambooTrayTags);
                 generation++;
                 if (loading != null) loadEdits.add(() -> action.get());
                 return result;
@@ -246,7 +271,7 @@ public final class FoodRecipeRegistry {
                 if (loadFailed && groupBackup != null) groupBackup.restore();
                 // Failed loads already include live edits in published; replaying appends them twice.
                 if (!loadFailed) for (Runnable edit : loadEdits) edit.run();
-                State frozen = loadFailed ? next.freeze(published.groups) : next.freeze();
+                State frozen = loadFailed ? next.freeze(published.groups, published.bambooTrayTags) : next.freeze();
                 net.kaleidoscope.cookery.recipe.edit.RecipeSourceIndex.instance().finishConfigurationLoad(!loadFailed);
                 net.kaleidoscope.cookery.recipe.edit.RecipeTemplateReplayGuard.finishConfigurationLoad(!loadFailed);
                 published = frozen;
@@ -427,6 +452,62 @@ public final class FoodRecipeRegistry {
         }
     }
 
+    public CookingPlan planStockpot(List<Key> inputs, Key liquid, int defaultWork) {
+        return readSnapshot(() -> {
+            State view = state();
+            StockpotRecipe recipe = (view.frozen ? view.stockpotIndex : new StockpotIndex(view.stockpotRecipes)).find(inputs, liquid);
+            return recipe == null ? planFlex(ApplianceType.STOCKPOT, inputs, liquid, defaultWork) : recipe.plan(inputs);
+        });
+    }
+
+    public List<StockpotRecipe> stockpotRecipes() { return List.copyOf(state().stockpotRecipes); }
+
+    public StockpotRecipe findStockpotById(Key id) {
+        return state().stockpotRecipes.stream().filter(recipe -> recipe.id().equals(id)).findFirst().orElse(null);
+    }
+
+    public void registerStockpot(StockpotRecipe recipe) {
+        atomicUpdate(() -> {
+            State view = state();
+            if (view.stockpotRecipes.stream().anyMatch(existing -> existing.id().equals(recipe.id()))) {
+                throw new IllegalArgumentException("Duplicate stockpot recipe: " + recipe.id());
+            }
+            view.stockpotRecipes.add(recipe);
+            Set<Key> allowed = view.allowed.computeIfAbsent(ApplianceType.STOCKPOT, ignored -> new LinkedHashSet<>());
+            recipe.ingredients().forEach(allowed::addAll);
+        });
+    }
+
+    public void clearStockpot() { atomicUpdate(() -> state().stockpotRecipes.clear()); }
+
+    public CookingPlan planPot(List<Key> inputs, int defaultStirs) {
+        return readSnapshot(() -> {
+            State view = state();
+            PotRecipe recipe = (view.frozen ? view.potIndex : new PotIndex(view.potRecipes)).find(inputs);
+            return recipe == null ? planFlex(ApplianceType.POT, inputs, null, defaultStirs) : recipe.plan(inputs);
+        });
+    }
+
+    public List<PotRecipe> potRecipes() { return List.copyOf(state().potRecipes); }
+
+    public PotRecipe findPotById(Key id) {
+        return state().potRecipes.stream().filter(recipe -> recipe.id().equals(id)).findFirst().orElse(null);
+    }
+
+    public void registerPot(PotRecipe recipe) {
+        atomicUpdate(() -> {
+            State view = state();
+            if (view.potRecipes.stream().anyMatch(existing -> existing.id().equals(recipe.id()))) {
+                throw new IllegalArgumentException("Duplicate pot recipe: " + recipe.id());
+            }
+            view.potRecipes.add(recipe);
+            Set<Key> allowed = view.allowed.computeIfAbsent(ApplianceType.POT, ignored -> new LinkedHashSet<>());
+            recipe.ingredients().forEach(allowed::addAll);
+        });
+    }
+
+    public void clearPot() { atomicUpdate(() -> state().potRecipes.clear()); }
+
     public CookingPlan planTeapot(Key fluid, Key input) {
         try {
             TeapotRecipe recipe = findTeapot(fluid, input);
@@ -468,15 +549,20 @@ public final class FoodRecipeRegistry {
     }
 
     public int totalRecipeCount() {
-        return flexRecipeCount() + accurateRecipeCount() + choppingRecipeCount() + teapotRecipeCount();
+        return flexRecipeCount() + accurateRecipeCount() + choppingRecipeCount() + teapotRecipeCount()
+                + bambooTrayRecipeCount() + state().stockpotRecipes.size() + state().potRecipes.size();
     }
 
     public int recipeCount(ApplianceType cook) {
         int count = flexRecipeCount(cook) + accurateRecipeCount(cook);
+        if (cook == ApplianceType.STOCKPOT) count += state().stockpotRecipes.size();
+        if (cook == ApplianceType.POT) count += state().potRecipes.size();
         if (cook == ApplianceType.CHOPPING_BOARD) {
             count += choppingRecipeCount();
         } else if (cook == ApplianceType.TEAPOT) {
             count += teapotRecipeCount();
+        } else if (cook == ApplianceType.BAMBOO_TRAY) {
+            count += bambooTrayRecipeCount();
         }
         return count;
     }
@@ -521,6 +607,62 @@ public final class FoodRecipeRegistry {
     public int teapotRecipeCount() {
         State view = state();
         return view.teapotRecipes.size();
+    }
+
+    public int bambooTrayRecipeCount() {
+        return state().bambooTrayRecipes.size();
+    }
+
+    public List<BambooTrayRecipe> bambooTrayRecipes() {
+        return List.copyOf(state().bambooTrayRecipes);
+    }
+
+    public List<BambooTrayRecipe> bambooTrayRecipes(BambooTrayMode mode) {
+        Objects.requireNonNull(mode, "Bamboo tray mode");
+        return state().bambooTrayRecipes.stream().filter(recipe -> recipe.mode() == mode).toList();
+    }
+
+    public List<BambooTrayRecipe> menuBambooTrayRecipes() {
+        return List.copyOf(state().menuBambooTrayRecipes);
+    }
+
+    public BambooTrayRecipe findBambooTrayById(Key id) {
+        if (id == null) return null;
+        return state().bambooTrayRecipes.stream().filter(recipe -> recipe.id().equals(id)).findFirst().orElse(null);
+    }
+
+    /** Overlapping exact inputs and item tags retain their configuration order. */
+    public Optional<BambooTrayRecipe> findBambooTray(Key itemId, BambooTrayMode mode) {
+        if (itemId == null || mode == null) return Optional.empty();
+        State view = state();
+        Map<BambooTrayIndex.Input, BambooTrayRecipe> index = view.frozen ? view.bambooTrayIndex
+                : BambooTrayIndex.compile(view.bambooTrayRecipes, BambooTrayIndex.captureTags());
+        return Optional.ofNullable(index.get(new BambooTrayIndex.Input(itemId, mode)));
+    }
+
+    public void registerBambooTray(BambooTrayRecipe recipe) {
+        Objects.requireNonNull(recipe, "Bamboo tray recipe");
+        atomicUpdate(() -> state().bambooTrayRecipes.add(recipe));
+    }
+
+    public void registerMenuBambooTray(BambooTrayRecipe recipe) {
+        Objects.requireNonNull(recipe, "Bamboo tray recipe");
+        atomicUpdate(() -> state().menuBambooTrayRecipes.add(recipe));
+    }
+
+    public boolean removeBambooTray(Key id) {
+        return update(() -> state().bambooTrayRecipes.removeIf(recipe -> recipe.id().equals(id)));
+    }
+
+    public void removeMenuBambooTray(BambooTrayRecipe recipe) {
+        atomicUpdate(() -> state().menuBambooTrayRecipes.removeIf(candidate -> candidate == recipe));
+    }
+
+    public void clearBambooTray() {
+        atomicUpdate(() -> {
+            state().bambooTrayRecipes.clear();
+            state().menuBambooTrayRecipes.clear();
+        });
     }
 
     public int teapotLiquidCount() {

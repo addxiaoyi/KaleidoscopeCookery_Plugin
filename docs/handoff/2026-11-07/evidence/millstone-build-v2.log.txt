@@ -1,0 +1,45 @@
+Reusing configuration cache.
+> Task :processNmsV262R1Resources NO-SOURCE
+> Task :processNmsV121R6Resources NO-SOURCE
+> Task :processNmsV121R5Resources NO-SOURCE
+> Task :processNmsV121R2Resources NO-SOURCE
+> Task :processNmsV261R1Resources NO-SOURCE
+> Task :processNmsV121R7Resources NO-SOURCE
+> Task :processNmsV121R3Resources NO-SOURCE
+> Task :processNmsV121R1Resources NO-SOURCE
+> Task :processNmsV121R4Resources NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :processAcceptanceResources UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :compileJava
+> Task :classes
+> Task :compileNmsV262R1Java UP-TO-DATE
+> Task :compileAcceptanceJava UP-TO-DATE
+> Task :compileNmsV121R4Java UP-TO-DATE
+> Task :compileNmsV121R1Java UP-TO-DATE
+> Task :compileNmsV261R1Java UP-TO-DATE
+> Task :nmsV121R4Classes UP-TO-DATE
+> Task :nmsV261R1Classes UP-TO-DATE
+> Task :acceptanceClasses UP-TO-DATE
+> Task :compileNmsV121R5Java UP-TO-DATE
+> Task :nmsV121R5Classes UP-TO-DATE
+> Task :nmsV262R1Classes UP-TO-DATE
+> Task :nmsV121R1Classes UP-TO-DATE
+> Task :compileNmsV121R6Java UP-TO-DATE
+> Task :compileNmsV121R2Java UP-TO-DATE
+> Task :compileNmsV121R3Java UP-TO-DATE
+> Task :nmsV121R2Classes UP-TO-DATE
+> Task :compileNmsV121R7Java UP-TO-DATE
+> Task :nmsV121R7Classes UP-TO-DATE
+> Task :nmsV121R3Classes UP-TO-DATE
+> Task :acceptanceJar UP-TO-DATE
+> Task :nmsV121R6Classes UP-TO-DATE
+> Task :shadowJar
+> Task :compileTestJava
+> Task :testClasses
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :test
+
+BUILD SUCCESSFUL in 12s
+17 actionable tasks: 4 executed, 13 up-to-date
+Configuration cache entry reused.

@@ -1,0 +1,6 @@
+# These snapshots and evidence files are verified byte for byte across devices.
+src/main/resources/cookery-parity.json -text
+series/*/src/main/resources/catalog.json -text
+docs/handoff/2026-11-07/** -text
+# Preserve original diagnostic whitespace; source-code checks still apply.
+docs/handoff/2026-11-07/evidence/** -whitespace

@@ -1,0 +1,64 @@
+plugins {
+    id 'com.gradleup.shadow' version '9.2.2' apply false
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    group = 'net.kaleidoscope'
+    version = '0.1.0-dev'
+    repositories {
+        mavenCentral()
+        maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+        maven { url = 'https://repo.momirealms.net/releases/' }
+    }
+    java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release.set(21)
+    }
+    dependencies {
+        compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+        compileOnly "net.momirealms:craft-engine-core:${craftEngineVersion}"
+        compileOnly "net.momirealms:craft-engine-bukkit:${craftEngineVersion}"
+        compileOnly 'net.momirealms:sparrow-nbt:0.18.8'
+        compileOnly 'net.momirealms:sparrow-util:0.112'
+        compileOnly 'net.momirealms:antigrieflib:1.0.11'
+        testImplementation platform('org.junit:junit-bom:5.11.4')
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testImplementation 'com.google.code.gson:gson:2.11.0'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+    tasks.named('test') {
+        useJUnitPlatform()
+        systemProperty 'file.encoding', 'UTF-8'
+    }
+    if (name in ['common', 'tavern']) {
+        dependencies {
+            testImplementation 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+            testImplementation "net.momirealms:craft-engine-core:${craftEngineVersion}"
+            testImplementation 'org.mockito:mockito-core:5.15.2'
+        }
+    }
+    if (name != 'common') {
+        apply plugin: 'com.gradleup.shadow'
+        dependencies {
+            implementation project(':common')
+            implementation 'net.momirealms:antigrieflib:1.0.11'
+        }
+        tasks.named('shadowJar') {
+            archiveBaseName = "Kaleidoscope${project.name.capitalize()}Plugin"
+            archiveClassifier = ''
+            relocate 'net.momirealms.antigrieflib', "net.kaleidoscope.${project.name}.libs.antigrief"
+            relocate 'net.kaleidoscope.series', "net.kaleidoscope.${project.name}.internal"
+        }
+        tasks.named('jar') { enabled = false }
+        tasks.named('assemble') { dependsOn tasks.named('shadowJar') }
+        tasks.named('processResources') {
+            inputs.property('version', project.version)
+            filteringCharset = 'UTF-8'
+            filesMatching('plugin.yml') { expand(version: project.version) }
+        }
+    }
+}
+
+tasks.register('build') { dependsOn subprojects.collect { it.tasks.named('build') } }

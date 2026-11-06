@@ -44,14 +44,21 @@ public class LunchBagListener implements Listener {
     }
 
     // 进食态被原版吃完 扣内容物并换回收纳态 不走原版扣物品
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onConsume(PlayerItemConsumeEvent event) {
         Item eating = wrap(event.getItem());
         if (!LunchBagContents.isEatingForm(eating)) {
             return;
         }
         event.setCancelled(true);
-        LunchBagEating.finish(event.getPlayer(), event.getHand(), eating);
+        try {
+            LunchBagEating.finish(event.getPlayer(), event.getHand(), eating);
+        } catch (IllegalArgumentException exception) {
+            event.getPlayer().sendMessage("便当袋内的食物保存数据有误，已保留内容，请联系管理员。");
+            net.kaleidoscope.cookery.plugin.KaleidoscopeCookeryPlugin.instance().getLogger().log(
+                    java.util.logging.Level.WARNING, "Invalid lunch bag food for " + event.getPlayer().getUniqueId(), exception);
+            LunchBagEating.restore(event.getPlayer());
+        }
     }
 
     // 没吃完就松手

@@ -1,0 +1,15 @@
+{
+  "source": "KaleidoscopeTavern",
+  "commit": "c4ec1880bd44cf3139d3ba744ab30bb379cf1416",
+  "item_definitions": 190,
+  "furniture_definitions": 39,
+  "crafting_recipes": 114,
+  "assets": 1295,
+  "pending": [
+    "kaleidoscope_tavern:shaker: uses base model in all views; Forge perspective renderer not ported",
+    "handheld shaker uses vanilla use animation; native mod hand animation is unavailable",
+    "tap sources support barrels, melon, dragon heads, hives, waterlogged blocks and cauldrons; wild grape worldgen, thrown molotovs and remaining furniture behavior pending",
+    "grape growth uses staggered loaded-furniture pulses; spread is restricted to same-owner trellises",
+    "barrel uses its inventory item model; full multi-block appearance pending"
+  ]
+}

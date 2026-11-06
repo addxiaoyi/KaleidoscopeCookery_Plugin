@@ -79,6 +79,8 @@ public final class TeapotBehavior extends BukkitBlockBehavior implements EntityB
             done = controller.addFluidBucket(player, hand, held, ItemKeys.WATER);
         } else if (ItemMatch.is(held, ItemKeys.LAVA_BUCKET)) {
             done = controller.addFluidBucket(player, hand, held, ItemKeys.LAVA);
+        } else if (ItemMatch.is(held, ItemKeys.MILK_BUCKET)) {
+            done = controller.addFluidBucket(player, hand, held, ItemKeys.MILK);
         } else if (ItemMatch.is(held, ItemKeys.BUCKET)) {
             done = controller.drainToBucket(player, hand, held);
         } else if (held.isEmpty()) {

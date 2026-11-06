@@ -15,6 +15,7 @@ import net.kaleidoscope.cookery.block.behavior.MillstoneBehavior;
 import net.kaleidoscope.cookery.block.entity.render.Particles;
 
 import net.momirealms.craftengine.bukkit.item.BukkitItemManager;
+import net.momirealms.craftengine.bukkit.api.CraftEngineFurniture;
 import net.momirealms.craftengine.bukkit.util.ItemStackUtils;
 import net.momirealms.craftengine.core.entity.furniture.Furniture;
 import net.momirealms.craftengine.core.entity.furniture.behavior.FurnitureController;
@@ -164,6 +165,10 @@ public class MillstoneController extends FurnitureController {
     private float orbitAngle = 0f;
     private float currentAngle = 0f;
     private boolean boosted = false;
+    // A callback can synchronously call the furniture again. Keep the slot committed before it runs.
+    private boolean takingGrind;
+    private boolean completingGrind;
+    private boolean removed;
 
     private LivingEntity pullingAnimal = null;
     private boolean animalWasAI = true;
@@ -238,6 +243,7 @@ public class MillstoneController extends FurnitureController {
     }
 
     private boolean tryAddGrindInSnapshot(Item item) {
+        if (takingGrind || completingGrind || removed || ItemUtils.isEmpty(item) || !canGrind(item)) return false;
         int i = firstEmptyGrindSlot();
         if (i < 0) {
             return false;
@@ -267,14 +273,23 @@ public class MillstoneController extends FurnitureController {
     }
 
     public boolean takeGrind(Player player, InteractionHand hand) {
+        if (takingGrind || completingGrind || removed) {
+            return false;
+        }
         for (int i = 0; i < GRIND_SLOTS; i++) {
             if (grindItems[i].isEmpty()) {
                 continue;
             }
-            InventoryUtils.giveOrHold(player, hand, grindItems[i].copy());
-            clearGrindSlot(i);
-            furniture().setUnsaved();
-            tryFeedFromChest();
+            Item taken = grindItems[i].copy();
+            takingGrind = true;
+            try {
+                clearGrindSlot(i);
+                furniture().setUnsaved();
+                InventoryUtils.giveOrHold(player, hand, taken);
+            } finally {
+                takingGrind = false;
+            }
+            if (!removed) tryFeedFromChest();
             return true;
         }
         return false;
@@ -287,6 +302,18 @@ public class MillstoneController extends FurnitureController {
     // 磨盘每转过一点角度就按同样的角度推进研磨 攒够该料所需圈数就产出
     // 真实耗时由转速(秒/圈)决定 转得慢产得慢
     private void advanceGrind(float degrees) {
+        if (takingGrind || completingGrind || removed || !Float.isFinite(degrees) || degrees <= 0) return;
+        completingGrind = true;
+        boolean completed;
+        try {
+            completed = advanceBatch(degrees);
+        } finally {
+            completingGrind = false;
+        }
+        if (completed && !removed) tryFeedFromChest();
+    }
+
+    private boolean advanceBatch(float degrees) {
         List<Item> products = null;
         List<Integer> completedSlots = null;
         for (int i = 0; i < GRIND_SLOTS; i++) {
@@ -323,17 +350,17 @@ public class MillstoneController extends FurnitureController {
         if (rawTick % 20 == 0) furniture().setUnsaved();
 
         if (products == null) {
-            return;
+            return false;
         }
+        // Save the retry barrier before any listener or world mutation can throw.
+        for (int slot : completedSlots) processingBlocked[slot] = true;
+        furniture().setUnsaved();
         if (!ejectProducts(products)) {
-            // 取消事件保留满进度原料；不每 tick 重建物品/重复发送事件。
-            for (int slot : completedSlots) processingBlocked[slot] = true;
-            furniture().setUnsaved();
-            return;
+            return false;
         }
         for (int slot : completedSlots) clearGrindSlot(slot);
         furniture().setUnsaved();
-        tryFeedFromChest();
+        return true;
     }
 
     private void blockProcessing(int slot) {
@@ -355,7 +382,7 @@ public class MillstoneController extends FurnitureController {
     }
 
     // 出料口在磨心朝家具正面偏移一点的位置 像发射器一样朝外抛
-    private org.bukkit.entity.Item ejectFromOutlet(ItemStack stack) {
+    private org.bukkit.entity.Item spawnFromOutlet(ItemStack stack) {
         World world = getBukkitWorld();
         WorldPosition pos = furniture().position();
         double[] dir = facingDir();
@@ -367,40 +394,75 @@ public class MillstoneController extends FurnitureController {
             loc.setX(pos.x);
             loc.setZ(pos.z);
         }
-        org.bukkit.entity.Item dropped = world.dropItem(loc, stack);
+        return world.dropItem(loc, stack);
+    }
+
+    private void propelOutput(org.bukkit.entity.Item dropped) {
+        double[] dir = facingDir();
         dropped.setVelocity(new Vector(dir[0] * EJECT_SPEED, EJECT_LIFT, dir[1] * EJECT_SPEED));
-        return dropped;
     }
 
     private void ejectLead() {
-        ejectFromOutlet(new ItemStack(Material.LEAD));
+        org.bukkit.entity.Item dropped = spawnFromOutlet(new ItemStack(Material.LEAD));
+        if (dropped != null && dropped.isValid()) propelOutput(dropped);
     }
 
     // 磨完一批 触发事件 未被取消则逐个朝石磨朝向喷出
     private boolean ejectProducts(List<Item> products) {
+        List<org.bukkit.entity.Item> dropped = new ArrayList<>();
+        try {
+            if (spawnProducts(products, dropped)) return true;
+        } catch (RuntimeException failure) {
+            java.util.logging.Logger.getLogger(MillstoneController.class.getName()).log(
+                    java.util.logging.Level.WARNING, "Millstone output failed at " + furniture().position(), failure);
+        }
+        rollbackDropped(dropped);
+        return false;
+    }
+
+    private boolean spawnProducts(List<Item> products, List<org.bukkit.entity.Item> dropped) {
         List<ItemStack> stacks = new ArrayList<>();
         for (Item product : products) {
             if (product.isEmpty()) {
                 continue;
             }
-            stacks.add(ItemStackUtils.getBukkitStack(product.minecraftItem()));
+            stacks.add(InventoryUtils.bukkitCopy(product));
         }
-        if (stacks.isEmpty()) {
-            return true;
-        }
+        if (stacks.isEmpty()) return false;
 
         WorldPosition pos = furniture().position();
         Location location = new Location((World) pos.world().platformWorld(), pos.x, pos.y, pos.z);
         org.bukkit.entity.Player pusher = lastPusher == null ? null : Bukkit.getPlayer(lastPusher);
         MillstoneGrindCompleteEvent event = new MillstoneGrindCompleteEvent(pusher, location, stacks);
-        if (EventUtils.fireAndCheckCancel(event)) {
+        if (EventUtils.fireAndCheckCancel(event) || removed) {
             return false;
         }
 
-        for (ItemStack stack : stacks) {
-            ejectFromOutlet(stack).setPickupDelay(EJECT_PICKUP_DELAY);
+        if (stacks.isEmpty() || stacks.stream().anyMatch(stack -> stack == null || stack.getType().isAir() || stack.getAmount() <= 0)) {
+            return false;
+        }
+        List<ItemStack> outputs = stacks.stream().map(ItemStack::clone).toList();
+        for (ItemStack stack : outputs) {
+            org.bukkit.entity.Item entity = spawnFromOutlet(stack);
+            if (entity != null) dropped.add(entity);
+            if (entity == null || !entity.isValid() || removed) return false;
+            propelOutput(entity);
+            entity.setPickupDelay(EJECT_PICKUP_DELAY);
         }
         return true;
+    }
+
+    private static void rollbackDropped(List<org.bukkit.entity.Item> dropped) {
+        IllegalStateException rollbackFailure = null;
+        for (org.bukkit.entity.Item entity : dropped) {
+            try {
+                if (entity.isValid()) entity.remove();
+            } catch (RuntimeException failure) {
+                if (rollbackFailure == null) rollbackFailure = new IllegalStateException("Cannot retract millstone outputs");
+                rollbackFailure.addSuppressed(failure);
+            }
+        }
+        if (rollbackFailure != null) throw rollbackFailure;
     }
 
     // 研磨粒子
@@ -483,7 +545,14 @@ public class MillstoneController extends FurnitureController {
 
     @Override
     public <T extends FurnitureController> FurnitureTicker<T> createFurnitureTicker() {
-        return createTickerHelper((f, controller) -> this.tick());
+        if (!FoliaUtil.isFolia()) return createTickerHelper((f, controller) -> this.tick());
+        // CE 26.9.1 can retain a ticker for the previous wrapper after a disk reload.
+        return createTickerHelper((f, controller) -> {
+            var current = CraftEngineFurniture.getLoadedFurnitureByMetaEntity((Entity) f.metaDataEntity.platformEntity());
+            if (current == null || !current.isValid()) return;
+            MillstoneController mill = current.controller.get(MillstoneController.class, 0);
+            if (mill != null) mill.tick();
+        });
     }
 
     private World getBukkitWorld() {
@@ -1234,14 +1303,17 @@ public class MillstoneController extends FurnitureController {
 
     @Override
     public void preRemove(Player player) {
+        removed = true;
         stopSpinning();
         World world = getBukkitWorld();
         Location dropLoc = new Location(world,
                 furniture().position().x, furniture().position().y, furniture().position().z);
         for (int i = 0; i < GRIND_SLOTS; i++) {
             if (!grindItems[i].isEmpty()) {
-                world.dropItemNaturally(dropLoc, ItemStackUtils.getBukkitStack(grindItems[i].minecraftItem()));
+                ItemStack raw = InventoryUtils.bukkitCopy(grindItems[i]);
                 clearGrindSlot(i);
+                furniture().setUnsaved();
+                world.dropItemNaturally(dropLoc, raw);
             }
         }
     }
@@ -1379,6 +1451,7 @@ public class MillstoneController extends FurnitureController {
 
     @Override
     public void loadCustomData(CompoundTag tag) {
+        if (takingGrind || completingGrind) throw new IllegalStateException("Cannot replace millstone state during a transfer");
         for (int i = 0; i < GRIND_SLOTS; i++) {
             grindItems[i] = Item.empty();
             grindDegrees[i] = 0f;
@@ -1414,8 +1487,7 @@ public class MillstoneController extends FurnitureController {
                 if (slot < 0 || slot >= GRIND_SLOTS) {
                     continue;
                 }
-                Object nms = ItemStackUtils.parseMinecraftItem(e.getCompound(K_ITEM), gdv);
-                Item loaded = nms == null ? Item.empty() : ItemStackUtils.wrap(nms);
+                Item loaded = BlockEntityNbt.getItem(e, K_ITEM, gdv);
                 if (ItemUtils.isEmpty(loaded)) {
                     continue;
                 }

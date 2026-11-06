@@ -39,8 +39,10 @@ public final class ItemKeys {
     public static final Key LEAD = Key.of("minecraft:lead");
     public static final Key WATER = Key.of("minecraft:water");
     public static final Key LAVA = Key.of("minecraft:lava");
+    public static final Key MILK = Key.of("minecraft:milk");
     public static final Key WATER_BUCKET = Key.of("minecraft:water_bucket");
     public static final Key LAVA_BUCKET = Key.of("minecraft:lava_bucket");
+    public static final Key MILK_BUCKET = Key.of("minecraft:milk_bucket");
     public static final Key FLINT_AND_STEEL = Key.of("minecraft:flint_and_steel");
     public static final Key FIRE_CHARGE = Key.of("minecraft:fire_charge");
     public static final Key WOODEN_SHOVEL = Key.of("minecraft:wooden_shovel");
@@ -105,4 +107,5 @@ public final class ItemKeys {
     public static final Key MENU_MILLSTONE = Key.of("kaleidoscopecookery:new_millstone");
     public static final Key MENU_CHOPPING_BOARD = Key.of("kaleidoscopecookery:chopping_board");
     public static final Key MENU_TEAPOT = Key.of("kaleidoscopecookery:teapot");
+    public static final Key MENU_BAMBOO_TRAY = Key.of("kaleidoscopecookery:bamboo_tray");
 }

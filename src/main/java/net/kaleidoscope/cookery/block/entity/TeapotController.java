@@ -8,6 +8,7 @@ import net.kaleidoscope.cookery.block.entity.render.PacketBundles;
 import net.kaleidoscope.cookery.block.entity.render.Particles;
 import net.kaleidoscope.cookery.block.entity.render.TrackedPlayers;
 import net.kaleidoscope.cookery.item.ItemKeys;
+import net.kaleidoscope.cookery.item.ItemMatch;
 import net.kaleidoscope.cookery.recipe.FoodRecipeRegistry;
 import net.kaleidoscope.cookery.recipe.TeapotLiquid;
 import net.kaleidoscope.cookery.recipe.CookingPlan;
@@ -140,14 +141,18 @@ public final class TeapotController extends BlockEntityController {
 
     // 满液体桶倒入
     public boolean addFluidBucket(Player player, InteractionHand hand, Item bucket, Key fluidType) {
-        if (status != PUT_INGREDIENT || fluid != null) {
+        Key filledBucket = bucketFor(fluidType);
+        if (status != PUT_INGREDIENT || fluid != null || filledBucket == null
+                || !ItemMatch.is(bucket, filledBucket)) {
             return false;
         }
+        Item returned = player.canInstabuild() ? Item.empty() : InventoryUtils.createOrEmpty(ItemKeys.BUCKET);
+        if (!player.canInstabuild() && ItemUtils.isEmpty(returned)) return false;
         fluid = fluidType;
         playSound(fluidType.equals(ItemKeys.LAVA) ? BUCKET_EMPTY_LAVA : BUCKET_EMPTY, 1.0f);
         if (!player.canInstabuild()) {
             InventoryUtils.shrinkHeld(player, bucket, 1);
-            InventoryUtils.giveOrHold(player, hand, InventoryUtils.createOrEmpty(ItemKeys.BUCKET));
+            InventoryUtils.giveOrHold(player, hand, returned);
         }
         markChanged();
         refreshDisplay();
@@ -157,29 +162,33 @@ public final class TeapotController extends BlockEntityController {
 
     // 空桶取出液体
     public boolean drainToBucket(Player player, InteractionHand hand, Item emptyBucket) {
-        if (status != PUT_INGREDIENT || fluid == null || !input.isEmpty()) {
+        if (status != PUT_INGREDIENT || fluid == null || !input.isEmpty()
+                || !ItemMatch.is(emptyBucket, ItemKeys.BUCKET)) {
             return false;
         }
-        Key back;
-        if (fluid.equals(ItemKeys.WATER)) {
-            back = ItemKeys.WATER_BUCKET;
-        } else if (fluid.equals(ItemKeys.LAVA)) {
-            back = ItemKeys.LAVA_BUCKET;
-        } else {
-            return false;
-        }
+        Key back = bucketFor(fluid);
+        if (back == null) return false;
+        Item returned = player.canInstabuild() ? Item.empty() : InventoryUtils.createOrEmpty(back);
+        if (!player.canInstabuild() && ItemUtils.isEmpty(returned)) return false;
         fluid = null;
         currentTick = -1;
         cookingPlan = null;
         completionBlocked = false;
         if (!player.canInstabuild()) {
             InventoryUtils.shrinkHeld(player, emptyBucket, 1);
-            InventoryUtils.giveOrHold(player, hand, InventoryUtils.createOrEmpty(back));
+            InventoryUtils.giveOrHold(player, hand, returned);
         }
         markChanged();
         refreshDisplay();
         sendBar(player);
         return true;
+    }
+
+    private static Key bucketFor(Key fluid) {
+        if (ItemKeys.WATER.equals(fluid)) return ItemKeys.WATER_BUCKET;
+        if (ItemKeys.LAVA.equals(fluid)) return ItemKeys.LAVA_BUCKET;
+        if (ItemKeys.MILK.equals(fluid)) return ItemKeys.MILK_BUCKET;
+        return null;
     }
 
     public boolean addIngredient(Player player, Item held) {
@@ -435,7 +444,7 @@ public final class TeapotController extends BlockEntityController {
     }
 
     private void sendBar(Player player) {
-        player.sendActionBar(AdventureHelper.miniMessage().deserialize(buildBar()));
+        player.sendActionBar(Localization.component(buildBar()));
     }
 
     private String buildBar() {

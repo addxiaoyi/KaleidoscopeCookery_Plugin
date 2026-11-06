@@ -1,0 +1,15 @@
+# Generated from KaleidoscopeMods/KaleidoscopeCookery @ 2f4e386ce23f49a385ddf003c67fc6415c55417a
+# Regenerate with tools/export_bamboo_tray.py; review custom item aliases before installing.
+bamboo_tray_recipes:
+  "kaleidoscopecookery:bamboo_tray/drying/fresh_tea_leaves_to_dried_tea_leaves":
+    require: "kaleidoscopecookery:fresh_tea_leaves"
+    result: "kaleidoscopecookery:dried_tea_leaves"
+    result_count: 1
+    mode: "drying"
+    time: 1800
+  "kaleidoscopecookery:bamboo_tray/wetting/dried_tea_leaves_to_fresh_tea_leaves":
+    require: "kaleidoscopecookery:dried_tea_leaves"
+    result: "kaleidoscopecookery:fresh_tea_leaves"
+    result_count: 1
+    mode: "wetting"
+    time: 900

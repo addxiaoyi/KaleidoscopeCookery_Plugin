@@ -1,0 +1,1148 @@
+{
+  "date": "2026-11-06",
+  "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+  "status": "SERVER_PROBES_PASS_WITH_HISTORICAL_FOLIA_STARTUP_WATCHDOG_OPEN",
+  "scope": "Millstone recipes, transfer guards, Java mesh import and real animal-driven disk restart",
+  "artifacts": {
+    "build/acceptance/cookery-millstone-v2.zip": {
+      "bytes": 2270578,
+      "sha256": "02ad7037bfcb603d3fa26910f80ec7271f26d405269275cdba82055f85099bf1"
+    },
+    "build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar": {
+      "bytes": 1362289,
+      "sha256": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469"
+    },
+    "build/acceptance/probe/CookeryAcceptanceProbe.jar": {
+      "bytes": 61227,
+      "sha256": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c"
+    },
+    "src/main/resources/cookery-parity.json": {
+      "bytes": 483430,
+      "sha256": "d7b5e10c9a6d51f458804d4454ec8eac174f24ce22bb9eda40eea4c50146ba25"
+    }
+  },
+  "pack": {
+    "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+    "target": {
+      "minecraft": "1.21.11",
+      "craftEngine": "26.9.1"
+    },
+    "items": 271,
+    "blocks": 12,
+    "convertedPerspectives": [
+      "kaleidoscope_cookery:item/cold_cut_ham_slices",
+      "kaleidoscope_cookery:item/fruit_basket",
+      "kaleidoscope_cookery:item/teapot"
+    ],
+    "checkedModels": 279,
+    "furniture": 1,
+    "millstoneModel": {
+      "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+      "path": "src/main/java/com/github/ysbbbbbb/kaleidoscopecookery/client/model/MillstoneModel.java",
+      "sha256": "9a51b6e3548b73831689a19b40f982e69d51914754d264ae9752d74f95e59124",
+      "parts": {
+        "millstone_base": [
+          "base"
+        ],
+        "new_millstone_stick": [
+          "cube_r1",
+          "cube_r2",
+          "cube_r3",
+          "cube_r4"
+        ],
+        "new_millstone_stick2": [
+          "cube_r5"
+        ],
+        "new_millstone_stone": [
+          "roll"
+        ]
+      },
+      "clientVisual": "NOT_TESTED",
+      "differences": [
+        "Existing plugin anchors and six-times rolling spin retained; official lift animation is not applied.",
+        "Roll center remains at plugin height 1.4 instead of official 1.3125.",
+        "Interaction hitbox prevents building but does not reproduce the solid mod voxel collision."
+      ]
+    },
+    "soundAliases": 18,
+    "states": {
+      "kaleidoscopecookery:chopping_board": 4,
+      "kaleidoscopecookery:enamel_basin": 20,
+      "kaleidoscopecookery:kitchenware_racks": 4,
+      "kaleidoscopecookery:pot": 16,
+      "kaleidoscopecookery:shawarma_spit": 16,
+      "kaleidoscopecookery:steamer": 48,
+      "kaleidoscopecookery:stockpot": 32,
+      "kaleidoscopecookery:stove": 8,
+      "kaleidoscopecookery:fruit_basket": 4,
+      "kaleidoscopecookery:teapot": 16,
+      "kaleidoscopecookery:teacup_coaster": 4,
+      "kaleidoscopecookery:oil_pot": 8
+    },
+    "recipeSources": 612,
+    "recipeStatuses": {
+      "imported": 462,
+      "pending": 150
+    },
+    "recipes": {
+      "teapot_result": 11,
+      "accurate_foods": 91,
+      "chopping_board_raws": 16,
+      "stockpot_recipes": 101,
+      "pot_recipes": 219,
+      "recipes": 33
+    },
+    "accurateAppliances": {
+      "MILLSTONE": 87,
+      "STEAMER": 4
+    },
+    "teaCups": 8,
+    "images": 6,
+    "soupBases": 9,
+    "pending": [
+      "Tripwire-backed appliances have vanilla selection boxes and no solid collision; exact mod voxel shapes remain pending.",
+      "Waterlogging is not enabled by this acceptance pack.",
+      "Teapot base and chains use extracted stockpot support geometry; the Java entity texture layout still needs a dedicated conversion.",
+      "Steamer TOP is retained for old states using a translated half model; official mod has no TOP state.",
+      "Imported stockpot recipes include cooking/finished surfaces and official liquid heights; legacy recipes retain existing visuals. Vanilla-client visual acceptance remains pending.",
+      "Stockpot colored bubbles use vanilla dust particles; imported recipes are read-only in the recipe menu. Player carriers and workbench remainders still require acceptance.",
+      "Imported pot recipes retain official stir counts and fixed outputs; source_time is metadata. Completion still follows the plugin stir animation instead of the mod cooking-time gate.",
+      "Milk liquid uses a generated flat texture because the Forge milk renderer is unavailable to vanilla clients.",
+      "Teapot bitmap-font bars substitute for the mod client HUD; client visual acceptance remains pending.",
+      "Recipe manifest records every pending conversion; placed meal bites, protection and multiplayer acceptance remain pending.",
+      "Tool durability and lid use behavior beyond existing kitchen interactions require separate parity acceptance.",
+      "Millstone uses converted Java mesh parts with existing plugin anchors, fixed-angle lift and interaction hitbox; client visuals and solid collision remain pending."
+    ],
+    "playerFlow": "NOT_TESTED",
+    "clientResourcePack": "NOT_TESTED"
+  },
+  "tests": {
+    "java": 132,
+    "python": 71,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "evidence": {
+    "build/acceptance/millstone-build-v2.log": {
+      "bytes": 1733,
+      "sha256": "eb0f740c8755feb421ed1ad274d03e069c5c21fd22df4fcf6cd640145294b3ec"
+    },
+    "build/acceptance/millstone-java-final.json": {
+      "bytes": 6524,
+      "sha256": "f03a744aa4b039b402c5e3f70c263a0c3fd3761eaef5d5f9c16a64ae6eccc5c7"
+    },
+    "build/acceptance/millstone-python-all-v4.log": {
+      "bytes": 175,
+      "sha256": "b066f3d3f08a1f0340d9b24cd5d5a1fa732f75e1d6d0e261aa63a7b56407536b"
+    },
+    "build/acceptance/millstone-catalog-check.log": {
+      "bytes": 296,
+      "sha256": "3fa0147a16d588f095a759139fa7cdad1e9e4083714e80ac8ac165716c713b1b"
+    },
+    "build/acceptance/millstone-run-v2.log": {
+      "bytes": 468,
+      "sha256": "20ae473c8ca8f3c2b40d1bfbf9de3fbaddc95081e8078816f0ba6ffd496d7291"
+    },
+    "build/acceptance/millstone-controller-red-v5.log": {
+      "bytes": 1733,
+      "sha256": "c46e96ee264b1c3312a9fb4edebecc91c72d0690ed91c3e7d40230d4cb753ecf"
+    },
+    "build/acceptance/millstone-controller-green-v6.log": {
+      "bytes": 466,
+      "sha256": "9601ef1e6f1ba5cd4c7d2a2da9c184e765f711f668033675eff6e7f5807e436c"
+    },
+    "build/acceptance/millstone-folia-ticker-red.log": {
+      "bytes": 1707,
+      "sha256": "4c2ec67de16ff7147500d77ecfce0e40330f8991df1a5431f4358179bce6ab61"
+    },
+    "build/acceptance/millstone-mesh-red-v2.log": {
+      "bytes": 3813,
+      "sha256": "789c593e9d8e6cd3d95a58436c4aba1e9ecaf266265cd4d2a7dfe8ee6077fec6"
+    }
+  },
+  "resourceChecks": {
+    "paper": {
+      "installedManifestFiles": 1709,
+      "generatedModels": 1251,
+      "resourcePack": {
+        "bytes": 2418503,
+        "sha256": "b3d9bc0baa2e804b98dfd56d8573a8aedd801267e8c07f8ec1beb5d22a6e5ec9"
+      },
+      "allCyclesUseFinalJars": true
+    },
+    "folia": {
+      "installedManifestFiles": 1709,
+      "generatedModels": 1251,
+      "resourcePack": {
+        "bytes": 2418502,
+        "sha256": "dbea257c20a7c3ebb486b7fb8860758da1c561c0713f298ef1965ee6f3e4517d"
+      },
+      "allCyclesUseFinalJars": true
+    }
+  },
+  "instances": {
+    "paper": {
+      "port": 25583,
+      "artifacts": {
+        "plugins/CookeryAcceptanceProbe.jar": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c",
+        "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+        "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469",
+        "server.jar": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba",
+        "acceptance-world/datapacks/cookery_enchantments/pack.mcmeta": "9583598b0601769ed428da4f0201d56d64c7517579eb9dc97be8e93fc1a5f379",
+        "acceptance-world/datapacks/cookery_enchantments/README.md": "6bcde894ac2f2c4865c7886522b14f2cbe88f26e5adac0daaf6bc18d22131f29",
+        "acceptance-world/datapacks/cookery_enchantments/data/kaleidoscopecookery/enchantment/quick_knife.json": "72ec75ae43440f1d3b79737c1661e6e987143eaf529c3f2b6cbe0f23971e2134",
+        "acceptance-world/datapacks/cookery_enchantments/data/kaleidoscopecookery/enchantment/sweep.json": "ea834f8c2ab0e6df03ae4093a07fe27897fb10e6f95665dd16793e8b15190977"
+      },
+      "cycles": [
+        {
+          "cycle": 1,
+          "food": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 0,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "b3d9bc0baa2e804b98dfd56d8573a8aedd801267e8c07f8ec1beb5d22a6e5ec9",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 271,
+            "placedBlocks": 12,
+            "reloadedBlocks": 0,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "exactStockpotRecipes": 75,
+            "distinctStockpotRecipes": 26,
+            "stockpotRecipeNote": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "stockpotRemaining": [
+              196,
+              186
+            ],
+            "stockpotModels": [
+              "show:stockpot/kaleidoscope_cookery/stockpot/rice_finished",
+              "show:stockpot/kaleidoscope_cookery/stockpot/default_finished"
+            ],
+            "phase": "IN_PROGRESS_SAVED",
+            "steamProgress": 100,
+            "teaRemaining": 92,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "checkedPlans": 219,
+            "checkedCrafting": 33,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "pots": {
+            "exactRecipes": 195,
+            "distinctRecipes": 24,
+            "checkedPlans": 219,
+            "recipeNotes": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "phase": "IN_PROGRESS_SAVED",
+            "stirs": [
+              1,
+              1
+            ],
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "millstone": {
+            "checkedFurniture": 1,
+            "animalProfile": {
+              "override": false,
+              "secondsPerRevolution": 40.0,
+              "type": "COW"
+            },
+            "phase": "IN_PROGRESS_SAVED",
+            "progressDegrees": [
+              4.5,
+              4.5
+            ],
+            "rawCount": 2,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "completionEvents": 0,
+            "spawnedOutput": 0,
+            "driveSamples": [],
+            "failures": [],
+            "method": "CE_FURNITURE_TICKS_AND_COW; real disk restart, no reflected progression",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        },
+        {
+          "cycle": 2,
+          "food": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 5,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "b3d9bc0baa2e804b98dfd56d8573a8aedd801267e8c07f8ec1beb5d22a6e5ec9",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 271,
+            "placedBlocks": 0,
+            "reloadedBlocks": 12,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "exactStockpotRecipes": 75,
+            "distinctStockpotRecipes": 26,
+            "stockpotRecipeNote": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "reloadedBatches": 3,
+            "reloadedStockpots": 2,
+            "cuttingDrops": {
+              "kaleidoscopecookery:raw_cut_small_meats": 3,
+              "minecraft:bone": 1
+            },
+            "phase": "COMPLETED_RELOADED",
+            "steamedOutputs": 4,
+            "teaServings": 8,
+            "stockpotServings": [
+              2,
+              0
+            ],
+            "stockpotLiquidOffset": -0.10499999,
+            "stockpotEmptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "checkedPlans": 219,
+            "checkedCrafting": 33,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "pots": {
+            "exactRecipes": 195,
+            "distinctRecipes": 24,
+            "checkedPlans": 219,
+            "recipeNotes": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "reloadedPots": 2,
+            "phase": "COMPLETED_RELOADED",
+            "servings": [
+              2,
+              0
+            ],
+            "emptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "millstone": {
+            "checkedFurniture": 1,
+            "animalProfile": {
+              "secondsPerRevolution": 40.0,
+              "type": "COW",
+              "override": false
+            },
+            "reloadedFurniture": 1,
+            "animalRestored": true,
+            "reloadedProgressDegrees": [
+              81.44996,
+              81.44996
+            ],
+            "phase": "COMPLETED_RELOADED",
+            "outputCount": 10,
+            "emptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "completionEvents": 1,
+            "spawnedOutput": 10,
+            "driveSamples": [
+              {
+                "probeTicks": 0,
+                "rawTick": 202,
+                "animating": true,
+                "progress": [
+                  90.4499,
+                  90.4499
+                ],
+                "furnitureValid": true,
+                "controllerLoaded": true,
+                "sameLoadedFurniture": true,
+                "registeredTicker": true,
+                "sameTickingFurniture": true,
+                "tickingFurnitureValid": true,
+                "pendingMovement": false,
+                "animalPresent": true,
+                "animalOwned": true,
+                "animalValid": true,
+                "animalLocation": [
+                  39.51473250374857,
+                  128.0,
+                  10.502876443761975
+                ],
+                "sameBoundAnimal": true,
+                "boundAnimalOwned": true
+              },
+              {
+                "probeTicks": 200,
+                "rawTick": 402,
+                "animating": true,
+                "progress": [
+                  180.4493,
+                  180.4493
+                ],
+                "furnitureValid": true,
+                "controllerLoaded": true,
+                "sameLoadedFurniture": true,
+                "registeredTicker": true,
+                "sameTickingFurniture": true,
+                "tickingFurnitureValid": true,
+                "pendingMovement": false,
+                "animalPresent": true,
+                "animalOwned": true,
+                "animalValid": true,
+                "animalLocation": [
+                  42.502871842116335,
+                  128.0,
+                  8.485291206260866
+                ],
+                "sameBoundAnimal": true,
+                "boundAnimalOwned": true
+              },
+              {
+                "probeTicks": 400,
+                "rawTick": 602,
+                "animating": true,
+                "progress": [
+                  270.4492,
+                  270.4492
+                ],
+                "furnitureValid": true,
+                "controllerLoaded": true,
+                "sameLoadedFurniture": true,
+                "registeredTicker": true,
+                "sameTickingFurniture": true,
+                "tickingFurnitureValid": true,
+                "pendingMovement": false,
+                "animalPresent": true,
+                "animalOwned": true,
+                "animalValid": true,
+                "animalLocation": [
+                  40.485283615951246,
+                  128.0,
+                  5.497126603163464
+                ],
+                "sameBoundAnimal": true,
+                "boundAnimalOwned": true
+              }
+            ],
+            "failures": [],
+            "method": "CE_FURNITURE_TICKS_AND_COW; real disk restart, no reflected progression",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        },
+        {
+          "cycle": 3,
+          "food": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 5,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "b3d9bc0baa2e804b98dfd56d8573a8aedd801267e8c07f8ec1beb5d22a6e5ec9",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 271,
+            "placedBlocks": 0,
+            "reloadedBlocks": 12,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "exactStockpotRecipes": 75,
+            "distinctStockpotRecipes": 26,
+            "stockpotRecipeNote": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "phase": "COMPLETED_RELOADED",
+            "steamedOutputs": 4,
+            "teaServings": 8,
+            "stockpotServings": [
+              2,
+              0
+            ],
+            "stockpotLiquidOffset": -0.10499999,
+            "stockpotEmptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "checkedPlans": 219,
+            "checkedCrafting": 33,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "pots": {
+            "exactRecipes": 195,
+            "distinctRecipes": 24,
+            "checkedPlans": 219,
+            "recipeNotes": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "phase": "COMPLETED_RELOADED",
+            "servings": [
+              2,
+              0
+            ],
+            "emptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "millstone": {
+            "checkedFurniture": 1,
+            "animalProfile": {
+              "secondsPerRevolution": 40.0,
+              "override": false,
+              "type": "COW"
+            },
+            "reloadedFurniture": 1,
+            "phase": "EMPTY_RELOADED",
+            "emptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+            "completionEvents": 0,
+            "spawnedOutput": 0,
+            "driveSamples": [],
+            "failures": [],
+            "method": "CE_FURNITURE_TICKS_AND_COW; real disk restart, no reflected progression",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        }
+      ],
+      "stoppedCleanly": true
+    },
+    "folia": {
+      "port": 25584,
+      "artifacts": {
+        "plugins/CookeryAcceptanceProbe.jar": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c",
+        "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+        "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469",
+        "server.jar": "f52c408490a0225611e67907a3ca19f7e6da2c6bc899e715d5f46844e7103c39",
+        "acceptance-world/datapacks/cookery_enchantments/pack.mcmeta": "9583598b0601769ed428da4f0201d56d64c7517579eb9dc97be8e93fc1a5f379",
+        "acceptance-world/datapacks/cookery_enchantments/README.md": "6bcde894ac2f2c4865c7886522b14f2cbe88f26e5adac0daaf6bc18d22131f29",
+        "acceptance-world/datapacks/cookery_enchantments/data/kaleidoscopecookery/enchantment/quick_knife.json": "72ec75ae43440f1d3b79737c1661e6e987143eaf529c3f2b6cbe0f23971e2134",
+        "acceptance-world/datapacks/cookery_enchantments/data/kaleidoscopecookery/enchantment/sweep.json": "ea834f8c2ab0e6df03ae4093a07fe27897fb10e6f95665dd16793e8b15190977"
+      },
+      "cycles": [
+        {
+          "cycle": 1,
+          "food": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 0,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "dbea257c20a7c3ebb486b7fb8860758da1c561c0713f298ef1965ee6f3e4517d",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 271,
+            "placedBlocks": 12,
+            "reloadedBlocks": 0,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "exactStockpotRecipes": 75,
+            "distinctStockpotRecipes": 26,
+            "stockpotRecipeNote": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "stockpotRemaining": [
+              196,
+              191
+            ],
+            "stockpotModels": [
+              "show:stockpot/kaleidoscope_cookery/stockpot/rice_finished",
+              "show:stockpot/kaleidoscope_cookery/stockpot/default_finished"
+            ],
+            "phase": "IN_PROGRESS_SAVED",
+            "steamProgress": 100,
+            "teaRemaining": 96,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "checkedPlans": 219,
+            "checkedCrafting": 33,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "pots": {
+            "exactRecipes": 195,
+            "distinctRecipes": 24,
+            "checkedPlans": 219,
+            "recipeNotes": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "phase": "IN_PROGRESS_SAVED",
+            "stirs": [
+              1,
+              1
+            ],
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "millstone": {
+            "checkedFurniture": 1,
+            "animalProfile": {
+              "secondsPerRevolution": 40.0,
+              "override": false,
+              "type": "COW"
+            },
+            "phase": "IN_PROGRESS_SAVED",
+            "progressDegrees": [
+              4.05,
+              4.05
+            ],
+            "rawCount": 2,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "completionEvents": 0,
+            "spawnedOutput": 0,
+            "driveSamples": [],
+            "failures": [],
+            "method": "CE_FURNITURE_TICKS_AND_COW; real disk restart, no reflected progression",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        },
+        {
+          "cycle": 2,
+          "food": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 5,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "dbea257c20a7c3ebb486b7fb8860758da1c561c0713f298ef1965ee6f3e4517d",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 271,
+            "placedBlocks": 0,
+            "reloadedBlocks": 12,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "exactStockpotRecipes": 75,
+            "distinctStockpotRecipes": 26,
+            "stockpotRecipeNote": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "reloadedBatches": 3,
+            "reloadedStockpots": 2,
+            "cuttingDrops": {
+              "kaleidoscopecookery:raw_cut_small_meats": 3,
+              "minecraft:bone": 1
+            },
+            "phase": "COMPLETED_RELOADED",
+            "steamedOutputs": 4,
+            "teaServings": 8,
+            "stockpotServings": [
+              2,
+              0
+            ],
+            "stockpotLiquidOffset": -0.10499999,
+            "stockpotEmptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "checkedPlans": 219,
+            "checkedCrafting": 33,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "pots": {
+            "exactRecipes": 195,
+            "distinctRecipes": 24,
+            "checkedPlans": 219,
+            "recipeNotes": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "reloadedPots": 2,
+            "phase": "COMPLETED_RELOADED",
+            "servings": [
+              2,
+              0
+            ],
+            "emptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "millstone": {
+            "checkedFurniture": 1,
+            "animalProfile": {
+              "secondsPerRevolution": 40.0,
+              "override": false,
+              "type": "COW"
+            },
+            "reloadedFurniture": 1,
+            "animalRestored": true,
+            "reloadedProgressDegrees": [
+              78.74998,
+              78.74998
+            ],
+            "phase": "COMPLETED_RELOADED",
+            "outputCount": 10,
+            "emptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "completionEvents": 1,
+            "spawnedOutput": 10,
+            "driveSamples": [
+              {
+                "probeTicks": 0,
+                "rawTick": 195,
+                "animating": true,
+                "progress": [
+                  87.749916,
+                  87.749916
+                ],
+                "furnitureValid": true,
+                "controllerLoaded": true,
+                "sameLoadedFurniture": true,
+                "registeredTicker": true,
+                "sameTickingFurniture": false,
+                "tickingFurnitureValid": true,
+                "pendingMovement": true,
+                "movementComplete": true,
+                "movementSuccessful": true,
+                "animalPresent": true,
+                "animalOwned": true,
+                "animalValid": true,
+                "animalLocation": [
+                  39.416848333663445,
+                  128.0,
+                  10.481896323435203
+                ],
+                "sameBoundAnimal": true,
+                "boundAnimalOwned": true
+              },
+              {
+                "probeTicks": 200,
+                "rawTick": 395,
+                "animating": true,
+                "progress": [
+                  177.74931,
+                  177.74931
+                ],
+                "furnitureValid": true,
+                "controllerLoaded": true,
+                "sameLoadedFurniture": true,
+                "registeredTicker": true,
+                "sameTickingFurniture": false,
+                "tickingFurnitureValid": true,
+                "pendingMovement": true,
+                "movementComplete": true,
+                "movementSuccessful": true,
+                "animalPresent": true,
+                "animalOwned": true,
+                "animalValid": true,
+                "animalLocation": [
+                  42.48188996010534,
+                  128.0,
+                  8.583178806882653
+                ],
+                "sameBoundAnimal": true,
+                "boundAnimalOwned": true
+              },
+              {
+                "probeTicks": 400,
+                "rawTick": 595,
+                "animating": true,
+                "progress": [
+                  267.7491,
+                  267.7491
+                ],
+                "furnitureValid": true,
+                "controllerLoaded": true,
+                "sameLoadedFurniture": true,
+                "registeredTicker": true,
+                "sameTickingFurniture": false,
+                "tickingFurnitureValid": true,
+                "pendingMovement": true,
+                "movementComplete": true,
+                "movementSuccessful": true,
+                "animalPresent": true,
+                "animalOwned": true,
+                "animalValid": true,
+                "animalLocation": [
+                  40.58318865208916,
+                  128.0,
+                  5.518112417257236
+                ],
+                "sameBoundAnimal": true,
+                "boundAnimalOwned": true
+              },
+              {
+                "probeTicks": 600,
+                "rawTick": 795,
+                "animating": true,
+                "progress": [
+                  357.75156,
+                  357.75156
+                ],
+                "furnitureValid": true,
+                "controllerLoaded": true,
+                "sameLoadedFurniture": true,
+                "registeredTicker": true,
+                "sameTickingFurniture": false,
+                "tickingFurnitureValid": true,
+                "pendingMovement": true,
+                "movementComplete": true,
+                "movementSuccessful": true,
+                "animalPresent": true,
+                "animalOwned": true,
+                "animalValid": true,
+                "animalLocation": [
+                  37.51808719074408,
+                  128.0,
+                  7.416919004820174
+                ],
+                "sameBoundAnimal": true,
+                "boundAnimalOwned": true
+              }
+            ],
+            "failures": [],
+            "method": "CE_FURNITURE_TICKS_AND_COW; real disk restart, no reflected progression",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        },
+        {
+          "cycle": 3,
+          "food": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedConsumables": 103,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "enchantments": {
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "checkedTools": 5,
+            "reloadedTools": 5,
+            "failures": [],
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "resourcePackSha256": "dbea257c20a7c3ebb486b7fb8860758da1c561c0713f298ef1965ee6f3e4517d",
+          "knownFixtureErrors": [],
+          "startup": "PASS",
+          "nativeEnchantmentSerialization": "PASS",
+          "resourceGeneration": "PASS",
+          "pluginArtifacts": {
+            "plugins/CookeryAcceptanceProbe.jar": "ce6348e0f1460b358202fcec1711aa4e0f5b5e957a93ef3ba12abeee941ea83c",
+            "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+            "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "e061bc28cf878cb915b21faf16657127cf62462091842788b399bab23f77a469"
+          },
+          "kitchen": {
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "craftEngine": "26.9.1",
+            "checkedBlocks": 12,
+            "checkedStates": 180,
+            "checkedItems": 271,
+            "placedBlocks": 0,
+            "reloadedBlocks": 12,
+            "nonemptyContainers": 2,
+            "failures": [],
+            "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "recipes": {
+            "teaCups": 8,
+            "soupBases": 9,
+            "exactStockpotRecipes": 75,
+            "distinctStockpotRecipes": 26,
+            "stockpotRecipeNote": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "phase": "COMPLETED_RELOADED",
+            "steamedOutputs": 4,
+            "teaServings": 8,
+            "stockpotServings": [
+              2,
+              0
+            ],
+            "stockpotLiquidOffset": -0.10499999,
+            "stockpotEmptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "checkedPlans": 219,
+            "checkedCrafting": 33,
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "pots": {
+            "exactRecipes": 195,
+            "distinctRecipes": 24,
+            "checkedPlans": 219,
+            "recipeNotes": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+            "phase": "COMPLETED_RELOADED",
+            "servings": [
+              2,
+              0
+            ],
+            "emptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "failures": [],
+            "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "millstone": {
+            "checkedFurniture": 1,
+            "animalProfile": {
+              "type": "COW",
+              "secondsPerRevolution": 40.0,
+              "override": false
+            },
+            "reloadedFurniture": 1,
+            "phase": "EMPTY_RELOADED",
+            "emptyNoDuplicate": true,
+            "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+            "craftEngine": "26.9.1",
+            "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+            "completionEvents": 0,
+            "spawnedOutput": 0,
+            "driveSamples": [],
+            "failures": [],
+            "method": "CE_FURNITURE_TICKS_AND_COW; real disk restart, no reflected progression",
+            "playerFlow": "NOT_TESTED",
+            "clientResourcePack": "NOT_TESTED"
+          },
+          "stoppedCleanly": true
+        }
+      ],
+      "stoppedCleanly": true
+    }
+  },
+  "retainedFailures": [
+    {
+      "path": "build/acceptance/millstone-v1/folia/boot-2.log",
+      "status": "FAIL_RETAINED",
+      "cause": "CE ticker still referred to an old valid furniture wrapper; replacement controller did not receive ticks after reload",
+      "diagnostic": "build/acceptance/millstone-diagnostic-v3/folia/plugins/CookeryAcceptanceProbe/millstone-drive.json",
+      "diagnosticSha256": "f6586b2b9bc50c5960527007f984d5a6b609855e1ad5e06ab74ecd4fec157c6a",
+      "fix": "Millstone Folia ticker resolves current controller through the public CE furniture mapping; no extra scheduler",
+      "verifiedBy": "millstone-v2/folia cycles 1, 2 and 3"
+    },
+    {
+      "path": "build/acceptance/pot-v2/folia/boot-2.log",
+      "status": "OPEN",
+      "cause": "Historical startup watchdog in CraftEngine.runDelayTasks / CompletableFuture.join; not addressed by this change"
+    }
+  ],
+  "limitations": [
+    "playerFlow NOT_TESTED",
+    "clientResourcePack and millstone visuals NOT_TESTED",
+    "Protection plugins, concurrent players and independent chunk unload NOT_TESTED",
+    "Folia region crossing NOT_TESTED; probe stays inside one owned chunk",
+    "Third-party listeners transferring spawned items elsewhere are not guaranteed reversible",
+    "150 recipe sources pending; three millstone tag dependencies missing",
+    "Legacy plugin geometry anchors, roll speed, vertical lift and non-solid furniture collision retained"
+  ],
+  "productionActions": false
+}

@@ -1,0 +1,159 @@
+# Generated from KaleidoscopeMods/KaleidoscopeCookery @ 2f4e386ce23f49a385ddf003c67fc6415c55417a
+# Regenerate with tools/export_bamboo_tray.py; review custom item aliases before installing.
+bamboo_tray_recipes:
+  "kaleidoscopecookery:bamboo_tray/drying/kelp_to_dried_kelp":
+    require: "minecraft:kelp"
+    result: "minecraft:dried_kelp"
+    result_count: 1
+    mode: "drying"
+    time: 1800
+  "kaleidoscopecookery:bamboo_tray/drying/mud_to_clay":
+    require: "minecraft:mud"
+    result: "minecraft:clay"
+    result_count: 1
+    mode: "drying"
+    time: 1800
+  "kaleidoscopecookery:bamboo_tray/drying/rotten_flesh_to_leather":
+    require: "minecraft:rotten_flesh"
+    result: "minecraft:leather"
+    result_count: 1
+    mode: "drying"
+    time: 1800
+  "kaleidoscopecookery:bamboo_tray/drying/wet_sponge_to_sponge":
+    require: "minecraft:wet_sponge"
+    result: "minecraft:sponge"
+    result_count: 1
+    mode: "drying"
+    time: 1800
+  "kaleidoscopecookery:bamboo_tray/wetting/black_concrete_powder_to_black_concrete":
+    require: "minecraft:black_concrete_powder"
+    result: "minecraft:black_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/blue_concrete_powder_to_blue_concrete":
+    require: "minecraft:blue_concrete_powder"
+    result: "minecraft:blue_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/brown_concrete_powder_to_brown_concrete":
+    require: "minecraft:brown_concrete_powder"
+    result: "minecraft:brown_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/clay_to_mud":
+    require: "minecraft:clay"
+    result: "minecraft:mud"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/copper_block_to_oxidized_copper":
+    require: "minecraft:copper_block"
+    result: "minecraft:oxidized_copper"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/cyan_concrete_powder_to_cyan_concrete":
+    require: "minecraft:cyan_concrete_powder"
+    result: "minecraft:cyan_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/dirt_to_mud":
+    require: "minecraft:dirt"
+    result: "minecraft:mud"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/dried_kelp_to_kelp":
+    require: "minecraft:dried_kelp"
+    result: "minecraft:kelp"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/gray_concrete_powder_to_gray_concrete":
+    require: "minecraft:gray_concrete_powder"
+    result: "minecraft:gray_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/green_concrete_powder_to_green_concrete":
+    require: "minecraft:green_concrete_powder"
+    result: "minecraft:green_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/leather_to_rotten_flesh":
+    require: "minecraft:leather"
+    result: "minecraft:rotten_flesh"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/light_blue_concrete_powder_to_light_blue_concrete":
+    require: "minecraft:light_blue_concrete_powder"
+    result: "minecraft:light_blue_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/light_gray_concrete_powder_to_light_gray_concrete":
+    require: "minecraft:light_gray_concrete_powder"
+    result: "minecraft:light_gray_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/lime_concrete_powder_to_lime_concrete":
+    require: "minecraft:lime_concrete_powder"
+    result: "minecraft:lime_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/magenta_concrete_powder_to_magenta_concrete":
+    require: "minecraft:magenta_concrete_powder"
+    result: "minecraft:magenta_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/orange_concrete_powder_to_orange_concrete":
+    require: "minecraft:orange_concrete_powder"
+    result: "minecraft:orange_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/pink_concrete_powder_to_pink_concrete":
+    require: "minecraft:pink_concrete_powder"
+    result: "minecraft:pink_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/purple_concrete_powder_to_purple_concrete":
+    require: "minecraft:purple_concrete_powder"
+    result: "minecraft:purple_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/red_concrete_powder_to_red_concrete":
+    require: "minecraft:red_concrete_powder"
+    result: "minecraft:red_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/sponge_to_wet_sponge":
+    require: "minecraft:sponge"
+    result: "minecraft:wet_sponge"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/white_concrete_powder_to_white_concrete":
+    require: "minecraft:white_concrete_powder"
+    result: "minecraft:white_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900
+  "kaleidoscopecookery:bamboo_tray/wetting/yellow_concrete_powder_to_yellow_concrete":
+    require: "minecraft:yellow_concrete_powder"
+    result: "minecraft:yellow_concrete"
+    result_count: 1
+    mode: "wetting"
+    time: 900

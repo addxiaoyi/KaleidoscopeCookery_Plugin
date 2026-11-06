@@ -1,0 +1,33 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :doll:processResources UP-TO-DATE
+> Task :deco:processResources UP-TO-DATE
+> Task :tavern:processResources UP-TO-DATE
+> Task :music:processResources UP-TO-DATE
+> Task :deco:processTestResources NO-SOURCE
+> Task :doll:processTestResources NO-SOURCE
+> Task :tavern:processTestResources NO-SOURCE
+> Task :music:processTestResources NO-SOURCE
+> Task :common:compileJava FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':common:compileJava'.
+> Could not resolve all files for configuration ':common:compileClasspath'.
+   > Could not resolve io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT.
+     Required by:
+         project ':common'
+      > Could not resolve io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT.
+         > Unable to load Maven meta-data from https://repo.papermc.io/repository/maven-public/io/papermc/paper/paper-api/1.21.11-R0.1-SNAPSHOT/maven-metadata.xml.
+            > Could not HEAD 'https://repo.papermc.io/repository/maven-public/io/papermc/paper/paper-api/1.21.11-R0.1-SNAPSHOT/maven-metadata.xml'.
+               > The server may not support the client's requested TLS protocol versions: (TLSv1.2, TLSv1.3). You may need to configure the client to allow other protocols to be used. For more on this, please refer to https://docs.gradle.org/9.4.0/userguide/build_environment.html#sec:gradle_system_properties in the Gradle documentation.
+                  > Remote host terminated the handshake
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1m 28s
+5 actionable tasks: 1 executed, 4 up-to-date

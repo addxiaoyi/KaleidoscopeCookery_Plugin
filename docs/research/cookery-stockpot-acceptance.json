@@ -1,0 +1,295 @@
+{
+  "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+  "status": "PARTIAL_FOLIA_COLD_START_WATCHDOG_OPEN",
+  "scope": "Official stockpot exact/distinct selection, visuals, disk reload and controller serving conservation",
+  "artifacts": {
+    "build/acceptance/cookery-stockpot-v2.zip": {
+      "bytes": 2259358,
+      "sha256": "8a5d15b1dbbeea64bdcff015c574a7823ff41e21315e9ccb0ad2f567d8862e33"
+    },
+    "build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar": {
+      "bytes": 1345410,
+      "sha256": "98208e978790ed694c6289390ed8df53f7b0a3c975c9a297fc01ce63c77e74f2"
+    },
+    "build/acceptance/probe/CookeryAcceptanceProbe.jar": {
+      "bytes": 36986,
+      "sha256": "4bb28c106ebadda9ef78bac0f94ad49a7268caa0a70f799a73ebdde4e8194fa5"
+    },
+    "src/main/resources/cookery-parity.json": {
+      "bytes": 483430,
+      "sha256": "d7b5e10c9a6d51f458804d4454ec8eac174f24ce22bb9eda40eea4c50146ba25"
+    }
+  },
+  "pack": {
+    "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+    "target": {
+      "minecraft": "1.21.11",
+      "craftEngine": "26.9.1"
+    },
+    "items": 263,
+    "blocks": 12,
+    "convertedPerspectives": [
+      "kaleidoscope_cookery:item/cold_cut_ham_slices",
+      "kaleidoscope_cookery:item/fruit_basket",
+      "kaleidoscope_cookery:item/teapot"
+    ],
+    "checkedModels": 272,
+    "soundAliases": 12,
+    "states": {
+      "kaleidoscopecookery:chopping_board": 4,
+      "kaleidoscopecookery:enamel_basin": 20,
+      "kaleidoscopecookery:kitchenware_racks": 4,
+      "kaleidoscopecookery:pot": 16,
+      "kaleidoscopecookery:shawarma_spit": 16,
+      "kaleidoscopecookery:steamer": 48,
+      "kaleidoscopecookery:stockpot": 32,
+      "kaleidoscopecookery:stove": 8,
+      "kaleidoscopecookery:fruit_basket": 4,
+      "kaleidoscopecookery:teapot": 16,
+      "kaleidoscopecookery:teacup_coaster": 4,
+      "kaleidoscopecookery:oil_pot": 8
+    },
+    "recipeSources": 612,
+    "recipeStatuses": {
+      "imported": 161,
+      "pending": 451
+    },
+    "recipes": {
+      "teapot_result": 11,
+      "accurate_foods": 4,
+      "chopping_board_raws": 16,
+      "stockpot_recipes": 101,
+      "recipes": 33
+    },
+    "teaCups": 8,
+    "images": 6,
+    "soupBases": 9,
+    "pending": [
+      "Tripwire-backed appliances have vanilla selection boxes and no solid collision; exact mod voxel shapes remain pending.",
+      "Waterlogging is not enabled by this acceptance pack.",
+      "Teapot base and chains use extracted stockpot support geometry; the Java entity texture layout still needs a dedicated conversion.",
+      "Steamer TOP is retained for old states using a translated half model; official mod has no TOP state.",
+      "Imported stockpot recipes include cooking/finished surfaces and official liquid heights; legacy recipes retain existing visuals. Vanilla-client visual acceptance remains pending.",
+      "Stockpot colored bubbles use vanilla dust particles; imported recipes are read-only in the recipe menu. Player carriers and workbench remainders still require acceptance.",
+      "Milk liquid uses a generated flat texture because the Forge milk renderer is unavailable to vanilla clients.",
+      "Teapot bitmap-font bars substitute for the mod client HUD; client visual acceptance remains pending.",
+      "Recipe manifest records every pending conversion; placed meal bites, protection and multiplayer acceptance remain pending.",
+      "Tool durability and lid use behavior beyond existing kitchen interactions require separate parity acceptance."
+    ],
+    "playerFlow": "NOT_TESTED",
+    "clientResourcePack": "NOT_TESTED"
+  },
+  "instances": {
+    "paper": {
+      "passedCycles": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "latest": {
+        "cycle": 5,
+        "food": {
+          "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+          "craftEngine": "26.9.1",
+          "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+          "checkedConsumables": 103,
+          "failures": [],
+          "playerFlow": "NOT_TESTED",
+          "clientResourcePack": "NOT_TESTED"
+        },
+        "enchantments": {
+          "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+          "craftEngine": "26.9.1",
+          "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+          "checkedTools": 5,
+          "reloadedTools": 5,
+          "failures": [],
+          "playerFlow": "NOT_TESTED",
+          "clientResourcePack": "NOT_TESTED"
+        },
+        "resourcePackSha256": "6135bd92d7d7abff5b0681720f75563961cac58f3c30fb518df76bf57d536ddf",
+        "knownFixtureErrors": [],
+        "startup": "PASS",
+        "nativeEnchantmentSerialization": "PASS",
+        "resourceGeneration": "PASS",
+        "pluginArtifacts": {
+          "plugins/CookeryAcceptanceProbe.jar": "4bb28c106ebadda9ef78bac0f94ad49a7268caa0a70f799a73ebdde4e8194fa5",
+          "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+          "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "98208e978790ed694c6289390ed8df53f7b0a3c975c9a297fc01ce63c77e74f2"
+        },
+        "kitchen": {
+          "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+          "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+          "craftEngine": "26.9.1",
+          "checkedBlocks": 12,
+          "checkedStates": 180,
+          "checkedItems": 263,
+          "placedBlocks": 0,
+          "reloadedBlocks": 12,
+          "nonemptyContainers": 2,
+          "failures": [],
+          "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+          "playerFlow": "NOT_TESTED",
+          "clientResourcePack": "NOT_TESTED"
+        },
+        "recipes": {
+          "teaCups": 8,
+          "soupBases": 9,
+          "exactStockpotRecipes": 75,
+          "distinctStockpotRecipes": 26,
+          "stockpotRecipeNote": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+          "phase": "COMPLETED_RELOADED",
+          "steamedOutputs": 4,
+          "teaServings": 8,
+          "stockpotServings": [
+            2,
+            0
+          ],
+          "stockpotLiquidOffset": -0.10499999,
+          "stockpotEmptyNoDuplicate": true,
+          "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+          "craftEngine": "26.9.1",
+          "server": "1.21.11-132-c5eb079 (MC: 1.21.11)",
+          "checkedPlans": 132,
+          "checkedCrafting": 33,
+          "failures": [],
+          "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+          "playerFlow": "NOT_TESTED",
+          "clientResourcePack": "NOT_TESTED"
+        },
+        "stoppedCleanly": true
+      },
+      "installedFilesVerified": 1705,
+      "generatedModelsVerified": 1247,
+      "logs": {
+        "build/acceptance/stockpot-v1/paper/boot-1.log": "3aff614c2aa1a16d29fc58570652a9ee7d2bc6f9d80763fbc1e6c14aeb75b7c2",
+        "build/acceptance/stockpot-v1/paper/boot-2.log": "787ed341c867ead14b3604750b574679e9220517ebf7d55e5a4d57f20fd66c63",
+        "build/acceptance/stockpot-v1/paper/boot-3.log": "0389196c267384cb142f477963a547b69ea170d6e1565294857128c9ac4ffc55",
+        "build/acceptance/stockpot-v1/paper/boot-4.log": "68bd53f890202c482db697ac9e3340b062ae7a160e80c42ab18e43b5592dd47f",
+        "build/acceptance/stockpot-v1/paper/boot-5.log": "81842d714dad8278bdb3db5b1fc1e8ff6894a975f1186ae57aed8dd529916ef2"
+      }
+    },
+    "folia": {
+      "passedCycles": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "latest": {
+        "cycle": 5,
+        "food": {
+          "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+          "craftEngine": "26.9.1",
+          "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+          "checkedConsumables": 103,
+          "failures": [],
+          "playerFlow": "NOT_TESTED",
+          "clientResourcePack": "NOT_TESTED"
+        },
+        "enchantments": {
+          "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+          "craftEngine": "26.9.1",
+          "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+          "checkedTools": 5,
+          "reloadedTools": 5,
+          "failures": [],
+          "playerFlow": "NOT_TESTED",
+          "clientResourcePack": "NOT_TESTED"
+        },
+        "resourcePackSha256": "b38dd31973ed2552854833a99d0dd8537755366f17455e38a2d7cbb89b4202fc",
+        "knownFixtureErrors": [],
+        "startup": "PASS",
+        "nativeEnchantmentSerialization": "PASS",
+        "resourceGeneration": "PASS",
+        "pluginArtifacts": {
+          "plugins/CookeryAcceptanceProbe.jar": "4bb28c106ebadda9ef78bac0f94ad49a7268caa0a70f799a73ebdde4e8194fa5",
+          "plugins/craft-engine-paper-plugin-26.9.1.jar": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+          "plugins/KaleidoscopeCookeryPlugin-1.3.0.jar": "98208e978790ed694c6289390ed8df53f7b0a3c975c9a297fc01ce63c77e74f2"
+        },
+        "kitchen": {
+          "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+          "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+          "craftEngine": "26.9.1",
+          "checkedBlocks": 12,
+          "checkedStates": 180,
+          "checkedItems": 263,
+          "placedBlocks": 0,
+          "reloadedBlocks": 12,
+          "nonemptyContainers": 2,
+          "failures": [],
+          "placementMethod": "SERVER_API; player placement and multi-block item behavior NOT_TESTED",
+          "playerFlow": "NOT_TESTED",
+          "clientResourcePack": "NOT_TESTED"
+        },
+        "recipes": {
+          "teaCups": 8,
+          "soupBases": 9,
+          "exactStockpotRecipes": 75,
+          "distinctStockpotRecipes": 26,
+          "stockpotRecipeNote": "SERIALIZATION_PASS; player auto-fill and furniture rendering NOT_TESTED",
+          "phase": "COMPLETED_RELOADED",
+          "steamedOutputs": 4,
+          "teaServings": 8,
+          "stockpotServings": [
+            2,
+            0
+          ],
+          "stockpotLiquidOffset": -0.10499999,
+          "stockpotEmptyNoDuplicate": true,
+          "sourceCommit": "2f4e386ce23f49a385ddf003c67fc6415c55417a",
+          "craftEngine": "26.9.1",
+          "server": "1.21.11-14-529aabc (MC: 1.21.11)",
+          "checkedPlans": 132,
+          "checkedCrafting": 33,
+          "failures": [],
+          "method": "SERVER_API_AND_SAVED_STATE; real controller ticks and disk reload",
+          "playerFlow": "NOT_TESTED",
+          "clientResourcePack": "NOT_TESTED"
+        },
+        "stoppedCleanly": true
+      },
+      "installedFilesVerified": 1705,
+      "generatedModelsVerified": 1247,
+      "logs": {
+        "build/acceptance/stockpot-v1/folia/boot-1.log": "4286f1246d83b878ac0425636cfa6231816854010305095b20c3575651beafdc",
+        "build/acceptance/stockpot-v1/folia/boot-2.log": "76cbeb5888f67c5727adb0b18e452f6d44f5ee570be984870a8c136f8cee3ff1",
+        "build/acceptance/stockpot-v1/folia/boot-3.log": "5f793c8de2992132b8c196a2202afb000b9a15f5daf8cebac1535d10d7809b29",
+        "build/acceptance/stockpot-v1/folia/boot-4.log": "7556fc10a1d7e5b36034146fd8189c22594dfa29a58ff348a5ccda3c6a708fda",
+        "build/acceptance/stockpot-v1/folia/boot-5.log": "fe41205c1af4aa8bd0b73f19cb7a10ba7179027e9bb25272e742090d4edf2a4b"
+      },
+      "coldStart": {
+        "status": "FAIL",
+        "seconds": 5.7309607,
+        "sample": "CraftEngine CEWorld constructor / BukkitWorldManager.delayedInit; root cause unproven",
+        "log": "build/acceptance/stockpot-v1/folia/boot-1.log"
+      }
+    }
+  },
+  "playerFlow": "NOT_TESTED",
+  "clientResourcePack": "NOT_TESTED",
+  "packByteReproducible": true,
+  "tests": {
+    "java": {
+      "tests": 105,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "python": {
+      "tests": 61,
+      "failures": 0,
+      "log": "build/acceptance/stockpot-python-final.log"
+    },
+    "javaBuildLog": "build/acceptance/stockpot-build-final-v2.log"
+  },
+  "remaining": [
+    "451 recipes pending, including four stockpot recipes requiring absent forge:mushrooms",
+    "Imported recipe menu editing; player auto-fill and recipe furniture visual acceptance",
+    "Player carriers, event cancellation and reentrancy, protection, concurrency and chunk unload",
+    "Exact client collisions, mod bubble particles, animal bucket entity data and vanilla resource reception",
+    "Other series gameplay and resource acceptance remain open"
+  ]
+}

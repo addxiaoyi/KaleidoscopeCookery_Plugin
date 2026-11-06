@@ -17,8 +17,8 @@ import java.util.Optional;
 /** Immutable, versioned batch data. It never retains a live Item, world or registry snapshot. */
 public record CookingPlan(boolean valid, boolean matched, Key recipeId, int workRequired,
                           int ingredientCount, Key carrier, List<Output> outputs,
-                          List<String> choppingValues) {
-    private static final int FORMAT = 1;
+                          List<String> choppingValues, StockpotVisuals stockpotVisuals) {
+    private static final int FORMAT = 2;
     private static final int MAX_OUTPUTS = 256;
 
     public record Output(Key key, int count, List<String> lore, DishQuality quality) {
@@ -36,6 +36,11 @@ public record CookingPlan(boolean valid, boolean matched, Key recipeId, int work
         if (matched && (recipeId == null || outputs.isEmpty())) throw new IllegalArgumentException("Missing matched output");
     }
 
+    public CookingPlan(boolean valid, boolean matched, Key recipeId, int workRequired,
+                       int ingredientCount, Key carrier, List<Output> outputs, List<String> choppingValues) {
+        this(valid, matched, recipeId, workRequired, ingredientCount, carrier, outputs, choppingValues, null);
+    }
+
     public static CookingPlan unmatched(int defaultWork) {
         return new CookingPlan(true, false, null, Math.max(1, defaultWork), 1, null, List.of(), List.of());
     }
@@ -45,7 +50,7 @@ public record CookingPlan(boolean valid, boolean matched, Key recipeId, int work
     }
 
     public CookingPlan withWorkRequired(int work) {
-        return new CookingPlan(valid, matched, recipeId, Math.max(1, work), ingredientCount, carrier, outputs, choppingValues);
+        return new CookingPlan(valid, matched, recipeId, Math.max(1, work), ingredientCount, carrier, outputs, choppingValues, stockpotVisuals);
     }
 
     /** Call only on the appliance's owning thread, immediately before committing completion. */
@@ -94,13 +99,14 @@ public record CookingPlan(boolean valid, boolean matched, Key recipeId, int work
         }
         data.put("outputs", entries);
         data.put("models", strings(choppingValues));
+        if (stockpotVisuals != null) data.put("stockpot_visuals", stockpotVisuals.save());
         return data;
     }
 
     /** A malformed saved plan is blocked, never treated as a new batch or re-rolled. */
     public static CookingPlan load(CompoundTag data) {
         try {
-            if (data == null || data.getInt("version", -1) != FORMAT) return invalid();
+            if (data == null || data.getInt("version", -1) < 1 || data.getInt("version", -1) > FORMAT) return invalid();
             ListTag entries = data.getList("outputs");
             if (entries == null || entries.size() > MAX_OUTPUTS) return invalid();
             List<Output> outputs = new ArrayList<>(entries.size());
@@ -115,7 +121,8 @@ public record CookingPlan(boolean valid, boolean matched, Key recipeId, int work
             return new CookingPlan(data.getBoolean("valid", false), data.getBoolean("matched", false),
                     recipe.isEmpty() ? null : Key.of(recipe), data.getInt("work", 0),
                     data.getInt("ingredient_count", 1), carrier.isEmpty() ? null : Key.of(carrier),
-                    outputs, readStrings(data.getList("models")));
+                    outputs, readStrings(data.getList("models")),
+                    data.containsKey("stockpot_visuals") ? StockpotVisuals.load(data.getCompound("stockpot_visuals")) : null);
         } catch (RuntimeException malformed) {
             return invalid();
         }

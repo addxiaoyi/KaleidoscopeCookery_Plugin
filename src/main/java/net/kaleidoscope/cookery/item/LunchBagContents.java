@@ -55,9 +55,18 @@ public final class LunchBagContents {
         return target;
     }
 
-    // 当前仅接收熟牛肉
+    // Retain vanilla steak and admit the imported edible dishes, using the existing bag format.
     public static boolean canAdd(Item food) {
-        return ItemMatch.is(food, ItemKeys.COOKED_BEEF);
+        if (ItemMatch.is(food, ItemKeys.COOKED_BEEF)) return true;
+        if (ItemUtils.isEmpty(food)) return false;
+        try {
+            var baked = CookeryFoodItems.read(ItemStackUtils.getBukkitStack(food.minecraftItem()));
+            return baked != null && !baked.drink();
+        } catch (IllegalArgumentException exception) {
+            net.kaleidoscope.cookery.plugin.KaleidoscopeCookeryPlugin.instance().getLogger().log(
+                    java.util.logging.Level.WARNING, "Cannot insert corrupt food into lunch bag: " + food.id(), exception);
+            return false;
+        }
     }
 
     // 底材是原版 minecraft:bundle 原版有多条塞入路径 逐个事件去拦容易漏

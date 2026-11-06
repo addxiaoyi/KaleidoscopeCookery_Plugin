@@ -1,4 +1,5 @@
 package net.kaleidoscope.cookery.block.entity;
+import net.kaleidoscope.cookery.item.CookeryEnchantments;
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
 import net.kaleidoscope.cookery.util.BlockStates;
 import net.kaleidoscope.cookery.block.behavior.ChoppingBoardBehavior;
@@ -139,6 +140,10 @@ public class ChoppingBoardController extends BlockEntityController {
     }
 
     public CutResult cut() {
+        return cut(0);
+    }
+
+    public CutResult cut(int quickKnifeLevel) {
         if (isEmpty() || processingBlocked) {
             return CutResult.NOTHING;
         }
@@ -151,8 +156,10 @@ public class ChoppingBoardController extends BlockEntityController {
             return CutResult.NOTHING;
         }
 
-        if (currentStage < cookingPlan.workRequired()) {
-            currentStage++;
+        int work = CookeryEnchantments.quickKnifeWork(quickKnifeLevel);
+        // Stage 1 means zero cuts. Crossing the last stage still produces food on that same click.
+        if ((long) currentStage + work <= cookingPlan.workRequired()) {
+            currentStage += work;
             refreshElementState();
             super.blockEntity.world.blockEntityChanged(super.blockEntity.pos);
             return CutResult.ADVANCED;

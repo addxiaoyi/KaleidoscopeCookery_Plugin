@@ -1,0 +1,6 @@
+name: CookeryAcceptanceProbe
+version: '1'
+main: net.kaleidoscope.cookery.acceptance.FoodSmokePlugin
+api-version: '1.21.11'
+folia-supported: true
+depend: [CraftEngine, KaleidoscopeCookeryPlugin]

@@ -1,0 +1,14 @@
+name: KaleidoscopeTavernPlugin
+version: '${version}'
+main: net.kaleidoscope.tavern.TavernPlugin
+api-version: '1.21.11'
+folia-supported: true
+depend: [CraftEngine]
+softdepend: [Dominion]
+commands:
+  ktavern:
+    description: 森罗酒馆配方与管理员工具
+    usage: /ktavern [recipes|kit]
+permissions:
+  kaleidoscopetavern.admin:
+    default: op

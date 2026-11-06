@@ -11,7 +11,10 @@ import net.kaleidoscope.cookery.recipe.ApplianceType;
 import net.kaleidoscope.cookery.recipe.ChoppingBoardRecipe;
 import net.kaleidoscope.cookery.recipe.ChoppingResult;
 import net.kaleidoscope.cookery.recipe.FlexFoodRecipe;
+import net.kaleidoscope.cookery.recipe.StockpotRecipe;
+import net.kaleidoscope.cookery.recipe.PotRecipe;
 import net.kaleidoscope.cookery.recipe.TeapotRecipe;
+import net.kaleidoscope.cookery.recipe.BambooTrayRecipe;
 import net.kaleidoscope.cookery.recipe.WeightedResult;
 import net.momirealms.craftengine.core.entity.player.Player;
 import net.momirealms.craftengine.core.item.Item;
@@ -42,6 +45,50 @@ public final class RecipeDetailMenu {
             "#B#######"};
 
     private static final int MAX_SLOTS = 7;
+
+    public static void openPot(org.bukkit.entity.Player player, PotRecipe recipe, Runnable back) {
+        if (RecipeMenuHooks.instance().dispatchDetail(player, ApplianceType.POT, recipe.id())) return;
+        Player viewer = RecipeMenus.adapt(player);
+        if (viewer == null) return;
+        List<Item> inputs = new ArrayList<>();
+        List<Component> explanation = new ArrayList<>();
+        explanation.add(Component.text(recipe.mode() == PotRecipe.Mode.EXACT ? "每格消耗一个原料" : "同种物品合并后匹配，全部原料参与烹饪"));
+        explanation.add(Component.text("翻炒 " + recipe.stirFryCount() + " 次，最后一次动画结束后出锅"));
+        explanation.add(Component.text("产出：" + recipe.resultCount() + " 份"));
+        int slot = 0;
+        for (var choices : recipe.ingredients()) {
+            List<Key> sorted = choices.stream().sorted(java.util.Comparator.comparing(Key::asString)).toList();
+            inputs.add(MenuIcons.nativePreview(sorted.getFirst(), viewer));
+            explanation.add(Component.text("第 " + (++slot) + " 格可用：" + sorted.stream()
+                    .map(MenuIcons::itemNameText).collect(java.util.stream.Collectors.joining(" / "))));
+        }
+        Item output = MenuIcons.nativePreview(recipe.result(), viewer).copyWithCount(recipe.resultCount());
+        Item details = MenuIcons.icon(MenuButton.ROTATION, viewer, MenuIcons.text("加工说明", NamedTextColor.GOLD), explanation);
+        openTitled(viewer, Component.text("炒锅 · " + (recipe.mode() == PotRecipe.Mode.EXACT ? "精准配方" : "种类配方")),
+                inputs, List.of(output), recipe.carrier(), List.of(), true, back, details);
+    }
+
+    public static void openStockpot(org.bukkit.entity.Player player, StockpotRecipe recipe, Runnable back) {
+        if (RecipeMenuHooks.instance().dispatchDetail(player, ApplianceType.STOCKPOT, recipe.id())) return;
+        Player viewer = RecipeMenus.adapt(player);
+        if (viewer == null) return;
+        List<Item> inputs = new ArrayList<>();
+        List<Component> explanation = new ArrayList<>();
+        explanation.add(Component.text(recipe.mode() == StockpotRecipe.Mode.EXACT ? "每格消耗一个原料" : "同种物品合并后匹配，全部原料参与烹饪"));
+        explanation.add(Component.text("烹饪时间：" + RecipeProcessingControls.seconds(recipe.time()) + " 秒"));
+        explanation.add(Component.text("产出：" + recipe.resultCount() + " 份"));
+        int slot = 0;
+        for (var choices : recipe.ingredients()) {
+            List<Key> sorted = choices.stream().sorted(java.util.Comparator.comparing(Key::asString)).toList();
+            inputs.add(MenuIcons.nativePreview(sorted.getFirst(), viewer));
+            explanation.add(Component.text("第 " + (++slot) + " 格可用：" + sorted.stream()
+                    .map(MenuIcons::itemNameText).collect(java.util.stream.Collectors.joining(" / "))));
+        }
+        Item result = MenuIcons.nativePreview(recipe.result(), viewer).copyWithCount(recipe.resultCount());
+        Item details = MenuIcons.icon(MenuButton.ROTATION, viewer, MenuIcons.text("加工说明", NamedTextColor.GOLD), explanation);
+        openTitled(viewer, Component.text("高汤锅 · " + (recipe.mode() == StockpotRecipe.Mode.EXACT ? "精准配方" : "种类配方")),
+                inputs, List.of(result), recipe.carrier(), List.of(recipe.soupBase()), true, back, details);
+    }
 
     public static void openAccurate(org.bukkit.entity.Player bukkitPlayer, AccurateFoodRecipe recipe,
                                     Runnable back) {
@@ -119,16 +166,23 @@ public final class RecipeDetailMenu {
 
     private static void openTitled(Player viewer, Component title, List<Item> inputs, List<Item> results,
                              Key carrier, List<Key> liquids, boolean showQualityHint, Runnable back) {
-        GuiLayout layout = new GuiLayout(LAYOUT);
+        openTitled(viewer, title, inputs, results, carrier, liquids, showQualityHint, back, null);
+    }
+
+    private static void openTitled(Player viewer, Component title, List<Item> inputs, List<Item> results,
+                                  Key carrier, List<Key> liquids, boolean showQualityHint, Runnable back, Item details) {
+        GuiLayout layout = new GuiLayout(details != null ? new String[]{"#########", "IIIIIIIII", "#########", "#HR#C#L#T", "#B#######"} : LAYOUT);
         layout.addIngredient('#', Ingredient.simple(MenuIcons.filler(viewer)));
+        if (details != null) layout.addIngredient('T', MenuIcons.button(details, () -> {}));
 
         // 原料栏沿用当前菜单的一排布局。
-        List<Item> shown = inputs.size() > MAX_SLOTS ? inputs.subList(0, MAX_SLOTS) : inputs;
+        int maximum = details != null ? 9 : MAX_SLOTS;
+        List<Item> shown = inputs.size() > maximum ? inputs.subList(0, maximum) : inputs;
         List<GuiElement> slots = new ArrayList<>();
         for (Item item : shown) {
             slots.add(MenuIcons.button(item, () -> {}));
         }
-        while (slots.size() < MAX_SLOTS) {
+        while (slots.size() < maximum) {
             slots.add(MenuIcons.empty());
         }
         // Ingredient 没有列表工厂 按调用顺序逐格取 和编辑页的写法一致
@@ -158,6 +212,27 @@ public final class RecipeDetailMenu {
         gui.title(title)
                 .refresh()
                 .open(viewer);
+    }
+
+    public static void openBambooTray(org.bukkit.entity.Player player, BambooTrayRecipe recipe, Runnable back) {
+        if (RecipeMenuHooks.instance().dispatchDetail(player, ApplianceType.BAMBOO_TRAY, recipe.id())) return;
+        Player viewer = RecipeMenus.adapt(player);
+        if (viewer == null) return;
+        GuiLayout layout = new GuiLayout("#########", "#I##R##M#", "####C####", "#B#######");
+        layout.addIngredient('#', Ingredient.simple(MenuIcons.filler(viewer)));
+        layout.addIngredient('I', MenuIcons.button(BambooTrayEditMenu.inputIcon(viewer, recipe.input()), () -> {}));
+        layout.addIngredient('R', MenuIcons.button(MenuIcons.nativePreview(recipe.result(), viewer), () -> {}));
+        layout.addIngredient('M', MenuIcons.button(BambooTrayEditMenu.modeIcon(viewer, recipe.mode()), () -> {}));
+        layout.addIngredient('C', MenuIcons.button(MenuIcons.icon(MenuButton.ROTATION, viewer,
+                MenuIcons.text("加工说明", NamedTextColor.GOLD),
+                MenuIcons.lore("每件原料产出 " + recipe.resultCount() + " 件",
+                        "累计时间：" + RecipeProcessingControls.seconds(recipe.durationTicks()) + " 秒",
+                        "时间由服务器 tick 累计，受环境条件限制", "竹筛每 19 tick 检查加工结果")), () -> {}));
+        layout.addIngredient('B', MenuIcons.back(viewer, back));
+        BasicGuiImpl.builder().layout(layout).inventoryClickConsumer(RecipeMenus.inventoryGuard()).build()
+                .title(RecipeMenuStyle.instance().title(MenuScreen.DETAIL_BAMBOO_TRAY,
+                        "recipe", MenuIcons.itemNameText(recipe.result())))
+                .refresh().open(viewer);
     }
 
     private static Item carrierIcon(Player viewer, Key carrier) {

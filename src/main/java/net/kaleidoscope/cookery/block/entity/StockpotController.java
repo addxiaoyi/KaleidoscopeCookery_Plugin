@@ -32,6 +32,7 @@ import net.kaleidoscope.cookery.recipe.ApplianceType;
 import net.kaleidoscope.cookery.recipe.FoodRecipeRegistry;
 import net.kaleidoscope.cookery.recipe.FoodRecipeResult;
 import net.kaleidoscope.cookery.recipe.CookingPlan;
+import net.kaleidoscope.cookery.recipe.StockpotVisuals;
 import net.kaleidoscope.cookery.plugin.KaleidoscopeCookeryPlugin;
 import net.kaleidoscope.cookery.util.HeatSourceUtils;
 import net.kaleidoscope.cookery.item.ItemKeys;
@@ -233,6 +234,12 @@ public class StockpotController extends BlockEntityController {
                     Particles.emit(super.blockEntity.world, Particle.SPLASH, bx, by, bz, pc, 0.05, 0.0, 0.05, 0.1, null);
                     Particles.emit(super.blockEntity.world, Particle.BUBBLE_POP, bx, by, bz, pc, 0.05, 0.0, 0.05, 0.02, null);
                 }
+                StockpotVisuals visuals = visuals();
+                if (visuals != null) {
+                    int rgb = stage == StockpotStage.FINISHED ? visuals.finishedColor() : visuals.cookingColor();
+                    Particles.emit(super.blockEntity.world, Particle.DUST, bx, by + liquidOffset(), bz, pc,
+                            0.05, 0.0, 0.05, 0, new Particle.DustOptions(org.bukkit.Color.fromRGB(rgb), 0.4f));
+                }
             }
             if (Math.floorMod(gameTime + posStagger(), ANIM_INTERVAL) == 0) {
                 refreshAnimation(ANIM_INTERVAL);
@@ -258,7 +265,7 @@ public class StockpotController extends BlockEntityController {
 
         if (stage == StockpotStage.PUT_INGREDIENT && !ingredients.isEmpty() && Math.floorMod(gameTime + posStagger(), 5) == 0) {
             cookingPlan = FoodRecipeRegistry.instance()
-                    .planFlex(ApplianceType.STOCKPOT, ingredientIds(), this.soupBaseId, behavior.cookingTime);
+                    .planStockpot(ingredientIds(), this.soupBaseId, behavior.cookingTime);
             stage = StockpotStage.COOKING;
             currentTick = cookingPlan.workRequired();
             completionBlocked = false;
@@ -382,7 +389,9 @@ public class StockpotController extends BlockEntityController {
         if (hasLid()) return null;
         if (!ingredients.isEmpty()) return null;
 
-        Key soupBaseId = this.soupBaseId;
+        Key returnId = ItemKeys.WATER.equals(this.soupBaseId) ? ItemKeys.WATER_BUCKET : this.soupBaseId;
+        Item bucket = InventoryUtils.createOrEmpty(returnId);
+        if (ItemUtils.isEmpty(bucket)) return null;
         this.soupBaseId = ItemKeys.WATER;
         this.stage = StockpotStage.PUT_SOUP_BASE;
         this.seed = System.currentTimeMillis();
@@ -396,10 +405,7 @@ public class StockpotController extends BlockEntityController {
             element.show(p);
         });
 
-        // 汤底物品本身就是对应的桶 取不到时回退到水桶
-        // createOrEmpty 无效 key 返回空物品不返回 null 所以只能用 isEmpty 判
-        Item bucket = InventoryUtils.createOrEmpty(soupBaseId);
-        return ItemUtils.isEmpty(bucket) ? InventoryUtils.createOrEmpty(ItemKeys.WATER_BUCKET) : bucket;
+        return bucket;
     }
 
     private boolean isLavaSoup() {
@@ -443,6 +449,7 @@ public class StockpotController extends BlockEntityController {
 
         final int index = ingredients.size() - 1;
         refreshDynamicElement((element, p) -> element.showIndex(p, index));
+        refreshDynamicElement(StockpotElement::refreshLiquidLevel);
         return true;
     }
 
@@ -471,6 +478,7 @@ public class StockpotController extends BlockEntityController {
         this.refreshRendering();
         super.blockEntity.world.blockEntityChanged(super.blockEntity.pos);
         refreshDynamicElement((element, p) -> element.hideIndex(p, ingredients.size()));
+        refreshDynamicElement(StockpotElement::refreshLiquidLevel);
         return extracted;
     }
 
@@ -481,13 +489,14 @@ public class StockpotController extends BlockEntityController {
     }
 
     public Item peekResult() {
-        if (stage != StockpotStage.FINISHED || hasLid() || takeoutCount <= 0 || result.isEmpty()) {
+        if (completionBlocked || stage != StockpotStage.FINISHED || hasLid() || takeoutCount <= 0 || result.isEmpty()) {
             return Item.empty();
         }
         return result.copyWithCount(1);
     }
 
     public Item takeOutResult() {
+        if (completionBlocked) return Item.empty();
         if (stage != StockpotStage.FINISHED) return Item.empty();
         if (hasLid()) return Item.empty();
         if (takeoutCount <= 0 || result.isEmpty()) return Item.empty();
@@ -516,6 +525,8 @@ public class StockpotController extends BlockEntityController {
         this.completionBlocked = false;
         this.progressDirty = false;
         this.takeoutCount = 0;
+        this.finishedMax = 0;
+        this.resultCarrier = null;
         this.soupBaseId = ItemKeys.WATER;
         this.seed = System.currentTimeMillis();
         this.renderTracker.reset();
@@ -622,6 +633,12 @@ public class StockpotController extends BlockEntityController {
         this.resultCarrier = carrier == null || carrier.isEmpty() ? null : Key.of(carrier);
         this.lidItem = BlockEntityNbt.getItem(data, K_LID_ITEM, dataVersion);
 
+        if (cookingPlan != null && !cookingPlan.valid()
+                || stage == StockpotStage.FINISHED && (takeoutCount < 1 || finishedMax < takeoutCount
+                || finishedMax > MAX_INGREDIENTS || result.isEmpty())) {
+            blockCompletion();
+        }
+
         this.refreshRendering();
     }
 
@@ -639,6 +656,16 @@ public class StockpotController extends BlockEntityController {
 
     public int finishedMax() {
         return finishedMax;
+    }
+
+    public StockpotVisuals visuals() {
+        return cookingPlan != null && cookingPlan.valid() ? cookingPlan.stockpotVisuals() : null;
+    }
+
+    public float liquidOffset() {
+        if (stage != StockpotStage.FINISHED) return 0;
+        if (visuals() != null && !completionBlocked) return StockpotVisuals.liquidOffset(takeoutCount, finishedMax);
+        return -(1f - Math.max(0.1f, (float) takeoutCount / Math.max(1, finishedMax))) * 0.3f;
     }
 
     public List<Key> lastCookedIngredients() {

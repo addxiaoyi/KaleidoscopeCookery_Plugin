@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.kaleidoscope.doll.DollPhysicsTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-05T04:01:49.140Z" hostname="ADDXIAOYI9000" time="0.056">
+  <properties/>
+  <testcase name="largerDollsHaveWeakerKnockback()" classname="net.kaleidoscope.doll.DollPhysicsTest" time="0.027"/>
+  <testcase name="chargeRequiresFiveTicksAndCapsAtThreeBlocksPerTick()" classname="net.kaleidoscope.doll.DollPhysicsTest" time="0.0"/>
+  <testcase name="bounceLosesEnergyAndSettlesAtSmallSpeeds()" classname="net.kaleidoscope.doll.DollPhysicsTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
