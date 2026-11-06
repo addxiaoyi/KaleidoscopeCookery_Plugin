@@ -171,5 +171,9 @@ public final class CookeryCatalog {
             drops = List.copyOf(drops);
             drops.forEach(CatalogJson::requireId);
         }
+
+        public BiteLayout placement() { return BiteLayout.of(layout); }
+
+        public int visibleBites() { return placement().maxVisibleBites(maxBites); }
     }
 }

@@ -82,4 +82,15 @@ class CookeryCatalogTest {
         assertThrows(IllegalArgumentException.class, () -> catalog.reload(new StringReader(malformed)));
         assertSame(previous, catalog.snapshot());
     }
+
+    @Test
+    void biteLayoutsExposeStableVisibleSlots() {
+        var catalog = CookeryCatalog.bundled().snapshot();
+        var oneByTwo = catalog.items().get("kaleidoscopecookery:slime_ball_meal").bites();
+        assertEquals(1, oneByTwo.placement().slots().size());
+        assertEquals(1, oneByTwo.visibleBites());
+        var threeByThree = catalog.items().get("kaleidoscopecookery:cold_cut_ham_slices").bites();
+        assertEquals(9, threeByThree.placement().slots().size());
+        assertEquals(8, threeByThree.visibleBites());
+    }
 }
