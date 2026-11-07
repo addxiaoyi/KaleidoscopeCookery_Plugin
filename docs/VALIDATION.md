@@ -12,6 +12,7 @@
 - 最终厨房包 `build/acceptance/cookery-handoff-folia-final-20261107.zip` 的 SHA-256 为 `07f2655adeafa2569f87e6f7a06a2dfe05e539e6d30922b774ac4a7613e6c443`。运行插件 `build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar` 的 SHA-256 为 `30ca4b4ff5316cc9d31c248ec7be0a3de664471f53820495d82360613f034fa5`。
 - 已证明范围是服务器启动、CraftEngine 配置加载、方块注册和竹筛配方加载。真实玩家、原版客户端资源包、漏斗取消、天气场景、多人竞争和摆盘家具流程仍未完成。
 - 更新后的 `tools/run_enchantment_acceptance.py` 同时识别 CraftEngine 中文和英文资源包完成日志。Paper 厨房隔离 smoke cycle 1/2 均正常停服，`build/acceptance/kitchen-final-20261107-h/paper/smoke-1.json` 与 `smoke-2.json` 各记录 13 方块、182 状态、272 物品、0 failures、`stoppedCleanly: true`。Folia 同一运行器的 recipe smoke 仍需单独收尾，不能由 Paper 证据代替。
+- 最终双端 acceptance 已通过，证据入口为 `build/acceptance/kitchen-final-20261107-l/acceptance.json`。Paper/Folia 各 3 轮均正常停服，13 方块、182 状态、272 物品和 28 条竹筛配方全部通过；219 配方计划、34 合成计划、219 炒锅计划、石磨重载和资源包生成均无失败。cycle 1 保存进行中状态，cycle 2 恢复完成状态，cycle 3 验证空状态无重复产出；Paper 资源包 SHA-256 `542439b986d02d4e48fbc50767bc544567f0ded5f669cfd647356cc12d809c80`，Folia `588f99ad92e3075bf8c95f0fb39c4e1661d7fd5ed1e41fd445b33e6af280fa8c`。
 
 ## 石磨配方、守恒与真实动物驱动（当前）
 
