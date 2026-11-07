@@ -30,7 +30,7 @@ public final class FoodSmokePlugin extends JavaPlugin {
         Bukkit.getGlobalRegionScheduler().runDelayed(this, task -> {
             verify();
             EnchantmentSmoke.verify(this);
-            long delay = 0;
+            long delay = 1;
             if (getConfig().getBoolean("kitchen-smoke.enabled", false)) {
                 startProbe("kitchen smoke", delay, () -> KitchenSmoke.start(this));
                 delay += 200;
