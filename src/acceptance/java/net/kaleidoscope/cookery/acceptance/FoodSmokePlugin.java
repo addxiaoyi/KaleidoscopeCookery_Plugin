@@ -30,11 +30,33 @@ public final class FoodSmokePlugin extends JavaPlugin {
         Bukkit.getGlobalRegionScheduler().runDelayed(this, task -> {
             verify();
             EnchantmentSmoke.verify(this);
-            if (getConfig().getBoolean("kitchen-smoke.enabled", false)) KitchenSmoke.start(this);
-            if (getConfig().getBoolean("recipe-smoke.enabled", false)) KitchenRecipeSmoke.start(this);
-            if (getConfig().getBoolean("pot-smoke.enabled", false)) PotRecipeSmoke.start(this);
-            if (getConfig().getBoolean("millstone-smoke.enabled", false)) MillstoneSmoke.start(this);
+            long delay = 0;
+            if (getConfig().getBoolean("kitchen-smoke.enabled", false)) {
+                startProbe("kitchen smoke", delay, () -> KitchenSmoke.start(this));
+                delay += 200;
+            }
+            if (getConfig().getBoolean("recipe-smoke.enabled", false)) {
+                startProbe("recipe smoke", delay, () -> KitchenRecipeSmoke.start(this));
+                delay += 200;
+            }
+            if (getConfig().getBoolean("pot-smoke.enabled", false)) {
+                startProbe("pot smoke", delay, () -> PotRecipeSmoke.start(this));
+                delay += 200;
+            }
+            if (getConfig().getBoolean("millstone-smoke.enabled", false)) {
+                startProbe("millstone smoke", delay, () -> MillstoneSmoke.start(this));
+            }
         }, 100);
+    }
+
+    private void startProbe(String name, long delay, Runnable probe) {
+        Bukkit.getGlobalRegionScheduler().runDelayed(this, task -> {
+            try {
+                probe.run();
+            } catch (RuntimeException | LinkageError failure) {
+                getLogger().log(Level.SEVERE, "Cannot start " + name + " acceptance probe", failure);
+            }
+        }, delay);
     }
 
     private void verify() {
