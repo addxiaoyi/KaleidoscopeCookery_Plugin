@@ -1,9 +1,16 @@
 import unittest
 from import_sources import (parse_json, resolve_ingredient, strip_trailing_commas, model_tree,
-                            inherit_template, loot_components, crafting, json_bytes, pack_groups)
+                            inherit_template, loot_components, crafting, json_bytes, pack_groups,
+                            load_module_specs)
 
 
 class ImportTests(unittest.TestCase):
+    def test_module_specs_define_unique_converter_boundaries(self):
+        version, modules, shared = load_module_specs()
+        self.assertRegex(version, r"^[A-Za-z0-9._-]+$")
+        self.assertEqual(("doll", "tavern", "deco", "music"), tuple(m["id"] for m in modules))
+        self.assertEqual("shared", shared)
+
     def test_forge_tags_keep_vanilla_members_and_reject_unknown_groups(self):
         self.assertEqual(["minecraft:copper_ingot"], resolve_ingredient({"tag": "forge:ingots/copper"}, {}))
         self.assertEqual(17, len(resolve_ingredient({"tag": "forge:glass_panes"}, {})))

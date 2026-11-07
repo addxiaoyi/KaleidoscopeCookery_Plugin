@@ -22,7 +22,8 @@ from typing import Any
 SUITE = Path(__file__).resolve().parents[1]
 WORKSPACE = SUITE.parent.parent
 LOCK = SUITE.parent / "docs/research/organization-checkouts.json"
-PACK_VERSION = "0.1.0-dev"
+MODULE_SPECS = SUITE / "tools/module-specs.json"
+PACK_VERSION = "0.1.0-dev"  # fallback for callers of pack_groups in older tests
 PACK_MODULES = ("doll", "tavern", "deco", "music", "shared")
 ID = re.compile(r"[a-z0-9_.-]+:[a-z0-9_./-]+")
 COLORS = ("white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
@@ -48,6 +49,38 @@ def pairs_unique(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 def parse_json(content: bytes) -> Any:
     return json.loads(content.decode("utf-8-sig"), object_pairs_hook=pairs_unique)
+
+
+def load_module_specs() -> tuple[str, tuple[dict[str, str], ...], str]:
+    raw = parse_json(MODULE_SPECS.read_bytes())
+    if not isinstance(raw, dict) or set(raw) != {"pack_version", "modules", "shared_pack"}:
+        raise ValueError("module-specs.json has unsupported fields")
+    version = raw["pack_version"]
+    shared = raw["shared_pack"]
+    modules = raw["modules"]
+    if not isinstance(version, str) or not re.fullmatch(r"[A-Za-z0-9._-]+", version):
+        raise ValueError("module-specs.json has an invalid pack version")
+    if not isinstance(shared, str) or not re.fullmatch(r"[a-z0-9_-]+", shared):
+        raise ValueError("module-specs.json has an invalid shared pack id")
+    if not isinstance(modules, list) or not modules:
+        raise ValueError("module-specs.json has no modules")
+    result: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for module in modules:
+        if not isinstance(module, dict) or set(module) != {"id", "repository", "converter"}:
+            raise ValueError("module-specs.json has an invalid module entry")
+        if (not isinstance(module["id"], str) or not re.fullmatch(r"[a-z0-9_-]+", module["id"])
+                or module["id"] in seen):
+            raise ValueError("module-specs.json has duplicate or invalid module id")
+        if not isinstance(module["repository"], str) or not module["repository"]:
+            raise ValueError("module-specs.json has an invalid repository")
+        if not isinstance(module["converter"], str) or not module["converter"]:
+            raise ValueError("module-specs.json has an invalid converter")
+        seen.add(module["id"])
+        result.append(module)
+    if shared in seen:
+        raise ValueError("shared pack id collides with a module")
+    return version, tuple(result), shared
 
 
 def git(root: Path, *args: str) -> bytes:
@@ -538,18 +571,19 @@ def write(path: Path, content: bytes) -> None:
     temporary.replace(path)
 
 
-def pack_groups(bundle: dict[str, bytes]) -> dict[str, dict[str, bytes]]:
+def pack_groups(bundle: dict[str, bytes], modules: tuple[str, ...] = PACK_MODULES) -> dict[str, dict[str, bytes]]:
     """Split the aggregate bundle into independent CE pack file trees."""
-    groups = {module: {} for module in PACK_MODULES}
+    groups = {module: {} for module in modules}
     for path, content in bundle.items():
         module, separator, relative = path.partition("/")
         if not separator or module not in groups or not relative:
             raise ValueError(f"Unscoped CE bundle entry: {path}")
         groups[module][relative] = content
-    for module in PACK_MODULES[:-1]:
+    for module in modules[:-1]:
         if "pack.yml" not in groups[module] or "configuration/content.yml" not in groups[module]:
             raise ValueError(f"Incomplete CE pack: {module}")
-    if groups["shared"] and "pack.yml" not in groups["shared"]:
+    shared = modules[-1]
+    if groups[shared] and "pack.yml" not in groups[shared]:
         raise ValueError("Incomplete CE pack: shared")
     return groups
 
@@ -577,10 +611,17 @@ def main() -> None:
         raise ValueError(f"Archive output already exists: {args.archive}")
     if args.module_archives_dir and args.module_archives_dir.exists():
         raise ValueError(f"Module archive output already exists: {args.module_archives_dir}")
+    pack_version, specs, shared_pack = load_module_specs()
+    modules = tuple(spec["id"] for spec in specs) + (shared_pack,)
     records = parse_json(LOCK.read_bytes())["repositories"]
     pinned = {r["name"]: r for r in records}
-    converters = [("doll", "KaleidoscopeDoll", doll), ("tavern", "KaleidoscopeTavern", tavern),
-                  ("deco", "KaleidoscopeDeco", deco), ("music", "MusicPlus", music)]
+    converter_functions = {"doll": doll, "tavern": tavern, "deco": deco, "music": music}
+    converters = []
+    for spec in specs:
+        converter = converter_functions.get(spec["converter"])
+        if converter is None:
+            raise ValueError(f"Unknown module converter: {spec['converter']}")
+        converters.append((spec["id"], spec["repository"], converter))
     prepared = []
     for module, repository, converter in converters:
         source = Source(repository, pinned[repository]["commit"])
@@ -607,7 +648,7 @@ def main() -> None:
                 raise ValueError(f"Stale generated catalog: {catalog_path}")
         else:
             write(catalog_path, json_bytes(catalog))
-        bundle[f"{module}/pack.yml"] = json_bytes({"namespace": "kseries_" + module, "name": "Kaleidoscope " + module, "version": "0.1.0-dev"})
+        bundle[f"{module}/pack.yml"] = json_bytes({"namespace": "kseries_" + module, "name": "Kaleidoscope " + module, "version": pack_version})
         bundle[f"{module}/configuration/content.yml"] = json_bytes(definitions)
         for path, content in assets.items():
             bundle[f"{module}/resourcepack/assets/{path}"] = content
@@ -619,9 +660,9 @@ def main() -> None:
             write(SUITE / "docs" / f"{module}-import.json", json_bytes(report))
         print(f"{module}: {report['item_definitions']} items, {report['furniture_definitions']} furniture; {len(report['pending'])} explicit limitations")
     if atlases:
-        bundle["shared/pack.yml"] = json_bytes({"namespace": "kseries_shared", "name": "Kaleidoscope shared atlases", "version": "0.1.0-dev"})
+        bundle[f"{shared_pack}/pack.yml"] = json_bytes({"namespace": "kseries_shared", "name": "Kaleidoscope shared atlases", "version": pack_version})
         for path, sources in atlases.items():
-            bundle[f"shared/resourcepack/assets/{path}"] = json_bytes({"sources": sources})
+            bundle[f"{shared_pack}/resourcepack/assets/{path}"] = json_bytes({"sources": sources})
     from validate_packs import validate
     validation = validate(bundle)
     if validation["errors"]:
@@ -634,11 +675,11 @@ def main() -> None:
     if args.archive:
         write_zip(args.archive, bundle)
     if args.module_archives_dir:
-        groups = pack_groups(bundle)
+        groups = pack_groups(bundle, modules)
         args.module_archives_dir.mkdir(parents=True, exist_ok=False)
-        for module in PACK_MODULES:
+        for module in modules:
             if groups[module]:
-                write_zip(args.module_archives_dir / f"{module}-ce-pack-{PACK_VERSION}.zip", groups[module])
+                write_zip(args.module_archives_dir / f"{module}-ce-pack-{pack_version}.zip", groups[module])
 
 
 if __name__ == "__main__":

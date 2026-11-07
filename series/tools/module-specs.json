@@ -1,0 +1,10 @@
+{
+  "pack_version": "0.1.0-dev",
+  "modules": [
+    {"id": "doll", "repository": "KaleidoscopeDoll", "converter": "doll"},
+    {"id": "tavern", "repository": "KaleidoscopeTavern", "converter": "tavern"},
+    {"id": "deco", "repository": "KaleidoscopeDeco", "converter": "deco"},
+    {"id": "music", "repository": "MusicPlus", "converter": "music"}
+  ],
+  "shared_pack": "shared"
+}

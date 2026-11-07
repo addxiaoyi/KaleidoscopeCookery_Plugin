@@ -36,7 +36,7 @@ python -m venv series/.venv
 .\gradlew.bat build --console=plain
 ```
 
-首次生成 CE 内容包。`--module-archives-dir` 会生成四个独立模块包和一个可选的共享图集包；`--archive` 仍保留总包兼容旧流程：
+首次生成 CE 内容包。模块、官方仓库和转换器由 [`tools/module-specs.json`](tools/module-specs.json) 统一声明；`--module-archives-dir` 会生成四个独立模块包和一个可选的共享图集包；`--archive` 仍保留总包兼容旧流程：
 
 ```powershell
  .\series\.venv\Scripts\python.exe series/tools/import_sources.py --module-archives-dir series/build/distribution/ce-packs-0.1.0-dev --archive series/build/distribution/KaleidoscopeSeries-CE-Packs-0.1.0-dev-gameplay.zip
