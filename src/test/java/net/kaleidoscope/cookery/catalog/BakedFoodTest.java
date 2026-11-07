@@ -66,6 +66,7 @@ class BakedFoodTest {
         var entry = catalog.items().get("kaleidoscopecookery:brown_mushroom_pot_soup");
         var plate = PlateServing.of(entry, QualityProfile.BASE);
         assertEquals(java.util.List.of("minecraft:flower_pot"), plate.drops());
+        assertEquals(plate, PlateServing.decode(plate.encode()));
         assertFalse(plate.empty());
         assertEquals(1, plate.takeOne().bites().remaining());
         var empty = plate;
