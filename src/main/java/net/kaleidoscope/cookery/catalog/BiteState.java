@@ -25,6 +25,11 @@ public record BiteState(int version, String sourceCommit, String itemId, Quality
                 entry.bites().maxBites(), 0);
     }
 
+    /** Creates a serving counter for a vanilla or catalogued item without a custom bite definition. */
+    public static BiteState of(String itemId, int maxBites, QualityProfile quality) {
+        return new BiteState(1, CookeryCatalog.SOURCE_COMMIT, itemId, quality, maxBites, 0);
+    }
+
     public int remaining() { return maxBites - consumed; }
 
     public boolean isEmpty() { return remaining() == 0; }

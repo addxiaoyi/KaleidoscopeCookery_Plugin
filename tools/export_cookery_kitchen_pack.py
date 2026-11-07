@@ -58,10 +58,12 @@ PENDING = [
     'Imported pot recipes retain official stir counts and fixed outputs; source_time is metadata. Completion still follows the plugin stir animation instead of the mod cooking-time gate.',
     'Milk liquid uses a generated flat texture because the Forge milk renderer is unavailable to vanilla clients.',
     'Teapot bitmap-font bars substitute for the mod client HUD; client visual acceptance remains pending.',
-    'Recipe manifest records every pending conversion; placed meal bites, protection and multiplayer acceptance remain pending.',
+    'Recipe manifest records every pending conversion; placed meal protection and multiplayer acceptance remain pending.',
     'Tool durability and lid use behavior beyond existing kitchen interactions require separate parity acceptance.',
     'Millstone uses converted Java mesh parts with existing plugin anchors, fixed-angle lift and interaction hitbox; client visuals and solid collision remain pending.',
 ]
+
+PLATE_BEHAVIOR = NAMESPACE + ':plate'
 
 
 def read_json(assets: dict[str, bytes], path: str) -> dict:
@@ -137,6 +139,65 @@ def source_states(assets: dict[str, bytes], name: str) -> list[tuple[dict[str, s
     if dimensions != {key: set(values) for key, values in expected.items()}:
         raise AuditError(f'unrecognized source state dimensions for {name}: {dimensions}')
     return states
+
+
+def plate_states(assets: dict[str, bytes], name: str, max_servings: int) -> list[tuple[dict[str, str], dict]]:
+    """Read the official plate blockstate table without collapsing serving visuals."""
+    root = read_json(assets, f'{ART}/blockstates/{name}.json')
+    if set(root) != {'variants'}:
+        raise AuditError(f'unsupported plate blockstate structure: {name}')
+    states = []
+    expected_values = {str(value) for value in range(max_servings + 1)}
+    seen = set()
+    for selector, model in root['variants'].items():
+        values = dict(pair.split('=', 1) for pair in selector.split(',') if pair)
+        if set(values) != {'facing', 'servings'} or values['facing'] not in FACING:
+            raise AuditError(f'unsupported plate selector: {name}/{selector}')
+        if values['servings'] not in expected_values:
+            raise AuditError(f'unsupported plate serving count: {name}/{selector}')
+        if not isinstance(model, dict) or set(model) - {'model', 'x', 'y', 'uvlock'} or 'model' not in model:
+            raise AuditError(f'unsupported plate model: {name}/{selector}')
+        key = (values['facing'], values['servings'])
+        if key in seen:
+            raise AuditError(f'duplicate plate selector: {name}/{selector}')
+        seen.add(key)
+        states.append((values, model))
+    if seen != {(facing, str(servings)) for facing in FACING for servings in range(max_servings + 1)}:
+        raise AuditError(f'incomplete plate states: {name}')
+    return states
+
+
+def plate_block_definition(assets: dict[str, bytes], items: dict, name: str, plate: dict) -> dict:
+    key = NAMESPACE + ':' + name
+    max_servings = plate['maxServings']
+    source = plate_states(assets, name, max_servings)
+    appearances, variants = {}, {}
+    for facing in FACING:
+        for servings in range(max_servings + 1):
+            selector = f'facing={facing},servings={servings}'
+            matches = [model for values, model in source
+                       if values == {'facing': facing, 'servings': str(servings)}]
+            if len(matches) != 1:
+                raise AuditError(f'expected one plate model for {name}/{selector}')
+            model = matches[0]
+            appearance = f's{len(appearances)}'
+            appearances[appearance] = {
+                'auto_state': {'type': 'lower_tripwire', 'id': 'cookery_kitchen_plate'},
+                'entity_renderer': display(assets, items, model['model'], model.get('y', FACING.index(facing) * 90))}
+            variants[selector] = {'appearance': appearance}
+    return {
+        'settings': {'item': key, 'hardness': 0.5, 'resistance': 0.5,
+                     'push_reaction': 'destroy', 'can_occlude': False,
+                     'is_suffocating': False, 'is_view_blocking': False},
+        'behavior': [{'type': PLATE_BEHAVIOR,
+                      'max_servings': max_servings,
+                      'serving_items': plate['servings'],
+                      'drops': plate['drops']}],
+        'loot': {'pools': [{'rolls': 1, 'entries': [{'type': 'item', 'item': key}]}]},
+        'states': {'properties': {
+                       'facing': {'type': 'horizontal_direction', 'default': 'north'},
+                       'servings': {'type': 'int', 'range': f'0~{max_servings}', 'default': 0}},
+                   'appearances': appearances, 'variants': variants}}
 
 
 def source_model(name: str, values: dict[str, str], states: list) -> dict:
@@ -293,6 +354,21 @@ def build(source: Path) -> tuple[dict[str, bytes], dict]:
         if name == 'oil_pot':
             items[key]['data']['max_damage'] = 256
         blocks[key] = block_definition(assets, items, parts, name)
+    # Official serving plates use their source `servings` models while the
+    # plugin controller owns the quality snapshot and remaining bite count.
+    for entry in catalog['entries']:
+        plate = entry.get('plate')
+        name = entry['sourceId'].split(':', 1)[1]
+        if not plate or f'{ART}/blockstates/{name}.json' not in assets:
+            continue
+        key = NAMESPACE + ':' + name
+        if key not in items:
+            model = ART + ':item/' + name
+            if model not in definitions:
+                raise AuditError(f'missing plate item model: {model}')
+            items[key] = item(key, definitions[model], names.get(f'item.{ART}.{name}', name))
+        items[key]['behavior'] = {'type': 'block_item', 'block': key}
+        blocks[key] = plate_block_definition(assets, items, name, plate)
     tray_key = NAMESPACE + ':bamboo_tray'
     items[tray_key] = item(tray_key, definitions[tray_base], names.get('block.' + ART + '.bamboo_tray', '竹筛'))
     items[tray_key]['behavior'] = {'type': 'block_item', 'block': tray_key}

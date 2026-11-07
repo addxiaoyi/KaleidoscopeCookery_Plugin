@@ -1,10 +1,18 @@
 # 本地开发验证记录
 
-最新源码交接：2026-11-07（Asia/Shanghai）。完整计划和换设备步骤见 [根 README](../README.md#开发交接2026-11-07)，本轮构建/依赖失败、离线校验、实际 Python 测试及可随 Git 获取的历史运行日志见 [交接证据](handoff/2026-11-07/README.md)。本次未新增服务器运行或玩家验收。
+最新源码交接：2026-11-07（Asia/Shanghai）。完整计划和换设备步骤见 [根 README](../README.md#开发交接2026-11-07)，本轮构建/依赖失败、离线校验、实际 Python 测试及可随 Git 获取的历史运行日志见 [交接证据](handoff/2026-11-07/README.md)。本轮新增官方盘/拼盘运行控制器和 Paper/Folia 各三轮服务器验收；玩家点击和原版客户端画面仍未覆盖。
 
 下方运行检查点日期为 2026-11-06。范围：厨房目录、食物/茶饮、效果基础系统、快刀/清扫与隔离测试服；目标 Paper/Folia 1.21.11、Java 21、CraftEngine 26.9.1。历史构建/运行记录不因 Git 交接升级成全系列完成；未发布、部署或操作生产服。
 
 ## 竹筛整包与 Folia 冷启动（2026-11-07）
+
+## 食物摆盘与每口状态（2026-11-07）
+
+- 新增 `PlateBehavior` / `PlateController`，接入官方 11 种盘/拼盘方块。主手放入允许的整份食物后建立 `PlateServing`，空手逐口取出；同一来源食物可逐口补盘，最后一口掉落官方额外容器并移除空盘。
+- `PlateServing` 保存来源物品 ID、品质、最大口数、已消耗口数和额外掉落；控制器同时保存源物品 NBT，旧世界没有摆盘标签时按空盘加载，坏的可选摆盘数据不会阻断旧存档启动。每口成品通过 `BakedFood.ofBite` 写入独立营养、饱和度、效果和消费组件。
+- 厨房导出保留官方 `facing`/`servings` 模型状态，11 个盘/拼盘新增 236 个状态；完整包 manifest 为 342 物品、24 方块、418 状态、351 个检查模型。Python 厨房测试 72 项通过，Java `test`、`shadowJar`、`acceptanceJar` 均通过。
+- `build/acceptance/kitchen-plate-runtime-20261107/acceptance.json` 记录 Paper/Folia 各 3 轮：每端 24 方块、418 状态、342 物品，cycle 1/2/3 分别保存进行中、重启恢复完成、空状态无重复产出；所有 kitchen failures 为 0。Paper 资源包 SHA-256 为 `7e09fb507d239de9b69658236548efc4c9334f0b699e87d11ceec6ab1b6c2107`，Folia 为 `83f1634c3de0ccb707ae145b9539d51c9cd05bebf58241d6b1d01d7c02cbaebe`。
+- 本轮厨房包 `build/acceptance/cookery-plate-runtime-20261107.zip` SHA-256 为 `b3bcc801ecc9a56990c8b6e6e2c77ef5b8808a84cd85731eff5bd3ba55b20d08`；插件 JAR SHA-256 为 `ae4eaeed4e6010a8e886f68450f74150ab7e9808fc734901836e1677a9570990`。验收使用服务器 API 放置方块，未模拟真实玩家点击、保护插件、多人竞争、碰撞精度或原版客户端显示。
 
 - 完整厨房包生成成功：272 物品、13 方块、28 条竹筛配方、281 个模型检查通过。Python 厨房测试 71 项通过。
 - Paper 1.21.11 build 132 与 CraftEngine 26.9.1 成功启动并加载厨房包。Folia 1.21.11 build 14 在完成默认资源包初始化后成功加载 53 个方块和 28 条竹筛配方，插件方块注册自检无 `craftengine.registry.blocks.missing`。

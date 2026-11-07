@@ -78,6 +78,14 @@ class BakedFoodTest {
         assertEquals(1, PlateServingEngine.refill(empty).bites().remaining());
     }
 
+    @Test void plateServingSupportsVanillaSourceItems() {
+        var plate = PlateServing.of("minecraft:apple", 4, QualityProfile.BASE,
+                java.util.List.of("minecraft:bowl"));
+        assertEquals("minecraft:apple", plate.bites().itemId());
+        assertEquals(4, plate.bites().remaining());
+        assertEquals(plate, PlateServing.decode(plate.takeOne().encode()).refillOne());
+    }
+
     @Test void badOrFutureSaveIsRejectedWithoutReinterpretingIt() {
         String json = BakedFood.of(catalog.items().get("kaleidoscopecookery:baozi"), QualityProfile.BASE).encode();
         assertThrows(IllegalArgumentException.class, () -> BakedFood.decode(json.replace("\"version\":1", "\"version\":2")));

@@ -20,6 +20,10 @@ public record PlateServing(BiteState bites, List<String> drops) {
         return new PlateServing(BiteState.of(entry, quality), entry.bites().drops());
     }
 
+    public static PlateServing of(String itemId, int maxBites, QualityProfile quality, List<String> drops) {
+        return new PlateServing(BiteState.of(itemId, maxBites, quality), drops);
+    }
+
     public boolean empty() { return bites.isEmpty(); }
 
     public boolean full() { return bites.isFull(); }

@@ -46,7 +46,18 @@ final class KitchenSmoke {
             new Appliance("teapot", TeapotController.class, 16),
             new Appliance("teacup_coaster", TeacupCoasterController.class, 4),
             new Appliance("oil_pot", OilPotController.class, 8),
-            new Appliance("bamboo_tray", BambooTrayController.class, 2));
+            new Appliance("bamboo_tray", BambooTrayController.class, 2),
+            new Appliance("apple_platter", PlateController.class, 20),
+            new Appliance("baozi_plate", PlateController.class, 24),
+            new Appliance("berry_platter", PlateController.class, 20),
+            new Appliance("chorus_fruit_platter", PlateController.class, 24),
+            new Appliance("qingtuan_plate", PlateController.class, 20),
+            new Appliance("shengjian_mantou_plate", PlateController.class, 24),
+            new Appliance("sticky_candy_plate", PlateController.class, 20),
+            new Appliance("sticky_rice_cake_plate", PlateController.class, 24),
+            new Appliance("tomato_platter", PlateController.class, 24),
+            new Appliance("watermelon_platter", PlateController.class, 16),
+            new Appliance("zongzi_plate", PlateController.class, 20));
     private final JavaPlugin plugin;
     private final List<String> failures = new ArrayList<>();
     private int checkedStates;
@@ -182,7 +193,7 @@ final class KitchenSmoke {
         if (!reload && failures.isEmpty()) {
             try {
                 Files.writeString(plugin.getDataFolder().toPath().resolve("kitchen-placed.json"),
-                        "{\"sourceCommit\":\"" + CookeryCatalog.SOURCE_COMMIT + "\",\"blocks\":13}\n", StandardCharsets.UTF_8);
+                        "{\"sourceCommit\":\"" + CookeryCatalog.SOURCE_COMMIT + "\",\"blocks\":24}\n", StandardCharsets.UTF_8);
             } catch (IOException exception) {
                 failures.add("Cannot save fixture checkpoint: " + exception);
             }

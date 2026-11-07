@@ -24,7 +24,7 @@ class KitchenPackTest(unittest.TestCase):
         cls.config = yaml.safe_load(cls.bundle[f'{PACK}/configuration/kitchen.yml'])
 
     def test_every_plugin_property_combination_has_an_appearance(self):
-        self.assertEqual(13, len(self.config['blocks']))
+        self.assertEqual(24, len(self.config['blocks']))
         self.assertEqual(28, len(self.config['bamboo_tray_recipes']))
         for name in APPLIANCES:
             with self.subTest(name=name):
@@ -37,6 +37,22 @@ class KitchenPackTest(unittest.TestCase):
                 for selector, variant in block['states']['variants'].items():
                     self.assertEqual(set(block['states']['properties']), {p.split('=')[0] for p in selector.split(',')})
                     self.assertIn(variant['appearance'], block['states']['appearances'])
+
+    def test_official_plates_use_serving_states_and_runtime_controller(self):
+        expected = {
+            'apple_platter': (4, ['minecraft:apple']),
+            'berry_platter': (4, ['minecraft:sweet_berries', 'minecraft:glow_berries']),
+            'baozi_plate': (5, ['kaleidoscopecookery:baozi']),
+            'watermelon_platter': (3, ['minecraft:melon_slice']),
+        }
+        for name, (maximum, servings) in expected.items():
+            with self.subTest(name=name):
+                block = self.config['blocks'][NAMESPACE + ':' + name]
+                self.assertEqual(NAMESPACE + ':plate', block['behavior'][0]['type'])
+                self.assertEqual(maximum + 1, len(block['states']['variants']) // 4)
+                self.assertEqual(maximum, block['behavior'][0]['max_servings'])
+                self.assertEqual(servings, block['behavior'][0]['serving_items'])
+                self.assertEqual({'facing', 'servings'}, set(block['states']['properties']))
 
     def test_basin_visual_levels_keep_old_plugin_oil_semantics(self):
         block = self.config['blocks'][NAMESPACE + ':enamel_basin']['states']

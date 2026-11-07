@@ -41,11 +41,20 @@ public final class CookeryFoodItems {
     }
 
     public static Item bake(Item item, QualityProfile quality) {
+        return bake(item, quality, false);
+    }
+
+    /** Builds one bite item using the immutable bite food definition. */
+    public static Item bakeBite(Item item, QualityProfile quality) {
+        return bake(item, quality, true);
+    }
+
+    private static Item bake(Item item, QualityProfile quality, boolean bite) {
         CookeryCatalog current = catalog;
         if (current == null || item == null || item.isEmpty()) return item;
         CookeryCatalog.Entry entry = current.snapshot().items().get(item.id().toString());
         if (entry == null) return item;
-        BakedFood baked = BakedFood.of(entry, quality);
+        BakedFood baked = bite ? BakedFood.ofBite(entry, quality) : BakedFood.of(entry, quality);
         if (baked == null) return item;
         ItemStack stack = ItemStackUtils.getBukkitStack(item.minecraftItem()).clone();
         var meta = stack.getItemMeta();
