@@ -171,7 +171,7 @@ public final class BarrelController extends InteractiveFurniture {
             saved.putInt("level", batch.level());
             saved.putLong("remaining", batch.remaining());
         }
-        root.put(SAVE_KEY, saved);
+        root.put(SAVE_KEY, SavedState.envelope(SavedState.namespace(SAVE_KEY), 1, SavedState.SERIES_SOURCE, saved));
     }
 
     @Override public void loadCustomData(CompoundTag root) {
@@ -179,7 +179,8 @@ public final class BarrelController extends InteractiveFurniture {
     }
 
     private void restore(CompoundTag root) {
-        CompoundTag saved = root.getCompound(SAVE_KEY);
+        CompoundTag saved = SavedState.payload(root.getCompound(SAVE_KEY), SavedState.namespace(SAVE_KEY),
+                SavedState.SERIES_SOURCE, 1, null);
         if (saved == null) {
             if (root.containsKey(SAVE_KEY)) throw new IllegalArgumentException("Invalid barrel save tag");
             return;

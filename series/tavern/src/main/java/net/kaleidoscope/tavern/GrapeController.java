@@ -162,12 +162,13 @@ final class GrapeController extends InteractiveFurniture {
         saved.putString("kind", growth.kind()); saved.putInt("vine", growth.vine());
         saved.putInt("fruit", growth.fruit()); saved.putBoolean("waxed", growth.waxed());
         if (owner != null) saved.putString("owner", owner.toString());
-        root.put(SAVE_KEY, saved);
+        root.put(SAVE_KEY, SavedState.envelope(SavedState.namespace(SAVE_KEY), 1, SavedState.SERIES_SOURCE, saved));
     }
     @Override public void loadCustomData(CompoundTag root) {
         restoreSafely(root, SAVE_KEY, () -> {
             if (!root.containsKey(SAVE_KEY)) return;
-            CompoundTag saved = root.getCompound(SAVE_KEY);
+            CompoundTag saved = SavedState.payload(root.getCompound(SAVE_KEY), SavedState.namespace(SAVE_KEY),
+                    SavedState.SERIES_SOURCE, 1, null);
             if (saved == null) throw new IllegalArgumentException("Invalid grape save");
             growth = new GrapeGrowth(SavedState.text(saved, "kind"), SavedState.integer(saved, "vine"),
                     SavedState.integer(saved, "fruit"), SavedState.flag(saved, "waxed"));

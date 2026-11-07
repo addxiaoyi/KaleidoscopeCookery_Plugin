@@ -16,6 +16,7 @@ import java.util.UUID;
 
 final class TapController extends InteractiveFurniture {
     private final TavernPlugin tavern;
+    private static final String OPERATOR_KEY = "kaleidoscope_tavern:tap_operator";
     private int remaining;
     private UUID operator;
 
@@ -123,12 +124,25 @@ final class TapController extends InteractiveFurniture {
 
     @Override public void saveCustomData(CompoundTag root) {
         if (preserveRejected(root)) return;
-        if (operator != null) root.putString("kaleidoscope_tavern:tap_operator", operator.toString());
+        if (operator != null) {
+            CompoundTag payload = new CompoundTag();
+            payload.putString("operator", operator.toString());
+            root.put(OPERATOR_KEY, net.kaleidoscope.series.SavedState.envelope(
+                    net.kaleidoscope.series.SavedState.namespace(OPERATOR_KEY), 1,
+                    net.kaleidoscope.series.SavedState.SERIES_SOURCE, payload));
+        }
     }
     @Override public void loadCustomData(CompoundTag root) {
-        restoreSafely(root, "kaleidoscope_tavern:tap_operator", () -> {
-            if (root.containsKey("kaleidoscope_tavern:tap_operator")) operator = UUID.fromString(
-                    net.kaleidoscope.series.SavedState.text(root, "kaleidoscope_tavern:tap_operator"));
+        restoreSafely(root, OPERATOR_KEY, () -> {
+            if (!root.containsKey(OPERATOR_KEY)) return;
+            if (root.get(OPERATOR_KEY) instanceof CompoundTag envelope) {
+                CompoundTag payload = net.kaleidoscope.series.SavedState.payload(envelope,
+                        net.kaleidoscope.series.SavedState.namespace(OPERATOR_KEY),
+                        net.kaleidoscope.series.SavedState.SERIES_SOURCE, 1, null);
+                operator = UUID.fromString(net.kaleidoscope.series.SavedState.text(payload, "operator"));
+            } else {
+                operator = UUID.fromString(net.kaleidoscope.series.SavedState.text(root, OPERATOR_KEY));
+            }
         });
     }
 }

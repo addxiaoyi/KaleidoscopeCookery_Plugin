@@ -48,6 +48,12 @@ public final class SavedState {
         return new IllegalArgumentException("Missing or invalid furniture save field: " + key);
     }
 
+    public static String namespace(String saveKey) {
+        if (saveKey == null || saveKey.isBlank()) throw new IllegalArgumentException("Missing save key");
+        int version = saveKey.lastIndexOf("_v");
+        return version > 0 ? saveKey.substring(0, version) : saveKey;
+    }
+
     /** Wraps a payload while leaving all existing fields inside the payload untouched. */
     public static CompoundTag envelope(String namespace, int schemaVersion, String sourceCommit,
                                        CompoundTag payload) {

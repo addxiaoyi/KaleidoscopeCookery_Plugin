@@ -4,6 +4,7 @@ import net.kaleidoscope.series.InteractiveFurniture;
 import net.kaleidoscope.series.InventoryTrade;
 import net.kaleidoscope.series.Items;
 import net.kaleidoscope.series.SavedItems;
+import net.kaleidoscope.series.SavedState;
 import net.momirealms.craftengine.core.entity.furniture.Furniture;
 import net.momirealms.craftengine.libraries.nbt.CompoundTag;
 import org.bukkit.entity.Player;
@@ -61,12 +62,13 @@ final class BottleController extends InteractiveFurniture {
         if (preserveRejected(root)) return;
         CompoundTag saved = new CompoundTag();
         SavedItems.put(saved, "filled", filled);
-        root.put(SAVE_KEY, saved);
+        root.put(SAVE_KEY, SavedState.envelope(SavedState.namespace(SAVE_KEY), 1, SavedState.SERIES_SOURCE, saved));
     }
     @Override public void loadCustomData(CompoundTag root) {
         restoreSafely(root, SAVE_KEY, () -> {
             if (!root.containsKey(SAVE_KEY)) return;
-            CompoundTag saved = root.getCompound(SAVE_KEY);
+            CompoundTag saved = SavedState.payload(root.getCompound(SAVE_KEY), SavedState.namespace(SAVE_KEY),
+                    SavedState.SERIES_SOURCE, 1, null);
             if (saved == null) throw new IllegalArgumentException("Invalid bottle save");
             filled = SavedItems.get(saved, "filled", 1);
             if (filled != null && !tavern.catalog().effects().containsKey(Items.id(filled))

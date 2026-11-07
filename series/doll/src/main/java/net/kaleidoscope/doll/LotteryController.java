@@ -86,7 +86,7 @@ public final class LotteryController extends InteractiveFurniture {
             saved.putInt("tier", tier);
             saved.putInt("ticks", ticks);
         }
-        root.put(SAVE_KEY, saved);
+        root.put(SAVE_KEY, SavedState.envelope(SavedState.namespace(SAVE_KEY), 1, SavedState.SERIES_SOURCE, saved));
     }
 
     @Override public void loadCustomData(CompoundTag root) {
@@ -94,7 +94,8 @@ public final class LotteryController extends InteractiveFurniture {
     }
 
     private void restore(CompoundTag root) {
-        CompoundTag saved = root.getCompound(SAVE_KEY);
+        CompoundTag saved = SavedState.payload(root.getCompound(SAVE_KEY), SavedState.namespace(SAVE_KEY),
+                SavedState.SERIES_SOURCE, 1, null);
         if (saved == null) {
             if (root.containsKey(SAVE_KEY)) throw new IllegalArgumentException("Invalid lottery save tag");
             return;

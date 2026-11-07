@@ -114,12 +114,13 @@ final class DecoController extends InteractiveFurniture {
         if (preserveRejected(root)) return;
         CompoundTag saved = new CompoundTag(); saved.putString("state", state);
         saved.putString("color", color); saved.putString("mode", mode);
-        root.put(SAVE_KEY, saved);
+        root.put(SAVE_KEY, SavedState.envelope(SavedState.namespace(SAVE_KEY), 1, SavedState.SERIES_SOURCE, saved));
     }
     @Override public void loadCustomData(CompoundTag root) {
         restoreSafely(root, SAVE_KEY, () -> {
             if (!root.containsKey(SAVE_KEY)) return;
-            CompoundTag saved = root.getCompound(SAVE_KEY);
+            CompoundTag saved = SavedState.payload(root.getCompound(SAVE_KEY), SavedState.namespace(SAVE_KEY),
+                    SavedState.SERIES_SOURCE, 1, null);
             if (saved == null) throw new IllegalArgumentException("Invalid Deco save");
             state = SavedState.text(saved, "state"); color = SavedState.text(saved, "color"); mode = SavedState.text(saved, "mode");
             if (!COLORS.contains(color) || !MODES.contains(mode) || !deco.reachable(furniture().id().asString(), state))

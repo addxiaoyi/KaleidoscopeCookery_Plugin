@@ -31,12 +31,13 @@ final class ShakerContents {
         saved.putInt("version", 1);
         for (int i = 0; i < slots.length; i++) SavedItems.put(saved, "slot_" + i, slots[i]);
         SavedItems.put(saved, "cocktail", cocktail);
-        root.put(SAVE_KEY, saved);
+        root.put(SAVE_KEY, SavedState.envelope(SavedState.namespace(SAVE_KEY), 1, SavedState.SERIES_SOURCE, saved));
         return root;
     }
 
     static ShakerContents read(CompoundTag root) {
-        CompoundTag saved = root.getCompound(SAVE_KEY);
+        CompoundTag saved = SavedState.payload(root.getCompound(SAVE_KEY), SavedState.namespace(SAVE_KEY),
+                SavedState.SERIES_SOURCE, 1, null);
         if (saved == null || SavedState.integer(saved, "version") != 1) throw new IllegalArgumentException("Invalid shaker save");
         ItemStack[] slots = new ItemStack[3];
         for (int i = 0; i < slots.length; i++) slots[i] = SavedItems.get(saved, "slot_" + i, 1);
