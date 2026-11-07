@@ -73,6 +73,9 @@ class BakedFoodTest {
         for (int i = 0; i < entry.bites().maxBites(); i++) empty = empty.takeOne();
         assertTrue(empty.empty());
         assertEquals(1, empty.refillOne().bites().remaining());
+        assertTrue(PlateServingEngine.shouldBreak(empty));
+        assertSame(empty, PlateServingEngine.take(empty));
+        assertEquals(1, PlateServingEngine.refill(empty).bites().remaining());
     }
 
     @Test void badOrFutureSaveIsRejectedWithoutReinterpretingIt() {
