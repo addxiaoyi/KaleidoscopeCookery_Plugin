@@ -30,10 +30,14 @@ public final class CookeryFoodItems {
 
     /** Resolve a finished item to its immutable placed-food state using base quality. */
     public static BiteState biteState(Item item) {
+        return biteState(item, QualityProfile.BASE);
+    }
+
+    public static BiteState biteState(Item item, QualityProfile quality) {
         CookeryCatalog current = catalog;
-        if (current == null || item == null || item.isEmpty()) return null;
+        if (current == null || item == null || item.isEmpty() || quality == null) return null;
         CookeryCatalog.Entry entry = current.snapshot().items().get(item.id().toString());
-        return entry == null ? null : BiteState.of(entry, QualityProfile.BASE);
+        return entry == null ? null : BiteState.of(entry, quality);
     }
 
     public static Item bake(Item item, QualityProfile quality) {
