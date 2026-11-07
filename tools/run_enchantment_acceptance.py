@@ -259,7 +259,8 @@ def boot(instance: Path, cycle: int, timeout: float, kitchen: bool = False) -> d
             assert process.stdin is not None
             process.stdin.write('ce reload pack\n')
             process.stdin.flush()
-            while '资源包生成完成（' not in console_text(log):
+            while ('资源包生成完成（' not in console_text(log)
+                   and 'Resource pack generated' not in console_text(log)):
                 generation_log = console_text(log)
                 if 'Incorrect argument for command' in generation_log or 'Unknown or incomplete command' in generation_log:
                     raise ValueError(f'{instance.name}: resource command rejected; see {log}')
