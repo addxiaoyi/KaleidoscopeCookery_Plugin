@@ -2,7 +2,6 @@ package net.kaleidoscope.series;
 
 import net.momirealms.antigrieflib.AntiGriefLib;
 import net.momirealms.antigrieflib.Flag;
-import net.momirealms.craftengine.bukkit.plugin.BukkitCraftEngine;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,8 +11,10 @@ import java.util.logging.Level;
 
 public abstract class SeriesPlugin extends JavaPlugin {
     private AntiGriefLib protection;
+    private SeriesScheduler scheduler;
 
     @Override public final void onEnable() {
+        scheduler = new SeriesScheduler(this);
         protection = AntiGriefLib.builder(this).ignoreOP(true).build();
         getServer().getPluginManager().registerEvents(new MenuListener(this), this);
         getServer().getPluginManager().registerEvents(new StoredFurnitureListener(), this);
@@ -37,9 +38,7 @@ public abstract class SeriesPlugin extends JavaPlugin {
     }
 
     public void onPlayer(Player player, Runnable action) {
-        if (org.bukkit.Bukkit.isOwnedByCurrentRegion(player)) action.run();
-        // CraftEngine outlives its dependents, so their disable cleanup can still reach a Folia player.
-        else BukkitCraftEngine.instance().scheduler().platform().run(action, () -> {}, player);
+        scheduler.player(player, action);
     }
 
     public boolean mayUse(Player player, Location location) {
@@ -77,9 +76,7 @@ public abstract class SeriesPlugin extends JavaPlugin {
     }
 
     public void later(Player player, Runnable action) {
-        BukkitCraftEngine.instance().scheduler().platform().runLater(() -> {
-            if (isEnabled() && player.isOnline()) action.run();
-        }, () -> {}, 1, player);
+        scheduler.later(player, action);
     }
 
     public void attempt(Player player, Runnable action) {
