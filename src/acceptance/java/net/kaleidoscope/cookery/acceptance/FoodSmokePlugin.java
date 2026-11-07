@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.consumable.ConsumeEffect;
 import net.kaleidoscope.cookery.catalog.BakedFood;
+import net.kaleidoscope.cookery.catalog.BiteState;
 import net.kaleidoscope.cookery.catalog.CookeryCatalog;
 import net.kaleidoscope.cookery.catalog.QualityProfile;
 import net.kaleidoscope.cookery.item.CookeryFoodItems;
@@ -62,7 +63,21 @@ public final class FoodSmokePlugin extends JavaPlugin {
     private void verify() {
         List<String> failures = new ArrayList<>();
         int checked = 0;
+        int checkedBites = 0;
         for (var entry : CookeryCatalog.bundled().snapshot().items().values()) {
+            if (entry.bites() != null) {
+                try {
+                    BiteState state = BiteState.of(entry, QualityProfile.BASE);
+                    check(state != null && state.remaining() == entry.bites().maxBites(), entry.id() + ": invalid bite state");
+                    check(BiteState.decode(state.encode()).equals(state), entry.id() + ": bite state serialization changed");
+                    check(entry.bites().visibleBites() > 0
+                            && entry.bites().visibleBites() <= entry.bites().placement().slots().size(),
+                            entry.id() + ": bite layout capacity mismatch");
+                    checkedBites++;
+                } catch (Exception | LinkageError exception) {
+                    failures.add(entry.id() + ": bite state " + exception);
+                }
+            }
             BakedFood expected = BakedFood.of(entry, QualityProfile.BASE);
             if (expected == null) continue;
             try {
@@ -93,6 +108,7 @@ public final class FoodSmokePlugin extends JavaPlugin {
         report.put("craftEngine", Bukkit.getPluginManager().getPlugin("CraftEngine").getPluginMeta().getVersion());
         report.put("sourceCommit", CookeryCatalog.SOURCE_COMMIT);
         report.put("checkedConsumables", checked);
+        report.put("checkedBites", checkedBites);
         report.put("failures", failures);
         report.put("playerFlow", "NOT_TESTED");
         report.put("clientResourcePack", "NOT_TESTED");
