@@ -31,7 +31,11 @@ public final class InventoryTrade {
 
     private static boolean exchangeOnce(PlayerInventory inventory, Player player,
                                         Predicate<ItemStack> payment, int cost, List<ItemStack> rewards) {
-        ItemStack[] slots = inventory.getStorageContents().clone();
+        ItemStack[] original = inventory.getStorageContents().clone();
+        ItemStack[] slots = original.clone();
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] != null) original[i] = original[i].clone();
+        }
         for (int i = 0; i < slots.length; i++) {
             if (slots[i] != null) slots[i] = slots[i].clone();
         }
@@ -66,8 +70,23 @@ public final class InventoryTrade {
             InventoryTradeEvent event = new InventoryTradeEvent(player, cost, rewards);
             Bukkit.getPluginManager().callEvent(event);
             if (event.isCancelled()) return false;
+            if (!sameInventory(original, inventory.getStorageContents())) return false;
         }
         inventory.setStorageContents(slots);
+        return true;
+    }
+
+    private static boolean sameInventory(ItemStack[] expected, ItemStack[] actual) {
+        if (expected.length != actual.length) return false;
+        for (int i = 0; i < expected.length; i++) {
+            ItemStack left = expected[i];
+            ItemStack right = actual[i];
+            if (left == null || left.isEmpty()) {
+                if (right != null && !right.isEmpty()) return false;
+            } else if (right == null || !left.isSimilar(right) || left.getAmount() != right.getAmount()) {
+                return false;
+            }
+        }
         return true;
     }
 
