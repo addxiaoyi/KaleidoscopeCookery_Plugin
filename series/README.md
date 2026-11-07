@@ -1,6 +1,6 @@
 # 森罗系列插件移植工作区
 
-更新：2026-11-07。目标为纯服务端插件 + CraftEngine 资源包，原版客户端可进服。当前是 **0.1.0-dev 开发版**，四插件首批功能已有代码，全系列尚未完成；本目录四插件未进行服务器或真人验收。厨房独立运行证据及换设备完整计划统一见 [根 README 开发交接](../README.md#开发交接2026-11-07)。
+更新：2026-11-07。目标为纯服务端插件 + CraftEngine 资源包，原版客户端可进服。当前是 **0.1.0-dev 开发版**，四插件首批功能已有代码，全系列尚未完成；本目录四插件尚未进行服务器或真人验收。每个模块现在可以单独构建 JAR 和 CE 内容 ZIP，厨房独立运行证据及换设备完整计划统一见 [根 README 开发交接](../README.md#开发交接2026-11-07)。
 
 厨房主工程继续位于仓库根目录；这里的 `common / doll / tavern / deco / music` 是独立 Gradle 多模块工程，不替换厨房已有实现。
 
@@ -36,22 +36,22 @@ python -m venv series/.venv
 .\gradlew.bat build --console=plain
 ```
 
-首次生成 CE 内容包：
+首次生成 CE 内容包。`--module-archives-dir` 会生成四个独立模块包和一个可选的共享图集包；`--archive` 仍保留总包兼容旧流程：
 
 ```powershell
-.\series\.venv\Scripts\python.exe series/tools/import_sources.py --archive series/build/distribution/KaleidoscopeSeries-CE-Packs-0.1.0-dev-gameplay.zip
+ .\series\.venv\Scripts\python.exe series/tools/import_sources.py --module-archives-dir series/build/distribution/ce-packs-0.1.0-dev --archive series/build/distribution/KaleidoscopeSeries-CE-Packs-0.1.0-dev-gameplay.zip
 .\series\.venv\Scripts\python.exe series/tools/validate_packs.py series/build/distribution/KaleidoscopeSeries-CE-Packs-0.1.0-dev-gameplay.zip
-.\series\.venv\Scripts\python.exe series/tools/package_dev.py --packs series/build/distribution/KaleidoscopeSeries-CE-Packs-0.1.0-dev-gameplay.zip --output series/build/distribution/KaleidoscopeSeries-0.1.0-dev-gameplay.zip
+ .\series\.venv\Scripts\python.exe series/tools/package_dev.py --module-packs-dir series/build/distribution/ce-packs-0.1.0-dev --output series/build/distribution/KaleidoscopeSeries-0.1.0-dev-gameplay.zip
 ```
 
 生成工具拒绝覆盖已有输出；重新生成时选择新路径，或确认后整理自己生成的旧文件。`--assets <新目录>` 可输出展开后的 CE 包。`build/packs/`、`packs-v2/`、`packs-v3/` 是开发期间的旧输出，不能与最终归档混装。
 
-四个 JAR 位于各模块 `build/libs/`；本轮本地整包位于 `build/distribution/KaleidoscopeSeries-0.1.0-dev-gameplay.zip`。整包含厨房已有开发 JAR、新四个 JAR、CE 内容归档、说明、来源记录、验证记录和 SHA-256 清单。旧 `0.1.0-dev.zip` 保留，不能代表本轮成果。
+四个 JAR 位于各模块 `build/libs/`，名称为 `KaleidoscopeDoll-0.1.0-dev.jar`、`KaleidoscopeTavern-0.1.0-dev.jar`、`KaleidoscopeDeco-0.1.0-dev.jar`、`KaleidoscopeMusic-0.1.0-dev.jar`；独立 CE 包位于 `build/distribution/ce-packs-0.1.0-dev/`，文件名分别为 `doll-ce-pack-0.1.0-dev.zip`、`tavern-ce-pack-0.1.0-dev.zip`、`deco-ce-pack-0.1.0-dev.zip`、`music-ce-pack-0.1.0-dev.zip`，另有按需安装的 `shared-ce-pack-0.1.0-dev.zip`。本地整包位于 `build/distribution/KaleidoscopeSeries-0.1.0-dev-gameplay.zip`，会把这些独立包原样收入 `ce-packs/`。旧 `0.1.0-dev.zip` 保留，不能代表本轮成果。
 
 ## 测试服安装
 
-1. 在测试服准备 Java 21、Paper 1.21.11 和对应 CraftEngine，停服后把所需 JAR 放到 `plugins/`。`common` 不单独安装。新增或更换插件 JAR 使用正常停启，不使用热加载工具。
-2. 将 CE 内容归档中的 `doll / tavern / deco / music / shared` 五个目录放到 `plugins/CraftEngine/resources/`，保证每个目录下直接有 `pack.yml`。`shared` 合并了原版方块图集配置，应一起安装。
+1. 在测试服准备 Java 21、Paper 1.21.11 和对应 CraftEngine，停服后把需要的独立 JAR 放到 `plugins/`。`common` 不单独安装；新增或更换插件 JAR 使用正常停启，不使用热加载工具。
+2. 将对应的独立 CE ZIP 展开到 `plugins/CraftEngine/resources/<module>/`，保证模块目录下直接有 `pack.yml`。`shared-ce-pack` 只在该模块需要原版图集时安装；不同时加载两套同名定义。
 3. 新系列归档不包含厨房 CE 包；根工程已能生成 [厨房独立验收包](../examples/kitchen-pack/README.md)，与四插件整合仍待验收。竹筛目前只有独立示例，尚未合入完整厨房生成器；同名厨房/食物定义不能重复安装。
 4. 启动并检查未知物品、行为、配方、模型与 NBT 加载错误。按照目标 CE 版本执行资源生成和发送；当前官方命令为 `/ce reload all`，仅 `/ce reload` 默认只刷新配置，不代表客户端资源包已更新。
 5. 用未安装模组的原版客户端接收服务器资源包，再执行验收表。MIDI 文件放在 `plugins/KaleidoscopeMusicPlugin/songs/`。

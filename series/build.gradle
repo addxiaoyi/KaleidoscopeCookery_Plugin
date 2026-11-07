@@ -46,7 +46,9 @@ subprojects {
             implementation 'net.momirealms:antigrieflib:1.0.11'
         }
         tasks.named('shadowJar') {
-            archiveBaseName = "Kaleidoscope${project.name.capitalize()}Plugin"
+            // Artifact names match the public plugin names; plugin.yml keeps
+            // its stable Bukkit identifier with the historical Plugin suffix.
+            archiveBaseName = "Kaleidoscope${project.name.capitalize()}"
             archiveClassifier = ''
             relocate 'net.momirealms.antigrieflib', "net.kaleidoscope.${project.name}.libs.antigrief"
             relocate 'net.kaleidoscope.series', "net.kaleidoscope.${project.name}.internal"

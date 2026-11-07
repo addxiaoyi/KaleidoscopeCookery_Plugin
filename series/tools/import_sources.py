@@ -22,6 +22,8 @@ from typing import Any
 SUITE = Path(__file__).resolve().parents[1]
 WORKSPACE = SUITE.parent.parent
 LOCK = SUITE.parent / "docs/research/organization-checkouts.json"
+PACK_VERSION = "0.1.0-dev"
+PACK_MODULES = ("doll", "tavern", "deco", "music", "shared")
 ID = re.compile(r"[a-z0-9_.-]+:[a-z0-9_./-]+")
 COLORS = ("white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
           "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black")
@@ -536,16 +538,45 @@ def write(path: Path, content: bytes) -> None:
     temporary.replace(path)
 
 
+def pack_groups(bundle: dict[str, bytes]) -> dict[str, dict[str, bytes]]:
+    """Split the aggregate bundle into independent CE pack file trees."""
+    groups = {module: {} for module in PACK_MODULES}
+    for path, content in bundle.items():
+        module, separator, relative = path.partition("/")
+        if not separator or module not in groups or not relative:
+            raise ValueError(f"Unscoped CE bundle entry: {path}")
+        groups[module][relative] = content
+    for module in PACK_MODULES[:-1]:
+        if "pack.yml" not in groups[module] or "configuration/content.yml" not in groups[module]:
+            raise ValueError(f"Incomplete CE pack: {module}")
+    if groups["shared"] and "pack.yml" not in groups["shared"]:
+        raise ValueError("Incomplete CE pack: shared")
+    return groups
+
+
+def write_zip(path: Path, files: dict[str, bytes]) -> None:
+    if path.exists():
+        raise ValueError(f"Archive output already exists: {path}")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with ZipFile(path, "x", compression=ZIP_DEFLATED) as archive:
+        for name, content in sorted(files.items()):
+            archive.writestr(name, content)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--assets", type=Path, help="New directory for local CE packs (will not overwrite)")
     parser.add_argument("--archive", type=Path, help="New ZIP of the CE packs (will not overwrite)")
+    parser.add_argument("--module-archives-dir", type=Path,
+                        help="New directory containing one CE ZIP per module plus optional shared CE ZIP")
     parser.add_argument("--check", action="store_true", help="Verify generated catalogs match the pinned sources")
     args = parser.parse_args()
     if args.assets and args.assets.exists():
         raise ValueError(f"Asset output already exists: {args.assets}; use a new output directory")
     if args.archive and args.archive.exists():
         raise ValueError(f"Archive output already exists: {args.archive}")
+    if args.module_archives_dir and args.module_archives_dir.exists():
+        raise ValueError(f"Module archive output already exists: {args.module_archives_dir}")
     records = parse_json(LOCK.read_bytes())["repositories"]
     pinned = {r["name"]: r for r in records}
     converters = [("doll", "KaleidoscopeDoll", doll), ("tavern", "KaleidoscopeTavern", tavern),
@@ -601,10 +632,13 @@ def main() -> None:
         for path, content in bundle.items():
             write(args.assets / path, content)
     if args.archive:
-        args.archive.parent.mkdir(parents=True, exist_ok=True)
-        with ZipFile(args.archive, "x", compression=ZIP_DEFLATED) as archive:
-            for path, content in sorted(bundle.items()):
-                archive.writestr(path, content)
+        write_zip(args.archive, bundle)
+    if args.module_archives_dir:
+        groups = pack_groups(bundle)
+        args.module_archives_dir.mkdir(parents=True, exist_ok=False)
+        for module in PACK_MODULES:
+            if groups[module]:
+                write_zip(args.module_archives_dir / f"{module}-ce-pack-{PACK_VERSION}.zip", groups[module])
 
 
 if __name__ == "__main__":

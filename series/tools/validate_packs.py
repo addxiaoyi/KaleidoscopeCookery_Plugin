@@ -23,6 +23,10 @@ def validate(files: dict[str, bytes]) -> dict[str, Any]:
     errors: set[str] = set()
     checked: set[str] = set()
     for path, content in files.items():
+        # A single module archive is rooted at pack.yml; aggregate bundles are
+        # rooted at <module>/pack.yml. Normalize the former for one validator.
+        if path.startswith(('resourcepack/', 'configuration/', 'upstream-notices/')) or path == 'pack.yml':
+            path = 'standalone/' + path
         if '/resourcepack/assets/' in path:
             key = path.split('/resourcepack/assets/', 1)[1]
             if key in assets and assets[key] != content:
@@ -116,7 +120,9 @@ def validate(files: dict[str, bytes]) -> dict[str, Any]:
                     ingredient(alternative)
 
         ingredient(recipe['ingredients'])
-    if not items:
+    has_content = any(path.endswith('/configuration/content.yml') or path == 'configuration/content.yml'
+                     for path in files)
+    if not items and has_content:
         errors.add('No generated item definitions found')
     return {'items': len(items), 'furniture': len(furnishings), 'recipes': len(recipes),
             'reachable_custom_models': len(checked), 'errors': sorted(errors),

@@ -1,6 +1,6 @@
 import unittest
 from import_sources import (parse_json, resolve_ingredient, strip_trailing_commas, model_tree,
-                            inherit_template, loot_components, crafting, json_bytes)
+                            inherit_template, loot_components, crafting, json_bytes, pack_groups)
 
 
 class ImportTests(unittest.TestCase):
@@ -64,6 +64,24 @@ class ImportTests(unittest.TestCase):
         converted, pending = crafting(tags, {})
         self.assertFalse(converted)
         self.assertEqual(1, len(pending))
+
+    def test_ce_bundle_splits_into_independent_module_trees(self):
+        bundle = {
+            "doll/pack.yml": b"doll",
+            "doll/configuration/content.yml": b"{}",
+            "tavern/pack.yml": b"tavern",
+            "tavern/configuration/content.yml": b"{}",
+            "deco/pack.yml": b"deco",
+            "deco/configuration/content.yml": b"{}",
+            "music/pack.yml": b"music",
+            "music/configuration/content.yml": b"{}",
+            "shared/pack.yml": b"shared",
+        }
+        groups = pack_groups(bundle)
+        self.assertEqual(b"doll", groups["doll"]["pack.yml"])
+        self.assertNotIn("tavern/pack.yml", groups["doll"])
+        with self.assertRaisesRegex(ValueError, "Unscoped"):
+            pack_groups({"root.txt": b"bad"})
 
 
 if __name__ == "__main__":

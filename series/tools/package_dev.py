@@ -16,6 +16,7 @@ SUITE = Path(__file__).resolve().parents[1]
 ROOT = SUITE.parent
 DIST = SUITE / 'build/distribution'
 MODULES = ('doll', 'tavern', 'deco', 'music')
+PACK_MODULES = MODULES + ('shared',)
 
 
 def digest(content: bytes) -> str:
@@ -33,9 +34,39 @@ def tests(folder: Path) -> dict[str, int]:
     return totals
 
 
+def load_module_packs(folder: Path) -> tuple[dict[str, bytes], list[Path]]:
+    """Load one independent CE ZIP per module into validator-relative paths."""
+    if not folder.is_dir():
+        raise ValueError(f'Module pack directory does not exist: {folder}')
+    archives = sorted(folder.glob('*-ce-pack-*.zip'))
+    if not archives:
+        raise ValueError(f'No independent CE packs found in {folder}')
+    merged: dict[str, bytes] = {}
+    seen: set[str] = set()
+    for archive in archives:
+        module = archive.name.split('-ce-pack-', 1)[0]
+        if module not in PACK_MODULES or module in seen:
+            raise ValueError(f'Unexpected or duplicate CE pack: {archive.name}')
+        seen.add(module)
+        files = load_files(archive)
+        if 'pack.yml' not in files or (module != 'shared' and 'configuration/content.yml' not in files):
+            raise ValueError(f'Incomplete independent CE pack: {archive.name}')
+        for relative, content in files.items():
+            path = f'{module}/{relative}'
+            if path in merged:
+                raise ValueError(f'Duplicate independent CE entry: {path}')
+            merged[path] = content
+    missing = set(MODULES) - seen
+    if missing:
+        raise ValueError(f'Missing independent CE packs: {sorted(missing)}')
+    return merged, archives
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--packs', type=Path, default=DIST / 'KaleidoscopeSeries-CE-Packs-0.1.0-dev.zip')
+    parser.add_argument('--module-packs-dir', type=Path,
+                        help='Directory containing one <module>-ce-pack-<version>.zip per plugin')
     parser.add_argument('--output', type=Path, default=DIST / 'KaleidoscopeSeries-0.1.0-dev.zip')
     args = parser.parse_args()
     DIST.mkdir(parents=True, exist_ok=True)
@@ -44,7 +75,12 @@ def main() -> None:
     if destination.exists():
         raise FileExistsError(f'Development bundle already exists: {destination}')
     packs = args.packs.resolve()
-    validation = validate(load_files(packs))
+    module_archives: list[Path] = []
+    if args.module_packs_dir:
+        pack_files, module_archives = load_module_packs(args.module_packs_dir.resolve())
+        validation = validate(pack_files)
+    else:
+        validation = validate(load_files(packs))
     if validation['errors']:
         raise ValueError(f'Invalid CE content: {validation["errors"]}')
     java_tests = {'cookery': tests(ROOT / 'build/test-results/test')}
@@ -52,7 +88,7 @@ def main() -> None:
         java_tests[module] = tests(SUITE / module / 'build/test-results/test')
     entries: dict[str, bytes] = {}
     for module in MODULES:
-        jar = SUITE / module / f'build/libs/Kaleidoscope{module.capitalize()}Plugin-0.1.0-dev.jar'
+        jar = SUITE / module / f'build/libs/Kaleidoscope{module.capitalize()}-0.1.0-dev.jar'
         with ZipFile(jar) as archive:
             names = archive.namelist()
             forbidden = ('org/bukkit/', 'io/papermc/', 'org/junit/', 'net/momirealms/', 'net/kaleidoscope/series/')
@@ -69,7 +105,11 @@ def main() -> None:
         entries['plugins/' + jar.name] = jar.read_bytes()
     kitchen = ROOT / 'build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar'
     entries['plugins/' + kitchen.name] = kitchen.read_bytes()
-    entries[packs.name] = packs.read_bytes()
+    if module_archives:
+        for archive in module_archives:
+            entries['ce-packs/' + archive.name] = archive.read_bytes()
+    else:
+        entries[packs.name] = packs.read_bytes()
     entries['README.md'] = (SUITE / 'docs/INSTALL.md').read_bytes()
     for path in (SUITE / 'docs').glob('*'):
         if path.is_file():
@@ -83,6 +123,7 @@ def main() -> None:
         'compile_target': {'java': 21, 'paper_api': '1.21.11', 'craftengine_api': '26.9.1'},
         'java_tests': java_tests,
         'pack_validation': validation,
+        'independent_ce_packs': [path.name for path in module_archives],
         'files': {name: {'size': len(content), 'sha256': digest(content)} for name, content in sorted(entries.items())},
     }
     entries['BUILD-MANIFEST.json'] = (json.dumps(manifest, ensure_ascii=False, indent=2) + '\n').encode()

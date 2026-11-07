@@ -1,6 +1,14 @@
 # 本地验证记录
 
-2026-11-07 交接复核见 [统一证据](../../docs/handoff/2026-11-07/README.md)：在线构建遇到 Maven TLS 错误，离线构建 exit 0（24 任务 UP-TO-DATE，59 项现存 Java 报告）；18 项 Python 本轮实际运行通过，项目虚拟环境导入检查及资源引用检查通过。四插件仍无服务器/原版客户端验收。
+2026-11-07 交接复核见 [统一证据](../../docs/handoff/2026-11-07/README.md)：在线构建遇到 Maven TLS 错误，离线构建 exit 0（24 任务 UP-TO-DATE，59 项现存 Java 报告）；本轮系列工具测试 20 项通过，项目虚拟环境导入检查及资源引用检查通过。四插件仍无服务器/原版客户端验收。
+
+## 独立插件与独立 CE 包（2026-11-07）
+
+- Doll、Tavern、Deco、Music 各自保留独立 `plugin.yml`、Shadow JAR 和 CraftEngine 内容 ZIP。每个插件只硬依赖 CraftEngine；Doll/Tavern 对厨房或彼此联动使用 `softdepend`，`common` 不作为服务器插件安装。
+- `import_sources.py --module-archives-dir` 生成 `doll-ce-pack-0.1.0-dev.zip`、`tavern-ce-pack-0.1.0-dev.zip`、`deco-ce-pack-0.1.0-dev.zip`、`music-ce-pack-0.1.0-dev.zip`，另生成可选 `shared-ce-pack-0.1.0-dev.zip`。单包根目录直接包含 `pack.yml`，无需安装其他模块目录；总包模式仍保留兼容。
+- 独立包逐个引用检查通过：Doll 729 物品/725 家具/3 配方，Tavern 190/39/114，Deco 854/785/0，Music 1/0/0；共享图集包无玩法定义但可独立校验。合并检查为 1774 物品、1549 家具、117 配方、2710 个可达模型、0 errors。
+- `./gradlew -p series :doll:build :tavern:build :deco:build :music:build` 通过；产物为 `KaleidoscopeDoll-0.1.0-dev.jar`、`KaleidoscopeTavern-0.1.0-dev.jar`、`KaleidoscopeDeco-0.1.0-dev.jar`、`KaleidoscopeMusic-0.1.0-dev.jar`，各 Shadow JAR 均无未重定位的 `net/kaleidoscope/series` 类。系列 Python 工具测试 20 项通过。`series/build/distribution/series-independent-20261107-v2.zip` 为本轮开发整包，SHA-256 `974e7786bbeae6ccea9ad357e1b1e3141755d0e885e5e106427858554cf5bcf3`。
+- 以上是构建、包引用和元数据证据，不代表四插件已在 Paper/Folia 实服启动或经原版客户端验证；真人流程仍按下方验收表执行。
 
 下文为 2026-11-05 的历史构建检查点，数字与原始包只代表当时源码。新设备从 [根 README](../../README.md#开发交接2026-11-07) 接续；厨房当前证据不能沿用下文历史 29 项测试数字。
 

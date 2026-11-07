@@ -32,7 +32,7 @@
 
 把 [KaleidoscopeMods](https://github.com/KaleidoscopeMods) 的全部玩法移植为 **纯插件 + CraftEngine 资源包**，让原版客户端进服。玩法工程为 Cookery、Doll、Tavern、Deco、MusicPlus；8 个官方仓库中的 Demo、Web、midi 分别作为美术示例、官网和 MIDI 库保留，不虚构为三个独立玩法插件。
 
-- 固定运行验收目标：**Paper/Folia 1.21.11、Java 21、CraftEngine API/运行插件 26.9.1**。厨房主工程版本 1.3.0，`series/` 四个插件为 0.1.0-dev，`common` 随它们重定位打包。
+- 固定运行验收目标：**Paper/Folia 1.21.11、Java 21、CraftEngine API/运行插件 26.9.1**。厨房主工程版本 1.3.0，`series/` 四个插件为 0.1.0-dev；每个插件都有独立 JAR 与 CE 内容 ZIP，`common` 只 shade/重定位进对应产物，不单独安装。
 - 保留原厨房的品质、旧炒锅/砧板/石磨规则、已有配置和存档；进行中的批次不被新配方静默改写。不能为了套用官方算法破坏既有服数据。
 - 能由资源包表达的模型、贴图、字体、音效和状态逐项对齐。官方客户端 GUI、实体渲染器、相机、按键和 MIDI 合成器改用原版菜单、字体、动作条、显示实体、服务端音符；差异独立记录，不能宣称原版客户端执行了模组客户端代码。
 - 固定官方提交见 [organization-checkouts.json](docs/research/organization-checkouts.json)。导入读 Git blobs，必须校验 HEAD 和 tracked clean；未知注册/标签/函数/模型结构应失败并保留旧快照，不能静默漏项或当普通状态切换。

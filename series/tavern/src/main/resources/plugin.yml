@@ -4,7 +4,7 @@ main: net.kaleidoscope.tavern.TavernPlugin
 api-version: '1.21.11'
 folia-supported: true
 depend: [CraftEngine]
-softdepend: [Dominion]
+softdepend: [Dominion, KaleidoscopeCookeryPlugin]
 commands:
   ktavern:
     description: 森罗酒馆配方与管理员工具

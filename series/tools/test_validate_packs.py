@@ -30,6 +30,10 @@ class PackValidationTests(unittest.TestCase):
         files['other/resourcepack/assets/minecraft/atlases/blocks.json'] = encoded({'sources': [{'type': 'single'}]})
         self.assertIn('Conflicting shared resource: minecraft/atlases/blocks.json', validate(files)['errors'])
 
+    def test_standalone_module_pack_is_validated_without_aggregate_prefix(self):
+        files = {path.split('/', 1)[1]: content for path, content in self.pack().items()}
+        self.assertEqual([], validate(files)['errors'])
+
 
 if __name__ == '__main__':
     unittest.main()
