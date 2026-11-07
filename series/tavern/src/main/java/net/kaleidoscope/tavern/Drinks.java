@@ -2,6 +2,7 @@ package net.kaleidoscope.tavern;
 
 import com.google.gson.Gson;
 import net.kaleidoscope.series.Items;
+import net.kaleidoscope.tavern.api.DrinkCreatedEvent;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -54,6 +55,7 @@ public final class Drinks implements Listener {
             meta.getPersistentDataContainer().set(signature, PersistentDataType.STRING, json.toJson(mixed));
             drink.setItemMeta(meta);
         }
+        plugin.getServer().getPluginManager().callEvent(new DrinkCreatedEvent(id, drink, ingredients));
         return drink;
     }
 

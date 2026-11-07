@@ -1,6 +1,7 @@
 package net.kaleidoscope.cookery.item;
 
 import net.kaleidoscope.cookery.catalog.BiteState;
+import net.kaleidoscope.cookery.util.CookeryStateEnvelope;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -16,14 +17,16 @@ public final class BiteStateStore {
         if (stack == null || state == null) throw new IllegalArgumentException("Bite state target is missing");
         ItemMeta meta = stack.getItemMeta();
         if (meta == null) throw new IllegalArgumentException("Bite state target has no item metadata");
-        meta.getPersistentDataContainer().set(KEY, PersistentDataType.STRING, state.encode());
+        meta.getPersistentDataContainer().set(KEY, PersistentDataType.STRING,
+                CookeryStateEnvelope.wrap("kaleidoscopecookery:bite_state", 1, state.encode()));
         stack.setItemMeta(meta);
     }
 
     public static BiteState read(ItemStack stack) {
         if (stack == null || !stack.hasItemMeta()) return null;
         String encoded = stack.getItemMeta().getPersistentDataContainer().get(KEY, PersistentDataType.STRING);
-        return encoded == null ? null : BiteState.decode(encoded);
+        return encoded == null ? null : BiteState.decode(
+                CookeryStateEnvelope.payload(encoded, "kaleidoscopecookery:bite_state", 1));
     }
 
     public static void clear(ItemStack stack) {

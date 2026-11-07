@@ -10,6 +10,13 @@
 - `./gradlew -p series :doll:build :tavern:build :deco:build :music:build` 通过；产物为 `KaleidoscopeDoll-0.1.0-dev.jar`、`KaleidoscopeTavern-0.1.0-dev.jar`、`KaleidoscopeDeco-0.1.0-dev.jar`、`KaleidoscopeMusic-0.1.0-dev.jar`，各 Shadow JAR 均无未重定位的 `net/kaleidoscope/series` 类。系列 Python 工具测试 22 项通过。模块规格现在由 `tools/module-specs.json` 校验，发布器可同时收入根工程的 `cookery-ce-pack-1.3.0.zip`，形成 5 个 JAR + 5 个 CE 包的独立清单；本次开发整包 `series/build/distribution/series-five-independent-20261107-final.zip` SHA-256 为 `96eb17c7add4f0393ecd3eaad8fd04641055f23e1b656ef8a2ab227496d5ec69`。
 - 以上是构建、包引用和元数据证据，不代表四插件已在 Paper/Folia 实服启动或经原版客户端验证；真人流程仍按下方验收表执行。
 
+## 代码边界优化（2026-11-07）
+
+- `SeriesScheduler` 集中处理玩家所属 Folia region 和延迟任务；停服关闭菜单仍允许执行，普通延迟任务在插件停用后自动丢弃。
+- `FurnitureTypes.register` 对同一行为 ID 幂等，注册失败会移除占位标记，避免重载后半注册状态。
+- `SavedState` 和 `CookeryStateEnvelope` 统一使用 namespace/schema/source/payload 信封，限制序列化大小；旧裸 payload 继续读取，未知命名空间、未来版本和坏类型拒绝操作。Doll 姿态、系列 PDC、Cookery bite/plate PDC 已接入，其他旧家具字段仍按兼容迁移逐步包裹。
+- `InventoryTrade` 在完整计划通过后触发可取消 `InventoryTradeEvent`，玩家重入使用 UUID guard；Doll 的 `DollCollectedEvent` 与 Tavern 的 `DrinkCreatedEvent` 位于各自未重定位 API 包，未安装监听插件时发布方仍可运行。
+
 下文为 2026-11-05 的历史构建检查点，数字与原始包只代表当时源码。新设备从 [根 README](../../README.md#开发交接2026-11-07) 接续；厨房当前证据不能沿用下文历史 29 项测试数字。
 
 ## 已执行并通过

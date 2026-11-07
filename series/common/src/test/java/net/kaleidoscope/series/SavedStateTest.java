@@ -39,4 +39,17 @@ class SavedStateTest {
         saved.putString("slot", "broken");
         assertThrows(IllegalArgumentException.class, () -> SavedItems.get(saved, "slot", 64));
     }
+
+    @Test void envelopeRejectsForeignAndFutureStateButReadsLegacyPayload() {
+        CompoundTag payload = new CompoundTag();
+        payload.putInt("version", 1);
+        CompoundTag envelope = SavedState.envelope("test:pose", 1, SavedState.SERIES_SOURCE, payload);
+        assertEquals(1, SavedState.integer(SavedState.payload(envelope, "test:pose", SavedState.SERIES_SOURCE, 1, null), "version"));
+        assertEquals(1, SavedState.integer(SavedState.payload(payload, "test:pose", SavedState.SERIES_SOURCE, 1, null), "version"));
+        assertThrows(IllegalArgumentException.class,
+                () -> SavedState.payload(envelope, "other:pose", SavedState.SERIES_SOURCE, 1, null));
+        envelope.putInt(SavedState.ENVELOPE_SCHEMA, 2);
+        assertThrows(IllegalArgumentException.class,
+                () -> SavedState.payload(envelope, "test:pose", SavedState.SERIES_SOURCE, 1, null));
+    }
 }

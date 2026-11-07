@@ -16,6 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public final class DollController extends InteractiveFurniture {
     private static final String SAVE_KEY = "kaleidoscope_doll:pose_v1";
+    private static final String STATE_NAMESPACE = "kaleidoscope_doll:pose";
     private static final String[] AXIS_NAMES = {"宽度", "高度", "深度", "左右", "上下", "前后", "俯仰", "转向", "侧倾"};
     private DollPose pose = DollPose.origin();
     private final DollDisplay display = new DollDisplay(this);
@@ -77,13 +78,14 @@ public final class DollController extends InteractiveFurniture {
         CompoundTag saved = new CompoundTag();
         saved.putInt("version", 1);
         saved.putString("pose", pose.encode());
-        root.put(SAVE_KEY, saved);
+        root.put(SAVE_KEY, SavedState.envelope(STATE_NAMESPACE, 1, SavedState.SERIES_SOURCE, saved));
     }
 
     @Override public void loadCustomData(CompoundTag root) {
         restoreSafely(root, SAVE_KEY, () -> {
             if (!root.containsKey(SAVE_KEY)) return;
-            CompoundTag saved = root.getCompound(SAVE_KEY);
+            CompoundTag saved = SavedState.payload(root.getCompound(SAVE_KEY), STATE_NAMESPACE,
+                    SavedState.SERIES_SOURCE, 1, null);
             if (saved == null || SavedState.integer(saved, "version") != 1) throw new IllegalArgumentException("Invalid doll pose save");
             pose = DollPose.decode(SavedState.text(saved, "pose"));
         });

@@ -93,4 +93,17 @@ class BakedFoodTest {
         assertThrows(IllegalArgumentException.class, () -> BakedFood.decode(json.replace("\"ratio\":1.0", "\"ratio\":\"1.0\"")));
         assertThrows(IllegalArgumentException.class, () -> BakedFood.decode("{}"));
     }
+
+    @Test void cookeryStateEnvelopeKeepsLegacyPayloadAndRejectsForeignVersions() {
+        String payload = BiteState.of(catalog.items().get("kaleidoscopecookery:cold_cut_ham_slices"), QualityProfile.BASE).encode();
+        String wrapped = net.kaleidoscope.cookery.util.CookeryStateEnvelope.wrap(
+                "kaleidoscopecookery:bite_state", 1, payload);
+        assertEquals(payload, net.kaleidoscope.cookery.util.CookeryStateEnvelope.payload(
+                wrapped, "kaleidoscopecookery:bite_state", 1));
+        assertEquals(payload, net.kaleidoscope.cookery.util.CookeryStateEnvelope.payload(
+                payload, "kaleidoscopecookery:bite_state", 1));
+        assertThrows(IllegalArgumentException.class, () ->
+                net.kaleidoscope.cookery.util.CookeryStateEnvelope.payload(
+                        wrapped, "kaleidoscopecookery:other", 1));
+    }
 }

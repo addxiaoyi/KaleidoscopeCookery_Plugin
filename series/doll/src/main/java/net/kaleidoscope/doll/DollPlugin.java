@@ -6,6 +6,7 @@ import net.kaleidoscope.series.Items;
 import net.kaleidoscope.series.Menu;
 import net.kaleidoscope.series.Resources;
 import net.kaleidoscope.series.SeriesPlugin;
+import net.kaleidoscope.doll.api.DollCollectedEvent;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -63,7 +64,9 @@ public final class DollPlugin extends SeriesPlugin implements Listener {
     public void collected(Player player, String id) {
         if (!catalog.dolls().contains(id)) return;
         Set<String> owned = collection(player);
-        if (owned.add(id)) player.getPersistentDataContainer().set(collectionKey, PersistentDataType.STRING,
+        boolean first = owned.add(id);
+        getServer().getPluginManager().callEvent(new DollCollectedEvent(player, id, first));
+        if (first) player.getPersistentDataContainer().set(collectionKey, PersistentDataType.STRING,
                 String.join("\n", owned.stream().sorted().toList()));
     }
 

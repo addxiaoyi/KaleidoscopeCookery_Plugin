@@ -2,17 +2,35 @@ package net.kaleidoscope.series;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
 
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
 /** Plans the entire exchange before changing a live inventory. */
 public final class InventoryTrade {
+    private static final Set<UUID> ACTIVE = ConcurrentHashMap.newKeySet();
     private InventoryTrade() {}
 
     public static boolean exchange(PlayerInventory inventory, Predicate<ItemStack> payment,
                                    int cost, List<ItemStack> rewards) {
         if (cost < 0) throw new IllegalArgumentException("Negative cost");
+        Player player = inventory.getHolder() instanceof Player p ? p : null;
+        UUID playerId = player == null ? null : player.getUniqueId();
+        if (playerId != null && !ACTIVE.add(playerId)) return false;
+        try {
+            return exchangeOnce(inventory, player, payment, cost, rewards);
+        } finally {
+            if (playerId != null) ACTIVE.remove(playerId);
+        }
+    }
+
+    private static boolean exchangeOnce(PlayerInventory inventory, Player player,
+                                        Predicate<ItemStack> payment, int cost, List<ItemStack> rewards) {
         ItemStack[] slots = inventory.getStorageContents().clone();
         for (int i = 0; i < slots.length; i++) {
             if (slots[i] != null) slots[i] = slots[i].clone();
@@ -43,6 +61,11 @@ public final class InventoryTrade {
                 remaining -= slots[i].getAmount();
             }
             if (remaining > 0) return false;
+        }
+        if (player != null) {
+            InventoryTradeEvent event = new InventoryTradeEvent(player, cost, rewards);
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) return false;
         }
         inventory.setStorageContents(slots);
         return true;
