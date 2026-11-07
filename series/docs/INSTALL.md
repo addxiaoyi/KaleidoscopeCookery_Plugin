@@ -5,7 +5,7 @@
 新增插件使用 Java 21，编译目标 Paper 1.21.11 / CraftEngine API 26.9.1；其他组合尚未验证。先在测试服安装。
 
 1. 停服，把 `plugins/` 中需要的 JAR 复制到服务器的 `plugins/`。每个新插件只硬依赖 CraftEngine，common 已 shade 进对应 JAR，不单独安装；Doll/Tavern 的跨玩法联动仅使用 soft-depend。
-2. 只安装所需模块对应的 CE ZIP：例如 Doll 复制 `doll-ce-pack-0.1.0-dev.zip` 的内容到 `plugins/CraftEngine/resources/doll/`，确保该目录直接有 `pack.yml`。需要共享原版图集时再复制 `shared-ce-pack-0.1.0-dev.zip` 到 `resources/shared/`；升级时只替换对应模块目录，不同时加载两套同名定义。
+2. 只安装所需模块对应的 CE ZIP：厨房使用 `cookery-ce-pack-1.3.0.zip`，Doll 使用 `doll-ce-pack-0.1.0-dev.zip`，依次复制 ZIP 中的顶层目录到 `plugins/CraftEngine/resources/`，确保目录直接有 `pack.yml`。需要共享原版图集时再复制 `shared-ce-pack-0.1.0-dev.zip` 到 `resources/shared/`；升级时只替换对应模块目录，不同时加载两套同名定义。
 3. 厨房完整 CE 包需沿用现有包；这里没有打包完整厨房美术资源。新 CE 内容 ZIP 也不能直接发送给客户端。
 4. 启动服务器并检查加载日志。按目标 CE 版本执行配置加载、最终资源包生成和发送；当前文档使用 `/ce reload all`，仅 `/ce reload` 默认不重建客户端包。
 5. 原版客户端接收生成后的资源包，逐项执行 `docs/ACCEPTANCE.md`。

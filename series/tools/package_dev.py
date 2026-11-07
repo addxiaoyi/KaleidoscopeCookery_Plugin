@@ -67,6 +67,8 @@ def main() -> None:
     parser.add_argument('--packs', type=Path, default=DIST / 'KaleidoscopeSeries-CE-Packs-0.1.0-dev.zip')
     parser.add_argument('--module-packs-dir', type=Path,
                         help='Directory containing one <module>-ce-pack-<version>.zip per plugin')
+    parser.add_argument('--cookery-pack', type=Path,
+                        help='Independent cookery CE ZIP produced by export_cookery_kitchen_pack.py')
     parser.add_argument('--output', type=Path, default=DIST / 'KaleidoscopeSeries-0.1.0-dev.zip')
     args = parser.parse_args()
     DIST.mkdir(parents=True, exist_ok=True)
@@ -105,6 +107,16 @@ def main() -> None:
         entries['plugins/' + jar.name] = jar.read_bytes()
     kitchen = ROOT / 'build/libs/KaleidoscopeCookeryPlugin-1.3.0.jar'
     entries['plugins/' + kitchen.name] = kitchen.read_bytes()
+    cookery_pack = None
+    if args.cookery_pack:
+        cookery_pack = args.cookery_pack.resolve()
+        if not cookery_pack.is_file():
+            raise ValueError(f'Cookery CE pack does not exist: {cookery_pack}')
+        with ZipFile(cookery_pack) as archive:
+            names = archive.namelist()
+            if 'cookery_kitchen/pack.yml' not in names or 'cookery_kitchen/configuration/kitchen.yml' not in names:
+                raise ValueError(f'Invalid independent cookery CE pack: {cookery_pack.name}')
+        entries['ce-packs/cookery-ce-pack-1.3.0.zip'] = cookery_pack.read_bytes()
     if module_archives:
         for archive in module_archives:
             entries['ce-packs/' + archive.name] = archive.read_bytes()
@@ -123,7 +135,9 @@ def main() -> None:
         'compile_target': {'java': 21, 'paper_api': '1.21.11', 'craftengine_api': '26.9.1'},
         'java_tests': java_tests,
         'pack_validation': validation,
-        'independent_ce_packs': [path.name for path in module_archives],
+        'independent_ce_packs': (['cookery-ce-pack-1.3.0.zip'] if cookery_pack else [])
+                                + [path.name for path in module_archives],
+        'independent_plugins': ['cookery', *MODULES],
         'files': {name: {'size': len(content), 'sha256': digest(content)} for name, content in sorted(entries.items())},
     }
     entries['BUILD-MANIFEST.json'] = (json.dumps(manifest, ensure_ascii=False, indent=2) + '\n').encode()

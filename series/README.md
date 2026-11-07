@@ -41,12 +41,12 @@ python -m venv series/.venv
 ```powershell
  .\series\.venv\Scripts\python.exe series/tools/import_sources.py --module-archives-dir series/build/distribution/ce-packs-0.1.0-dev --archive series/build/distribution/KaleidoscopeSeries-CE-Packs-0.1.0-dev-gameplay.zip
 .\series\.venv\Scripts\python.exe series/tools/validate_packs.py series/build/distribution/KaleidoscopeSeries-CE-Packs-0.1.0-dev-gameplay.zip
- .\series\.venv\Scripts\python.exe series/tools/package_dev.py --module-packs-dir series/build/distribution/ce-packs-0.1.0-dev --output series/build/distribution/KaleidoscopeSeries-0.1.0-dev-gameplay.zip
+ .\series\.venv\Scripts\python.exe series/tools/package_dev.py --module-packs-dir series/build/distribution/ce-packs-0.1.0-dev --cookery-pack build/acceptance/cookery-plate-runtime-20261107.zip --output series/build/distribution/KaleidoscopeSeries-0.1.0-dev-gameplay.zip
 ```
 
 生成工具拒绝覆盖已有输出；重新生成时选择新路径，或确认后整理自己生成的旧文件。`--assets <新目录>` 可输出展开后的 CE 包。`build/packs/`、`packs-v2/`、`packs-v3/` 是开发期间的旧输出，不能与最终归档混装。
 
-四个 JAR 位于各模块 `build/libs/`，名称为 `KaleidoscopeDoll-0.1.0-dev.jar`、`KaleidoscopeTavern-0.1.0-dev.jar`、`KaleidoscopeDeco-0.1.0-dev.jar`、`KaleidoscopeMusic-0.1.0-dev.jar`；独立 CE 包位于 `build/distribution/ce-packs-0.1.0-dev/`，文件名分别为 `doll-ce-pack-0.1.0-dev.zip`、`tavern-ce-pack-0.1.0-dev.zip`、`deco-ce-pack-0.1.0-dev.zip`、`music-ce-pack-0.1.0-dev.zip`，另有按需安装的 `shared-ce-pack-0.1.0-dev.zip`。本地整包位于 `build/distribution/KaleidoscopeSeries-0.1.0-dev-gameplay.zip`，会把这些独立包原样收入 `ce-packs/`。旧 `0.1.0-dev.zip` 保留，不能代表本轮成果。
+四个 JAR 位于各模块 `build/libs/`，名称为 `KaleidoscopeDoll-0.1.0-dev.jar`、`KaleidoscopeTavern-0.1.0-dev.jar`、`KaleidoscopeDeco-0.1.0-dev.jar`、`KaleidoscopeMusic-0.1.0-dev.jar`；独立 CE 包位于 `build/distribution/ce-packs-0.1.0-dev/`，文件名分别为 `doll-ce-pack-0.1.0-dev.zip`、`tavern-ce-pack-0.1.0-dev.zip`、`deco-ce-pack-0.1.0-dev.zip`、`music-ce-pack-0.1.0-dev.zip`，另有按需安装的 `shared-ce-pack-0.1.0-dev.zip`。厨房使用根工程生成的 `cookery-ce-pack-1.3.0.zip`。本地整包位于 `build/distribution/KaleidoscopeSeries-0.1.0-dev-gameplay.zip`，会把 5 个独立插件的 JAR 和 CE 包原样收入 `plugins/` 与 `ce-packs/`。旧 `0.1.0-dev.zip` 保留，不能代表本轮成果。
 
 ## 测试服安装
 
