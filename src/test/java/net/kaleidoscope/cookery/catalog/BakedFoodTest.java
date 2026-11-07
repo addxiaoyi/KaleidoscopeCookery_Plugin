@@ -62,6 +62,18 @@ class BakedFoodTest {
                 () -> BiteState.decode(after.encode().replace("\"version\":1", "\"version\":2")));
     }
 
+    @Test void plateServingKeepsBitesAndRecoveryDropsTogether() {
+        var entry = catalog.items().get("kaleidoscopecookery:brown_mushroom_pot_soup");
+        var plate = PlateServing.of(entry, QualityProfile.BASE);
+        assertEquals(java.util.List.of("minecraft:flower_pot"), plate.drops());
+        assertFalse(plate.empty());
+        assertEquals(1, plate.takeOne().bites().remaining());
+        var empty = plate;
+        for (int i = 0; i < entry.bites().maxBites(); i++) empty = empty.takeOne();
+        assertTrue(empty.empty());
+        assertEquals(1, empty.refillOne().bites().remaining());
+    }
+
     @Test void badOrFutureSaveIsRejectedWithoutReinterpretingIt() {
         String json = BakedFood.of(catalog.items().get("kaleidoscopecookery:baozi"), QualityProfile.BASE).encode();
         assertThrows(IllegalArgumentException.class, () -> BakedFood.decode(json.replace("\"version\":1", "\"version\":2")));
