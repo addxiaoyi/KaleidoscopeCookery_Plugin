@@ -18,6 +18,7 @@ public abstract class SeriesPlugin extends JavaPlugin {
         protection = AntiGriefLib.builder(this).ignoreOP(true).build();
         getServer().getPluginManager().registerEvents(new MenuListener(this), this);
         getServer().getPluginManager().registerEvents(new StoredFurnitureListener(), this);
+        getServer().getPluginManager().registerEvents(new SeriesResourceReloadListener(), this);
         start();
     }
 

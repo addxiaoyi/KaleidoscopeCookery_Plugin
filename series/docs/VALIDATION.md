@@ -16,6 +16,7 @@
 - `FurnitureTypes.register` 对同一行为 ID 幂等，注册失败会移除占位标记，避免重载后半注册状态。
 - `SavedState` 和 `CookeryStateEnvelope` 统一使用 namespace/schema/source/payload 信封，限制序列化大小；旧裸 payload 继续读取，未知命名空间、未来版本和坏类型拒绝操作。Doll 姿态、系列 PDC、Cookery bite/plate PDC 已接入，其他旧家具字段仍按兼容迁移逐步包裹。
 - `InventoryTrade` 在完整计划通过后触发可取消 `InventoryTradeEvent`，玩家重入使用 UUID guard；Doll 的 `DollCollectedEvent` 与 Tavern 的 `DrinkCreatedEvent` 位于各自未重定位 API 包，未安装监听插件时发布方仍可运行。
+- `Items.create` 使用 512 项有界模板缓存并在 CraftEngine reload 事件中清空，每次调用返回 clone；现有 `ControllerIndex` 和 Cookery `ChunkEntityCache` 继续作为已加载索引，不新增逐 tick 世界扫描。
 
 下文为 2026-11-05 的历史构建检查点，数字与原始包只代表当时源码。新设备从 [根 README](../../README.md#开发交接2026-11-07) 接续；厨房当前证据不能沿用下文历史 29 项测试数字。
 
