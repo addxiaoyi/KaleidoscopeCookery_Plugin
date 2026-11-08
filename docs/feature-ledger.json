@@ -44,7 +44,7 @@
       "parity_level": "C",
       "status": "runtime_tested",
       "source_ids": ["acceptance:paper-folia-client"],
-      "evidence": ["series/docs/ACCEPTANCE.md", "series/docs/acceptance-matrix.json", "series/tools/prepare_independent_servers.py", "docs/research/series-runtime-acceptance-2026-11-08.json"]
+      "evidence": ["series/docs/ACCEPTANCE.md", "series/docs/acceptance-matrix.json", "series/tools/prepare_independent_servers.py", "docs/research/series-runtime-acceptance-2026-11-08.json", "docs/research/series-five-runtime-acceptance-2026-11-08.json"]
     },
     {
       "feature_id": "E05",
@@ -99,6 +99,15 @@
       "status": "blocked",
       "source_ids": ["KaleidoscopeCookery:recipes-612"],
       "evidence": ["docs/COOKERY-PARITY.md"]
+    },
+    {
+      "feature_id": "C09",
+      "module": "cookery",
+      "title": "Cookery 五插件整合 CE 运行加载",
+      "parity_level": "A",
+      "status": "runtime_tested",
+      "source_ids": ["KaleidoscopeCookery:runtime-load"],
+      "evidence": ["docs/research/series-five-runtime-acceptance-2026-11-08.json", "src/main/java/net/kaleidoscope/cookery/plugin/KaleidoscopeCookeryPlugin.java"]
     },
     {
       "feature_id": "D01",

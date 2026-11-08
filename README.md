@@ -66,6 +66,7 @@
 - `tools/audit_licenses.py` 会按锁定提交扫描八个上游仓库的许可证和 NOTICE 文件，生成证据哈希；缺少文件或未经人工确认时保持阻断状态。
 - 厨房 17 个 BlockEntity 控制器已通过 `CookeryBlockStateEnvelope` 写入版本化旁路信封，保留旧数据 key 作为兼容投影；未知 schema、namespace 或 source commit 会阻止读取。根工程本轮测试为 142 项通过。
 - 2026-11-08 四个系列插件在 Paper/Folia 1.21.11 + CraftEngine 26.9.1 隔离服中均完成启动、加载和正常关闭，证据见 [series-runtime-acceptance](docs/research/series-runtime-acceptance-2026-11-08.json)。
+- 五插件整合服随后在 Paper/Folia 中完成启动和正常关闭，Cookery 的 11/11 方块自检、451 物品、64 方块和 90 配方加载通过；基础 CraftEngine 资源包已纳入准备工具。证据见 [series-five-runtime-acceptance](docs/research/series-five-runtime-acceptance-2026-11-08.json)。
 
 ### 后续完整计划（厨房优先）
 

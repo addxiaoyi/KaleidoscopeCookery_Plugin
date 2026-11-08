@@ -20,8 +20,8 @@
       "plugin": "KaleidoscopeCookeryPlugin",
       "pack": "cookery-ce-pack-1.3.0.zip",
       "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
-      "status": "partial",
-      "evidence": ["../../docs/VALIDATION.md"],
+      "status": "runtime-tested",
+      "evidence": ["../../docs/VALIDATION.md", "../../docs/research/series-five-runtime-acceptance-2026-11-08.json"],
       "open": ["player-flow", "vanilla-client", "folia-watchdog"]
     },
     {

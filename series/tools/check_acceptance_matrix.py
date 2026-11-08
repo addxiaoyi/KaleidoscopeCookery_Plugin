@@ -37,7 +37,7 @@ def summary(data: dict) -> dict:
             "by_status": {status: sum(row["status"] == status for row in data["modules"])
                           for status in sorted(STATUSES)
                           if any(row["status"] == status for row in data["modules"])},
-            "scope": "acceptance planning only; no server/client run inferred"}
+            "scope": "matrix status records the highest verified layer, with server/client evidence linked per module"}
 
 
 def main() -> None:

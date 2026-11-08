@@ -85,7 +85,7 @@ def required_artifacts(artifacts: Path, packs: Path, cookery_jar: Path | None,
         if not cookery_pack.is_file():
             raise ValueError(f"missing Cookery CE pack: {cookery_pack}")
         verify_zip(cookery_pack, ("cookery_kitchen/pack.yml", "cookery_kitchen/configuration/kitchen.yml"))
-        found.append((f"plugins/CraftEngine/resources/{cookery_pack.name}", cookery_pack, "ce-pack"))
+        found.append(("plugins/CraftEngine/resources/cookery_kitchen", cookery_pack, "cookery-pack"))
     if craft_engine:
         if not craft_engine.is_file():
             raise ValueError(f"missing CraftEngine runtime JAR: {craft_engine}")
@@ -105,10 +105,31 @@ def _within(path: Path, parent: Path) -> bool:
         return False
 
 
+def install_artifact(root: Path, relative: str, source: Path, kind: str) -> Path:
+    destination = root / "artifacts" / relative
+    if kind != "cookery-pack":
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, destination)
+        return destination
+    destination.mkdir(parents=True, exist_ok=True)
+    with ZipFile(source) as archive:
+        prefix = "cookery_kitchen/"
+        for name in archive.namelist():
+            if not name.startswith(prefix) or name.endswith("/"):
+                continue
+            member = Path(name)
+            target = destination / member.relative_to("cookery_kitchen")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(archive.read(name))
+    if not (destination / "pack.yml").is_file() or not (destination / "configuration/kitchen.yml").is_file():
+        raise ValueError(f"Cookery pack did not extract a complete resources directory: {source}")
+    return destination
+
+
 def prepare(root: Path, artifacts: Path, packs: Path, *, cookery_jar: Path | None = None,
             cookery_pack: Path | None = None, accept_eula: bool = False,
             paper_jar: Path | None = None, folia_jar: Path | None = None,
-            craft_engine: Path | None = None) -> dict:
+            craft_engine: Path | None = None, base_resources: Path | None = None) -> dict:
     root = root.resolve()
     allowed = WORKSPACE / "build" / "acceptance"
     # Keep test worlds out of the source tree and production locations.
@@ -122,6 +143,8 @@ def prepare(root: Path, artifacts: Path, packs: Path, *, cookery_jar: Path | Non
     if independent["errors"]:
         raise ValueError("independence check failed: " + "; ".join(independent["errors"]))
     files = required_artifacts(artifacts, packs, cookery_jar, cookery_pack, craft_engine)
+    if base_resources and not base_resources.is_dir():
+        raise ValueError(f"missing CraftEngine base resources directory: {base_resources}")
     runtimes = {"paper": paper_jar, "folia": folia_jar}
     report = {
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -131,15 +154,26 @@ def prepare(root: Path, artifacts: Path, packs: Path, *, cookery_jar: Path | Non
         "craftEngine": "26.9.1",
         "independence": independent,
         "artifacts": {},
+        "base_resources": [],
         "instances": {},
     }
     root.mkdir(parents=True, exist_ok=False)
     for relative, source, kind in files:
-        destination = root / "artifacts" / relative
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source, destination)
+        destination = install_artifact(root, relative, source, kind)
         report["artifacts"][relative] = {"kind": kind, "source": str(source),
                                           "sha256": digest(source), "bytes": source.stat().st_size}
+    if base_resources:
+        target_root = root / "artifacts/plugins/CraftEngine/resources"
+        for source in sorted(base_resources.iterdir()):
+            if source.name == "cookery_kitchen":
+                continue
+            target = target_root / source.name
+            if source.is_dir():
+                shutil.copytree(source, target, dirs_exist_ok=True)
+            else:
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, target)
+            report["base_resources"].append({"name": source.name, "source": str(source)})
     for platform, port in PLATFORMS.items():
         instance = root / platform
         plugins = instance / "plugins"
@@ -164,8 +198,22 @@ def prepare(root: Path, artifacts: Path, packs: Path, *, cookery_jar: Path | Non
             if relative.startswith("plugins/"):
                 source = root / "artifacts" / relative
                 target = instance / relative
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copyfile(source, target)
+                if source.is_dir():
+                    shutil.copytree(source, target, dirs_exist_ok=True)
+                else:
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(source, target)
+        if base_resources:
+            source_root = root / "artifacts/plugins/CraftEngine/resources"
+            target_root = instance / "plugins/CraftEngine/resources"
+            for entry in report["base_resources"]:
+                source = source_root / entry["name"]
+                target = target_root / entry["name"]
+                if source.is_dir():
+                    shutil.copytree(source, target, dirs_exist_ok=True)
+                else:
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(source, target)
         (instance / "start.sh").write_text(
             "#!/usr/bin/env sh\nset -eu\ncd \"$(dirname \"$0\")\"\n"
             "exec java -Xms512M -Xmx2G -Dfile.encoding=UTF-8 -jar server.jar nogui\n",
@@ -195,6 +243,8 @@ def main() -> int:
     parser.add_argument("--paper-jar", type=Path)
     parser.add_argument("--folia-jar", type=Path)
     parser.add_argument("--craft-engine", type=Path, help="CraftEngine runtime plugin JAR")
+    parser.add_argument("--base-resources", type=Path,
+                        help="Prepared CraftEngine resources directory containing default packs")
     parser.add_argument("--accept-eula", action="store_true",
                         help="Only when the server operator explicitly accepted the Minecraft EULA")
     args = parser.parse_args()
@@ -202,7 +252,7 @@ def main() -> int:
         report = prepare(args.root, args.artifacts, args.packs, cookery_jar=args.cookery_jar,
                          cookery_pack=args.cookery_pack, accept_eula=args.accept_eula,
                          paper_jar=args.paper_jar, folia_jar=args.folia_jar,
-                         craft_engine=args.craft_engine)
+                         craft_engine=args.craft_engine, base_resources=args.base_resources)
     except (OSError, ValueError, BadZipFile) as error:
         print(f"Independent server preparation failed: {error}", file=sys.stderr)
         return 1

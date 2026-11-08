@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-08T08:42:30Z",
+  "source_commit": "49dbfe2792dc769121119120f6ee93c290c27416",
+  "baseline": {
+    "minecraft": "1.21.11",
+    "paper_build": "132",
+    "folia_build": "14",
+    "java": "21.0.12",
+    "craftengine": "26.9.1"
+  },
+  "scope": "Five-plugin integrated startup with CraftEngine base resources, clean shutdown and Cookery block self-check. No player flow or vanilla-client resource-pack acceptance.",
+  "artifacts": {
+    "craft_engine_sha256": "021260c87e3546730d321f4360b1744e6e33caa1d68e98ae30dcdbbdc347ae0f",
+    "paper_sha256": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba",
+    "folia_sha256": "f52c408490a0225611e67907a3ca19f7e6da2c6bc899e715d5f46844e7103c39",
+    "cookery_jar_sha256": "e2fb10b07b8c484e081c26bf96c1d75fe270cf142540934726395c835d21ecc9",
+    "cookery_pack_sha256": "b3bcc801ecc9a56990c8b6e6e2c77ef5b880a84cd85731eff5bd3ba55b20d08",
+    "series_plugins": {
+      "doll": "d1fc8ec3c239d728fa30803dad2f6aaf18775084d438eba54def656705b46991",
+      "tavern": "f7dd298b33c38964ddb08c4c02f8ebf66820522b4714508049bb521d09b3fb06",
+      "deco": "cd495950b95cb18bd1d9f375718983ef179b028a8a967f3d2d828e610676fb09",
+      "music": "613e14bdd90f2f64ad708db5e12fc4e5ee1f91cf3eab31f2af1702835503f3fe"
+    },
+    "series_packs": {
+      "doll": "d9223798c53746eda00fe07507c35df38c3575899dfb86e7ce991f077b70e8ac",
+      "tavern": "003fbc86d47b10925dc188f0ab55b05ef295f5fb38845c88ac033dbd59148033",
+      "deco": "cf68733a91f549538785126595de9be62fbcade5a4061b052da2bbfa7ee3d4d4",
+      "music": "b33d0ee1752d983824b873f2f8487b94ce9b5c7e1f2c95ca7e9dd7025df402da",
+      "shared": "93574d3d29f35838ea7ce0bb5bdceacf32b1d45de253aa8cdfd49fe16660b784"
+    }
+  },
+  "base_resources": ["default_assets", "default_feature_populator", "default_templates", "internal", "legacy_armor", "remove_shulker_head"],
+  "instances": {
+    "paper": {
+      "port": 25591,
+      "startup": "PASS",
+      "plugins_loaded": ["CraftEngine", "KaleidoscopeCookeryPlugin", "KaleidoscopeDollPlugin", "KaleidoscopeTavernPlugin", "KaleidoscopeDecoPlugin", "KaleidoscopeMusicPlugin"],
+      "cookery_blocks_self_check": "PASS 11/11",
+      "cookery_items_loaded": 451,
+      "cookery_blocks_loaded": 64,
+      "cookery_recipes_loaded": 90,
+      "shutdown": "PASS",
+      "resource_pack": "NOT_TESTED",
+      "player_flow": "NOT_TESTED",
+      "vanilla_client": "NOT_TESTED"
+    },
+    "folia": {
+      "port": 25592,
+      "startup": "PASS",
+      "plugins_loaded": ["CraftEngine", "KaleidoscopeCookeryPlugin", "KaleidoscopeDollPlugin", "KaleidoscopeTavernPlugin", "KaleidoscopeDecoPlugin", "KaleidoscopeMusicPlugin"],
+      "cookery_blocks_self_check": "PASS 11/11",
+      "cookery_items_loaded": 451,
+      "cookery_blocks_loaded": 64,
+      "cookery_recipes_loaded": 90,
+      "shutdown": "PASS",
+      "resource_pack": "NOT_TESTED",
+      "player_flow": "NOT_TESTED",
+      "vanilla_client": "NOT_TESTED"
+    }
+  },
+  "initial_failure": {
+    "cause": "Cookery ZIP was installed without CraftEngine base resource packs",
+    "symptoms": ["24 visual state capacity warnings", "11 Cookery block registrations missing"],
+    "fixed_by": "prepare_independent_servers.py base-resources extraction and default pack installation"
+  }
+}
