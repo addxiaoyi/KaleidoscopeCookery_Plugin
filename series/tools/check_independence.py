@@ -26,6 +26,18 @@ def _plugin(path: Path) -> dict:
     return data
 
 
+def _single_match(roots: tuple[Path, ...], pattern: str) -> tuple[Path | None, str | None]:
+    matches: dict[Path, None] = {}
+    for root in roots:
+        if root.is_dir():
+            for candidate in root.glob(pattern):
+                if candidate.is_file():
+                    matches[candidate.resolve()] = None
+    if len(matches) > 1:
+        return None, f"ambiguous artifacts for {pattern}: {sorted(str(path) for path in matches)}"
+    return (next(iter(matches), None), None)
+
+
 def check(source_root: Path = SUITE, artifacts: Path | None = None,
           packs: Path | None = None) -> dict:
     _, specs, _ = load_module_specs()
@@ -53,14 +65,13 @@ def check(source_root: Path = SUITE, artifacts: Path | None = None,
                         "metadata": str(metadata_path.relative_to(source_root))})
 
         if artifacts:
-            candidates = (
-                artifacts / f"Kaleidoscope{module.capitalize()}-0.1.0-dev.jar",
-                artifacts / module / "build/libs" / f"Kaleidoscope{module.capitalize()}-0.1.0-dev.jar",
-                source_root / module / "build/libs" / f"Kaleidoscope{module.capitalize()}-0.1.0-dev.jar",
-            )
-            jar = next((candidate for candidate in candidates if candidate.is_file()), candidates[0])
-            if not jar.is_file():
-                errors.append(f"{module}: missing JAR {jar}")
+            pattern = f"Kaleidoscope{module.capitalize()}-*.jar"
+            jar, error = _single_match((artifacts, artifacts / module / "build/libs",
+                                        source_root / module / "build/libs"), pattern)
+            if error:
+                errors.append(f"{module}: {error}")
+            elif jar is None:
+                errors.append(f"{module}: missing JAR matching {pattern}")
             else:
                 with ZipFile(jar) as archive:
                     names = archive.namelist()
@@ -71,9 +82,12 @@ def check(source_root: Path = SUITE, artifacts: Path | None = None,
                         errors.append(f"{module}: JAR contains unrelocated shared/server classes")
 
         if packs:
-            pack = packs / f"{module}-ce-pack-0.1.0-dev.zip"
-            if not pack.is_file():
-                errors.append(f"{module}: missing CE pack {pack}")
+            pattern = f"{module}-ce-pack-*.zip"
+            pack, error = _single_match((packs,), pattern)
+            if error:
+                errors.append(f"{module}: {error}")
+            elif pack is None:
+                errors.append(f"{module}: missing CE pack matching {pattern}")
             else:
                 with ZipFile(pack) as archive:
                     names = set(archive.namelist())
