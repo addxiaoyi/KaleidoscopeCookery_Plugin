@@ -1,4 +1,6 @@
 package net.kaleidoscope.cookery.block.entity;
+
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
 import net.kaleidoscope.cookery.item.CookeryEnchantments;
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
 import net.kaleidoscope.cookery.util.BlockStates;
@@ -246,12 +248,12 @@ public class ChoppingBoardController extends BlockEntityController {
         BlockEntityNbt.putItem(data, K_ITEM, placedItem);
         if (cookingPlan != null) data.put(K_PROCESSING_PLAN, cookingPlan.save());
         data.putBoolean(K_PROCESSING_BLOCKED, processingBlocked);
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) {
             return;
         }

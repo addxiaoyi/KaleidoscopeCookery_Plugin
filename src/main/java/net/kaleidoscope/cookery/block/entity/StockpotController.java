@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
 import net.kaleidoscope.cookery.util.FoliaUtil;
 
@@ -601,14 +603,14 @@ public class StockpotController extends BlockEntityController {
             data.putString(K_CARRIER, resultCarrier.asString());
         }
         BlockEntityNbt.putItem(data, K_LID_ITEM, lidItem);
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
         progressDirty = false;
         heatCacheInitialized = false;
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) return;
 
         int dataVersion = data.getInt(K_DATA_VERSION, Config.itemDataFixerUpperFallbackVersion());

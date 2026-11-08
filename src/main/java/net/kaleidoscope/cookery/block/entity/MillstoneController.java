@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
 
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
@@ -1446,7 +1448,7 @@ public class MillstoneController extends FurnitureController {
         }
         data.put(K_GRIND_ITEMS, grindTag);
         data.putInt(K_GRIND_DATA_VERSION, VersionHelper.WORLD_VERSION);
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
@@ -1461,7 +1463,7 @@ public class MillstoneController extends FurnitureController {
         }
         filledSlots = 0;
 
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) return;
         this.animating = data.getBoolean(K_ANIMATING, false);
         this.orbitAngle = data.getFloat(K_ORBIT_ANGLE, 0f);

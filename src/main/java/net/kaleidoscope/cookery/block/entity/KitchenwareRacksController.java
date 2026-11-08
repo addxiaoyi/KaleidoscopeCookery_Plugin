@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.block.behavior.KitchenwareRacksBehavior;
 
 import net.momirealms.craftengine.core.block.ImmutableBlockState;
@@ -146,14 +148,14 @@ public final class KitchenwareRacksController extends BlockEntityController {
         CompoundTag data = BlockEntityNbt.newData();
         BlockEntityNbt.putItem(data, K_ITEM_LEFT, this.itemLeft);
         BlockEntityNbt.putItem(data, K_ITEM_RIGHT, this.itemRight);
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
         this.itemLeft = Item.empty();
         this.itemRight = Item.empty();
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) {
             return;
         }

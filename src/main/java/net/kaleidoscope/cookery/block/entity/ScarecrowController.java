@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.api.KaleidoscopeAdvancements;
 
 import net.kaleidoscope.cookery.block.behavior.ScarecrowBehavior;
@@ -417,13 +419,13 @@ public final class ScarecrowController extends FurnitureController {
     public void saveCustomData(CompoundTag tag) {
         CompoundTag data = BlockEntityNbt.newData();
         data.put(K_ITEMS, BlockEntityNbt.saveSlots(this.items));
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
         Arrays.fill(this.items, Item.empty());
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) {
             return;
         }

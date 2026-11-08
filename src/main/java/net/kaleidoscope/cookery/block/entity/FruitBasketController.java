@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.block.behavior.FruitBasketBehavior;
 import net.kaleidoscope.cookery.block.entity.render.TrackedPlayers;
 import net.kaleidoscope.cookery.entity.cat.FruitBasketCatGoal;
@@ -215,13 +217,13 @@ public final class FruitBasketController extends BlockEntityController {
         CompoundTag data = new CompoundTag();
         data.putInt(K_DATA_VERSION, VersionHelper.WORLD_VERSION);
         data.put(K_ITEMS, BlockEntityNbt.saveItems(items));
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
         Arrays.fill(items, Item.empty());
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data != null) {
             BlockEntityNbt.loadItems(data.getList(K_ITEMS), BlockEntityNbt.dataVersion(data), items);
         }

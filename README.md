@@ -64,6 +64,7 @@
 - `python tools/build_all.py` 提供本地统一入口。严格上游导入仍要求按 `docs/research/organization-checkouts.json` 恢复同级 `.references/`，没有来源 checkout 时不会伪造导入通过。
 - `series/tools/prepare_independent_servers.py` 会按 [`acceptance-matrix.json`](series/docs/acceptance-matrix.json) 生成 Paper/Folia 隔离安装目录和哈希清单；它只准备文件，不启动服务器。安装与升级步骤见 [install-guide](docs/install-guide.md) 和 [upgrade-guide](docs/upgrade-guide.md)。
 - `tools/audit_licenses.py` 会按锁定提交扫描八个上游仓库的许可证和 NOTICE 文件，生成证据哈希；缺少文件或未经人工确认时保持阻断状态。
+- 厨房 17 个 BlockEntity 控制器已通过 `CookeryBlockStateEnvelope` 写入版本化旁路信封，保留旧数据 key 作为兼容投影；未知 schema、namespace 或 source commit 会阻止读取。根工程本轮测试为 142 项通过。
 
 ### 后续完整计划（厨房优先）
 

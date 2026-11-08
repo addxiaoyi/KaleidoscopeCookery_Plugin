@@ -7,6 +7,7 @@ import net.kaleidoscope.cookery.catalog.PlateServingEngine;
 import net.kaleidoscope.cookery.catalog.QualityProfile;
 import net.kaleidoscope.cookery.item.CookeryFoodItems;
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
 import net.kaleidoscope.cookery.util.BlockStates;
 import net.kaleidoscope.cookery.util.DropUtils;
 import net.kaleidoscope.cookery.util.InventoryUtils;
@@ -172,12 +173,12 @@ public final class PlateController extends BlockEntityController {
         data.putInt(K_SCHEMA, SCHEMA_VERSION);
         data.putString(K_SERVING, serving.encode());
         BlockEntityNbt.putItem(data, K_SOURCE_ITEM, sourceItem);
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null || !data.containsKey(K_SERVING)) {
             return;
         }

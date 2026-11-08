@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.block.behavior.ChairBehavior;
 import net.kaleidoscope.cookery.item.CarpetColors;
 import net.kaleidoscope.cookery.util.InteractGuard;
@@ -134,12 +136,12 @@ public final class ChairController extends FurnitureController {
         }
         CompoundTag data = new CompoundTag();
         data.putString(K_CARPET, current.asString());
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) {
             return;
         }

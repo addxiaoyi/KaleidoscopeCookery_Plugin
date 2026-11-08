@@ -6,6 +6,7 @@ import net.kaleidoscope.cookery.recipe.BambooTrayMode;
 import net.kaleidoscope.cookery.recipe.BambooTrayRecipe;
 import net.kaleidoscope.cookery.recipe.FoodRecipeRegistry;
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
 import net.kaleidoscope.cookery.util.DropUtils;
 import net.kaleidoscope.cookery.util.InventoryUtils;
 import net.momirealms.craftengine.bukkit.util.ItemStackUtils;
@@ -294,12 +295,12 @@ public final class BambooTrayController extends BlockEntityController {
         saved.put("items", items);
         saved.putIntArray("progress", ticks);
         saved.putByteArray("completion", completion);
-        tag.put(DATA_KEY, saved);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, saved);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
-        CompoundTag saved = tag.getCompound(DATA_KEY);
+        CompoundTag saved = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (saved == null) {
             return;
         }

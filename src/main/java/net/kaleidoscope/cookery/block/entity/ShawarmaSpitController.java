@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
 import net.kaleidoscope.cookery.util.BlockStates;
 import net.kaleidoscope.cookery.block.behavior.ShawarmaSpitBehavior;
@@ -404,7 +406,7 @@ public class ShawarmaSpitController extends BlockEntityController {
         }
         data.put(K_ITEMS, itemsTag);
         data.putFloat(K_CURRENT_ROTATION, currentRotation);
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
@@ -422,7 +424,7 @@ public class ShawarmaSpitController extends BlockEntityController {
             Arrays.fill(completionBlocked[l], false);
         }
 
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) return;
         int dataVersion = data.getInt(K_DATA_VERSION, Config.itemDataFixerUpperFallbackVersion());
 

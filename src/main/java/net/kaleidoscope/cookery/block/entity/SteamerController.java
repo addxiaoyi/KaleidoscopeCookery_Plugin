@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.block.behavior.SteamerBehavior;
 
 import net.momirealms.craftengine.bukkit.util.BlockStateUtils;
@@ -484,7 +486,7 @@ public class SteamerController extends BlockEntityController {
         }
         data.put(K_COOKING_PLANS, plans);
         data.putIntArray(K_BLOCKED, blocked);
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
@@ -496,7 +498,7 @@ public class SteamerController extends BlockEntityController {
         needsPlanHydration = false;
         progressDirty = false;
         environmentInitialized = false;
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data != null) {
             this.seed = data.getLong(K_SEED, System.currentTimeMillis());
             this.hasLid = data.getBoolean(K_HAS_LID, false);

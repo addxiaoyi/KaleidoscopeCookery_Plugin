@@ -1,4 +1,6 @@
 package net.kaleidoscope.cookery.block.entity;
+
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
 import net.kaleidoscope.cookery.block.behavior.EnamelBasinBehavior;
 
 import net.kaleidoscope.cookery.util.InventoryUtils;
@@ -110,12 +112,12 @@ public class EnamelBasinController extends BlockEntityController {
         CompoundTag data = new CompoundTag();
         data.putInt(K_OIL_COUNT, oilCount);
         data.putBoolean(K_CLOSED, closed);
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) return;
         this.oilCount = data.getInt(K_OIL_COUNT, 0);
         this.closed = data.getBoolean(K_CLOSED, true);

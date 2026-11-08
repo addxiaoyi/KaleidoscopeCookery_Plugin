@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.util.MessageKeys;
 import net.kaleidoscope.cookery.block.behavior.TrashCanBehavior;
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
@@ -958,13 +960,13 @@ public class TrashCanController extends FurnitureController {
         CompoundTag data = new CompoundTag();
         data.putInt(K_DATA_VERSION, VersionHelper.WORLD_VERSION);
         data.put(K_ITEMS, BlockEntityNbt.saveSlots(storage));
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
         Arrays.fill(storage, Item.empty());
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) {
             element.refreshItems();
             return;

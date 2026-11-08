@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.block.behavior.TableBehavior;
 import net.kaleidoscope.cookery.item.CarpetColors;
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
@@ -115,13 +117,13 @@ public final class TableController extends BlockEntityController {
         }
         CompoundTag data = BlockEntityNbt.newData();
         data.putString(K_CARPET, current.asString());
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
         this.carpet = null;
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) {
             return;
         }

@@ -1,5 +1,7 @@
 package net.kaleidoscope.cookery.block.entity;
 
+import net.kaleidoscope.cookery.util.CookeryBlockStateEnvelope;
+
 import net.kaleidoscope.cookery.util.MessageKeys;
 import net.kaleidoscope.cookery.util.BlockEntityNbt;
 import net.kaleidoscope.cookery.util.BlockStates;
@@ -602,14 +604,14 @@ public final class TeapotController extends BlockEntityController {
         BlockEntityNbt.putItem(data, K_INPUT, input);
         BlockEntityNbt.putItem(data, K_RESULT, result);
         data.putInt(K_SERVINGS, servings);
-        tag.put(DATA_KEY, data);
+        CookeryBlockStateEnvelope.put(tag, DATA_KEY, data);
     }
 
     @Override
     public void loadCustomData(CompoundTag tag) {
         progressDirty = false;
         heatCacheInitialized = false;
-        CompoundTag data = tag.getCompound(DATA_KEY);
+        CompoundTag data = CookeryBlockStateEnvelope.payload(tag, DATA_KEY);
         if (data == null) {
             return;
         }

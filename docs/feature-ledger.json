@@ -89,7 +89,7 @@
       "parity_level": "A",
       "status": "unit_tested",
       "source_ids": ["KaleidoscopeCookery:food-effects"],
-      "evidence": ["src/test", "src/main/java/net/kaleidoscope/cookery/util/CookeryStateEnvelope.java"]
+      "evidence": ["src/test", "src/main/java/net/kaleidoscope/cookery/util/CookeryStateEnvelope.java", "src/main/java/net/kaleidoscope/cookery/util/CookeryBlockStateEnvelope.java"]
     },
     {
       "feature_id": "C04",
