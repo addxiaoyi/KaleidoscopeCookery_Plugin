@@ -155,6 +155,15 @@
       "evidence": ["series/music/src/test"]
     },
     {
+      "feature_id": "M02",
+      "module": "music",
+      "title": "官方吉他贴图与原版物品模型",
+      "parity_level": "B",
+      "status": "unit_tested",
+      "source_ids": ["MusicPlus:ce-guitar-texture"],
+      "evidence": ["series/tools/import_sources.py", "series/tools/test_import_sources.py", "series/docs/music-import.json"]
+    },
+    {
       "feature_id": "M05",
       "module": "music",
       "title": "原版客户端演奏验收",

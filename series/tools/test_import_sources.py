@@ -1,5 +1,5 @@
 import unittest
-from import_sources import (parse_json, resolve_ingredient, strip_trailing_commas, model_tree,
+from import_sources import (parse_json, resolve_ingredient, strip_trailing_commas, model_tree, music,
                             inherit_template, loot_components, crafting, json_bytes, pack_groups,
                             load_module_specs, PackDefinition, PackBuilder)
 
@@ -30,6 +30,22 @@ class ImportTests(unittest.TestCase):
         PackBuilder("test", "shared").add_module(bundle, definition, source,
                                                   {"items": {}}, {}, {"module": "music"})
         self.assertEqual("kseries_music", parse_json(bundle["music/pack.yml"])["namespace"])
+
+    def test_music_import_uses_the_official_guitar_texture_in_a_vanilla_model(self):
+        class SourceFixture:
+            files = {}
+
+            @staticmethod
+            def resources(folder):
+                assert folder == "assets"
+                return {"musicplus/custom_instrument/textures/ce_guitar.png": b"png"}
+
+        _, definitions, assets, pending = music(SourceFixture())
+        self.assertEqual("musicplus:item/handheld_instrument",
+                         definitions["items"]["musicplus:handheld_instrument"]["model"]["path"])
+        self.assertEqual("minecraft:item/generated",
+                         parse_json(assets["musicplus/models/item/handheld_instrument.json"])["parent"])
+        self.assertIn("official guitar texture", pending[0])
 
     def test_forge_tags_keep_vanilla_members_and_reject_unknown_groups(self):
         self.assertEqual(["minecraft:copper_ingot"], resolve_ingredient({"tag": "forge:ingots/copper"}, {}))

@@ -8,9 +8,9 @@
   "item_definitions": 1,
   "furniture_definitions": 0,
   "crafting_recipes": 0,
-  "assets": 0,
+  "assets": 6,
   "pending": [
-    "handheld instrument has an explicit note-block placeholder model",
+    "upstream Bedrock geometry and first-person animation require a client renderer; the CE item uses the official guitar texture with vanilla display transforms",
     "MIDI is played as scheduled vanilla note sounds, without the mod's client synthesizer or sustained voice rendering"
   ]
 }

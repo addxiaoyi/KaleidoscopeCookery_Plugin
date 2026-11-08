@@ -582,10 +582,31 @@ def deco(source: Source) -> tuple[dict, dict, dict, list]:
 
 
 def music(source: Source) -> tuple[dict, dict, dict, list]:
-    # Original instrument uses builtin/entity; an explicit vanilla note-block substitute is visible without a client mod.
+    assets = source.resources("assets")
+    texture = "musicplus/custom_instrument/textures/ce_guitar.png"
+    if texture not in assets:
+        raise ValueError(f"Missing MusicPlus instrument texture: {texture}")
+    # The upstream Bedrock asset keeps a second namespace directory below
+    # assets/<namespace>. Mirror it into the vanilla texture root expected by
+    # Java item models while retaining the original source path in the pack.
+    assets["musicplus/textures/custom_instrument/ce_guitar.png"] = assets[texture]
+    # The upstream item model uses the client-only builtin/entity renderer. Use
+    # the official guitar texture through a vanilla generated model so the
+    # item remains visible to an unmodded client.
+    model_path = "musicplus/models/item/handheld_instrument.json"
+    assets[model_path] = json_bytes({
+        "parent": "minecraft:item/generated",
+        "textures": {"layer0": "musicplus:custom_instrument/ce_guitar"},
+        "display": {
+            "thirdperson_righthand": {"rotation": [75, 45, 0], "translation": [0, 2.5, 0], "scale": [0.375, 0.375, 0.375]},
+            "thirdperson_lefthand": {"rotation": [75, 45, 0], "translation": [0, 2.5, 0], "scale": [0.375, 0.375, 0.375]},
+            "firstperson_righthand": {"rotation": [-9, 155, -3], "translation": [0.5, 4, 0], "scale": [0.5, 0.5, 0.5]},
+            "firstperson_lefthand": {"rotation": [-9, 155, -3], "translation": [0.5, 4, 0], "scale": [0.5, 0.5, 0.5]}
+        }
+    })
     id_ = "musicplus:handheld_instrument"
-    return {}, {"items": {id_: item(id_, "minecraft:block/note_block", "森罗乐器", max_stack=1)}}, {}, [
-        "handheld instrument has an explicit note-block placeholder model",
+    return {}, {"items": {id_: item(id_, "musicplus:item/handheld_instrument", "森罗乐器", max_stack=1)}}, assets, [
+        "upstream Bedrock geometry and first-person animation require a client renderer; the CE item uses the official guitar texture with vanilla display transforms",
         "MIDI is played as scheduled vanilla note sounds, without the mod's client synthesizer or sustained voice rendering",
     ]
 
