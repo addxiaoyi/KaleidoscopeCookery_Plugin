@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "policy": "A release requires human review of code, data, models, textures, fonts, sounds and documentation for every source repository.",
+  "repositories": [
+    {"name": "KaleidoscopeCookery", "role": "Cookery source and kitchen assets", "redistribution": "review_required"},
+    {"name": "KaleidoscopeDoll", "role": "Doll source and artwork", "redistribution": "review_required"},
+    {"name": "KaleidoscopeTavern", "role": "Tavern source and assets", "redistribution": "review_required"},
+    {"name": "KaleidoscopeDeco", "role": "Deco data, source and assets", "redistribution": "review_required"},
+    {"name": "MusicPlus", "role": "Music source and audio assets", "redistribution": "review_required"},
+    {"name": "KaleidoscopeDemo", "role": "Reference art and demonstrations", "redistribution": "review_required"},
+    {"name": "KaleidoscopeWeb", "role": "Official website reference", "redistribution": "review_required"},
+    {"name": "midi", "role": "MIDI library reference", "redistribution": "review_required"}
+  ]
+}

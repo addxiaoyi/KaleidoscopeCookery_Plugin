@@ -62,7 +62,7 @@
       "parity_level": "C",
       "status": "blocked",
       "source_ids": ["license:upstream-assets"],
-      "evidence": ["docs/research/organization-checkouts.json"]
+      "evidence": ["docs/research/organization-checkouts.json", "docs/license-policy.json", "tools/audit_licenses.py"]
     },
     {
       "feature_id": "C01",

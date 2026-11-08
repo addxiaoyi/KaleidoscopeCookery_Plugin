@@ -16,6 +16,7 @@
 python -m unittest discover -s tools -p 'test_*.py' -v
 PYTHONPATH=series/tools python -m unittest discover -s series/tools -p 'test_*.py' -v
 python tools/feature_ledger.py
+python tools/audit_licenses.py --output build/license-audit.json
 PYTHONPATH=series/tools python series/tools/check_independence.py
 ```
 

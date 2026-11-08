@@ -63,6 +63,7 @@
 - 新增 `.github/workflows/ci.yml`，分别运行根/系列 Java 构建、两套 Python 工具测试、功能台账和独立性检查；固定同时提供 JDK 21 与 JDK 25。
 - `python tools/build_all.py` 提供本地统一入口。严格上游导入仍要求按 `docs/research/organization-checkouts.json` 恢复同级 `.references/`，没有来源 checkout 时不会伪造导入通过。
 - `series/tools/prepare_independent_servers.py` 会按 [`acceptance-matrix.json`](series/docs/acceptance-matrix.json) 生成 Paper/Folia 隔离安装目录和哈希清单；它只准备文件，不启动服务器。安装与升级步骤见 [install-guide](docs/install-guide.md) 和 [upgrade-guide](docs/upgrade-guide.md)。
+- `tools/audit_licenses.py` 会按锁定提交扫描八个上游仓库的许可证和 NOTICE 文件，生成证据哈希；缺少文件或未经人工确认时保持阻断状态。
 
 ### 后续完整计划（厨房优先）
 
