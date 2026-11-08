@@ -1,7 +1,7 @@
 import unittest
 from import_sources import (parse_json, resolve_ingredient, strip_trailing_commas, model_tree,
                             inherit_template, loot_components, crafting, json_bytes, pack_groups,
-                            load_module_specs)
+                            load_module_specs, PackDefinition, PackBuilder)
 
 
 class ImportTests(unittest.TestCase):
@@ -14,6 +14,22 @@ class ImportTests(unittest.TestCase):
         self.assertEqual(("kaleidoscope_doll", "kaleidoscope_tavern", "kaleidoscope_deco", "musicplus"),
                          tuple(m["namespace"] for m in modules))
         self.assertEqual("shared", shared)
+
+    def test_pack_definition_keeps_source_and_target_namespaces_separate(self):
+        definition = PackDefinition.from_spec({"module": "doll", "sourceRepository": "KaleidoscopeDoll",
+                                                "namespace": "kaleidoscope_doll", "packNamespace": "kseries_doll",
+                                                "converter": "doll"})
+        self.assertEqual("kaleidoscope_doll", definition.namespace)
+        self.assertEqual({"namespace": "kseries_doll", "name": "Kaleidoscope doll", "version": "test"},
+                         definition.pack_metadata("test"))
+
+    def test_pack_builder_writes_declared_pack_namespace(self):
+        definition = PackDefinition("music", "MusicPlus", "musicplus", "kseries_music", "music")
+        source = type("Snapshot", (), {"files": {}})()
+        bundle = {}
+        PackBuilder("test", "shared").add_module(bundle, definition, source,
+                                                  {"items": {}}, {}, {"module": "music"})
+        self.assertEqual("kseries_music", parse_json(bundle["music/pack.yml"])["namespace"])
 
     def test_forge_tags_keep_vanilla_members_and_reject_unknown_groups(self):
         self.assertEqual(["minecraft:copper_ingot"], resolve_ingredient({"tag": "forge:ingots/copper"}, {}))

@@ -3,6 +3,7 @@
 ## 2026-11-08 工程治理检查
 
 - `tools/module-specs.json` 现在是每个模块的唯一同步声明：模块 ID、官方来源仓库、来源 namespace、目标 CE pack namespace 和 converter。`import_sources.py` 会拒绝未知字段/重复 ID/相同来源与目标 namespace，并将声明写入 `IMPORT-REPORT.json`。
+- `import_sources.py` 的同步流水线已经拆成 `SourceSnapshot`、`PackDefinition`、`ModelConverter`、`CatalogWriter`、`PackBuilder` 和 `PackValidator`，旧的 `Source` 名称保留为兼容别名。每个阶段都在生成前检查固定提交、输出目录、catalog、CE 引用和 ZIP 路径。
 - `PYTHONPATH=series/tools python series/tools/check_independence.py`：四个 plugin.yml 的硬依赖均只有 CraftEngine；系列 JAR 和 CE ZIP 可选检查没有发现未重定位的 common/server 类、缺少 pack 根文件或路径穿越。该检查不等于 Paper/Folia 启动或客户端接包。
 - 独立验收状态与证据以根目录 [`docs/feature-ledger.json`](../../docs/feature-ledger.json) 为准；脚本不会根据代码数量自动把状态升级为 accepted。
 - 根目录 [`docs/build-baseline.md`](../../docs/build-baseline.md) 和 `.github/workflows/ci.yml` 固定 Java 21/25、Gradle、Python、静态检查和报告上传命令。没有 `.references/` 时 CI 不运行伪造的上游导入检查。

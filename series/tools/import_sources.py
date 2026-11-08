@@ -9,6 +9,7 @@ import copy
 from deco_interactions import rules as deco_rules, link_variants, selected_model
 
 import argparse
+from dataclasses import dataclass
 import io
 import json
 import re
@@ -94,7 +95,25 @@ def git(root: Path, *args: str) -> bytes:
     return subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True).stdout
 
 
-class Source:
+@dataclass(frozen=True)
+class PackDefinition:
+    module: str
+    source_repository: str
+    namespace: str
+    pack_namespace: str
+    converter: str
+
+    @classmethod
+    def from_spec(cls, spec: dict[str, str]) -> "PackDefinition":
+        return cls(spec["module"], spec["sourceRepository"], spec["namespace"],
+                   spec["packNamespace"], spec["converter"])
+
+    def pack_metadata(self, version: str) -> dict[str, str]:
+        return {"namespace": self.pack_namespace, "name": "Kaleidoscope " + self.module,
+                "version": version}
+
+
+class SourceSnapshot:
     def __init__(self, name: str, commit: str) -> None:
         self.name = name
         self.commit = commit
@@ -129,6 +148,10 @@ class Source:
                 if path.startswith(prefix):
                     merged[path[len(prefix):]] = content
         return merged
+
+
+# Kept for callers that imported the pre-refactor helper.
+Source = SourceSnapshot
 
 
 def item(id_: str, model: str, name: str, *, max_stack: int = 64) -> dict[str, Any]:
@@ -567,6 +590,70 @@ def music(source: Source) -> tuple[dict, dict, dict, list]:
     ]
 
 
+class ModelConverter:
+    """Resolve a declared converter name without duplicating import routing."""
+
+    def __init__(self, functions: dict[str, Any]) -> None:
+        self.functions = functions
+
+    def convert(self, definition: PackDefinition, source: SourceSnapshot) -> tuple[dict, dict, dict, list]:
+        converter = self.functions.get(definition.converter)
+        if converter is None:
+            raise ValueError(f"Unknown module converter: {definition.converter}")
+        return converter(source)
+
+
+class CatalogWriter:
+    def __init__(self, suite: Path, check: bool) -> None:
+        self.suite = suite
+        self.check = check
+
+    def write(self, definition: PackDefinition, catalog: dict) -> None:
+        path = self.suite / definition.module / "src/main/resources/catalog.json"
+        if self.check:
+            if path.read_bytes() != json_bytes(catalog):
+                raise ValueError(f"Stale generated catalog: {path}")
+        else:
+            write(path, json_bytes(catalog))
+
+
+class PackValidator:
+    @staticmethod
+    def validate(bundle: dict[str, bytes]) -> dict[str, Any]:
+        from validate_packs import validate
+        result = validate(bundle)
+        if result["errors"]:
+            raise ValueError("Pack validation failed: " + "\n".join(result["errors"]))
+        return result
+
+
+class PackBuilder:
+    def __init__(self, version: str, shared_pack: str) -> None:
+        self.version = version
+        self.shared_pack = shared_pack
+
+    def add_module(self, bundle: dict[str, bytes], definition: PackDefinition,
+                   source: SourceSnapshot, definitions: dict, assets: dict[str, bytes],
+                   report: dict[str, Any]) -> None:
+        module = definition.module
+        bundle[f"{module}/pack.yml"] = json_bytes(definition.pack_metadata(self.version))
+        bundle[f"{module}/configuration/content.yml"] = json_bytes(definitions)
+        for path, content in assets.items():
+            bundle[f"{module}/resourcepack/assets/{path}"] = content
+        for path, content in source.files.items():
+            if "/" not in path and ("LICENSE" in path.upper() or path.lower().startswith("readme")):
+                bundle[f"{module}/upstream-notices/{path}"] = content
+        bundle[f"{module}/IMPORT-REPORT.json"] = json_bytes(report)
+
+    def add_shared_atlases(self, bundle: dict[str, bytes], atlases: dict[str, list[dict]]) -> None:
+        if not atlases:
+            return
+        bundle[f"{self.shared_pack}/pack.yml"] = json_bytes({
+            "namespace": "kseries_shared", "name": "Kaleidoscope shared atlases", "version": self.version})
+        for path, sources in atlases.items():
+            bundle[f"{self.shared_pack}/resourcepack/assets/{path}"] = json_bytes({"sources": sources})
+
+
 def json_bytes(value: Any) -> bytes:
     return (json.dumps(value, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
@@ -622,25 +709,19 @@ def main() -> None:
     modules = tuple(spec["module"] for spec in specs) + (shared_pack,)
     records = parse_json(LOCK.read_bytes())["repositories"]
     pinned = {r["name"]: r for r in records}
-    converter_functions = {"doll": doll, "tavern": tavern, "deco": deco, "music": music}
-    converters = []
-    for spec in specs:
-        converter = converter_functions.get(spec["converter"])
-        if converter is None:
-            raise ValueError(f"Unknown module converter: {spec['converter']}")
-        converters.append((spec, converter))
+    converter = ModelConverter({"doll": doll, "tavern": tavern, "deco": deco, "music": music})
     prepared = []
-    for spec, converter in converters:
-        module = spec["module"]
-        repository = spec["sourceRepository"]
-        source = Source(repository, pinned[repository]["commit"])
-        catalog, definitions, assets, pending = converter(source)
-        report = {"module": module, "source": repository, "commit": source.commit,
-                  "namespace": spec["namespace"], "pack_namespace": spec["packNamespace"],
-                  "converter": spec["converter"], "item_definitions": len(definitions['items']),
+    for raw_spec in specs:
+        definition = PackDefinition.from_spec(raw_spec)
+        source = SourceSnapshot(definition.source_repository,
+                                pinned[definition.source_repository]["commit"])
+        catalog, definitions, assets, pending = converter.convert(definition, source)
+        report = {"module": definition.module, "source": definition.source_repository, "commit": source.commit,
+                  "namespace": definition.namespace, "pack_namespace": definition.pack_namespace,
+                  "converter": definition.converter, "item_definitions": len(definitions['items']),
                   "furniture_definitions": len(definitions.get('furniture', {})), "crafting_recipes": len(definitions.get('recipes', {})),
                   "assets": len(assets), "pending": pending}
-        prepared.append((spec, source, catalog, definitions, assets, report))
+        prepared.append((definition, source, catalog, definitions, assets, report))
     atlases: dict[str, list[dict]] = {}
     for _, _, _, _, assets, report in prepared:
         for path in list(assets):
@@ -652,33 +733,16 @@ def main() -> None:
                 merged.extend(entry for entry in atlas["sources"] if entry not in merged)
         report["assets"] = len(assets)
     bundle: dict[str, bytes] = {}
-    for spec, source, catalog, definitions, assets, report in prepared:
-        module = spec["module"]
-        catalog_path = SUITE / module / "src/main/resources/catalog.json"
-        if args.check:
-            if catalog_path.read_bytes() != json_bytes(catalog):
-                raise ValueError(f"Stale generated catalog: {catalog_path}")
-        else:
-            write(catalog_path, json_bytes(catalog))
-        bundle[f"{module}/pack.yml"] = json_bytes({"namespace": spec["packNamespace"], "name": "Kaleidoscope " + module, "version": pack_version})
-        bundle[f"{module}/configuration/content.yml"] = json_bytes(definitions)
-        for path, content in assets.items():
-            bundle[f"{module}/resourcepack/assets/{path}"] = content
-        for path, content in source.files.items():
-            if "/" not in path and ("LICENSE" in path.upper() or path.lower().startswith("readme")):
-                bundle[f"{module}/upstream-notices/{path}"] = content
-        bundle[f"{module}/IMPORT-REPORT.json"] = json_bytes(report)
+    writer = CatalogWriter(SUITE, args.check)
+    builder = PackBuilder(pack_version, shared_pack)
+    for definition, source, catalog, definitions, assets, report in prepared:
+        writer.write(definition, catalog)
+        builder.add_module(bundle, definition, source, definitions, assets, report)
         if not args.check:
-            write(SUITE / "docs" / f"{module}-import.json", json_bytes(report))
-        print(f"{module}: {report['item_definitions']} items, {report['furniture_definitions']} furniture; {len(report['pending'])} explicit limitations")
-    if atlases:
-        bundle[f"{shared_pack}/pack.yml"] = json_bytes({"namespace": "kseries_shared", "name": "Kaleidoscope shared atlases", "version": pack_version})
-        for path, sources in atlases.items():
-            bundle[f"{shared_pack}/resourcepack/assets/{path}"] = json_bytes({"sources": sources})
-    from validate_packs import validate
-    validation = validate(bundle)
-    if validation["errors"]:
-        raise ValueError("Pack validation failed: " + "\n".join(validation["errors"]))
+            write(SUITE / "docs" / f"{definition.module}-import.json", json_bytes(report))
+        print(f"{definition.module}: {report['item_definitions']} items, {report['furniture_definitions']} furniture; {len(report['pending'])} explicit limitations")
+    builder.add_shared_atlases(bundle, atlases)
+    validation = PackValidator.validate(bundle)
     if not args.check:
         write(SUITE / "docs/pack-validation.json", json_bytes(validation))
     if args.assets:
