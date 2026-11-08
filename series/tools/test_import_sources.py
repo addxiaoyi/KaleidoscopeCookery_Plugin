@@ -8,7 +8,11 @@ class ImportTests(unittest.TestCase):
     def test_module_specs_define_unique_converter_boundaries(self):
         version, modules, shared = load_module_specs()
         self.assertRegex(version, r"^[A-Za-z0-9._-]+$")
-        self.assertEqual(("doll", "tavern", "deco", "music"), tuple(m["id"] for m in modules))
+        self.assertEqual(("doll", "tavern", "deco", "music"), tuple(m["module"] for m in modules))
+        self.assertEqual(("kseries_doll", "kseries_tavern", "kseries_deco", "kseries_music"),
+                         tuple(m["packNamespace"] for m in modules))
+        self.assertEqual(("kaleidoscope_doll", "kaleidoscope_tavern", "kaleidoscope_deco", "musicplus"),
+                         tuple(m["namespace"] for m in modules))
         self.assertEqual("shared", shared)
 
     def test_forge_tags_keep_vanilla_members_and_reject_unknown_groups(self):

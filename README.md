@@ -20,7 +20,7 @@
 
 ## 📖 简介
 
-开发记录：[架构与实现](docs/DEVELOPMENT.md) · [官方全系列范围](docs/SERIES-SOURCES.md) · [复刻实施表](docs/IMPLEMENTATION-ROADMAP.md) · [竹筛示例与验收](examples/bamboo-tray/README.md) · [本地验证结果](docs/VALIDATION.md)。**换设备请先读下方「开发交接」：全系列复刻尚未完成，摆盘玩家流程和其余厨房差异仍在开发。**
+开发记录：[架构与实现](docs/DEVELOPMENT.md) · [官方全系列范围](docs/SERIES-SOURCES.md) · [复刻实施表](docs/IMPLEMENTATION-ROADMAP.md) · [功能台账](docs/feature-ledger.json) · [构建基线](docs/build-baseline.md) · [竹筛示例与验收](examples/bamboo-tray/README.md) · [本地验证结果](docs/VALIDATION.md)。**换设备请先读下方「开发交接」：全系列复刻尚未完成，摆盘玩家流程和其余厨房差异仍在开发。**
 
 2026-11-07 摆盘检查点：Java 132 项、Python 72 项测试通过。最新厨房包有 342 物品、24 方块、418 状态和 1 石磨家具；其中官方 11 种盘/拼盘接入 `PlateController`，保存品质与源物品 NBT，支持逐口取出、补盘和额外掉落。612 条来源配方中 474 条导出，138 条待处理。Paper/Folia 各三轮通过服务器 API 放置、重启恢复和资源包生成；真实玩家点击、原版客户端、保护/多人尚未整体验收。历史 Folia 启动 CE watchdog 仍 OPEN；全系列目标尚未完成，参见 [厨房对照表](docs/COOKERY-PARITY.md) 和 [系列矩阵](series/docs/PORTING-MATRIX.md)。
 
@@ -54,6 +54,14 @@
 厨房最新 Java 测试报告 **138 项**、Python **72 项**；series Java **59 项**、Python **18 项**。交接构建的命令、退出码、是否缓存命中及测试报告见 [交接证据](docs/handoff/2026-11-07/README.md)，历史运行证据见 [VALIDATION](docs/VALIDATION.md) 和 [石磨验收摘要](docs/research/cookery-millstone-acceptance.json)。不把增量任务写成重新运行全部测试。
 
 仍然开放的问题：Folia 历史冷启动/CE `runDelayTasks().join()` watchdog 尚未证明根因；后续成功不覆盖失败。石磨的旧家具 ticker 引用问题已修复，这是另一个问题。玩家/原版客户端接包、保护插件、多人同家具、Folia 跨区域及独立区块卸载仍未整体验收。
+
+### 工程治理进度（2026-11-08）
+
+- `series/tools/module-specs.json` 已改为数据驱动的 `module`、`sourceRepository`、`namespace`、`packNamespace`、`converter` 声明；导入器据此生成独立 CE 包，并把来源与 namespace 写进导入报告。
+- 新增 [功能台账](docs/feature-ledger.json) 和 `tools/feature_ledger.py`。状态只允许 `not_started / implemented / unit_tested / runtime_tested / client_tested / accepted / blocked`，不会因为代码存在或单测通过自动变成 `accepted`。
+- 新增 `series/tools/check_independence.py`，可检查四个系列 plugin.yml、独立 JAR 和独立 CE ZIP 的边界；检查结果只代表结构，不代替服务器或原版客户端验收。
+- 新增 `.github/workflows/ci.yml`，分别运行根/系列 Java 构建、两套 Python 工具测试、功能台账和独立性检查；固定同时提供 JDK 21 与 JDK 25。
+- `python tools/build_all.py` 提供本地统一入口。严格上游导入仍要求按 `docs/research/organization-checkouts.json` 恢复同级 `.references/`，没有来源 checkout 时不会伪造导入通过。
 
 ### 后续完整计划（厨房优先）
 

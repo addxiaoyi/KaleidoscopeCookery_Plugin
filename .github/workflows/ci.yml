@@ -1,0 +1,111 @@
+name: build-and-validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: senluo-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  java:
+    name: Java tests and Shadow JARs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      # The root project compiles 26.x NMS source sets with JDK 25 while its
+      # main API remains Java 21.  Keep both toolchains visible to Gradle.
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+      - name: Run root tests and acceptance probe build
+        run: |
+          export GRADLE_OPTS="-Dorg.gradle.java.installations.paths=$JAVA_HOME_21_X64,$JAVA_HOME"
+          bash ./gradlew test shadowJar acceptanceJar --no-daemon --no-configuration-cache --console=plain
+      - name: Build independent series plugins
+        run: |
+          export GRADLE_OPTS="-Dorg.gradle.java.installations.paths=$JAVA_HOME_21_X64,$JAVA_HOME"
+          bash ./gradlew -p series build --no-daemon --no-configuration-cache --console=plain
+      - name: Upload Gradle reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gradle-reports
+          if-no-files-found: ignore
+          path: |
+            build/test-results/**
+            series/**/build/test-results/**
+            build/libs/*.jar
+            series/*/build/libs/*.jar
+
+  python:
+    name: Importers and feature ledger
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            tools/requirements.txt
+            series/tools/requirements.txt
+      - name: Install tooling
+        run: python -m pip install -r tools/requirements.txt -r series/tools/requirements.txt
+      - name: Run root tool tests
+        run: python -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Run series tool tests
+        env:
+          PYTHONPATH: series/tools
+        run: python -m unittest discover -s series/tools -p 'test_*.py' -v
+      - name: Validate feature ledger
+        run: python tools/feature_ledger.py --report build/feature-ledger-summary.json
+      - name: Upload ledger report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: feature-ledger
+          if-no-files-found: ignore
+          path: build/feature-ledger-summary.json
+
+  ce-static:
+    name: CE and plugin independence checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install series tooling
+        run: python -m pip install -r series/tools/requirements.txt
+      - name: Check independent plugin metadata
+        env:
+          PYTHONPATH: series/tools
+        run: python series/tools/check_independence.py --report build/independence.json
+      - name: Check importer schema and resource validator tests
+        env:
+          PYTHONPATH: series/tools
+        run: python -m unittest test_import_sources test_validate_packs -v
+      - name: Upload static report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ce-static-report
+          if-no-files-found: ignore
+          path: build/independence.json

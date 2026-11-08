@@ -1,10 +1,34 @@
 {
   "pack_version": "0.1.0-dev",
   "modules": [
-    {"id": "doll", "repository": "KaleidoscopeDoll", "converter": "doll"},
-    {"id": "tavern", "repository": "KaleidoscopeTavern", "converter": "tavern"},
-    {"id": "deco", "repository": "KaleidoscopeDeco", "converter": "deco"},
-    {"id": "music", "repository": "MusicPlus", "converter": "music"}
+    {
+      "module": "doll",
+      "sourceRepository": "KaleidoscopeDoll",
+      "namespace": "kaleidoscope_doll",
+      "packNamespace": "kseries_doll",
+      "converter": "doll"
+    },
+    {
+      "module": "tavern",
+      "sourceRepository": "KaleidoscopeTavern",
+      "namespace": "kaleidoscope_tavern",
+      "packNamespace": "kseries_tavern",
+      "converter": "tavern"
+    },
+    {
+      "module": "deco",
+      "sourceRepository": "KaleidoscopeDeco",
+      "namespace": "kaleidoscope_deco",
+      "packNamespace": "kseries_deco",
+      "converter": "deco"
+    },
+    {
+      "module": "music",
+      "sourceRepository": "MusicPlus",
+      "namespace": "musicplus",
+      "packNamespace": "kseries_music",
+      "converter": "music"
+    }
   ],
   "shared_pack": "shared"
 }

@@ -67,16 +67,23 @@ def load_module_specs() -> tuple[str, tuple[dict[str, str], ...], str]:
     result: list[dict[str, str]] = []
     seen: set[str] = set()
     for module in modules:
-        if not isinstance(module, dict) or set(module) != {"id", "repository", "converter"}:
+        required = {"module", "sourceRepository", "namespace", "packNamespace", "converter"}
+        if not isinstance(module, dict) or set(module) != required:
             raise ValueError("module-specs.json has an invalid module entry")
-        if (not isinstance(module["id"], str) or not re.fullmatch(r"[a-z0-9_-]+", module["id"])
-                or module["id"] in seen):
+        module_id = module["module"]
+        if (not isinstance(module_id, str) or not re.fullmatch(r"[a-z0-9_-]+", module_id)
+                or module_id in seen):
             raise ValueError("module-specs.json has duplicate or invalid module id")
-        if not isinstance(module["repository"], str) or not module["repository"]:
+        if not isinstance(module["sourceRepository"], str) or not module["sourceRepository"]:
             raise ValueError("module-specs.json has an invalid repository")
+        for field in ("namespace", "packNamespace"):
+            if not isinstance(module[field], str) or not re.fullmatch(r"[a-z0-9_-]+", module[field]):
+                raise ValueError(f"module-specs.json has an invalid {field}")
         if not isinstance(module["converter"], str) or not module["converter"]:
             raise ValueError("module-specs.json has an invalid converter")
-        seen.add(module["id"])
+        if module["namespace"] == module["packNamespace"]:
+            raise ValueError("module-specs.json must separate source and pack namespaces")
+        seen.add(module_id)
         result.append(module)
     if shared in seen:
         raise ValueError("shared pack id collides with a module")
@@ -612,7 +619,7 @@ def main() -> None:
     if args.module_archives_dir and args.module_archives_dir.exists():
         raise ValueError(f"Module archive output already exists: {args.module_archives_dir}")
     pack_version, specs, shared_pack = load_module_specs()
-    modules = tuple(spec["id"] for spec in specs) + (shared_pack,)
+    modules = tuple(spec["module"] for spec in specs) + (shared_pack,)
     records = parse_json(LOCK.read_bytes())["repositories"]
     pinned = {r["name"]: r for r in records}
     converter_functions = {"doll": doll, "tavern": tavern, "deco": deco, "music": music}
@@ -621,15 +628,19 @@ def main() -> None:
         converter = converter_functions.get(spec["converter"])
         if converter is None:
             raise ValueError(f"Unknown module converter: {spec['converter']}")
-        converters.append((spec["id"], spec["repository"], converter))
+        converters.append((spec, converter))
     prepared = []
-    for module, repository, converter in converters:
+    for spec, converter in converters:
+        module = spec["module"]
+        repository = spec["sourceRepository"]
         source = Source(repository, pinned[repository]["commit"])
         catalog, definitions, assets, pending = converter(source)
-        report = {"source": repository, "commit": source.commit, "item_definitions": len(definitions['items']),
+        report = {"module": module, "source": repository, "commit": source.commit,
+                  "namespace": spec["namespace"], "pack_namespace": spec["packNamespace"],
+                  "converter": spec["converter"], "item_definitions": len(definitions['items']),
                   "furniture_definitions": len(definitions.get('furniture', {})), "crafting_recipes": len(definitions.get('recipes', {})),
                   "assets": len(assets), "pending": pending}
-        prepared.append((module, source, catalog, definitions, assets, report))
+        prepared.append((spec, source, catalog, definitions, assets, report))
     atlases: dict[str, list[dict]] = {}
     for _, _, _, _, assets, report in prepared:
         for path in list(assets):
@@ -641,14 +652,15 @@ def main() -> None:
                 merged.extend(entry for entry in atlas["sources"] if entry not in merged)
         report["assets"] = len(assets)
     bundle: dict[str, bytes] = {}
-    for module, source, catalog, definitions, assets, report in prepared:
+    for spec, source, catalog, definitions, assets, report in prepared:
+        module = spec["module"]
         catalog_path = SUITE / module / "src/main/resources/catalog.json"
         if args.check:
             if catalog_path.read_bytes() != json_bytes(catalog):
                 raise ValueError(f"Stale generated catalog: {catalog_path}")
         else:
             write(catalog_path, json_bytes(catalog))
-        bundle[f"{module}/pack.yml"] = json_bytes({"namespace": "kseries_" + module, "name": "Kaleidoscope " + module, "version": pack_version})
+        bundle[f"{module}/pack.yml"] = json_bytes({"namespace": spec["packNamespace"], "name": "Kaleidoscope " + module, "version": pack_version})
         bundle[f"{module}/configuration/content.yml"] = json_bytes(definitions)
         for path, content in assets.items():
             bundle[f"{module}/resourcepack/assets/{path}"] = content

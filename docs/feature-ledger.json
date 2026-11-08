@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "statuses": [
+    "not_started",
+    "implemented",
+    "unit_tested",
+    "runtime_tested",
+    "client_tested",
+    "accepted",
+    "blocked"
+  ],
+  "features": [
+    {
+      "feature_id": "E01",
+      "module": "engineering",
+      "title": "可复现构建基线",
+      "parity_level": "A",
+      "status": "implemented",
+      "source_ids": ["toolchain:paper-1.21.11", "toolchain:craftengine-26.9.1"],
+      "evidence": ["docs/build-baseline.md"]
+    },
+    {
+      "feature_id": "E02",
+      "module": "engineering",
+      "title": "Java/Python/CE 静态 CI",
+      "parity_level": "A",
+      "status": "implemented",
+      "source_ids": ["workflow:ci"],
+      "evidence": [".github/workflows/ci.yml"]
+    },
+    {
+      "feature_id": "E03",
+      "module": "engineering",
+      "title": "功能台账与证据状态",
+      "parity_level": "A",
+      "status": "implemented",
+      "source_ids": ["ledger:schema-v1"],
+      "evidence": ["docs/feature-ledger.json", "tools/feature_ledger.py"]
+    },
+    {
+      "feature_id": "E04",
+      "module": "engineering",
+      "title": "五插件隔离 Paper/Folia/客户端验收",
+      "parity_level": "C",
+      "status": "not_started",
+      "source_ids": ["acceptance:paper-folia-client"],
+      "evidence": ["series/docs/ACCEPTANCE.md"]
+    },
+    {
+      "feature_id": "E05",
+      "module": "engineering",
+      "title": "资源引用与独立分发检查",
+      "parity_level": "A",
+      "status": "unit_tested",
+      "source_ids": ["pack:independent-ce-packs"],
+      "evidence": ["series/tools/validate_packs.py", "series/tools/check_independence.py"]
+    },
+    {
+      "feature_id": "E06",
+      "module": "engineering",
+      "title": "上游许可证逐包核验",
+      "parity_level": "C",
+      "status": "blocked",
+      "source_ids": ["license:upstream-assets"],
+      "evidence": ["docs/research/organization-checkouts.json"]
+    },
+    {
+      "feature_id": "C01",
+      "module": "cookery",
+      "title": "竹筛完整玩家闭环",
+      "parity_level": "B",
+      "status": "implemented",
+      "source_ids": ["KaleidoscopeCookery:bamboo-tray"],
+      "evidence": ["docs/COOKERY-PARITY.md", "docs/VALIDATION.md"]
+    },
+    {
+      "feature_id": "C02",
+      "module": "cookery",
+      "title": "摆盘与逐口取食",
+      "parity_level": "B",
+      "status": "implemented",
+      "source_ids": ["KaleidoscopeCookery:plate-serving"],
+      "evidence": ["src/main/java/net/kaleidoscope/cookery/util/PlateServingStore.java"]
+    },
+    {
+      "feature_id": "C03",
+      "module": "cookery",
+      "title": "食品效果语义与状态存档",
+      "parity_level": "A",
+      "status": "unit_tested",
+      "source_ids": ["KaleidoscopeCookery:food-effects"],
+      "evidence": ["src/test", "src/main/java/net/kaleidoscope/cookery/util/CookeryStateEnvelope.java"]
+    },
+    {
+      "feature_id": "C04",
+      "module": "cookery",
+      "title": "612 条来源配方全部裁决",
+      "parity_level": "A",
+      "status": "blocked",
+      "source_ids": ["KaleidoscopeCookery:recipes-612"],
+      "evidence": ["docs/COOKERY-PARITY.md"]
+    },
+    {
+      "feature_id": "D01",
+      "module": "doll",
+      "title": "抽奖、收藏与兑换守恒",
+      "parity_level": "A",
+      "status": "unit_tested",
+      "source_ids": ["KaleidoscopeDoll:lottery", "KaleidoscopeDoll:collection"],
+      "evidence": ["series/doll/src/test", "series/doll/src/main/java/net/kaleidoscope/doll/api/DollCollectedEvent.java"]
+    },
+    {
+      "feature_id": "D04",
+      "module": "doll",
+      "title": "玩偶投掷与实体调度",
+      "parity_level": "B",
+      "status": "unit_tested",
+      "source_ids": ["KaleidoscopeDoll:throw-physics"],
+      "evidence": ["series/doll/src/test"]
+    },
+    {
+      "feature_id": "T02",
+      "module": "tavern",
+      "title": "酒桶熟成与饮品守恒",
+      "parity_level": "A",
+      "status": "unit_tested",
+      "source_ids": ["KaleidoscopeTavern:barrel"],
+      "evidence": ["series/tavern/src/test", "series/tavern/src/main/java/net/kaleidoscope/tavern/api/DrinkCreatedEvent.java"]
+    },
+    {
+      "feature_id": "F02",
+      "module": "deco",
+      "title": "组件选择模型状态转换",
+      "parity_level": "B",
+      "status": "implemented",
+      "source_ids": ["KaleidoscopeDeco:model-branches"],
+      "evidence": ["series/tools/import_sources.py", "series/tools/test_import_sources.py"]
+    },
+    {
+      "feature_id": "F05",
+      "module": "deco",
+      "title": "家具座位、碰撞与沙发染色",
+      "parity_level": "B",
+      "status": "implemented",
+      "source_ids": ["KaleidoscopeDeco:furniture-states"],
+      "evidence": ["series/deco/src/test", "series/docs/PORTING-MATRIX.md"]
+    },
+    {
+      "feature_id": "M01",
+      "module": "music",
+      "title": "安全 MIDI 解析",
+      "parity_level": "A",
+      "status": "unit_tested",
+      "source_ids": ["MusicPlus:midi-parser"],
+      "evidence": ["series/music/src/test"]
+    },
+    {
+      "feature_id": "M05",
+      "module": "music",
+      "title": "原版客户端演奏验收",
+      "parity_level": "B",
+      "status": "not_started",
+      "source_ids": ["MusicPlus:client-playback"],
+      "evidence": ["series/docs/ACCEPTANCE.md"]
+    }
+  ]
+}

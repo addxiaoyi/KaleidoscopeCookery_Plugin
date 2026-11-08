@@ -1,5 +1,12 @@
 # 本地验证记录
 
+## 2026-11-08 工程治理检查
+
+- `tools/module-specs.json` 现在是每个模块的唯一同步声明：模块 ID、官方来源仓库、来源 namespace、目标 CE pack namespace 和 converter。`import_sources.py` 会拒绝未知字段/重复 ID/相同来源与目标 namespace，并将声明写入 `IMPORT-REPORT.json`。
+- `PYTHONPATH=series/tools python series/tools/check_independence.py`：四个 plugin.yml 的硬依赖均只有 CraftEngine；系列 JAR 和 CE ZIP 可选检查没有发现未重定位的 common/server 类、缺少 pack 根文件或路径穿越。该检查不等于 Paper/Folia 启动或客户端接包。
+- 独立验收状态与证据以根目录 [`docs/feature-ledger.json`](../../docs/feature-ledger.json) 为准；脚本不会根据代码数量自动把状态升级为 accepted。
+- 根目录 [`docs/build-baseline.md`](../../docs/build-baseline.md) 和 `.github/workflows/ci.yml` 固定 Java 21/25、Gradle、Python、静态检查和报告上传命令。没有 `.references/` 时 CI 不运行伪造的上游导入检查。
+
 2026-11-07 交接复核见 [统一证据](../../docs/handoff/2026-11-07/README.md)：在线构建遇到 Maven TLS 错误，离线构建 exit 0（24 任务 UP-TO-DATE，59 项现存 Java 报告）；本轮系列工具测试 20 项通过，项目虚拟环境导入检查及资源引用检查通过。四插件仍无服务器/原版客户端验收。
 
 ## 独立插件与独立 CE 包（2026-11-07）
