@@ -141,6 +141,20 @@ def source_states(assets: dict[str, bytes], name: str) -> list[tuple[dict[str, s
     return states
 
 
+def reconcile_bamboo_tray_records(records: list[dict], recipes: dict[str, dict]) -> None:
+    """Mark source recipes imported once the dedicated tray exporter owns them."""
+    by_source = {record['sourceId']: record for record in records}
+    for target_id in recipes:
+        suffix = target_id.split(':', 1)[1]
+        source_id = 'kaleidoscope_cookery:' + suffix
+        record = by_source.get(source_id)
+        if record is None:
+            raise AuditError(f'Bamboo tray recipe is absent from the source manifest: {source_id}')
+        plugin_id = target_id
+        record.update(status='imported', section='bamboo_tray_recipes', pluginIds=[plugin_id],
+                      reason='Converted by the dedicated bamboo-tray exporter; player acceptance pending.')
+
+
 def plate_states(assets: dict[str, bytes], name: str, max_servings: int) -> list[tuple[dict[str, str], dict]]:
     """Read the official plate blockstate table without collapsing serving visuals."""
     root = read_json(assets, f'{ART}/blockstates/{name}.json')
@@ -396,6 +410,7 @@ def build(source: Path) -> tuple[dict[str, bytes], dict]:
     tray_doc = yaml.safe_load((tray_output / 'pack/configuration/bamboo_tray_recipes.yml').read_text())
     tray_optional = yaml.safe_load((tray_output / 'optional/bamboo_tray_tea.yml').read_text())
     recipes['bamboo_tray_recipes'] = {**tray_doc.get('bamboo_tray_recipes', {}), **tray_optional.get('bamboo_tray_recipes', {})}
+    reconcile_bamboo_tray_records(records, recipes['bamboo_tray_recipes'])
     recipes['stockpot_recipes'], stockpot_items = stockpot_recipes(sources, records)
     required.update(stockpot_items)
     recipes['pot_recipes'], pot_items = pot_recipes(sources, records)

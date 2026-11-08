@@ -20,7 +20,7 @@ Cookery 厨房 · Doll 玩偶 · Tavern 酒馆 · Deco 装饰 · MusicPlus 音�
 
 | 插件 | JAR | CE 内容包 | 当前证据 | 主要缺口 |
 | --- | --- | --- | --- | --- |
-| Cookery | `KaleidoscopeCookeryPlugin-1.3.0.jar` | `cookery_kitchen` | Paper/Folia 五插件整合加载，11/11 方块自检通过 | 玩家流程、客户端、138 条 pending 配方、保护/多人 |
+| Cookery | `KaleidoscopeCookeryPlugin-1.3.0.jar` | `cookery_kitchen` | Paper/Folia 五插件整合加载，11/11 方块自检通过，502/612 条来源配方已导入 | 玩家流程、客户端、110 条 pending 配方、保护/多人 |
 | Doll | `KaleidoscopeDoll-0.1.0-dev.jar` | `doll-ce-pack-*.zip` | Paper/Folia 启动加载通过 | 精确物理、Bedrock 模型、玩家流程 |
 | Tavern | `KaleidoscopeTavern-0.1.0-dev.jar` | `tavern-ce-pack-*.zip` | Paper/Folia 启动加载通过 | 葡萄世界生成、复杂家具、饮用和多人 |
 | Deco | `KaleidoscopeDeco-0.1.0-dev.jar` | `deco-ce-pack-*.zip` | Paper/Folia 启动加载通过 | 418 条聚合缺口、脚本事件、座位/碰撞 |
@@ -120,7 +120,7 @@ PYTHONPATH=series/tools .venv/bin/python series/tools/prepare_independent_server
 
 ## 主要剩余任务
 
-1. Cookery 完成 138 条 pending 配方、原料获取、竹筛和摆盘的玩家闭环。
+1. Cookery 完成 110 条 pending 配方、原料获取、竹筛和摆盘的玩家闭环。竹筛 28 条已进入独立配置并完成来源对账，仍需玩家验收。
 2. Doll 补精确物理、移动玩偶姿态和原版客户端显示。
 3. Tavern 补葡萄世界生成、酒桶/果盆复杂状态、液面和多人守恒。
 4. Deco 按模型组件、overlay、脚本事件、座位和碰撞分类处理 418 条聚合缺口。

@@ -38,6 +38,15 @@ class KitchenPackTest(unittest.TestCase):
                     self.assertEqual(set(block['states']['properties']), {p.split('=')[0] for p in selector.split(',')})
                     self.assertIn(variant['appearance'], block['states']['appearances'])
 
+    def test_bamboo_tray_sources_are_accounted_as_imported(self):
+        self.assertEqual(28, self.manifest['recipeStatuses']['imported'] - 474)
+        self.assertEqual(110, self.manifest['recipeStatuses']['pending'])
+        parity = json.loads(self.bundle[f'{PACK}/recipe-parity.json'])
+        tray_records = [row for row in parity['recipes']
+                        if row.get('section') == 'bamboo_tray_recipes']
+        self.assertEqual(28, len(tray_records))
+        self.assertTrue(all(row['status'] == 'imported' for row in tray_records))
+
     def test_official_plates_use_serving_states_and_runtime_controller(self):
         expected = {
             'apple_platter': (4, ['minecraft:apple']),
