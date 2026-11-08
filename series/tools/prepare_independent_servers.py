@@ -59,7 +59,7 @@ def single_match(roots: tuple[Path, ...], pattern: str, description: str) -> Pat
 
 
 def required_artifacts(artifacts: Path, packs: Path, cookery_jar: Path | None,
-                       cookery_pack: Path | None) -> list[tuple[str, Path, str]]:
+                       cookery_pack: Path | None, craft_engine: Path | None) -> list[tuple[str, Path, str]]:
     found: list[tuple[str, Path, str]] = []
     for module in MODULES:
         jar = single_match((artifacts / module / "build/libs", artifacts),
@@ -86,6 +86,14 @@ def required_artifacts(artifacts: Path, packs: Path, cookery_jar: Path | None,
             raise ValueError(f"missing Cookery CE pack: {cookery_pack}")
         verify_zip(cookery_pack, ("cookery_kitchen/pack.yml", "cookery_kitchen/configuration/kitchen.yml"))
         found.append((f"plugins/CraftEngine/resources/{cookery_pack.name}", cookery_pack, "ce-pack"))
+    if craft_engine:
+        if not craft_engine.is_file():
+            raise ValueError(f"missing CraftEngine runtime JAR: {craft_engine}")
+        try:
+            verify_zip(craft_engine, ("plugin.yml",))
+        except ValueError:
+            verify_zip(craft_engine, ("paper-plugin.yml",))
+        found.append((f"plugins/{craft_engine.name}", craft_engine, "runtime"))
     return found
 
 
@@ -99,7 +107,8 @@ def _within(path: Path, parent: Path) -> bool:
 
 def prepare(root: Path, artifacts: Path, packs: Path, *, cookery_jar: Path | None = None,
             cookery_pack: Path | None = None, accept_eula: bool = False,
-            paper_jar: Path | None = None, folia_jar: Path | None = None) -> dict:
+            paper_jar: Path | None = None, folia_jar: Path | None = None,
+            craft_engine: Path | None = None) -> dict:
     root = root.resolve()
     allowed = WORKSPACE / "build" / "acceptance"
     # Keep test worlds out of the source tree and production locations.
@@ -112,7 +121,7 @@ def prepare(root: Path, artifacts: Path, packs: Path, *, cookery_jar: Path | Non
     independent = check_independence(source_root=SUITE, artifacts=artifacts, packs=packs)
     if independent["errors"]:
         raise ValueError("independence check failed: " + "; ".join(independent["errors"]))
-    files = required_artifacts(artifacts, packs, cookery_jar, cookery_pack)
+    files = required_artifacts(artifacts, packs, cookery_jar, cookery_pack, craft_engine)
     runtimes = {"paper": paper_jar, "folia": folia_jar}
     report = {
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -185,13 +194,15 @@ def main() -> int:
     parser.add_argument("--cookery-pack", type=Path)
     parser.add_argument("--paper-jar", type=Path)
     parser.add_argument("--folia-jar", type=Path)
+    parser.add_argument("--craft-engine", type=Path, help="CraftEngine runtime plugin JAR")
     parser.add_argument("--accept-eula", action="store_true",
                         help="Only when the server operator explicitly accepted the Minecraft EULA")
     args = parser.parse_args()
     try:
         report = prepare(args.root, args.artifacts, args.packs, cookery_jar=args.cookery_jar,
                          cookery_pack=args.cookery_pack, accept_eula=args.accept_eula,
-                         paper_jar=args.paper_jar, folia_jar=args.folia_jar)
+                         paper_jar=args.paper_jar, folia_jar=args.folia_jar,
+                         craft_engine=args.craft_engine)
     except (OSError, ValueError, BadZipFile) as error:
         print(f"Independent server preparation failed: {error}", file=sys.stderr)
         return 1

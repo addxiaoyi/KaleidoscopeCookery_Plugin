@@ -11,7 +11,8 @@ PYTHONPATH=series/tools python series/tools/check_acceptance_matrix.py
 PYTHONPATH=series/tools python series/tools/prepare_independent_servers.py \
   --root build/acceptance/series-independent \
   --artifacts series \
-  --packs series/build/distribution/ce-packs-<run>
+  --packs series/build/distribution/ce-packs-<run> \
+  --craft-engine build/acceptance/runtime/craft-engine-paper-plugin-26.9.1.jar
 ```
 
 如果操作者已经明确接受 EULA，再显式添加 `--accept-eula`；如果要运行服，另外提供 `--paper-jar` 和 `--folia-jar`。生成的 `INSTALL-MANIFEST.json` 中 `startup/resourcePack/vanillaClient` 初始均为 `NOT_RUN`，必须用实际日志、客户端和重启记录逐项更新，不能从安装成功推导运行通过。目录已存在或不在 `build/acceptance` 下时工具会拒绝操作。

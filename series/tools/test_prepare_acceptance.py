@@ -26,6 +26,13 @@ class AcceptancePreparationTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 verify_zip(archive, ())
 
+    def test_paper_plugin_descriptor_is_accepted_for_runtime_plugins(self):
+        with tempfile.TemporaryDirectory() as directory:
+            archive = Path(directory) / "craft-engine.jar"
+            with ZipFile(archive, "w") as output:
+                output.writestr("paper-plugin.yml", "name: CraftEngine\n")
+            verify_zip(archive, ("paper-plugin.yml",))
+
 
 if __name__ == "__main__":
     unittest.main()

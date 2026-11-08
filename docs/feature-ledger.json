@@ -42,9 +42,9 @@
       "module": "engineering",
       "title": "五插件隔离 Paper/Folia/客户端验收",
       "parity_level": "C",
-      "status": "not_started",
+      "status": "runtime_tested",
       "source_ids": ["acceptance:paper-folia-client"],
-      "evidence": ["series/docs/ACCEPTANCE.md", "series/docs/acceptance-matrix.json", "series/tools/prepare_independent_servers.py"]
+      "evidence": ["series/docs/ACCEPTANCE.md", "series/docs/acceptance-matrix.json", "series/tools/prepare_independent_servers.py", "docs/research/series-runtime-acceptance-2026-11-08.json"]
     },
     {
       "feature_id": "E05",

@@ -29,8 +29,8 @@
       "plugin": "KaleidoscopeDollPlugin",
       "pack": "doll-ce-pack-0.1.0-dev.zip",
       "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
-      "status": "static-only",
-      "evidence": ["ACCEPTANCE.md"],
+      "status": "runtime-tested",
+      "evidence": ["ACCEPTANCE.md", "../../docs/research/series-runtime-acceptance-2026-11-08.json"],
       "open": ["server-start", "player-flow", "vanilla-client"]
     },
     {
@@ -38,8 +38,8 @@
       "plugin": "KaleidoscopeTavernPlugin",
       "pack": "tavern-ce-pack-0.1.0-dev.zip",
       "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
-      "status": "static-only",
-      "evidence": ["ACCEPTANCE.md"],
+      "status": "runtime-tested",
+      "evidence": ["ACCEPTANCE.md", "../../docs/research/series-runtime-acceptance-2026-11-08.json"],
       "open": ["server-start", "player-flow", "vanilla-client"]
     },
     {
@@ -47,8 +47,8 @@
       "plugin": "KaleidoscopeDecoPlugin",
       "pack": "deco-ce-pack-0.1.0-dev.zip",
       "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
-      "status": "static-only",
-      "evidence": ["ACCEPTANCE.md"],
+      "status": "runtime-tested",
+      "evidence": ["ACCEPTANCE.md", "../../docs/research/series-runtime-acceptance-2026-11-08.json"],
       "open": ["server-start", "player-flow", "vanilla-client"]
     },
     {
@@ -56,8 +56,8 @@
       "plugin": "KaleidoscopeMusicPlugin",
       "pack": "music-ce-pack-0.1.0-dev.zip",
       "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
-      "status": "static-only",
-      "evidence": ["ACCEPTANCE.md"],
+      "status": "runtime-tested",
+      "evidence": ["ACCEPTANCE.md", "../../docs/research/series-runtime-acceptance-2026-11-08.json"],
       "open": ["server-start", "player-flow", "vanilla-client"]
     }
   ]
