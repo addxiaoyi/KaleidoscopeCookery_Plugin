@@ -307,6 +307,48 @@ def crafting_recipes(sources: RecipeSources, records: list[dict], available: set
     return recipes
 
 
+def cooking_recipes(sources: RecipeSources, records: list[dict]) -> tuple[dict[str, dict], set[str]]:
+    """Import vanilla furnace-family recipes whose item inputs are directly portable."""
+    recipes, required = {}, set()
+    type_names = {
+        'minecraft:smelting': 'smelting',
+        'minecraft:smoking': 'smoking',
+        'minecraft:campfire_cooking': 'campfire-cooking',
+    }
+    for row in records:
+        recipe_type = row['type']
+        if recipe_type not in type_names:
+            continue
+        doc = row['original']
+        ingredient_value = doc['ingredient']
+        if 'tag' in ingredient_value:
+            row['reason'] = 'Cooking ingredient tag requires an explicit CraftEngine tag mapping.'
+            continue
+        source_ingredient = sources.expand(ingredient_value)
+        if len(source_ingredient) != 1:
+            raise AuditError(f'{row["sourceId"]}: cooking ingredient expanded to multiple values')
+        result = doc['result']
+        result_item = result if isinstance(result, str) else result['item']
+        result_count = 1 if isinstance(result, str) else result.get('count', 1)
+        result_id = mapped(result_item)
+        input_id = source_ingredient[0]
+        key = PLUGIN + ':upstream/' + row['sourceId'].replace(':', '/')
+        if key in recipes:
+            raise AuditError(f'duplicate converted recipe: {key}')
+        recipes[key] = {
+            'type': type_names[recipe_type],
+            'category': doc['category'],
+            'experience': doc['experience'],
+            'time': doc['cookingtime'],
+            'ingredient': input_id,
+            'result': {'id': result_id, 'count': result_count},
+        }
+        required.update((input_id, result_id))
+        row.update(status='imported', section='recipes', pluginIds=[key],
+                   reason='Vanilla furnace recipe converted with source time and experience; player acceptance pending.')
+    return recipes, required
+
+
 def recipe_report(sources: RecipeSources, records: list[dict], config: dict) -> dict:
     return {'sourceCommit': COMMIT, 'sourceFiles': sources.files, 'recipes': records,
             'targetItemAliases': VANILLA_ALIASES,

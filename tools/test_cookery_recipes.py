@@ -8,7 +8,7 @@ import unittest
 import yaml
 
 from audit_upstream import AuditError
-from cookery_recipes import ART, RecipeSources, mapped, read_sources, processing_recipes, validate_recipe
+from cookery_recipes import ART, RecipeSources, mapped, read_sources, processing_recipes, cooking_recipes, validate_recipe
 from cookery_stockpot import stockpot_recipes
 from cookery_pot import pot_recipes
 from export_cookery_kitchen_pack import build, PACK
@@ -48,6 +48,17 @@ class RecipeImportTest(unittest.TestCase):
         self.assertTrue(all(row['time'] == 240 for row in recipes.values()))
         flowers = [row['require'] for key, row in recipes.items() if '/flower_tea/' in key]
         self.assertEqual({f'minecraft:{name} 1' for name in ('lilac', 'rose_bush', 'peony', 'pitcher_plant', 'sunflower')}, set(flowers))
+
+    def test_vanilla_cooking_recipes_keep_time_experience_and_result(self):
+        rows = [row for row in self.report['recipes'] if row['type'] in
+                ('minecraft:smelting', 'minecraft:smoking', 'minecraft:campfire_cooking')]
+        self.assertEqual(20, len(rows))
+        self.assertTrue(all(row['status'] == 'imported' for row in rows))
+        for row in rows:
+            recipe = self.config['recipes'][row['pluginIds'][0]]
+            self.assertEqual(row['original']['cookingtime'], recipe['time'])
+            self.assertEqual(row['original']['experience'], recipe['experience'])
+            self.assertEqual(mapped(row['original']['result']), recipe['result']['id'])
 
     def test_stockpot_keeps_exact_counts_and_distinct_matching_separate(self):
         recipes = self.config.get('stockpot_recipes', {})

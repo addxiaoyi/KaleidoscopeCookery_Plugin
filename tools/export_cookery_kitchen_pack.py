@@ -22,7 +22,7 @@ from cookery_models import (convert_models, geometry_part, group_indices, json_b
                             model_node, model_path, model_roots, verify_models)
 from export_cookery_catalog import COMMIT, export
 from export_cookery_food_pack import food_items, source_assets
-from cookery_recipes import read_sources, processing_recipes, crafting_recipes, recipe_report
+from cookery_recipes import read_sources, processing_recipes, cooking_recipes, crafting_recipes, recipe_report
 from cookery_kitchen_displays import tea_cups, cutting_models, tea_bars, soup_models, stockpot_models
 from cookery_stockpot import stockpot_recipes
 from cookery_pot import pot_recipes
@@ -425,7 +425,17 @@ def build(source: Path) -> tuple[dict[str, bytes], dict]:
         if key not in registered or model not in definitions:
             raise AuditError(f'unregistered recipe ingredient or missing model: {key}')
         items[key] = item(key, definitions[model], names.get(f'item.{ART}.{name}', name))
-    recipes['recipes'] = crafting_recipes(sources, records, set(items))
+    cooking, cooking_required = cooking_recipes(sources, records)
+    required.update(cooking_required)
+    for key in sorted(required - set(items)):
+        if key.startswith('minecraft:'):
+            continue
+        name = key.split(':', 1)[1]
+        model = ART + ':item/' + name
+        if key not in registered or model not in definitions:
+            raise AuditError(f'unregistered recipe ingredient or missing model: {key}')
+        items[key] = item(key, definitions[model], names.get(f'item.{ART}.{name}', name))
+    recipes['recipes'] = {**cooking, **crafting_recipes(sources, records, set(items))}
     recipe_manifest = recipe_report(sources, records, recipes)
     cups = tea_cups(assets, items, catalog)
     cutting_models(assets, items, records)
