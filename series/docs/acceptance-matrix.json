@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "baseline": {
+    "minecraft": "1.21.11",
+    "java": 21,
+    "craftengine": "26.9.1"
+  },
+  "levels": {
+    "L1": "source-lock-and-static-pack",
+    "L2": "unit-tests",
+    "L3": "craftengine-runtime-load",
+    "L4": "paper-player-flow",
+    "L5": "folia-region-and-restart",
+    "L6": "vanilla-client-resource-pack",
+    "L7": "performance-and-release"
+  },
+  "modules": [
+    {
+      "module": "cookery",
+      "plugin": "KaleidoscopeCookeryPlugin",
+      "pack": "cookery-ce-pack-1.3.0.zip",
+      "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
+      "status": "partial",
+      "evidence": ["../../docs/VALIDATION.md"],
+      "open": ["player-flow", "vanilla-client", "folia-watchdog"]
+    },
+    {
+      "module": "doll",
+      "plugin": "KaleidoscopeDollPlugin",
+      "pack": "doll-ce-pack-0.1.0-dev.zip",
+      "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
+      "status": "static-only",
+      "evidence": ["ACCEPTANCE.md"],
+      "open": ["server-start", "player-flow", "vanilla-client"]
+    },
+    {
+      "module": "tavern",
+      "plugin": "KaleidoscopeTavernPlugin",
+      "pack": "tavern-ce-pack-0.1.0-dev.zip",
+      "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
+      "status": "static-only",
+      "evidence": ["ACCEPTANCE.md"],
+      "open": ["server-start", "player-flow", "vanilla-client"]
+    },
+    {
+      "module": "deco",
+      "plugin": "KaleidoscopeDecoPlugin",
+      "pack": "deco-ce-pack-0.1.0-dev.zip",
+      "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
+      "status": "static-only",
+      "evidence": ["ACCEPTANCE.md"],
+      "open": ["server-start", "player-flow", "vanilla-client"]
+    },
+    {
+      "module": "music",
+      "plugin": "KaleidoscopeMusicPlugin",
+      "pack": "music-ce-pack-0.1.0-dev.zip",
+      "required_levels": ["L1", "L2", "L3", "L4", "L5", "L6"],
+      "status": "static-only",
+      "evidence": ["ACCEPTANCE.md"],
+      "open": ["server-start", "player-flow", "vanilla-client"]
+    }
+  ]
+}

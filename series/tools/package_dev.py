@@ -126,6 +126,15 @@ def main() -> None:
     for path in (SUITE / 'docs').glob('*'):
         if path.is_file():
             entries['docs/' + path.name] = path.read_bytes()
+    # Keep the cross-plugin installation/upgrade instructions next to the
+    # independent artifacts; series/docs/INSTALL.md remains the module-local
+    # guide for backwards-compatible bundles.
+    for path in (ROOT / 'docs/install-guide.md', ROOT / 'docs/upgrade-guide.md'):
+        if path.is_file():
+            entries['docs/' + path.name] = path.read_bytes()
+    matrix = SUITE / 'docs/acceptance-matrix.json'
+    if matrix.is_file():
+        entries['docs/acceptance-matrix.json'] = matrix.read_bytes()
     entries['organization-checkouts.json'] = (ROOT / 'docs/research/organization-checkouts.json').read_bytes()
     manifest = {
         'created_at': datetime.now().astimezone().isoformat(),

@@ -62,6 +62,7 @@
 - 新增 `series/tools/check_independence.py`，可检查四个系列 plugin.yml、独立 JAR 和独立 CE ZIP 的边界；检查结果只代表结构，不代替服务器或原版客户端验收。
 - 新增 `.github/workflows/ci.yml`，分别运行根/系列 Java 构建、两套 Python 工具测试、功能台账和独立性检查；固定同时提供 JDK 21 与 JDK 25。
 - `python tools/build_all.py` 提供本地统一入口。严格上游导入仍要求按 `docs/research/organization-checkouts.json` 恢复同级 `.references/`，没有来源 checkout 时不会伪造导入通过。
+- `series/tools/prepare_independent_servers.py` 会按 [`acceptance-matrix.json`](series/docs/acceptance-matrix.json) 生成 Paper/Folia 隔离安装目录和哈希清单；它只准备文件，不启动服务器。安装与升级步骤见 [install-guide](docs/install-guide.md) 和 [upgrade-guide](docs/upgrade-guide.md)。
 
 ### 后续完整计划（厨房优先）
 

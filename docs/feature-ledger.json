@@ -44,7 +44,7 @@
       "parity_level": "C",
       "status": "not_started",
       "source_ids": ["acceptance:paper-folia-client"],
-      "evidence": ["series/docs/ACCEPTANCE.md"]
+      "evidence": ["series/docs/ACCEPTANCE.md", "series/docs/acceptance-matrix.json", "series/tools/prepare_independent_servers.py"]
     },
     {
       "feature_id": "E05",

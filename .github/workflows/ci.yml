@@ -98,6 +98,10 @@ jobs:
         env:
           PYTHONPATH: series/tools
         run: python series/tools/check_independence.py --report build/independence.json
+      - name: Check isolated acceptance matrix
+        env:
+          PYTHONPATH: series/tools
+        run: python series/tools/check_acceptance_matrix.py
       - name: Check importer schema and resource validator tests
         env:
           PYTHONPATH: series/tools

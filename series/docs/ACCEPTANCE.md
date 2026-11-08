@@ -2,6 +2,20 @@
 
 更新于 2026-11-07。厨房已完成局部服务端自动验证；下方未勾选项目仍未验收，尤其是实际玩家操作和客户端接包。不能用编译或探针成功代替整个玩法闭环。全系列计划与换设备步骤见 [根 README](../../README.md#开发交接2026-11-07)；本次交接不增加运行通过项目。
 
+## 独立服准备入口（2026-11-08）
+
+验收层级和五个模块的当前状态见 [`acceptance-matrix.json`](acceptance-matrix.json)。完成系列 JAR 与独立 CE ZIP 构建后，可用下面的命令生成 Paper/Folia 两个隔离目录、安装清单和 SHA-256；命令只复制文件，不启动服务器，也不会自动接受 EULA：
+
+```bash
+PYTHONPATH=series/tools python series/tools/check_acceptance_matrix.py
+PYTHONPATH=series/tools python series/tools/prepare_independent_servers.py \
+  --root build/acceptance/series-independent \
+  --artifacts series \
+  --packs series/build/distribution/ce-packs-<run>
+```
+
+如果操作者已经明确接受 EULA，再显式添加 `--accept-eula`；如果要运行服，另外提供 `--paper-jar` 和 `--folia-jar`。生成的 `INSTALL-MANIFEST.json` 中 `startup/resourcePack/vanillaClient` 初始均为 `NOT_RUN`，必须用实际日志、客户端和重启记录逐项更新，不能从安装成功推导运行通过。目录已存在或不在 `build/acceptance` 下时工具会拒绝操作。
+
 ## 石磨检查点（2026-11-06，当前）
 
 - 132 Java、71 Python 通过；85 石磨来源中 82 条展开为 87 配方，全厨房 462/612 imported、150 pending。3 条石磨缺外部 gravel/sand 标签单列，未知结构/父级模型变换拒绝导入。
