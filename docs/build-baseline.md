@@ -4,7 +4,7 @@
 
 这份基线固定首个验收组合：Paper/Folia 1.21.11、Java 21 主源码、Java 25 的 26.x NMS 源集、CraftEngine 26.9.1。上游八个 checkout 的提交和工作树状态以 [`organization-checkouts.json`](research/organization-checkouts.json) 为准；导入器只接受这些提交。
 
-工程治理基线提交为 `aea9614e3fb00a73b8b8c5ce8dd306bd6aebf85b`。本地复核使用固定 JDK 25 执行根工程（17 个任务，成功）和系列工程（24 个任务，成功）；工具测试为根 74 项、系列 23 项，独立性与台账检查均为 0 errors。CI 会在新的提交上重复同一组命令；提交、工具链和产物 SHA-256 以 CI artifact 和发布包 `BUILD-MANIFEST.json` 为最终证据。
+工程治理基线提交为 `aea96140d3c78395c1f8754fb4cb286d6e08ba92`。本地复核使用固定 JDK 25 执行根工程（17 个任务，成功）和系列工程（24 个任务，成功）；工具测试为根 74 项、系列 23 项，独立性与台账检查均为 0 errors。CI 会在新的提交上重复同一组命令；提交、工具链和产物 SHA-256 以 CI artifact 和发布包 `BUILD-MANIFEST.json` 为最终证据。
 
 ## 本地复现
 
