@@ -1,6 +1,10 @@
 {
+  "module": "music",
   "source": "MusicPlus",
   "commit": "cc84f29e2a1abe79805567fddd218b3a7b252655",
+  "namespace": "musicplus",
+  "pack_namespace": "kseries_music",
+  "converter": "music",
   "item_definitions": 1,
   "furniture_definitions": 0,
   "crafting_recipes": 0,

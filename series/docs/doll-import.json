@@ -1,6 +1,10 @@
 {
+  "module": "doll",
   "source": "KaleidoscopeDoll",
   "commit": "62303aa58bbd5ee52498f3ad0fbf4a0c7d04c183",
+  "namespace": "kaleidoscope_doll",
+  "pack_namespace": "kseries_doll",
+  "converter": "doll",
   "item_definitions": 729,
   "furniture_definitions": 725,
   "crafting_recipes": 3,

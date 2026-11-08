@@ -1,6 +1,10 @@
 {
+  "module": "deco",
   "source": "KaleidoscopeDeco",
   "commit": "6ce180e1226ce93b0fb0d45ea80e0ed5b01b1dc0",
+  "namespace": "kaleidoscope_deco",
+  "pack_namespace": "kseries_deco",
+  "converter": "deco",
   "item_definitions": 854,
   "furniture_definitions": 785,
   "crafting_recipes": 0,

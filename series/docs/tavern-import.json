@@ -1,6 +1,10 @@
 {
+  "module": "tavern",
   "source": "KaleidoscopeTavern",
   "commit": "c4ec1880bd44cf3139d3ba744ab30bb379cf1416",
+  "namespace": "kaleidoscope_tavern",
+  "pack_namespace": "kseries_tavern",
+  "converter": "tavern",
   "item_definitions": 190,
   "furniture_definitions": 39,
   "crafting_recipes": 114,
