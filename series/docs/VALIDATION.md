@@ -1,5 +1,9 @@
 # 本地验证记录
 
+## 2026-11-08 四插件运行加载
+
+Paper 1.21.11 build 132 和 Folia 1.21.11 build 14 在独立目录中分别加载 CraftEngine 26.9.1、Doll、Tavern、Deco、Music 四个系列插件并正常停服。日志中未出现 Unknown plugin 或插件启用异常。运行证据和所有 JAR/CE 包哈希见 [`docs/research/series-runtime-acceptance-2026-11-08.json`](../../docs/research/series-runtime-acceptance-2026-11-08.json)。玩家流程、资源包下载和原版客户端显示仍需单独验收。
+
 ## 2026-11-08 工程治理检查
 
 - `tools/module-specs.json` 现在是每个模块的唯一同步声明：模块 ID、官方来源仓库、来源 namespace、目标 CE pack namespace 和 converter。`import_sources.py` 会拒绝未知字段/重复 ID/相同来源与目标 namespace，并将声明写入 `IMPORT-REPORT.json`。

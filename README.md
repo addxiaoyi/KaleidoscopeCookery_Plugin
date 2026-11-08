@@ -45,11 +45,11 @@
 | Cookery 目录/消费 | 固定快照：148 foodProperties、94 food、8 tea、12 effect、2 enchantment；食物/茶饮/品质与便当袋 PDC；12 效果基础生命周期；快刀/清扫行为 | 双端探针构造与序列化 103 种可消费品、5 个附魔工具通过；实际玩家进食、图标、全部实体事件仍待测 |
 | Cookery 厨具/配方 | 612 来源逐条记录，474 imported / 138 pending；219 炒锅、101 高汤锅、87 石磨、28 竹筛及茶壶/蒸笼/砧板；342 物品、24 方块、418 状态、1 石磨家具 | Paper/Folia 厨房包各 3 轮 PASS：24 方块、418 状态、342 物品，盘/拼盘 `PlateController` 保存每口状态、品质和源物品 NBT。玩家点击、保护、多人和原版客户端仍待测 |
 | Cookery 竹筛 | 四槽控制器、19 tick 加工、天气/滴水石查询、漏斗容器、存档、菜单编辑，官方底盘/支架和 28 条配方已合入完整厨房包 | 服务器 API 状态与重启已在上述双端厨房验收覆盖；每槽数量展示、漏斗取消、天气/遮挡/碰撞、真实玩家流程仍待测 |
-| Doll | 抽奖/礼盒、643 玩家玩偶兑换、收藏、九轴摆放微调；蓄力投掷、弹跳、骑乘、幻翼携带及加载恢复 | 729 物品/725 家具/3 合成；原版小盔甲架承载实体。四插件尚无实服/客户端证据；精确物理、移动玩偶九轴、持物与 Bedrock 自定义模型仍缺 |
+| Doll | 抽奖/礼盒、643 玩家玩偶兑换、收藏、九轴摆放微调；蓄力投掷、弹跳、骑乘、幻翼携带及加载恢复 | 729 物品/725 家具/3 合成；Paper/Folia 启动加载已通过。原版小盔甲架承载实体，精确物理、移动玩偶九轴、持物、玩家流程与 Bedrock 自定义模型仍缺 |
 | Tavern | 24 酒桶、6 果盆、12 调酒配方、37 效果表；三类葡萄、龙头、手持/放置调酒及物品 PDC | 190 物品/39 家具/114 合成；野葡萄生成、架体连接、燃烧瓶与剩余家具未完成，液面/混色/保护及饮用归因待补 |
 | Deco | 785 家具；102 状态转换、517 非 pending 规则（包含音效）、68 沙发颜色/形态组合；拆装状态保存 | 854 物品，**418 条聚合缺口**见 [deco-import.json](series/docs/deco-import.json)；规则数不是玩法数，复杂函数仍 pending |
 | MusicPlus | 25 键菜单，本地 MIDI 多轨/tempo/program 解析、原版音符播放及清理；官方吉他贴图已接入 CE vanilla item model | Bedrock 几何模型、原生持有动画、持续声部与客户端合成器差异尚未补齐 |
-| 跨系列资源 | 1,774 物品、1,549 家具、117 合成、2,710 可达自定义模型引用检查通过 | 未证明四插件能在 CE 实际加载或原版客户端正确显示；不包含完整厨房包 |
+| 跨系列资源 | 1,774 物品、1,549 家具、117 合成、2,710 可达自定义模型引用检查通过；四插件与 CraftEngine 已在 Paper/Folia 1.21.11 启动加载 | 原版客户端接包、玩家流程、保护/多人和完整厨房包仍待验收 |
 
 厨房最新 Java 测试报告 **138 项**、Python **72 项**；series Java **59 项**、Python **18 项**。交接构建的命令、退出码、是否缓存命中及测试报告见 [交接证据](docs/handoff/2026-11-07/README.md)，历史运行证据见 [VALIDATION](docs/VALIDATION.md) 和 [石磨验收摘要](docs/research/cookery-millstone-acceptance.json)。不把增量任务写成重新运行全部测试。
 
@@ -65,6 +65,7 @@
 - `series/tools/prepare_independent_servers.py` 会按 [`acceptance-matrix.json`](series/docs/acceptance-matrix.json) 生成 Paper/Folia 隔离安装目录和哈希清单；它只准备文件，不启动服务器。安装与升级步骤见 [install-guide](docs/install-guide.md) 和 [upgrade-guide](docs/upgrade-guide.md)。
 - `tools/audit_licenses.py` 会按锁定提交扫描八个上游仓库的许可证和 NOTICE 文件，生成证据哈希；缺少文件或未经人工确认时保持阻断状态。
 - 厨房 17 个 BlockEntity 控制器已通过 `CookeryBlockStateEnvelope` 写入版本化旁路信封，保留旧数据 key 作为兼容投影；未知 schema、namespace 或 source commit 会阻止读取。根工程本轮测试为 142 项通过。
+- 2026-11-08 四个系列插件在 Paper/Folia 1.21.11 + CraftEngine 26.9.1 隔离服中均完成启动、加载和正常关闭，证据见 [series-runtime-acceptance](docs/research/series-runtime-acceptance-2026-11-08.json)。
 
 ### 后续完整计划（厨房优先）
 
